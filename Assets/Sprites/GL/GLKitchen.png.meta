@@ -1,0 +1,2106 @@
+fileFormatVersion: 2
+guid: 5a4f3fed24ddf4ec4b045e8c0fc7f44f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7311795050952719235
+    second: Gritty Kitchen Interior Pack_0
+  - first:
+      213: 409224724640141222
+    second: Gritty Kitchen Interior Pack_1
+  - first:
+      213: 2341033949428023886
+    second: Gritty Kitchen Interior Pack_2
+  - first:
+      213: 7502732496852813512
+    second: Gritty Kitchen Interior Pack_3
+  - first:
+      213: 8507137796260840974
+    second: Gritty Kitchen Interior Pack_4
+  - first:
+      213: -8429771542338297265
+    second: Gritty Kitchen Interior Pack_5
+  - first:
+      213: 7870590920906191318
+    second: Gritty Kitchen Interior Pack_6
+  - first:
+      213: 7123976051187357302
+    second: Gritty Kitchen Interior Pack_7
+  - first:
+      213: 5172452500738767984
+    second: Gritty Kitchen Interior Pack_8
+  - first:
+      213: -5006193496506885965
+    second: Gritty Kitchen Interior Pack_9
+  - first:
+      213: -7738045568113826683
+    second: Gritty Kitchen Interior Pack_10
+  - first:
+      213: 5949943786417400878
+    second: Gritty Kitchen Interior Pack_11
+  - first:
+      213: 6937891469592589066
+    second: Gritty Kitchen Interior Pack_12
+  - first:
+      213: -7531382733108776460
+    second: Gritty Kitchen Interior Pack_13
+  - first:
+      213: -5652982564465172513
+    second: Gritty Kitchen Interior Pack_14
+  - first:
+      213: 8453146826836512825
+    second: Gritty Kitchen Interior Pack_15
+  - first:
+      213: 2764342910552556367
+    second: Gritty Kitchen Interior Pack_16
+  - first:
+      213: -8684149481436357485
+    second: Gritty Kitchen Interior Pack_17
+  - first:
+      213: -5223788620591774838
+    second: Gritty Kitchen Interior Pack_18
+  - first:
+      213: 7680402230260165268
+    second: Gritty Kitchen Interior Pack_19
+  - first:
+      213: -8982092115931270407
+    second: Gritty Kitchen Interior Pack_20
+  - first:
+      213: -8455442591765347446
+    second: Gritty Kitchen Interior Pack_21
+  - first:
+      213: -2772245088016901977
+    second: Gritty Kitchen Interior Pack_22
+  - first:
+      213: 1742942171513342469
+    second: Gritty Kitchen Interior Pack_23
+  - first:
+      213: -7645260425856954498
+    second: Gritty Kitchen Interior Pack_24
+  - first:
+      213: 9103941459711782246
+    second: Gritty Kitchen Interior Pack_25
+  - first:
+      213: 4948119153239162323
+    second: Gritty Kitchen Interior Pack_26
+  - first:
+      213: 558959944966919021
+    second: Gritty Kitchen Interior Pack_27
+  - first:
+      213: -6317611625178452563
+    second: Gritty Kitchen Interior Pack_28
+  - first:
+      213: 2399447202051685855
+    second: Gritty Kitchen Interior Pack_29
+  - first:
+      213: -7406107471074707949
+    second: Gritty Kitchen Interior Pack_30
+  - first:
+      213: 8778451742093482849
+    second: Gritty Kitchen Interior Pack_31
+  - first:
+      213: -6710401911991484395
+    second: Gritty Kitchen Interior Pack_32
+  - first:
+      213: -1029963781944758285
+    second: Gritty Kitchen Interior Pack_33
+  - first:
+      213: 2128720042168606108
+    second: Gritty Kitchen Interior Pack_34
+  - first:
+      213: -6060722559849861527
+    second: Gritty Kitchen Interior Pack_35
+  - first:
+      213: 3364929884632712993
+    second: Gritty Kitchen Interior Pack_36
+  - first:
+      213: -7447873094668023582
+    second: Gritty Kitchen Interior Pack_37
+  - first:
+      213: -7385733397110783496
+    second: Gritty Kitchen Interior Pack_38
+  - first:
+      213: -1112820951804487427
+    second: Gritty Kitchen Interior Pack_39
+  - first:
+      213: -1237749351909879584
+    second: Gritty Kitchen Interior Pack_40
+  - first:
+      213: -7131922600144917031
+    second: Gritty Kitchen Interior Pack_41
+  - first:
+      213: 4766400168633886551
+    second: Gritty Kitchen Interior Pack_42
+  - first:
+      213: -6955005335308974457
+    second: Gritty Kitchen Interior Pack_43
+  - first:
+      213: -5334559855039404800
+    second: Gritty Kitchen Interior Pack_44
+  - first:
+      213: 3562132228431211167
+    second: Gritty Kitchen Interior Pack_45
+  - first:
+      213: -4087917250829460792
+    second: Gritty Kitchen Interior Pack_46
+  - first:
+      213: 5344871964524624519
+    second: Gritty Kitchen Interior Pack_47
+  - first:
+      213: 5489580932034253477
+    second: Gritty Kitchen Interior Pack_48
+  - first:
+      213: 8552448783985059493
+    second: Gritty Kitchen Interior Pack_49
+  - first:
+      213: -3333432292488687779
+    second: Gritty Kitchen Interior Pack_50
+  - first:
+      213: -1203096744197508872
+    second: Gritty Kitchen Interior Pack_51
+  - first:
+      213: 2691148019051773011
+    second: Gritty Kitchen Interior Pack_52
+  - first:
+      213: -8038679820298936757
+    second: Gritty Kitchen Interior Pack_53
+  - first:
+      213: -2910083897256647176
+    second: Gritty Kitchen Interior Pack_54
+  - first:
+      213: -4407788068354721655
+    second: Gritty Kitchen Interior Pack_55
+  - first:
+      213: 6787116266862337149
+    second: Gritty Kitchen Interior Pack_56
+  - first:
+      213: -3522974097294032877
+    second: Gritty Kitchen Interior Pack_57
+  - first:
+      213: -2467518978751352091
+    second: Gritty Kitchen Interior Pack_58
+  - first:
+      213: -7036407120219873700
+    second: Gritty Kitchen Interior Pack_59
+  - first:
+      213: 9104628698789775069
+    second: Gritty Kitchen Interior Pack_60
+  - first:
+      213: -586781957094808365
+    second: Gritty Kitchen Interior Pack_61
+  - first:
+      213: -3402145277341696882
+    second: Gritty Kitchen Interior Pack_62
+  - first:
+      213: 3316667564271038289
+    second: Gritty Kitchen Interior Pack_63
+  - first:
+      213: -8927182060213445920
+    second: Gritty Kitchen Interior Pack_64
+  - first:
+      213: 6187665771149579119
+    second: Gritty Kitchen Interior Pack_65
+  - first:
+      213: -7026609360313719662
+    second: Gritty Kitchen Interior Pack_66
+  - first:
+      213: 4566399121127759130
+    second: Gritty Kitchen Interior Pack_67
+  - first:
+      213: -1957872980089655309
+    second: Gritty Kitchen Interior Pack_68
+  - first:
+      213: -5707690275835519294
+    second: Gritty Kitchen Interior Pack_69
+  - first:
+      213: -6358094141420224195
+    second: Gritty Kitchen Interior Pack_70
+  - first:
+      213: 5216803790900143266
+    second: Gritty Kitchen Interior Pack_71
+  - first:
+      213: 6455853965148661991
+    second: Gritty Kitchen Interior Pack_72
+  - first:
+      213: -8053087325450913983
+    second: Gritty Kitchen Interior Pack_73
+  - first:
+      213: -3484048118484267286
+    second: Gritty Kitchen Interior Pack_74
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_0
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 462
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38bfe7afbd6b87560800000000000000
+      internalID: 7311795050952719235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_1
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 462
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6af8b7908bbdda500800000000000000
+      internalID: 409224724640141222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_2
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 462
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4289c249f50d7020800000000000000
+      internalID: 2341033949428023886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_3
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 459
+        width: 26
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c601b7647f0f1860800000000000000
+      internalID: 7502732496852813512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_4
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 456
+        width: 22
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e064d61c0cc6f0670800000000000000
+      internalID: 8507137796260840974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_5
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 456
+        width: 16
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f42aa31f17f630b80800000000000000
+      internalID: -8429771542338297265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_6
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 456
+        width: 53
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d1370d0eb4f93d60800000000000000
+      internalID: 7870590920906191318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_7
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 432
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 676996f59727dd260800000000000000
+      internalID: 7123976051187357302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_8
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 428
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07c7d14052e38c740800000000000000
+      internalID: 5172452500738767984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_9
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 425
+        width: 31
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b816d3f98d668ab0800000000000000
+      internalID: -5006193496506885965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_10
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 428
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5842ac0cd80fc9490800000000000000
+      internalID: -7738045568113826683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_11
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 430
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2ca3fe7952729250800000000000000
+      internalID: 5949943786417400878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_12
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 430
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0377477887584060800000000000000
+      internalID: 6937891469592589066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_13
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 430
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f17a85ae472b7790800000000000000
+      internalID: -7531382733108776460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_14
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 433
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fdf9393fe429c81b0800000000000000
+      internalID: -5652982564465172513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_15
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 429
+        width: 33
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9309fc7904c9f4570800000000000000
+      internalID: 8453146826836512825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_16
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 435
+        width: 22
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f43cad42b3bec5620800000000000000
+      internalID: 2764342910552556367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_17
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 395
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39cd796ae04bb7780800000000000000
+      internalID: -8684149481436357485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_18
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 396
+        width: 21
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8346e72def5187b0800000000000000
+      internalID: -5223788620591774838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_19
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 396
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49a66cac225469a60800000000000000
+      internalID: 7680402230260165268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_20
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 396
+        width: 21
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f2741a4fc2395380800000000000000
+      internalID: -8982092115931270407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_21
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 401
+        width: 29
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a834e1bf2cb38aa80800000000000000
+      internalID: -8455442591765347446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_22
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 401
+        width: 29
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a85e6ac7c10789d0800000000000000
+      internalID: -2772245088016901977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_23
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 392
+        width: 12
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50ac915abac203810800000000000000
+      internalID: 1742942171513342469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_24
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 392
+        width: 12
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7fc175262496e590800000000000000
+      internalID: -7645260425856954498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_25
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 392
+        width: 39
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66d621ad582b75e70800000000000000
+      internalID: 9103941459711782246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_26
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 392
+        width: 39
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3dd702357204ba440800000000000000
+      internalID: 4948119153239162323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_27
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 361
+        width: 30
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d63dc63cb13d1c700800000000000000
+      internalID: 558959944966919021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_28
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 367
+        width: 32
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dad2c54f2b55358a0800000000000000
+      internalID: -6317611625178452563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_29
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 367
+        width: 22
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fdd7897748c8c4120800000000000000
+      internalID: 2399447202051685855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_30
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 366
+        width: 127
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 316b93a8e78383990800000000000000
+      internalID: -7406107471074707949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_31
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 366
+        width: 64
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16b1465695353d970800000000000000
+      internalID: 8778451742093482849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_32
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 366
+        width: 32
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51045a7a30ddfd2a0800000000000000
+      internalID: -6710401911991484395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_33
+      rect:
+        serializedVersion: 2
+        x: 381
+        y: 381
+        width: 22
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ff2aa5b565d4b1f0800000000000000
+      internalID: -1029963781944758285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_34
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 377
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9dd6b3999bba8d10800000000000000
+      internalID: 2128720042168606108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_35
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 334
+        width: 19
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96ee3f161fcf3eba0800000000000000
+      internalID: -6060722559849861527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_36
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 334
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12701a3e6e1a2be20800000000000000
+      internalID: 3364929884632712993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_37
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 333
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e88f1481e6d3a890800000000000000
+      internalID: -7447873094668023582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_38
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 334
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f1097b4b9a908990800000000000000
+      internalID: -7385733397110783496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_39
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 334
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df8d4158d377e80f0800000000000000
+      internalID: -1112820951804487427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_40
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 334
+        width: 19
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e01176b581a2dee0800000000000000
+      internalID: -1237749351909879584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_41
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 334
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9dd28c48e22560d90800000000000000
+      internalID: -7131922600144917031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_42
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 332
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 757e8cc23b7a52240800000000000000
+      internalID: 4766400168633886551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_43
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 334
+        width: 17
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78646f92f7bda7f90800000000000000
+      internalID: -6955005335308974457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_44
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 335
+        width: 11
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00521575316d7f5b0800000000000000
+      internalID: -5334559855039404800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_45
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 334
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9aec96836c3f6130800000000000000
+      internalID: 3562132228431211167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_46
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 335
+        width: 34
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ca5e194becc447c0800000000000000
+      internalID: -4087917250829460792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_47
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 245
+        width: 82
+        height: 82
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78a3f6fbbbccc2a40800000000000000
+      internalID: 5344871964524624519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_48
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 309
+        width: 82
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a2d8abc5c8ee2c40800000000000000
+      internalID: 5489580932034253477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_49
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 309
+        width: 4
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a6a6213bd660b670800000000000000
+      internalID: 8552448783985059493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_50
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 309
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5f4563cdf44db1d0800000000000000
+      internalID: -3333432292488687779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_51
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 309
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f0bdaba2edbd4fe0800000000000000
+      internalID: -1203096744197508872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_52
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 309
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35cb3917dd0e85520800000000000000
+      internalID: 2691148019051773011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_53
+      rect:
+        serializedVersion: 2
+        x: 370
+        y: 309
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4e1bff4b4fd07090800000000000000
+      internalID: -8038679820298936757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_54
+      rect:
+        serializedVersion: 2
+        x: 373
+        y: 283
+        width: 41
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f5ee6d1d1e4d97d0800000000000000
+      internalID: -2910083897256647176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_55
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 261
+        width: 82
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 988f284fa1464d2c0800000000000000
+      internalID: -4407788068354721655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_56
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 283
+        width: 130
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7cda97f84ea03e50800000000000000
+      internalID: 6787116266862337149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_57
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 261
+        width: 130
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31003e959b1eb1fc0800000000000000
+      internalID: -3522974097294032877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_58
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 249
+        width: 31
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e2bdf2ff8c91cdd0800000000000000
+      internalID: -2467518978751352091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_59
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 234
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5ed3403109a95e90800000000000000
+      internalID: -7036407120219873700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_60
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 236
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd6013b20932a5e70800000000000000
+      internalID: 9104628698789775069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_61
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 239
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d461ce3be45bd7f0800000000000000
+      internalID: -586781957094808365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_62
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 242
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8c76c545e629c0d0800000000000000
+      internalID: -3402145277341696882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_63
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 190
+        width: 46
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15f6f66c39b270e20800000000000000
+      internalID: 3316667564271038289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_64
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 190
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0eadcb7e6374c1480800000000000000
+      internalID: -8927182060213445920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_65
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 190
+        width: 46
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f63d6363c310fd550800000000000000
+      internalID: 6187665771149579119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_66
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 188
+        width: 50
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 294e01fe3087c7e90800000000000000
+      internalID: -7026609360313719662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_67
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 189
+        width: 50
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1dd97d8ecb1f5f30800000000000000
+      internalID: 4566399121127759130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_68
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 189
+        width: 50
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ffab6ad5ec34d4e0800000000000000
+      internalID: -1957872980089655309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_69
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 121
+        width: 51
+        height: 91
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ce5fdc4fe53ac0b0800000000000000
+      internalID: -5707690275835519294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_70
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 120
+        width: 27
+        height: 59
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d31c724a01383c7a0800000000000000
+      internalID: -6358094141420224195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_71
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 120
+        width: 188
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a4a383786fc56840800000000000000
+      internalID: 5216803790900143266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_72
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 120
+        width: 70
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e8ab7a0afcc79950800000000000000
+      internalID: 6455853965148661991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_73
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 21
+        width: 82
+        height: 82
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1473c4d9ebfad3090800000000000000
+      internalID: -8053087325450913983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gritty Kitchen Interior Pack_74
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 21
+        width: 82
+        height: 82
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aee806d02bc26afc0800000000000000
+      internalID: -3484048118484267286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: c42c0677c3c904758a96a56d93730797
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Gritty Kitchen Interior Pack_0: 7311795050952719235
+      Gritty Kitchen Interior Pack_1: 409224724640141222
+      Gritty Kitchen Interior Pack_10: -7738045568113826683
+      Gritty Kitchen Interior Pack_11: 5949943786417400878
+      Gritty Kitchen Interior Pack_12: 6937891469592589066
+      Gritty Kitchen Interior Pack_13: -7531382733108776460
+      Gritty Kitchen Interior Pack_14: -5652982564465172513
+      Gritty Kitchen Interior Pack_15: 8453146826836512825
+      Gritty Kitchen Interior Pack_16: 2764342910552556367
+      Gritty Kitchen Interior Pack_17: -8684149481436357485
+      Gritty Kitchen Interior Pack_18: -5223788620591774838
+      Gritty Kitchen Interior Pack_19: 7680402230260165268
+      Gritty Kitchen Interior Pack_2: 2341033949428023886
+      Gritty Kitchen Interior Pack_20: -8982092115931270407
+      Gritty Kitchen Interior Pack_21: -8455442591765347446
+      Gritty Kitchen Interior Pack_22: -2772245088016901977
+      Gritty Kitchen Interior Pack_23: 1742942171513342469
+      Gritty Kitchen Interior Pack_24: -7645260425856954498
+      Gritty Kitchen Interior Pack_25: 9103941459711782246
+      Gritty Kitchen Interior Pack_26: 4948119153239162323
+      Gritty Kitchen Interior Pack_27: 558959944966919021
+      Gritty Kitchen Interior Pack_28: -6317611625178452563
+      Gritty Kitchen Interior Pack_29: 2399447202051685855
+      Gritty Kitchen Interior Pack_3: 7502732496852813512
+      Gritty Kitchen Interior Pack_30: -7406107471074707949
+      Gritty Kitchen Interior Pack_31: 8778451742093482849
+      Gritty Kitchen Interior Pack_32: -6710401911991484395
+      Gritty Kitchen Interior Pack_33: -1029963781944758285
+      Gritty Kitchen Interior Pack_34: 2128720042168606108
+      Gritty Kitchen Interior Pack_35: -6060722559849861527
+      Gritty Kitchen Interior Pack_36: 3364929884632712993
+      Gritty Kitchen Interior Pack_37: -7447873094668023582
+      Gritty Kitchen Interior Pack_38: -7385733397110783496
+      Gritty Kitchen Interior Pack_39: -1112820951804487427
+      Gritty Kitchen Interior Pack_4: 8507137796260840974
+      Gritty Kitchen Interior Pack_40: -1237749351909879584
+      Gritty Kitchen Interior Pack_41: -7131922600144917031
+      Gritty Kitchen Interior Pack_42: 4766400168633886551
+      Gritty Kitchen Interior Pack_43: -6955005335308974457
+      Gritty Kitchen Interior Pack_44: -5334559855039404800
+      Gritty Kitchen Interior Pack_45: 3562132228431211167
+      Gritty Kitchen Interior Pack_46: -4087917250829460792
+      Gritty Kitchen Interior Pack_47: 5344871964524624519
+      Gritty Kitchen Interior Pack_48: 5489580932034253477
+      Gritty Kitchen Interior Pack_49: 8552448783985059493
+      Gritty Kitchen Interior Pack_5: -8429771542338297265
+      Gritty Kitchen Interior Pack_50: -3333432292488687779
+      Gritty Kitchen Interior Pack_51: -1203096744197508872
+      Gritty Kitchen Interior Pack_52: 2691148019051773011
+      Gritty Kitchen Interior Pack_53: -8038679820298936757
+      Gritty Kitchen Interior Pack_54: -2910083897256647176
+      Gritty Kitchen Interior Pack_55: -4407788068354721655
+      Gritty Kitchen Interior Pack_56: 6787116266862337149
+      Gritty Kitchen Interior Pack_57: -3522974097294032877
+      Gritty Kitchen Interior Pack_58: -2467518978751352091
+      Gritty Kitchen Interior Pack_59: -7036407120219873700
+      Gritty Kitchen Interior Pack_6: 7870590920906191318
+      Gritty Kitchen Interior Pack_60: 9104628698789775069
+      Gritty Kitchen Interior Pack_61: -586781957094808365
+      Gritty Kitchen Interior Pack_62: -3402145277341696882
+      Gritty Kitchen Interior Pack_63: 3316667564271038289
+      Gritty Kitchen Interior Pack_64: -8927182060213445920
+      Gritty Kitchen Interior Pack_65: 6187665771149579119
+      Gritty Kitchen Interior Pack_66: -7026609360313719662
+      Gritty Kitchen Interior Pack_67: 4566399121127759130
+      Gritty Kitchen Interior Pack_68: -1957872980089655309
+      Gritty Kitchen Interior Pack_69: -5707690275835519294
+      Gritty Kitchen Interior Pack_7: 7123976051187357302
+      Gritty Kitchen Interior Pack_70: -6358094141420224195
+      Gritty Kitchen Interior Pack_71: 5216803790900143266
+      Gritty Kitchen Interior Pack_72: 6455853965148661991
+      Gritty Kitchen Interior Pack_73: -8053087325450913983
+      Gritty Kitchen Interior Pack_74: -3484048118484267286
+      Gritty Kitchen Interior Pack_8: 5172452500738767984
+      Gritty Kitchen Interior Pack_9: -5006193496506885965
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
