@@ -158,11 +158,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 97
-        width: 226
-        height: 185
+        y: 0
+        width: 933
+        height: 311
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -175,121 +175,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: logo-whirlpool 2_1
-      rect:
-        serializedVersion: 2
-        x: 227
-        y: 97
-        width: 112
-        height: 188
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e9ddd6e8a4bc66210800000000000000
-      internalID: 1325970661384773022
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: logo-whirlpool 2_2
-      rect:
-        serializedVersion: 2
-        x: 324
-        y: 0
-        width: 358
-        height: 311
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 45d8d024c9828fcb0800000000000000
-      internalID: -4830065948766663340
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: logo-whirlpool 2_3
-      rect:
-        serializedVersion: 2
-        x: 650
-        y: 95
-        width: 119
-        height: 136
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e2ae01a4abfff4b40800000000000000
-      internalID: 5426837251576359470
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: logo-whirlpool 2_4
-      rect:
-        serializedVersion: 2
-        x: 771
-        y: 96
-        width: 120
-        height: 133
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 500596e1ab092b300800000000000000
-      internalID: 266434457016815621
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: logo-whirlpool 2_5
-      rect:
-        serializedVersion: 2
-        x: 898
-        y: 98
-        width: 35
-        height: 185
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e97182a5624316f00800000000000000
-      internalID: 1108224322635831198
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 117b7296f9e3dfe4fb12c52f3359a58c
     internalID: 0
     vertices: []
     indices: 
