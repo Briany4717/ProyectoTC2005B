@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices.WindowsRuntime;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,42 +12,55 @@ public class PlayerControl : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private float xInput;
     private float yInput;
+    private Animator animator;
 
     void Start()
     {
         // obtener los respectivos componentes del objeto
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
 
-
-
-    void Update()
+    void getPlayerMovementInput()
     {
         // declaramos una variable que nos ayudara para determinar a donde se movera nuestro personaje
         xInput = 0f;
+        yInput = 0f;
+        animator.SetBool("isWalking", false);
 
         if (Keyboard.current.aKey.isPressed)
         {
-            // si apretamos la flecha izquierda asignar -1
             xInput = -1f;
-            // rotar nuestro personaje en el eje x, para dar la ilusion de caminar a la izquierda
-            // spriteRenderer.flipX = true;
+            animator.SetBool("isWalking", true);
+            animator.SetFloat("InputX", xInput);
+            animator.SetFloat("InputY", yInput);
         }
         else if (Keyboard.current.dKey.isPressed)
         {
-            // si apretamos la flecha izquierda asignar -1
             xInput = 1f;
-            // el personaje se mantiene en su posicion
-            // spriteRenderer.flipX = false;
+            animator.SetBool("isWalking", true);
+            animator.SetFloat("InputX", xInput);
+            animator.SetFloat("InputY", yInput);
         }
         else if (Keyboard.current.wKey.isPressed)
         {
             yInput = 1f;
+            animator.SetBool("isWalking", true);
+            animator.SetFloat("InputX", xInput);
+            animator.SetFloat("InputY", yInput);
         }
         else if (Keyboard.current.sKey.isPressed)
         {
             yInput = -1f;
+            animator.SetBool("isWalking", true);
+            animator.SetFloat("InputX", xInput);
+            animator.SetFloat("InputY", yInput);
         }
+    }
+
+    void Update()
+    {
+        getPlayerMovementInput();
     }
 
 
