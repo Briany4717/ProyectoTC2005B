@@ -10,8 +10,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private float moveSpeed;
     public Rigidbody2D rig;
     private SpriteRenderer spriteRenderer;
-    private float xInput;
-    private float yInput;
+    private Vector2 moveInput;
     private Animator animator;
 
     void Start()
@@ -21,46 +20,10 @@ public class PlayerControl : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    void getPlayerMovementInput()
-    {
-        // declaramos una variable que nos ayudara para determinar a donde se movera nuestro personaje
-        xInput = 0f;
-        yInput = 0f;
-        animator.SetBool("isWalking", false);
-
-        if (Keyboard.current.aKey.isPressed)
-        {
-            xInput = -1f;
-            animator.SetBool("isWalking", true);
-            animator.SetFloat("InputX", xInput);
-            animator.SetFloat("InputY", yInput);
-        }
-        else if (Keyboard.current.dKey.isPressed)
-        {
-            xInput = 1f;
-            animator.SetBool("isWalking", true);
-            animator.SetFloat("InputX", xInput);
-            animator.SetFloat("InputY", yInput);
-        }
-        else if (Keyboard.current.wKey.isPressed)
-        {
-            yInput = 1f;
-            animator.SetBool("isWalking", true);
-            animator.SetFloat("InputX", xInput);
-            animator.SetFloat("InputY", yInput);
-        }
-        else if (Keyboard.current.sKey.isPressed)
-        {
-            yInput = -1f;
-            animator.SetBool("isWalking", true);
-            animator.SetFloat("InputX", xInput);
-            animator.SetFloat("InputY", yInput);
-        }
-    }
-
     void Update()
     {
-        getPlayerMovementInput();
+        ReadInput();
+        UpdateAnimator();
     }
 
 
@@ -68,6 +31,34 @@ public class PlayerControl : MonoBehaviour
     public void FixedUpdate()
     {
         // calculo de los vectores que determinan el moviento del jugador
-        rig.linearVelocity = new Vector2(xInput * moveSpeed, yInput * moveSpeed);
+        rig.linearVelocity = moveInput * moveSpeed;
     }
+
+    private void ReadInput()
+    {
+        if (Keyboard.current == null)
+        {
+            moveInput = Vector2.zero;
+            return;
+        }
+
+        float x = (Keyboard.current.dKey.isPressed ? 1f : 0f) - (Keyboard.current.aKey.isPressed ? 1f : 0f);
+        float y = (Keyboard.current.wKey.isPressed ? 1f : 0f) - (Keyboard.current.sKey.isPressed ? 1f : 0f);
+
+        moveInput = new Vector2(x, y);
+        if (moveInput.sqrMagnitude > 1f) moveInput.Normalize();
+    }
+
+    private void UpdateAnimator()
+    {
+        bool isWalking = moveInput.sqrMagnitude > 0f;
+        animator.SetBool("isWalking", isWalking);
+
+        if (isWalking)
+        {
+            animator.SetFloat("InputX", moveInput.x);
+            animator.SetFloat("InputY", moveInput.y);
+        }
+    }
+
 }
