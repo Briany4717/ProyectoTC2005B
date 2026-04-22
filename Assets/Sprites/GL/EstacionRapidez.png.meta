@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 89ced39bc4fee4ab68d7017f4471e97a
+guid: 067e73f5a0109da41a4e49b9e468129b
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -145,12 +145,12 @@ TextureImporter:
       name: EstacionRapidez_0
       rect:
         serializedVersion: 2
-        x: 536
+        x: 531
         y: 597
         width: 1186
         height: 1009
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -163,11 +163,33 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: EstacionRapidez_1
+      rect:
+        serializedVersion: 2
+        x: 1142
+        y: 1368
+        width: 244
+        height: 259
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 407daab9ed3ff5560800000000000000
+      internalID: 7304825258038187780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5ad157ffc562049249c4bb453302f461
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
