@@ -4,7 +4,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerControl : MonoBehaviour
+public class GLPlayerController : MonoBehaviour
 {
     // Declaración de variables
     [SerializeField] private float moveSpeed;

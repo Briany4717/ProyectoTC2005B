@@ -7,8 +7,7 @@ using UnityEngine.InputSystem;
 public class PauseController : MonoBehaviour
 {
     public GameObject menuPause;
-    public static bool isPaused { get; private set; } = false;
-
+    [SerializeField] GLPlayerController playerController;
     void Update()
     {
         if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
@@ -33,13 +32,13 @@ public class PauseController : MonoBehaviour
     {
         menuPause.SetActive(true);
         Time.timeScale = 0;
-        isPaused = true;
+        playerController.enabled = false;
     }
     private void ContinueGame()
     {
         menuPause.SetActive(false);
         Time.timeScale = 1;
-        isPaused = false;
+        playerController.enabled = true;
     }
 
 }
