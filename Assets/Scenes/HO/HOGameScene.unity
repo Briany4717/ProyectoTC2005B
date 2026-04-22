@@ -779,7 +779,7 @@ GameObject:
   - component: {fileID: 444409326}
   m_Layer: 0
   m_Name: HOGely
-  m_TagString: Player
+  m_TagString: HOPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
