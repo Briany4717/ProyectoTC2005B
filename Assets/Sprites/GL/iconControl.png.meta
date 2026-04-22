@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 880311f116be54c9082e43c6602f341f
+guid: 21a549f644c517a4aa6bab13a412aac9
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -147,10 +147,10 @@ TextureImporter:
         serializedVersion: 2
         x: 23
         y: 25
-        width: 875
-        height: 889
+        width: 702
+        height: 800
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -163,11 +163,33 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: iconControl_1
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 513
+        width: 379
+        height: 396
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d75e89938fc79bca0800000000000000
+      internalID: -6000627622934420099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: d93b2d1df74704e62b3b797bb2254820
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
