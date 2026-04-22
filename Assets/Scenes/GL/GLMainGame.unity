@@ -392,6 +392,52 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &89159145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 89159147}
+  - component: {fileID: 89159146}
+  m_Layer: 0
+  m_Name: GameControl
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &89159146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89159145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d332d014dc5fc49a6bbbf69fe5e5ef90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PauseController
+  menuPause: {fileID: 2019083896}
+  playerController: {fileID: 1215169479}
+--- !u!4 &89159147
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89159145}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.43448, y: -0.68095, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &100947245
 GameObject:
   m_ObjectHideFlags: 0
@@ -7998,6 +8044,7 @@ GameObject:
   - component: {fileID: 1215169473}
   - component: {fileID: 1215169471}
   - component: {fileID: 1215169478}
+  - component: {fileID: 1215169479}
   m_Layer: 0
   m_Name: GLPlayerGely
   m_TagString: Untagged
@@ -8017,8 +8064,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2073621283da434eaaf6a3c111666cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  moveSpeed: 5
-  rig: {fileID: 1215169474}
 --- !u!58 &1215169473
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -8190,6 +8235,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d1886f27fe37463a975e877867305aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Interactor
+--- !u!114 &1215169479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1215169470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93c27e0788ede4863ac2b62b1a5f473a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GLPlayerController
+  moveSpeed: 5
+  rig: {fileID: 1215169474}
 --- !u!1 &1225941188
 GameObject:
   m_ObjectHideFlags: 0
@@ -13921,7 +13980,6 @@ GameObject:
   - component: {fileID: 2019083899}
   - component: {fileID: 2019083898}
   - component: {fileID: 2019083897}
-  - component: {fileID: 2019083901}
   m_Layer: 5
   m_Name: PausePanel
   m_TagString: Untagged
@@ -14017,19 +14075,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &2019083901
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2019083896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ebd8bf459a4a40f0a7d9a2102a06b6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PauseMenu
-  PausePanel: {fileID: 0}
 --- !u!1 &2053401016
 GameObject:
   m_ObjectHideFlags: 0
@@ -14755,3 +14800,4 @@ SceneRoots:
   - {fileID: 963332664}
   - {fileID: 1215169477}
   - {fileID: 2019083900}
+  - {fileID: 89159147}
