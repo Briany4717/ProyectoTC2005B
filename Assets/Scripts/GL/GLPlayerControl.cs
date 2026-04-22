@@ -47,6 +47,7 @@ public class PlayerControl : MonoBehaviour
 
         moveInput = new Vector2(x, y);
         if (moveInput.sqrMagnitude > 1f) moveInput.Normalize();
+
     }
 
     private void UpdateAnimator()
