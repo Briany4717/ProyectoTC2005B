@@ -402,6 +402,7 @@ GameObject:
   m_Component:
   - component: {fileID: 89159147}
   - component: {fileID: 89159146}
+  - component: {fileID: 89159148}
   m_Layer: 0
   m_Name: GameControl
   m_TagString: Untagged
@@ -438,6 +439,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &89159148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89159145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23014e01c0c99401cabe7250e5e979ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GLGameControl
 --- !u!1 &100947245
 GameObject:
   m_ObjectHideFlags: 0
@@ -6761,9 +6774,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3887779496279913086, guid: f9129e389d3a749e28748466f0220fd4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 324902263}
-    - targetCorrespondingSourceObject: {fileID: 3887779496279913086, guid: f9129e389d3a749e28748466f0220fd4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1717560127}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9129e389d3a749e28748466f0220fd4, type: 3}
 --- !u!224 &963332665 stripped
@@ -6857,12 +6867,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 20
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 6488056530467363822, guid: 880311f116be54c9082e43c6602f341f, type: 3}
+  m_Sprite: {fileID: 6488056530467363822, guid: 21a549f644c517a4aa6bab13a412aac9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 8.75, y: 8.89}
+  m_Size: {x: 3.79, y: 3.96}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -8042,7 +8052,6 @@ GameObject:
   - component: {fileID: 1215169475}
   - component: {fileID: 1215169474}
   - component: {fileID: 1215169473}
-  - component: {fileID: 1215169471}
   - component: {fileID: 1215169478}
   - component: {fileID: 1215169479}
   m_Layer: 0
@@ -8052,18 +8061,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1215169471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1215169470}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2073621283da434eaaf6a3c111666cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
 --- !u!58 &1215169473
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -8522,7 +8519,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2518748052125891947, guid: 16947d942d5a54a2b951e5077b18247d, type: 3}
+  m_Sprite: {fileID: -2518748052125891947, guid: 251e36a6866d1a94d90090a52e4ace96, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -9888,7 +9885,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 21
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 2879391948588090504, guid: 89ced39bc4fee4ab68d7017f4471e97a, type: 3}
+  m_Sprite: {fileID: 2879391948588090504, guid: 067e73f5a0109da41a4e49b9e468129b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -10346,7 +10343,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 6197292884791959229, guid: 90e65b18b687f4f92b2c2fb483214a91, type: 3}
+  m_Sprite: {fileID: 6197292884791959229, guid: 9abb7e2214a27d948b9775270d30a733, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -10905,7 +10902,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 20
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 6696691985360411264, guid: e4bf30d534a9d467ba8fe2f6e0f220d8, type: 3}
+  m_Sprite: {fileID: 6696691985360411264, guid: 3b4ef8aca8ae9134ea15386ed7799f0a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -11657,16 +11654,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1717560126}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 963332666}
+  m_Father: {fileID: 2072754341}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 149.7, y: 215.9}
+  m_AnchoredPosition: {x: 626.53, y: 474.02}
   m_SizeDelta: {x: 68.0071, y: 30.8591}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1717560128
@@ -14266,6 +14263,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2072754341}
+  - component: {fileID: 2072754342}
   m_Layer: 0
   m_Name: TimerBaseBox
   m_TagString: Untagged
@@ -14293,8 +14291,23 @@ Transform:
   - {fileID: 1970197770}
   - {fileID: 886098949}
   - {fileID: 720751530}
+  - {fileID: 1717560127}
   m_Father: {fileID: 963332665}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2072754342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072754340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d696f8f01521742a695904077eb957c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GLTimer
+  timerText: {fileID: 1717560128}
+  remainingTime: 10
 --- !u!1 &2102943430
 GameObject:
   m_ObjectHideFlags: 0
