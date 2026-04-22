@@ -1,0 +1,115 @@
+{
+    "quizTitle": "Buenas Prácticas e Inteligencia Artificial",
+    "questions": [
+        {
+            "id": 1,
+            "question": "¿Qué técnica de prompt engineering consiste en proporcionar algunos ejemplos antes de la tarea principal?",
+            "options": [
+                "Zero-shot prompting",
+                "Few-shot prompting",
+                "Chain of Thought",
+                "Negative prompting"
+            ],
+            "correctAnswerIndex": 1
+        },
+        {
+            "id": 2,
+            "question": "¿Para qué sirve asignar un 'rol' a la IA (ej. 'Actúa como un experto en ciberseguridad')?",
+            "options": [
+                "Para que la IA responda más rápido",
+                "Para desbloquear funciones ocultas del modelo",
+                "Para establecer el tono, el nivel de detalle y el contexto de la respuesta",
+                "No tiene ninguna utilidad real"
+            ],
+            "correctAnswerIndex": 2
+        },
+        {
+            "id": 3,
+            "question": "En el contexto de los LLMs, ¿qué es una 'alucinación'?",
+            "options": [
+                "Cuando el modelo genera información falsa pero presentada como un hecho",
+                "Cuando el servidor de la IA se sobrecarga",
+                "Un error en el código de Python del usuario",
+                "Cuando el prompt es demasiado largo"
+            ],
+            "correctAnswerIndex": 0
+        },
+        {
+            "id": 4,
+            "question": "¿Cuál es la función de los delimitadores (como triple comillas \"\"\" o ###) en un prompt?",
+            "options": [
+                "Hacer que el texto se vea más ordenado para el usuario",
+                "Ayudar a la IA a distinguir claramente entre diferentes secciones de instrucciones o datos",
+                "Indicar el final de la conversación",
+                "Aumentar la creatividad del modelo"
+            ],
+            "correctAnswerIndex": 1
+        },
+        {
+            "id": 5,
+            "question": "¿Qué técnica le pide a la IA que desglose su proceso de razonamiento paso a paso?",
+            "options": [
+                "Iteración recursiva",
+                "Prompting directo",
+                "Chain of Thought (Cadena de pensamiento)",
+                "Análisis de sentimientos"
+            ],
+            "correctAnswerIndex": 2
+        },
+        {
+            "id": 6,
+            "question": "Al redactar un prompt, ¿cuál es una buena práctica para obtener mejores resultados?",
+            "options": [
+                "Ser lo más vago posible para no limitar a la IA",
+                "Usar términos técnicos complejos sin explicarlos",
+                "Ser específico, directo y proporcionar contexto relevante",
+                "Escribir todo el prompt en mayúsculas"
+            ],
+            "correctAnswerIndex": 2
+        },
+        {
+            "id": 7,
+            "question": "¿Por qué es importante evitar el uso de información sensible o personal en prompts de modelos públicos?",
+            "options": [
+                "Porque la IA se confunde con nombres reales",
+                "Porque los datos pueden ser utilizados para entrenar futuras versiones del modelo y comprometer la privacidad",
+                "Porque el modelo cobra más por procesar datos privados",
+                "No hay ningún riesgo en compartir información sensible"
+            ],
+            "correctAnswerIndex": 1
+        },
+        {
+            "id": 10,
+            "question": "¿A qué se refiere el término 'iteración' en la creación de prompts?",
+            "options": [
+                "Al proceso de refinar y ajustar el prompt basándose en los resultados obtenidos",
+                "A traducir el prompt a varios idiomas",
+                "A copiar el prompt de otra persona",
+                "A borrar todo y empezar de cero"
+            ],
+            "correctAnswerIndex": 0
+        },
+        {
+            "id": 9,
+            "question": "¿Qué ayuda a reducir la ambigüedad en una instrucción compleja?",
+            "options": [
+                "Usar sarcasmo",
+                "Dar instrucciones negativas (decir qué NO hacer) además de las positivas",
+                "Escribir un prompt de una sola palabra",
+                "No usar signos de puntuación"
+            ],
+            "correctAnswerIndex": 1
+        },
+        {
+            "id": 10,
+            "question": "¿Cuál es el objetivo principal del 'Prompt Engineering'?",
+            "options": [
+                "Programar la IA desde cero",
+                "Reparar los servidores de los modelos de lenguaje",
+                "Optimizar la comunicación con la IA para obtener resultados más precisos y útiles",
+                "Hackear el sistema de seguridad de la IA"
+            ],
+            "correctAnswerIndex": 2
+        }
+    ]
+}
