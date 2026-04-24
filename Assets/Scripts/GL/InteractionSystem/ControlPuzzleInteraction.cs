@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class QuestionPuzzleInteraction : MonoBehaviour, IInteractable
+public class ControlPuzzleInteraction : MonoBehaviour, IInteractable
 {
-
     public StationData station;
     public void Interact()
     {
+        Debug.Log("Estacion Control");
         completeStation();
     }
 
