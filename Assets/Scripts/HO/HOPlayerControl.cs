@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class HOPlayerControl : MonoBehaviour
 {
@@ -9,7 +10,9 @@ public class HOPlayerControl : MonoBehaviour
     public Rigidbody2D rig;
     private float xInput;
     private bool jumpRequested;
-    private bool isGrounded = true;
+    private int jumpCount = 0;
+    private const int maxJumps = 2;
+
 
      void Awake()
     {
@@ -27,10 +30,10 @@ public class HOPlayerControl : MonoBehaviour
         {
             xInput = 1f;
         }
-        if (Keyboard.current.upArrowKey.isPressed)
+        if (Keyboard.current.upArrowKey.wasPressedThisFrame && jumpCount <maxJumps)
         {
             jumpRequested = true;
-            isGrounded = false;
+            jumpCount++;
         }
 
     }
@@ -38,14 +41,16 @@ public class HOPlayerControl : MonoBehaviour
     public void FixedUpdate()
     {
         rig.linearVelocity = new Vector2(xInput * moveSpeed, rig.linearVelocity.y);
+        
         if (jumpRequested)
         {
-            rig.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            rig.linearVelocity = new Vector2(rig.linearVelocity.x, jumpForce);
             jumpRequested = false;
         }
-        if (Math.Abs(rig.linearVelocity.y) < 0.01f)
-        {
-            isGrounded = true;
-        }
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        jumpCount = 0;
     }
 }
