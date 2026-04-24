@@ -249,10 +249,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9952fda7cc6748d9a73b4c9302893a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OrderUI
+  imageBackground: {fileID: 6252970574649503918}
   coinsText: {fileID: 917713051577974975}
   foodIconImage: {fileID: 5502269463678505535}
   stationsContainer: {fileID: 4849575702457355668}
   stationStepPrefab: {fileID: 1588545080865672464, guid: 067a701f13ee14c89a33532cf95c926b, type: 3}
+  selectedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &5160411529000131844
 GameObject:
   m_ObjectHideFlags: 0

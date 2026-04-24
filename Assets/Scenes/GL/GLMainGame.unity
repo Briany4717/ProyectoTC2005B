@@ -708,11 +708,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 412c6370b7ad9492eac9eb6ca988a95b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  order: {fileID: 11400000, guid: 403638c2596364a7fb1f48fc2a546fb4, type: 2}
-  foodIconRenderer: {fileID: 977795805}
-  stationIcon1Renderer: {fileID: 2040136870}
-  stationIcon2Renderer: {fileID: 163740884}
-  stationIcon3Renderer: {fileID: 776921446}
 --- !u!4 &127362895
 Transform:
   m_ObjectHideFlags: 0
@@ -4262,7 +4257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GLTimer
   timerText: {fileID: 1717560128}
-  remainingTime: 10
+  remainingTime: 50
 --- !u!114 &640775582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8249,6 +8244,8 @@ GameObject:
   - component: {fileID: 1241796621}
   - component: {fileID: 1241796622}
   - component: {fileID: 1241796623}
+  - component: {fileID: 1241796624}
+  - component: {fileID: 1241796625}
   m_Layer: 0
   m_Name: EstacionControl
   m_TagString: Untagged
@@ -8265,7 +8262,7 @@ Transform:
   m_GameObject: {fileID: 1241796620}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.350006, y: 1.3461914, z: 0}
+  m_LocalPosition: {x: -7.364511, y: 0.9545641, z: 0}
   m_LocalScale: {x: 0.13323219, y: 0.13323219, z: 0.13323219}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8375,6 +8372,65 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Size: {x: 9.19, y: 8.3}
+  m_EdgeRadius: 0
+--- !u!114 &1241796624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1241796620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd7f868b45daf483eb8809a187bb505d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ControlPuzzleInteraction
+  station: {fileID: 11400000, guid: 4fac635d686624e6fb771168fe47e5d3, type: 2}
+--- !u!61 &1241796625
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1241796620}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 9.19, y: 8.3}
+    newSize: {x: 9.19, y: 8.3}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 15, y: 15}
   m_EdgeRadius: 0
 --- !u!1 &1245482357
 GameObject:
@@ -9515,6 +9571,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1471354206}
   - component: {fileID: 1471354207}
+  - component: {fileID: 1471354208}
+  - component: {fileID: 1471354209}
   m_Layer: 0
   m_Name: EstacionRapidez
   m_TagString: Untagged
@@ -9596,6 +9654,65 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1471354208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471354205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b03a4724bf8940919f9afe8c4bab3a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RapidezPuzzleInteraction
+  station: {fileID: 11400000, guid: ec4e0ad6d78514e4a9735cdef7aac66e, type: 2}
+--- !u!61 &1471354209
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471354205}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 11.861064, y: 10.09}
+    newSize: {x: 11.861064, y: 10.09}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 15, y: 15}
+  m_EdgeRadius: 0
 --- !u!1 &1509473293
 GameObject:
   m_ObjectHideFlags: 0
@@ -10153,6 +10270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb1adb7948c504e2eb21714531388bd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::QuestionPuzzleInteraction
+  station: {fileID: 11400000, guid: 55816e3c802bb4cc796bd65ed6a1da98, type: 2}
 --- !u!61 &1543512307
 BoxCollider2D:
   m_ObjectHideFlags: 0

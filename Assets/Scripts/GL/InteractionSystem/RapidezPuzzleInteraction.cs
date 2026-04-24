@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public class QuestionPuzzleInteraction : MonoBehaviour, IInteractable
+public class RapidezPuzzleInteraction : MonoBehaviour, IInteractable
 {
-
     public StationData station;
     public void Interact()
     {
