@@ -142,12 +142,12 @@ TextureImporter:
       name: iconRapidez_0
       rect:
         serializedVersion: 2
-        x: 222
-        y: 256
-        width: 1612
-        height: 1617
+        x: 167
+        y: 253
+        width: 1671
+        height: 1630
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -164,7 +164,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: c4a5a4b3e65df46dbbc832d03120f672
     internalID: 0
     vertices: []
     indices: 
