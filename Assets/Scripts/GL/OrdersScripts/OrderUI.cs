@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 using UnityEditor.Rendering.Universal;
+using Unity.VisualScripting;
 
 public class OrderUI : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class OrderUI : MonoBehaviour
     public GameObject stationStepPrefab;
     public Color selectedColor = Color.yellow;
     public Color normalColor = Color.white;
+    public int rewardCoins = 0;
 
     private List<StationStepUI> stationSteps = new List<StationStepUI>();
 
@@ -25,6 +27,7 @@ public class OrderUI : MonoBehaviour
         // actualizamos valores
         coinsText.text = order.rewardCoins.ToString();
         foodIconImage.sprite = order.foodIcon;
+        rewardCoins = order.rewardCoins;
 
         // borramos rastro alguno de estaciones anteriores
         foreach (Transform child in stationsContainer)
@@ -81,6 +84,22 @@ public class OrderUI : MonoBehaviour
     public void SetSelected(bool isSelected)
     {
         imageBackground.color = isSelected ? selectedColor : normalColor;
+    }
+
+    // checar si la orden ya tiene todas las estaciones hechas
+    public bool IsOrderCompleted()
+    {
+
+        for (int i = 0; i < stationSteps.Count; i++)
+        {
+            // checar los estados de 
+            if (!CurrentOrderData.stationsCompleted[i])
+            {
+                // si no esta completado paramos y devolvemos falso
+                return false;
+            }
+        }
+        return true;
     }
 
 }
