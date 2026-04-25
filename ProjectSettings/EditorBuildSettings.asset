@@ -14,5 +14,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GL/GLStartScene.unity
     guid: 3bb51e4e1c1724587bd65fd4b0bd433a
+  - enabled: 1
+    path: Assets/Scenes/HO/HOGameScene.unity
+    guid: bfd304cacf4896d4f90f708befae2a77
+  - enabled: 1
+    path: Assets/Scenes/HO/HOEndScene.unity
+    guid: 176bef08fb7cd5f418e10a1ff8a9340b
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
