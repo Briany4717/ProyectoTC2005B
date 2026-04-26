@@ -2,21 +2,32 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
 using UnityEditor.Build.Player;
+using UnityEditor.XR;
+using Unity.VisualScripting;
 
 public class RapidezControler : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI targetTextUI;
-    [SerializeField] private TextMeshProUGUI typedTextUI;
-    [SerializeField] private TextMeshProUGUI resultTextUI;
+    [SerializeField] public TextMeshProUGUI wordOutput;
+    [SerializeField] public GLWordBank wordBank = null;
 
-    private string targetText = "hello";
-    private string typedText = "";
+    private string remainingWord = string.Empty;
+    private string currentWord = string.Empty;
 
     private void Start()
     {
-        targetTextUI.text = "Escribe esto: " + targetText;
-        typedTextUI.text = typedText;
-        resultTextUI.text = "";
+        SetCurrenWord();
+    }
+
+    private void SetCurrenWord()
+    {
+        currentWord = wordBank.GetPrompt();
+        SetRemainingWord(currentWord);
+    }
+
+    private void SetRemainingWord(string newString)
+    {
+        remainingWord = newString;
+        wordOutput.text = remainingWord;
     }
 
     // Creamos un evento para recibir el input
@@ -24,7 +35,7 @@ public class RapidezControler : MonoBehaviour
     {
         if (Keyboard.current != null)
         {
-            Keyboard.current.onTextInput += HandleTextInput;
+            Keyboard.current.onTextInput += CheckInput;
         }
     }
 
@@ -34,48 +45,77 @@ public class RapidezControler : MonoBehaviour
     {
         if (Keyboard.current != null)
         {
-            Keyboard.current.onTextInput -= HandleTextInput;
+            Keyboard.current.onTextInput -= CheckInput;
         }
     }
 
     // Usamos Update para las teclas especiales (Backspace y Enter)
     private void Update()
     {
-        if (Keyboard.current == null) return;
+        // if (Keyboard.current == null) return;
 
-        // Comprobar Backspace
-        if (Keyboard.current.backspaceKey.wasPressedThisFrame)
-        {
-            if (typedText.Length > 0)
-            {
-                typedText = typedText.Substring(0, typedText.Length - 1);
-                typedTextUI.text = typedText;
-            }
-        }
+        // // Comprobar Backspace
+        // if (Keyboard.current.backspaceKey.wasPressedThisFrame)
+        // {
+        //     if (typedText.Length > 0)
+        //     {
+        //         typedText = typedText.Substring(0, typedText.Length - 1);
+        //         typedTextUI.text = typedText;
+        //     }
+        // }
 
-        // Comprobar Enter (Validamos tanto el Enter normal como el del teclado numérico)
-        if (Keyboard.current.enterKey.wasPressedThisFrame || Keyboard.current.numpadEnterKey.wasPressedThisFrame)
-        {
-            if (typedText == targetText)
-            {
-                resultTextUI.text = "¡Correcto!";
-                // GLMenusStationsManager.Instance.CloseAllMenus(); // Lógica de victoria
-            }
-            else
-            {
-                resultTextUI.text = "Incorrecto";
-            }
-        }
+        // // Comprobar Enter (Validamos tanto el Enter normal como el del teclado numérico)
+        // if (Keyboard.current.enterKey.wasPressedThisFrame || Keyboard.current.numpadEnterKey.wasPressedThisFrame)
+        // {
+        //     if (typedText == targetText)
+        //     {
+        //         resultTextUI.text = "¡Correcto!";
+        //         // GLMenusStationsManager.Instance.CloseAllMenus(); // Lógica de victoria
+        //     }
+        //     else
+        //     {
+        //         resultTextUI.text = "Incorrecto";
+        //     }
+        // }
     }
 
     // Usamos onTextInput SOLO para las letras y símbolos
-    private void HandleTextInput(char character)
+    private void CheckInput(char character)
     {
         // Ignoramos cualquier caracter de control invisible (Tab, Esc, y por si acaso, Enter/Backspace)
         if (char.IsControl(character)) return;
 
         // Agregamos la letra
-        typedText += character;
-        typedTextUI.text = typedText;
+        string charPressed = character.ToString();
+        EnterLetter(charPressed);
     }
+
+    private void EnterLetter(string typedLetter)
+    {
+        if (IsCorrectLetter(typedLetter))
+        {
+            RemoveLetter();
+
+            // en este if se pone la logica de cuando se completa la palabra
+            if (IsWordComplete())
+                SetCurrenWord();
+        }
+    }
+
+    private bool IsCorrectLetter(string letter)
+    {
+        // check if the next one is the first one
+        return remainingWord.IndexOf(letter) == 0;
+    }
+
+    private void RemoveLetter()
+    {
+        string newString = remainingWord.Remove(0, 1);
+        SetRemainingWord(newString);
+    }
+    private bool IsWordComplete()
+    {
+        return remainingWord.Length == 0;
+    }
+
 }
