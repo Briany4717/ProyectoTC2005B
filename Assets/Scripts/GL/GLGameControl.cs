@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -5,6 +6,20 @@ using UnityEngine.SceneManagement;
 public class GLGameControl : MonoBehaviour
 {
     static public GLGameControl Instance;
+
+
+
+    public void TriggerMenu(GameObject stationObject)
+    {
+        if (stationObject.activeInHierarchy == false)
+        {
+            stationObject.SetActive(true);
+        }
+        else
+        {
+            stationObject.SetActive(false);
+        }
+    }
 
     public void Awake()
     {

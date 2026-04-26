@@ -6,22 +6,23 @@ public class GLAnswerButton : MonoBehaviour
     private bool isCorrect;
     [SerializeField] TextMeshProUGUI answerText;
 
-    public void SetAnswerText(string text)
+
+    // Guardamos la referencia del manager de la pregunta
+    private GLQuestionSetup questionSetup;
+
+    // Poner los valores al boton
+    public void SetupButton(string text, bool newBool, GLQuestionSetup setup)
     {
         answerText.text = text;
-    }
-
-    public void SetIsCorrect(bool newBool)
-    {
         isCorrect = newBool;
+        questionSetup = setup; // Guardamos quién creó esta pregunta
     }
-
     public void OnClick()
     {
         if (isCorrect)
         {
             Debug.Log("Correct Answer!!");
-            GLQuestionSetup.Instance.LoadNewQuestion();
+            questionSetup.CorrectAnswer();
         }
         else
         {

@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class GLQuestionSetup : MonoBehaviour
 {
-    public static GLQuestionSetup Instance;
+
+
     [SerializeField] private List<QuestionData> questions;
     private QuestionData currentQuestion;
 
@@ -14,15 +15,38 @@ public class GLQuestionSetup : MonoBehaviour
     [SerializeField] private GLAnswerButton[] answerButtons;
     [SerializeField] private int correctAnswerChoice;
 
+
+
+    //station we are trying to do
+    StationData currentStation;
+
     private void Awake()
     {
-        Instance = this;
         GetQuestionAssets();
     }
 
     void Start()
     {
+
+    }
+
+    // when interact with station start the jeopardy
+    public void OpenQuestion(StationData station)
+    {
+        currentStation = station;
         LoadNewQuestion();
+        this.gameObject.SetActive(true);
+
+    }
+
+    public void CorrectAnswer()
+    {
+
+        // 1. Avisamos al manager general que cierre todos los menús de las estaciones
+        GLMenusStationsManager.Instance.CloseAllMenus();
+
+        // 2. Avisamos al OrderManager que completamos la estación
+        OrderManager.Instance.OnPlayerCompletedStation(currentStation);
     }
 
     public void LoadNewQuestion()
@@ -34,12 +58,6 @@ public class GLQuestionSetup : MonoBehaviour
         SetQuestionValues();
         // set all the answer buttons text and correct answer values
         SetAnswerValues();
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
 
     }
 
@@ -75,8 +93,7 @@ public class GLQuestionSetup : MonoBehaviour
             {
                 isCorrect = true;
             }
-            answerButtons[i].SetIsCorrect(isCorrect);
-            answerButtons[i].SetAnswerText(answers[i]);
+            answerButtons[i].SetupButton(answers[i], isCorrect, this);
         }
     }
 
