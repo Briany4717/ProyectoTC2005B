@@ -42,10 +42,10 @@ public class GLQuestionSetup : MonoBehaviour
     public void CorrectAnswer()
     {
 
-        // 1. Avisamos al manager general que cierre todos los menús de las estaciones
+        // Avisamos al manager general que cierre todos los menús de las estaciones
         GLMenusStationsManager.Instance.CloseAllMenus();
 
-        // 2. Avisamos al OrderManager que completamos la estación
+        // Avisamos al OrderManager que completamos la estación
         OrderManager.Instance.OnPlayerCompletedStation(currentStation);
     }
 

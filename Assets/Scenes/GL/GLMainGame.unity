@@ -8517,6 +8517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RapidezPuzzleInteraction
   station: {fileID: 11400000, guid: ec4e0ad6d78514e4a9735cdef7aac66e, type: 2}
+  rapidezControler: {fileID: 1773863719}
 --- !u!61 &1471354209
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10343,7 +10344,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1773863718
 Transform:
   m_ObjectHideFlags: 0

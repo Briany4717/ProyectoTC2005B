@@ -13,11 +13,19 @@ public class RapidezControler : MonoBehaviour
     private string remainingWord = string.Empty;
     private string currentWord = string.Empty;
 
+    StationData currentStation;
+
     private void Start()
     {
-        SetCurrenWord();
+        // SetCurrenWord();
     }
 
+    public void SetRapidezGame(StationData station)
+    {
+        currentStation = station;
+        GLMenusStationsManager.Instance.OpenMenu(GLMenusStationsManager.AvailableStations.Rapidez);
+        SetCurrenWord();
+    }
     private void SetCurrenWord()
     {
         currentWord = wordBank.GetPrompt();
@@ -38,7 +46,6 @@ public class RapidezControler : MonoBehaviour
             Keyboard.current.onTextInput += CheckInput;
         }
     }
-
 
     // Nos desuscribimos
     private void OnDisable()
@@ -98,8 +105,16 @@ public class RapidezControler : MonoBehaviour
 
             // en este if se pone la logica de cuando se completa la palabra
             if (IsWordComplete())
-                SetCurrenWord();
+                EndGame();
         }
+    }
+
+    private void EndGame()
+    {
+        // cerramos todas las pantallas
+        GLMenusStationsManager.Instance.CloseAllMenus();
+        // avisamos que completamos la estacion
+        OrderManager.Instance.OnPlayerCompletedStation(currentStation);
     }
 
     private bool IsCorrectLetter(string letter)

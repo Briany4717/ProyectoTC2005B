@@ -3,9 +3,11 @@ using UnityEngine;
 public class RapidezPuzzleInteraction : MonoBehaviour, IInteractable
 {
     public StationData station;
+    [SerializeField] private RapidezControler rapidezControler;
     public void Interact()
     {
-        completeStation();
+        // iniciamos el juego y le pasamos la referencia de la estacion para que sepa que completar
+        rapidezControler.SetRapidezGame(station);
     }
 
     public void OnNotTouchingPlayer()
@@ -21,6 +23,6 @@ public class RapidezPuzzleInteraction : MonoBehaviour, IInteractable
 
     void completeStation()
     {
-        OrderManager.Instance.OnPlayerCompletedStation(station);
+        // OrderManager.Instance.OnPlayerCompletedStation(station);
     }
 }
