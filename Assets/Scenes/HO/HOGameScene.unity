@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 180997632}
   - component: {fileID: 180997634}
   - component: {fileID: 180997635}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HOPlatform4
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -400,6 +400,8 @@ GameObject:
   m_Component:
   - component: {fileID: 311532788}
   - component: {fileID: 311532787}
+  - component: {fileID: 311532790}
+  - component: {fileID: 311532791}
   m_Layer: 0
   m_Name: HOLapizTola_0
   m_TagString: Untagged
@@ -456,7 +458,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 100
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 6316689302925828973, guid: 9151589fa0c13504cb51007e7a313c36, type: 3}
+  m_Sprite: {fileID: -1771164502675642859, guid: fc22b9791017ec649af6ec349e8bd24b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -475,12 +477,57 @@ Transform:
   m_GameObject: {fileID: 311532786}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7, y: 1.84, z: 0}
+  m_LocalPosition: {x: -6.289, y: 0.59, z: 0}
   m_LocalScale: {x: 0.786, y: 0.786, z: 0.786}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 710803748}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &311532790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 311532786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c79ffda886902ce4db85abd7899c093e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HOEnemyFire
+  controladorlDisparo: {fileID: 710803748}
+  distanciaLinea: 20
+  capaJugador:
+    serializedVersion: 2
+    m_Bits: 256
+  jugadorEnRango: 0
+  tiempoEntreDisparos: 1
+  tiempoUltimoDisparo: 0
+  balaEnemigo: {fileID: 3151267671361340731, guid: 4a7253d55215e97459be23f159751af6, type: 3}
+  tiempoEsperaDisparo: 0
+--- !u!114 &311532791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 311532786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77e883b4c943eac4fa3d952352fcd698, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HOEnemyVerticalFollow
+  player: {fileID: 444409322}
+  fixedXPosition: -8
+  platformLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  raycastDistance: 20
+  verticalOffset: 1
+  instantSnap: 0
+  moveSpeed: 10
+  repositionCooldown: 0.2
 --- !u!1 &330158221
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,7 +579,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HOTimer
   timertext: {fileID: 330158224}
-  remainingtime: 15
+  remainingtime: 90
 --- !u!114 &330158224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -748,7 +795,7 @@ GameObject:
   - component: {fileID: 380969164}
   - component: {fileID: 380969163}
   - component: {fileID: 380969165}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HOPlatform2
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1058,7 +1105,8 @@ GameObject:
   - component: {fileID: 444409323}
   - component: {fileID: 444409325}
   - component: {fileID: 444409326}
-  m_Layer: 0
+  - component: {fileID: 444409327}
+  m_Layer: 8
   m_Name: HOGely
   m_TagString: HOPlayer
   m_Icon: {fileID: 0}
@@ -1254,6 +1302,19 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: -0.4}
   m_Radius: 0.1
+--- !u!114 &444409327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 444409320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6131fc29e0c94fb40b20d3ba24111b73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HOPlayerLives
+  cantidadDeVida: 6
 --- !u!1 &491677382
 GameObject:
   m_ObjectHideFlags: 0
@@ -1266,7 +1327,7 @@ GameObject:
   - component: {fileID: 491677383}
   - component: {fileID: 491677385}
   - component: {fileID: 491677386}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HOPlatform3
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1477,6 +1538,37 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &710803747
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 710803748}
+  m_Layer: 0
+  m_Name: ControladorDisparo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &710803748
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710803747}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.168, y: 0.397, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 311532788}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &710842544
 GameObject:
   m_ObjectHideFlags: 0
@@ -1796,7 +1888,7 @@ GameObject:
   - component: {fileID: 830177961}
   - component: {fileID: 830177960}
   - component: {fileID: 830177962}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HOPlatform6
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -2298,7 +2390,7 @@ GameObject:
   - component: {fileID: 1214831234}
   - component: {fileID: 1214831233}
   - component: {fileID: 1214831235}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HOPlatform5
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -4187,7 +4279,7 @@ GameObject:
   - component: {fileID: 1992365354}
   - component: {fileID: 1992365353}
   - component: {fileID: 1992365355}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HOPlatform1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
