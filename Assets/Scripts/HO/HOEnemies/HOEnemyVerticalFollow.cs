@@ -16,7 +16,7 @@ public class HOEnemyVerticalFollow : MonoBehaviour
     [Tooltip("Distancia máxima del raycast hacia abajo desde el jugador")]
     public float raycastDistance = 20f;
     [Tooltip("Offset vertical sobre la plataforma (para que el enemigo no quede enterrado)")]
-    public float verticalOffset = 1f;
+    public float verticalOffset = 0f;
 
     [Header("Movimiento")]
     [Tooltip("Si es true, el enemigo se teletransporta. Si es false, se mueve suavemente.")]
