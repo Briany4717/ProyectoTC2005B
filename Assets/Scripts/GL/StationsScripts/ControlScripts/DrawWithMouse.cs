@@ -1,10 +1,11 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class DrawWithMouse : MonoBehaviour
 {
-    private LineRenderer line;
+    public LineRenderer line;
     private Vector3 previousPosition;
 
     [SerializeField] private float minDistance = 0.1f;
@@ -17,9 +18,22 @@ public class DrawWithMouse : MonoBehaviour
         line.positionCount = 1;
         previousPosition = transform.position;
         line.startWidth = line.endWidth = width;
+
+        StartCoroutine(DelayedNudge());
+
+
     }
 
-    private void Update()
+    public void StartLine(Vector2 position)
+    {
+        line.positionCount = 1;
+        // set the start of the line at the specific position.
+        line.SetPosition(0, position);
+        // para que pueda funcionar al iniciar el objeto
+        previousPosition = position;
+    }
+
+    public void UpdateLine()
     {
         if (Mouse.current != null && Mouse.current.leftButton.isPressed)
         {
@@ -50,7 +64,17 @@ public class DrawWithMouse : MonoBehaviour
                 // actualizamos la posicion actual como la anterior.
                 previousPosition = currentPosition;
             }
+            Debug.Log("Previous Position: " + previousPosition);
+            Debug.Log("Current Position: " + currentPosition);
 
         }
+    }
+    private IEnumerator DelayedNudge()
+    {
+        // Espera 1 frame para que DrawWithMouse.Start ya haya corrido
+        yield return null;
+
+        // Mini nudge casi imperceptible
+        transform.position += new Vector3(0.001f, 0f, 0f);
     }
 }
