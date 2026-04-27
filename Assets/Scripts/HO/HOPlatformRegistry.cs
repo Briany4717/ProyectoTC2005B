@@ -7,7 +7,10 @@ public class HOPlatformRegistry : MonoBehaviour
 
     public static void Register(HOErasablePlatform platform)
     {
-        if (!platforms.Contains(platform)) platforms.Add(platform);
+        if (!platforms.Contains(platform))
+        {
+            platforms.Add(platform);
+        }
     }
 
     public static void Unregister(HOErasablePlatform platform)
@@ -15,18 +18,19 @@ public class HOPlatformRegistry : MonoBehaviour
         platforms.Remove(platform);
     }
 
-    /// <summary>
-    /// Devuelve plataformas activas (no borradas) dentro de un radio del jugador.
-    /// </summary>
-    public static List<HOErasablePlatform> GetPlatformsNearPlayer(Vector3 playerPos, float radius)
+    // solo las que no han sido borradas
+    public static List<HOErasablePlatform> getPlatformsNear(Vector3 playerPos, float radio)
     {
         List<HOErasablePlatform> result = new List<HOErasablePlatform>();
-        float sqrRadius = radius * radius;
+        float sqrRadio = radio * radio;
 
         foreach (var p in platforms)
         {
-            if (p == null || p.IsErased) continue;
-            if ((p.transform.position - playerPos).sqrMagnitude <= sqrRadius)
+            if (p == null || p.IsErased) 
+            {
+                continue;
+            }
+            if ((p.transform.position - playerPos).sqrMagnitude <= sqrRadio)
             {
                 result.Add(p);
             }

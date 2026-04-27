@@ -16,7 +16,7 @@ public class HOEraserEnemy : MonoBehaviour
     public float tiempoBorrar;
     private float margenExtra =1f;
 
-    private float movDireccion = 1f;
+    private float movDireccion = 0.6f;
     
     private float attackTimer;
     private enum State {buscando, 
@@ -106,7 +106,7 @@ public class HOEraserEnemy : MonoBehaviour
             return;
         }
 
-        var nearby = HOPlatformRegistry.GetPlatformsNearPlayer(jugador.position, radioJugador);
+        var nearby = HOPlatformRegistry.getPlatformsNear(jugador.position, radioJugador);
         if (nearby.Count == 0)
         {
             attackTimer = 1f;
