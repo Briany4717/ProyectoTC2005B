@@ -1,12 +1,19 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GLChecker : MonoBehaviour
 {
+    Vector2 startingPosition;
     private bool startMovement = false;
     Vector3[] positions;
     int movementIndex = 0;
     [SerializeField, Range(0.1f, 20f)] private float speed;
     [SerializeField] public DrawWithMouse drawControl;
+
+    private void Awake()
+    {
+        startingPosition = transform.position;
+    }
     private void OnMouseDown()
     {
         drawControl.StartLine(this.transform.position);
@@ -47,4 +54,21 @@ public class GLChecker : MonoBehaviour
 
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("GLDelimiter"))
+        {
+            startMovement = false;
+            movementIndex = 0;
+            positions = null;
+
+
+            Debug.Log("Tocaste Delimiter");
+            transform.position = startingPosition;
+            drawControl.ClearLine();
+            drawControl.StartLine(startingPosition);
+        }
+    }
+
 }
