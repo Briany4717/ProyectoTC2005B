@@ -64,11 +64,21 @@ public class DrawWithMouse : MonoBehaviour
                 // actualizamos la posicion actual como la anterior.
                 previousPosition = currentPosition;
             }
-            Debug.Log("Previous Position: " + previousPosition);
-            Debug.Log("Current Position: " + currentPosition);
+
 
         }
+
+
     }
+    public void ClearLine()
+    {
+        Debug.Log("borraste la linea");
+        if (line == null) return;
+        line.positionCount = 1;
+        previousPosition = transform.position;
+    }
+
+    // arreglar el bug de movimiento
     private IEnumerator DelayedNudge()
     {
         // Espera 1 frame para que DrawWithMouse.Start ya haya corrido
