@@ -3,89 +3,93 @@ using UnityEngine;
 
 public class HOEraserEnemy : MonoBehaviour
 {
-    [Header("Referencias")]
-    public Transform player;
+    public Transform jugador;
+    // Parametros del borrador patrullando
+    public float posFijaX;
+    public float movMinY;
+    public float movMaxY;
+    public float velocidad;
+    // Parametros del ataque del borrador
+    public float intervaloDeAtaq;
+    public float radioJugador;
+    public float velocidadBorrar;
+    public float tiempoBorrar;
+    private float margenExtra =1f;
 
-    [Header("Patrulla vertical")]
-    [Tooltip("Posición X fija mientras patrulla (lado derecho)")]
-    public float patrolX = 8f;
-    [Tooltip("Y mínima de la patrulla")]
-    public float patrolMinY = -3f;
-    [Tooltip("Y máxima de la patrulla")]
-    public float patrolMaxY = 5f;
-    [Tooltip("Velocidad de patrulla vertical")]
-    public float patrolSpeed = 2f;
-
-    [Header("Ataque")]
-    [Tooltip("Cada cuánto intenta borrar una plataforma")]
-    public float attackInterval = 6f;
-    [Tooltip("Radio alrededor del jugador para elegir plataforma")]
-    public float searchRadius = 6f;
-    [Tooltip("Velocidad cuando se desplaza a borrar")]
-    public float attackMoveSpeed = 8f;
-    [Tooltip("Tiempo que permanece sobre la plataforma borrándola")]
-    public float eraseHoldTime = 0.5f;
-
-    private float patrolDirection = 1f;
+    private float movDireccion = 1f;
+    
     private float attackTimer;
-    private enum State { Patrolling, MovingToTarget, Erasing, Returning }
-    private State currentState = State.Patrolling;
+    private enum State {buscando, 
+                targetVertical, 
+                barridoHorizontal, 
+                borrando, 
+                volviendo}
+    // inicialmente va a estar buscando
+    private State cntState = State.buscando;
 
-    private HOErasablePlatform targetPlatform;
-    private Vector3 patrolReturnPosition;
+    private HOErasablePlatform plataformaTarget;
+    private Vector3 posicionBuscando;
+    private Vector3 inicioBarrido;
+    private Vector3 finalBarrido;
 
     void Start()
     {
-        if (player == null)
+        if (jugador == null)
         {
             GameObject p = GameObject.FindGameObjectWithTag("HOPlayer");
-            if (p != null) player = p.transform;
+            if (p != null) 
+            {
+                jugador = p.transform;
+            }
         }
 
-        attackTimer = attackInterval;
-        transform.position = new Vector3(patrolX, transform.position.y, transform.position.z);
+        attackTimer = intervaloDeAtaq;
+        transform.position = new Vector3(posFijaX, transform.position.y, transform.position.z);
     }
 
     void Update()
     {
-        switch (currentState)
+        switch (cntState)
         {
-            case State.Patrolling:
-                Patrol();
-                CountdownAttack();
+            case State.buscando:
+                searchPlayer();
+                countdownAttack();
                 break;
-            case State.MovingToTarget:
-                MoveToTarget();
+            case State.targetVertical:
+                alingVertical();
                 break;
-            case State.Erasing:
+            case State.barridoHorizontal:
+                sweepHorizontal();
+                break;
+            case State.borrando:
                 // El borrado lo maneja la corutina
                 break;
-            case State.Returning:
-                ReturnToPatrol();
+            case State.volviendo:
+                returnToSearchPlayer();
                 break;
         }
     }
 
-    void Patrol()
+    void searchPlayer()
     {
         Vector3 pos = transform.position;
-        pos.y += patrolDirection * patrolSpeed * Time.deltaTime;
+        pos.y += movDireccion * velocidad * Time.deltaTime;
 
-        if (pos.y >= patrolMaxY)
+        if (pos.y >= movMaxY)
         {
-            pos.y = patrolMaxY;
-            patrolDirection = -1f;
+            pos.y = movMaxY;
+            movDireccion = -1f;
         }
-        else if (pos.y <= patrolMinY)
+        else if (pos.y <= movMinY)
         {
-            pos.y = patrolMinY;
-            patrolDirection = 1f;
+            pos.y = movMinY;
+            movDireccion = 1f;
         }
 
         transform.position = pos;
     }
 
-    void CountdownAttack()
+    void countdownAttack()
     {
         attackTimer -= Time.deltaTime;
         if (attackTimer <= 0f)
@@ -96,80 +100,97 @@ public class HOEraserEnemy : MonoBehaviour
 
     void TryStartAttack()
     {
-        if (player == null) return;
+        // por si acaso el jugador se nos va de rango
+        if (jugador == null) 
+        {
+            return;
+        }
 
-        var nearby = HOPlatformRegistry.GetPlatformsNearPlayer(player.position, searchRadius);
+        var nearby = HOPlatformRegistry.GetPlatformsNearPlayer(jugador.position, radioJugador);
         if (nearby.Count == 0)
         {
-            // No hay plataformas válidas, espera un poco antes de reintentar
             attackTimer = 1f;
             return;
         }
 
-        targetPlatform = nearby[Random.Range(0, nearby.Count)];
-        patrolReturnPosition = transform.position;
-        currentState = State.MovingToTarget;
+        // ataca  a una plataforma random de las que están cerca del jugador
+        plataformaTarget = nearby[Random.Range(0, nearby.Count)];
+        posicionBuscando = transform.position;
+
+        // calcula de donde a donde va a barrer la plataforma
+        getPuntosBorrado(plataformaTarget, out inicioBarrido, out finalBarrido);
+
+        cntState = State.targetVertical;
     }
 
-    void MoveToTarget()
+    void alingVertical()
     {
-        if (targetPlatform == null || targetPlatform.IsErased)
+        // por si ya no hay plataforma
+        if (plataformaTarget == null || plataformaTarget.IsErased)
         {
-            currentState = State.Returning;
+            cntState = State.volviendo;
             return;
         }
 
-        Vector3 target = targetPlatform.transform.position;
-        transform.position = Vector3.MoveTowards(
-            transform.position,
-            target,
-            attackMoveSpeed * Time.deltaTime
-        );
+        // se ajusta en y
+        float newY = Mathf.MoveTowards(transform.position.y, inicioBarrido.y, velocidadBorrar * Time.deltaTime);
 
-        if (Vector3.Distance(transform.position, target) < 0.1f)
+        transform.position = new Vector3(transform.position.x, newY, transform.position.z);
+
+        // ahora confirmamos si ya está en posición
+        if (Mathf.Abs(transform.position.y - inicioBarrido.y) < 0.05f)
         {
-            currentState = State.Erasing;
-            StartCoroutine(EraseAndReturn());
+            // lo ajustamos exactamente por si acaso
+            transform.position = new Vector3(transform.position.x, inicioBarrido.y, transform.position.z);
+            cntState = State.barridoHorizontal;
+
+            plataformaTarget.Erase();
         }
     }
 
-    IEnumerator EraseAndReturn()
+    void sweepHorizontal()
     {
-        targetPlatform.Erase();
-        yield return new WaitForSeconds(eraseHoldTime);
-        currentState = State.Returning;
-    }
+        float newX = Mathf.MoveTowards(transform.position.x, finalBarrido.x, velocidadBorrar * Time.deltaTime);
 
-    void ReturnToPatrol()
-    {
-        // Vuelve al carril vertical de patrulla
-        Vector3 returnTarget = new Vector3(patrolX, transform.position.y, transform.position.z);
-        transform.position = Vector3.MoveTowards(
-            transform.position,
-            returnTarget,
-            attackMoveSpeed * Time.deltaTime
-        );
-
-        if (Mathf.Abs(transform.position.x - patrolX) < 0.05f)
+        transform.position = new Vector3(newX, transform.position.y, transform.position.z);
+        // checa si ya llegó a la orilla izquierda
+        if (Mathf.Abs(transform.position.x - finalBarrido.x) < 0.05f)
         {
-            transform.position = new Vector3(patrolX, transform.position.y, transform.position.z);
-            attackTimer = attackInterval;
-            targetPlatform = null;
-            currentState = State.Patrolling;
+            cntState = State.borrando;
+            StartCoroutine(returning());
         }
     }
 
-    void OnDrawGizmosSelected()
+    IEnumerator returning()
     {
-        // Visualiza el carril de patrulla
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(new Vector3(patrolX, patrolMinY, 0), new Vector3(patrolX, patrolMaxY, 0));
+        yield return new WaitForSeconds(tiempoBorrar);
+        cntState = State.volviendo;
+    }
 
-        // Visualiza el radio de búsqueda alrededor del jugador
-        if (player != null)
+    void returnToSearchPlayer()
+    {
+        Vector3 returnTarget = new Vector3(posFijaX, transform.position.y, transform.position.z);
+        transform.position = Vector3.MoveTowards(transform.position, returnTarget, velocidadBorrar * Time.deltaTime);
+
+        if (Mathf.Abs(transform.position.x - posFijaX) < 0.05f)
         {
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawWireSphere(player.position, searchRadius);
+            transform.position = new Vector3(posFijaX, transform.position.y, transform.position.z);
+            attackTimer = intervaloDeAtaq;
+            plataformaTarget = null;
+            cntState = State.buscando;
         }
+    }
+
+    
+    private void getPuntosBorrado(HOErasablePlatform platform, out Vector3 entryPoint, out Vector3 exitPoint)
+    {
+        Collider2D col = platform.GetComponent<Collider2D>();
+        Bounds bounds = col.bounds;
+
+        float sweepY = bounds.max.y;
+
+        entryPoint = new Vector3(bounds.max.x, sweepY, transform.position.z);
+
+        exitPoint = new Vector3(bounds.min.x - margenExtra, sweepY, transform.position.z);
     }
 }

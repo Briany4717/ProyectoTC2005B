@@ -169,6 +169,7 @@ GameObject:
   - component: {fileID: 180997632}
   - component: {fileID: 180997634}
   - component: {fileID: 180997635}
+  - component: {fileID: 180997636}
   m_Layer: 9
   m_Name: HOPlatform4
   m_TagString: Ground
@@ -315,6 +316,22 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
+--- !u!114 &180997636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180997631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8434904d81357ce479e778459a39510b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HOErasablePlatform
+  fadeOutDuration: 0.8
+  fadeInDuration: 0.5
+  autoRespawn: 0
+  respawnDelay: 5
 --- !u!1 &304911168
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,7 +494,7 @@ Transform:
   m_GameObject: {fileID: 311532786}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.289, y: 0.59, z: 0}
+  m_LocalPosition: {x: -6.76, y: -4.33, z: 0}
   m_LocalScale: {x: 0.786, y: 0.786, z: 0.786}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -956,7 +973,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HOErasablePlatform
   fadeOutDuration: 0.8
   fadeInDuration: 0.5
-  autoRespawn: 1
+  autoRespawn: 0
   respawnDelay: 5
 --- !u!1 &395786782
 GameObject:
@@ -1123,6 +1140,7 @@ GameObject:
   - component: {fileID: 444409325}
   - component: {fileID: 444409326}
   - component: {fileID: 444409327}
+  - component: {fileID: 444409328}
   m_Layer: 8
   m_Name: HOGely
   m_TagString: HOPlayer
@@ -1198,7 +1216,7 @@ Transform:
   m_GameObject: {fileID: 444409320}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.34, y: 2.45, z: 0}
+  m_LocalPosition: {x: 0.06, y: 1.1, z: 0}
   m_LocalScale: {x: 0.76930684, y: 0.76930684, z: 0.76930684}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1332,6 +1350,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HOPlayerLives
   cantidadDeVida: 6
+--- !u!95 &444409328
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 444409320}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7665fad07890e4c408451df5d953dd39, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &491677382
 GameObject:
   m_ObjectHideFlags: 0
@@ -1505,7 +1545,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HOErasablePlatform
   fadeOutDuration: 0.8
   fadeInDuration: 0.5
-  autoRespawn: 1
+  autoRespawn: 0
   respawnDelay: 5
 --- !u!1 &555287425
 GameObject:
@@ -1922,6 +1962,7 @@ GameObject:
   - component: {fileID: 830177961}
   - component: {fileID: 830177960}
   - component: {fileID: 830177962}
+  - component: {fileID: 830177963}
   m_Layer: 9
   m_Name: HOPlatform6
   m_TagString: Ground
@@ -2068,6 +2109,22 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
+--- !u!114 &830177963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830177958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8434904d81357ce479e778459a39510b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HOErasablePlatform
+  fadeOutDuration: 0.8
+  fadeInDuration: 0.5
+  autoRespawn: 0
+  respawnDelay: 5
 --- !u!1 &924056981
 GameObject:
   m_ObjectHideFlags: 0
@@ -2424,6 +2481,7 @@ GameObject:
   - component: {fileID: 1214831234}
   - component: {fileID: 1214831233}
   - component: {fileID: 1214831235}
+  - component: {fileID: 1214831236}
   m_Layer: 9
   m_Name: HOPlatform5
   m_TagString: Ground
@@ -2570,6 +2628,22 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
+--- !u!114 &1214831236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1214831231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8434904d81357ce479e778459a39510b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HOErasablePlatform
+  fadeOutDuration: 0.8
+  fadeInDuration: 0.5
+  autoRespawn: 0
+  respawnDelay: 5
 --- !u!1 &1295894042
 GameObject:
   m_ObjectHideFlags: 0
@@ -3860,15 +3934,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76d669ae0921d4e44a8067f9de57ed37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HOEraserEnemy
-  player: {fileID: 444409322}
-  patrolX: 8
-  patrolMinY: -5
-  patrolMaxY: 5
-  patrolSpeed: 2
-  attackInterval: 6
-  searchRadius: 6
-  attackMoveSpeed: 8
-  eraseHoldTime: 0.5
+  jugador: {fileID: 444409322}
+  posFijaX: 8
+  movMinY: -4
+  movMaxY: 3
+  velocidad: 2
+  intervaloDeAtaq: 3
+  radioJugador: 6
+  velocidadBorrar: 8
+  tiempoBorrar: 0.5
 --- !u!1 &1775266987
 GameObject:
   m_ObjectHideFlags: 0
@@ -4612,8 +4686,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HOErasablePlatform
   fadeOutDuration: 0.8
   fadeInDuration: 0.5
-  autoRespawn: 1
-  respawnDelay: 5
+  autoRespawn: 0
+  respawnDelay: 0
 --- !u!1 &1997261060
 GameObject:
   m_ObjectHideFlags: 0
