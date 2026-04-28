@@ -3,9 +3,12 @@ using UnityEngine;
 
 public class HOErasablePlatform : MonoBehaviour
 {
-    private float fadeOutDuration = 0.8f;
-    // private float fadeInDuration = 0.5f;
+    public bool eraseOffScreen = true;
+    public float offscreenMargin = 2f;
+    public bool destroyAfterErase = false;
 
+
+    private float fadeOutDuration = 0.8f;
     public bool autoRespawn = true;
     public float respawnDelay = 5f;
 
@@ -58,13 +61,34 @@ public class HOErasablePlatform : MonoBehaviour
 
         platformCollider.enabled = false;
         spriteRenderer.color = new Color(startColor.r, startColor.g, startColor.b, 0f);
+        if (destroyAfterErase)
+        {
+            Destroy(gameObject);
+        }
 
-        //if (autoRespawn)
-        //{
-           // yield return new WaitForSeconds(respawnDelay);
-            //yield return RespawnRoutine(startColor);
-        //}
     }
+    void Update()
+    {
+        if (isErased) return;
+        if (!eraseOffScreen) return;
+        if (HOScrollingCamera.Instance == null) return;
+
+        float threshold = HOScrollingCamera.Instance.BottomEdgeY - offscreenMargin;
+        if (transform.position.y < threshold)
+        {
+            // Marca para que se destruya tras el fade y dispara el borrado
+            destroyAfterErase = true;
+            Erase();
+        }
+    }
+
+
+
+
+
+
+
+
     /*
     private IEnumerator RespawnRoutine(Color targetColor)
     {
