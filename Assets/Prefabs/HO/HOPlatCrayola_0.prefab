@@ -168,7 +168,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 342391929914439426}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8434904d81357ce479e778459a39510b, type: 3}
+  m_Script: {fileID: 11500000, guid: 282fe3556bb404a98b5ed88b41980584, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HOErasablePlatform
   eraseOffScreen: 1

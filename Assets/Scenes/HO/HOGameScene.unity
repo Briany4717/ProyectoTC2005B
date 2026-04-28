@@ -423,7 +423,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 311532786}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c79ffda886902ce4db85abd7899c093e, type: 3}
+  m_Script: {fileID: 11500000, guid: 0759b2d5a498f4ea6b2ba8fc443ecee1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HOEnemyFire
   controladorlDisparo: {fileID: 710803748}
@@ -435,7 +435,7 @@ MonoBehaviour:
   tiempoEntreDisparos: 2
   tiempoUltimoDisparo: 0
   balaEnemigo: {fileID: 3151267671361340731, guid: 4a7253d55215e97459be23f159751af6, type: 3}
-  tiempoEsperaDisparo: 0
+  tiempoEsperaDisparo: 1
 --- !u!114 &311532791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -445,11 +445,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 311532786}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77e883b4c943eac4fa3d952352fcd698, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c7709343ea584efb899942b0194482a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HOEnemyVerticalFollow
-  player: {fileID: 444409322}
-  posFijaX: -7
+  player: {fileID: 0}
+  posFijaX: -8
   platformLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -1224,7 +1224,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 444409320}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6131fc29e0c94fb40b20d3ba24111b73, type: 3}
+  m_Script: {fileID: 11500000, guid: 75fb4d0d3b79441d28f5e552f6d86a30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HOPlayerLives
   cantidadDeVida: 6
@@ -2132,7 +2132,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 991303509}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fed251b676ff9c4a9247d4a03202af2, type: 3}
+  m_Script: {fileID: 11500000, guid: 14e199ecf3bbd4fd8bded26dde896330, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HOPlayerCol
   coll: {fileID: 991303512}
@@ -3494,7 +3494,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1612348701}
-  - component: {fileID: 1612348700}
+  - component: {fileID: 1612348702}
   m_Layer: 0
   m_Name: HOPlatformRegistry
   m_TagString: Untagged
@@ -3502,18 +3502,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1612348700
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1612348699}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7904918e9b0bd0c4ea9c9d1824a25209, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HOPlatformRegistry
 --- !u!4 &1612348701
 Transform:
   m_ObjectHideFlags: 0
@@ -3529,6 +3517,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1612348702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612348699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbaa71a25185048ae990c55a75033051, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HOPlatformRegistry
 --- !u!1001 &1614063216
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3845,7 +3845,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1734186317}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76d669ae0921d4e44a8067f9de57ed37, type: 3}
+  m_Script: {fileID: 11500000, guid: af1f1e4295cd34db5be65683b8f7389c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HOEraserEnemy
   jugador: {fileID: 444409322}
