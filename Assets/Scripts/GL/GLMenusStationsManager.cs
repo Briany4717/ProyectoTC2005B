@@ -9,6 +9,12 @@ public class GLMenusStationsManager : MonoBehaviour
     [SerializeField] private GameObject RapidezMenu;
 
 
+    // obtenemos los scripts que queremos desactivar
+    [SerializeField] GLPlayerController playerController;
+    [SerializeField] Interactor interactor;
+
+
+
     public static GLMenusStationsManager Instance { get; private set; }
 
     private void Awake()
@@ -32,8 +38,8 @@ public class GLMenusStationsManager : MonoBehaviour
 
     public void OpenMenu(AvailableStations stationMenu)
     {
-        CloseAllMenus();
-
+        playerController.enabled = false;
+        interactor.enabled = false;
         switch (stationMenu)
         {
             case AvailableStations.Question:
@@ -53,6 +59,8 @@ public class GLMenusStationsManager : MonoBehaviour
         QuestionMenu.SetActive(false);
         ControlMenu.SetActive(false);
         RapidezMenu.SetActive(false);
+        playerController.enabled = true;
+        interactor.enabled = true;
     }
 
 

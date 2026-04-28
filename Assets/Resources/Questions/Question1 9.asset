@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f824a03c1d685490a9d7dfdabd09f38c, type: 3}
+  m_Name: Question1 9
+  m_EditorClassIdentifier: Assembly-CSharp::QuestionData
+  question: "\xBFQu\xE9 ayuda a reducir la ambig\xFCedad en una instrucci\xF3n compleja?"
+  answers:
+  - "Dar instrucciones negativas (decir qu\xE9 NO hacer) adem\xE1s de las positivas"
+  - Usar sarcasmo
+  - Escribir un prompt de una sola palabra
+  - "No usar signos de puntuaci\xF3n"
