@@ -11,6 +11,8 @@ public class HOPlayerControl : MonoBehaviour
     private int jumpCount = 0;
     private const int maxJumps = 2;
 
+    private bool mirandoDerecha= true;
+
 
      void Awake()
     {
@@ -24,16 +26,18 @@ public class HOPlayerControl : MonoBehaviour
         if (Keyboard.current.leftArrowKey.isPressed)
         {
             xInput = -1f;
-        } else if (Keyboard.current.rightArrowKey.isPressed)
+            if(mirandoDerecha){girar();}
+        } 
+        else if (Keyboard.current.rightArrowKey.isPressed)
         {
             xInput = 1f;
+            if(!mirandoDerecha){girar();}
         }
         if (Keyboard.current.upArrowKey.wasPressedThisFrame && jumpCount <maxJumps)
         {
             jumpRequested = true;
             jumpCount++;
         }
-
     }
 
     public void FixedUpdate()
@@ -50,5 +54,11 @@ public class HOPlayerControl : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col)
     {
         jumpCount = 0;
+    }
+
+    void girar()
+    {
+        mirandoDerecha = !mirandoDerecha;
+        transform.eulerAngles = new Vector3(0,transform.eulerAngles.y +180,0);
     }
 }
