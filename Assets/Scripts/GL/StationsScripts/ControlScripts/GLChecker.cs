@@ -59,16 +59,21 @@ public class GLChecker : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("GLDelimiter"))
         {
-            startMovement = false;
-            movementIndex = 0;
-            positions = null;
-
-
-            Debug.Log("Tocaste Delimiter");
-            transform.position = startingPosition;
-            drawControl.ClearLine();
-            drawControl.StartLine(startingPosition);
+            RestartControlGame();
         }
+    }
+
+    public void RestartControlGame()
+    {
+        startMovement = false;
+        movementIndex = 0;
+        positions = null;
+
+
+        Debug.Log("Tocaste Delimiter");
+        transform.position = startingPosition;
+        drawControl.ClearLine();
+        drawControl.StartLine(startingPosition);
     }
 
 }

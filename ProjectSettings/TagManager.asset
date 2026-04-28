@@ -9,6 +9,7 @@ TagManager:
   - GLChecker
   - GLPlayer
   - GLDelimiter
+  - GLEnd
   layers:
   - Default
   - TransparentFX
