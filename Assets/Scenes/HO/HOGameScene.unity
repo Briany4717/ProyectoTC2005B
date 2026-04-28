@@ -1034,7 +1034,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1095,7 +1095,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HOPlayerControl
   moveSpeed: 5
-  jumpForce: 6
+  jumpForce: 9
   rig: {fileID: 444409323}
 --- !u!58 &444409326
 CircleCollider2D:
@@ -1211,7 +1211,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HOScrollingBackground
   backgroundA: {fileID: 610183172}
   backgroundB: {fileID: 215627374}
-  margin: 1
 --- !u!4 &521319820
 Transform:
   m_ObjectHideFlags: 0
@@ -3752,8 +3751,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HOEraserEnemy
   jugador: {fileID: 444409322}
   posFijaX: 8
-  movMinY: -4
-  movMaxY: 3
+  movRango: 7
   velocidad: 2
   intervaloDeAtaq: 3
   radioJugador: 6
@@ -4212,10 +4210,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3297dc999b53ced4990cc4a73d23182b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HOScrollingCamera
-  baseSpeed: 0.2
-  accelerationRate: 0.01
+  inicialSpeed: 0.2
+  aceleracion: 0.01
   maxSpeed: 1
-  isScrolling: 1
 --- !u!1 &1948666404
 GameObject:
   m_ObjectHideFlags: 0

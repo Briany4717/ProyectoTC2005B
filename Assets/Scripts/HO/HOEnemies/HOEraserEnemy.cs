@@ -6,49 +6,45 @@ public class HOEraserEnemy : MonoBehaviour
     public Transform jugador;
     // Parametros del borrador patrullando
     public float posFijaX;
-    public float movMinY;
-    public float movMaxY;
+    public float movRango;
     public float velocidad;
-    // Parametros del ataque del borrador
+
+    
     public float intervaloDeAtaq;
     public float radioJugador;
     public float velocidadBorrar;
     public float tiempoBorrar;
-    private float margenExtra =1f;
 
-    private float movDireccion = 0.6f;
-    
+    private float movDireccion = 1f;
+    private float movCentroY;
     private float attackTimer;
     private enum State {buscando, 
                 targetVertical, 
                 barridoHorizontal, 
                 borrando, 
                 volviendo}
+
     // inicialmente va a estar buscando
     private State cntState = State.buscando;
 
     private HOErasablePlatform plataformaTarget;
-    private Vector3 posicionBuscando;
     private Vector3 inicioBarrido;
     private Vector3 finalBarrido;
 
     void Start()
     {
-        if (jugador == null)
-        {
-            GameObject p = GameObject.FindGameObjectWithTag("HOPlayer");
-            if (p != null) 
-            {
-                jugador = p.transform;
-            }
-        }
-
         attackTimer = intervaloDeAtaq;
+        movCentroY = transform.position.y;
         transform.position = new Vector3(posFijaX, transform.position.y, transform.position.z);
     }
 
     void Update()
     {
+        if (HOScrollingCamera.Instance != null)
+        {
+            movCentroY += HOScrollingCamera.Instance.CurrentSpeed * Time.deltaTime;
+        }
+
         switch (cntState)
         {
             case State.buscando:
@@ -62,7 +58,6 @@ public class HOEraserEnemy : MonoBehaviour
                 sweepHorizontal();
                 break;
             case State.borrando:
-                // El borrado lo maneja la corutina
                 break;
             case State.volviendo:
                 returnToSearchPlayer();
@@ -72,19 +67,23 @@ public class HOEraserEnemy : MonoBehaviour
 
     void searchPlayer()
     {
+        float minY = movCentroY - movRango;
+        float maxY = movCentroY + movRango;
+
         Vector3 pos = transform.position;
         pos.y += movDireccion * velocidad * Time.deltaTime;
 
-        if (pos.y >= movMaxY)
+        if (pos.y >= maxY)
         {
-            pos.y = movMaxY;
+            pos.y = maxY;
             movDireccion = -1f;
         }
-        else if (pos.y <= movMinY)
+        else if (pos.y <= minY)
         {
-            pos.y = movMinY;
+            pos.y = minY;
             movDireccion = 1f;
         }
+
 
         transform.position = pos;
     }
@@ -115,8 +114,6 @@ public class HOEraserEnemy : MonoBehaviour
 
         // ataca  a una plataforma random de las que están cerca del jugador
         plataformaTarget = nearby[Random.Range(0, nearby.Count)];
-        posicionBuscando = transform.position;
-
         // calcula de donde a donde va a barrer la plataforma
         getPuntosBorrado(plataformaTarget, out inicioBarrido, out finalBarrido);
 
@@ -191,6 +188,6 @@ public class HOEraserEnemy : MonoBehaviour
 
         entryPoint = new Vector3(bounds.max.x, sweepY, transform.position.z);
 
-        exitPoint = new Vector3(bounds.min.x - margenExtra, sweepY, transform.position.z);
+        exitPoint = new Vector3(bounds.min.x - 1f, sweepY, transform.position.z);
     }
 }
