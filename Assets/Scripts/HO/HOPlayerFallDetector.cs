@@ -22,7 +22,7 @@ public class HOPlayerFallDetector : MonoBehaviour
             return;
         }
 
-        float threshold = HOScrollingCamera.Instance.BottomEdgeY - fallMargin;
+        float threshold = HOScrollingCamera.Instance.bottomEdge - fallMargin;
         if (transform.position.y < threshold)
         {
             HandleFall();

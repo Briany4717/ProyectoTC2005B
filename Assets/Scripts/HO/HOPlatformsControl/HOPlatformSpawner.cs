@@ -17,7 +17,7 @@ public class HOPlatformSpawner : MonoBehaviour
 
     void Update()
     {
-        float spawnLimit = HOScrollingCamera.Instance.TopEdgeY + spawnAhead;
+        float spawnLimit = HOScrollingCamera.Instance.topEdge + spawnAhead;
         while (lastSpawnedY < spawnLimit)
         {
             spawnNextPlatform();
