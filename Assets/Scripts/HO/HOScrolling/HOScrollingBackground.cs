@@ -24,7 +24,7 @@ public class HOScrollingBackground : MonoBehaviour
 
     void Update()
     {
-        float cameraBottom = HOScrollingCamera.Instance.BottomEdgeY;
+        float cameraBottom = HOScrollingCamera.Instance.bottomEdge;
 
         if (backgroundA.transform.position.y + spriteHeight / 2f < cameraBottom - margin)
         {
