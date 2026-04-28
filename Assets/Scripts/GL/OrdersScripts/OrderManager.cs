@@ -75,32 +75,6 @@ public class OrderManager : MonoBehaviour
             {
                 Debug.Log("La estacion se completo correctamente");
 
-                // si completamos una estacion checamos si se termino la orden
-                if (targetOrder.IsOrderCompleted())
-                {
-                    // la estacion se completó llamadmos una funcion para recibir puntos
-                    Debug.Log("Se completó la orden!!!");
-                    GLScoreController.Instance.AddOrderCoins(targetOrder.rewardCoins);
-
-                    // borrar en la list y visualmente
-                    activeOrders.RemoveAt(selectedOrderIndex);
-                    Destroy(targetOrder.gameObject);
-                    // cambiar el pointer para no romper el juego
-                    if (activeOrders.Count > 0)
-                    {
-                        selectedOrderIndex = 0;
-                        SelectOrder(selectedOrderIndex);
-                    }
-                    else
-                    {
-                        selectedOrderIndex = -1;
-                    }
-
-                }
-                else
-                {
-                    Debug.Log("Aun no se completa la orden");
-                }
             }
             else
             {
@@ -116,9 +90,25 @@ public class OrderManager : MonoBehaviour
 
     }
 
-    private void DeliverOrder()
+    public void DeliverOrder(OrderUI targetOrder)
     {
+        // la estacion se completó llamadmos una funcion para recibir puntos
+        Debug.Log("Se completó la orden!!!");
+        GLScoreController.Instance.AddOrderCoins(targetOrder.rewardCoins);
 
+        // borrar en la list y visualmente
+        activeOrders.RemoveAt(selectedOrderIndex);
+        Destroy(targetOrder.gameObject);
+        // cambiar el pointer para no romper el juego
+        if (activeOrders.Count > 0)
+        {
+            selectedOrderIndex = 0;
+            SelectOrder(selectedOrderIndex);
+        }
+        else
+        {
+            selectedOrderIndex = -1;
+        }
     }
 
     public void GenerateRandomOrder()
