@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,6 +19,11 @@ public class OrderManager : MonoBehaviour
         {
             Instance = this;
         }
+    }
+
+    private void Start()
+    {
+        startOrderGenerator();
     }
 
     // para saber que orden escogio el usuario
@@ -150,4 +157,25 @@ public class OrderManager : MonoBehaviour
         }
 
     }
+
+    public void startOrderGenerator()
+    {
+        GenerateRandomOrder();
+        StartCoroutine(TimeOrderGenerator());
+    }
+    IEnumerator TimeOrderGenerator()
+    {
+        if (activeOrders.Count < 5)
+        {
+            int randomTimeToWait = Random.Range(1, 5);
+            Debug.Log("Orden Creada!!!!");
+            yield return new WaitForSeconds(randomTimeToWait);
+            GenerateRandomOrder();
+
+        }
+
+        yield return new WaitForSeconds(2);
+        StartCoroutine(TimeOrderGenerator());
+    }
+
 }

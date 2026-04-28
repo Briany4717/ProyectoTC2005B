@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f824a03c1d685490a9d7dfdabd09f38c, type: 3}
-  m_Name: Question1 2
+  m_Name: Question1 5
   m_EditorClassIdentifier: Assembly-CSharp::QuestionData
-  question: "En el contexto de los LLMs, \xBFqu\xE9 es una 'alucinaci\xF3n'?"
+  question: "\xBFQu\xE9 t\xE9cnica le pide a la IA que desglose su proceso de razonamiento
+    paso a paso?"
   answers:
-  - "Cuando el modelo genera informaci\xF3n falsa pero presentada como un hecho"
-  - Cuando el servidor de la IA se sobrecarga
-  - "Un error en el c\xF3digo de Python del usuario"
-  - Cuando el prompt es demasiado largo
+  - Chain of Thought (Cadena de pensamiento)
+  - "Iteraci\xF3n recursiva"
+  - Prompting directo
+  - "An\xE1lisis de sentimientos"
