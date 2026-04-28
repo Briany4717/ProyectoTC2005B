@@ -9298,9 +9298,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 578547755}
+      - m_Target: {fileID: 11500000, guid: d332d014dc5fc49a6bbbf69fe5e5ef90, type: 3}
         m_TargetAssemblyTypeName: OrderManager, Assembly-CSharp
-        m_MethodName: GenerateRandomOrder
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
