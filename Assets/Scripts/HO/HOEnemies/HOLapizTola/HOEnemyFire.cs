@@ -11,9 +11,20 @@ public class HOEnemyFire : MonoBehaviour
     public GameObject balaEnemigo;
     public float tiempoEsperaDisparo;
 
+    private HOEnemyVerticalFollow armaScript;
+
+    void Start()
+    {
+        armaScript = GetComponent<HOEnemyVerticalFollow>();
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if (armaScript != null && armaScript.IsEntering)
+        {
+            return;
+        } 
         jugadorEnRango = Physics2D.Raycast(controladorlDisparo.position, transform.right, distanciaLinea, capaJugador);
 
         if (jugadorEnRango)
@@ -28,12 +39,27 @@ public class HOEnemyFire : MonoBehaviour
 
     private void Disparar()
     {
-        Instantiate(balaEnemigo, controladorlDisparo.position, controladorlDisparo.rotation);
+        GameObject bala = Instantiate(balaEnemigo, controladorlDisparo.position, controladorlDisparo.rotation);
+        
+        HOEnemyBullet bulletScript = bala.GetComponent<HOEnemyBullet>();
+        if (bulletScript != null && armaScript != null)
+        {
+            bulletScript.danio = armaScript.danioActual;
+            bulletScript.velocidad = armaScript.velocidadBalaActual;
+            Debug.Log($"Bala disparada con daño={bulletScript.danio}, velocidad={bulletScript.velocidad}");
+        }
+        else
+        {
+            Debug.Log($"FALLO: bulletScript={bulletScript}, armaScript={armaScript}");
+        }
+
     }
 
+    /*
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(controladorlDisparo.position, controladorlDisparo.position + transform.right * distanciaLinea);
     }
+    */
 }

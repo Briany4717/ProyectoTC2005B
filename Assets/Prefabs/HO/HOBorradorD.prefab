@@ -107,6 +107,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76d669ae0921d4e44a8067f9de57ed37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HOEraserEnemy
+  incrementoVelocidad: 0.2
+  velocidadMaxima: 6
+  decrementoIntervalo: 0.3
+  intervaloMinimo: 1.5
+  incrementoVelocidadBorrar: 0.5
+  velocidadBorrarMaxima: 15
   jugador: {fileID: 0}
   posFijaX: 8
   movRango: 7
@@ -163,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f075739abb064441b06beee5d1e86e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HOEnemyLives
-  lives: 10
+  lives: 8
 --- !u!50 &1858513103885631282
 Rigidbody2D:
   serializedVersion: 5

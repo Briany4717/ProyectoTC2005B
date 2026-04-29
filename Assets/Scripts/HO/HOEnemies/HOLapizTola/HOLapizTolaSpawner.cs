@@ -53,12 +53,4 @@ public class HOLapizTolaSpawner : MonoBehaviour
         float spawnY = transform.position.y;
         return new Vector3(spawnX, spawnY, 0f);
     }
-
-    void OnDrawGizmosSelected()
-    {
-        // Visualiza la posición de spawn
-        Gizmos.color = Color.red;
-        Vector3 pos = getSpawnPos();
-        Gizmos.DrawWireSphere(pos, 0.5f);
-    }
 }
