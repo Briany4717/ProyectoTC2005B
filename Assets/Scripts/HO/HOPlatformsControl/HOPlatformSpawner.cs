@@ -4,7 +4,7 @@ public class HOPlatformSpawner : MonoBehaviour
 {
     public GameObject platformPrefab;
 
-    private float yInicial = 5;
+    private float yInicial = 0.5f;
     private float posFijaX = 0f;
     private float espacioEntrePlat = 1.5f;
     private float spawnAhead = 1.5f;
