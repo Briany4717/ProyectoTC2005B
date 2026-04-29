@@ -33,6 +33,12 @@ public class HOEraserEnemy : MonoBehaviour
 
     void Start()
     {
+        if (jugador == null)
+        {
+            GameObject p = GameObject.FindGameObjectWithTag("HOPlayer");
+            if (p != null) jugador = p.transform;
+        }
+
         attackTimer = intervaloDeAtaq;
         movCentroY = transform.position.y;
         transform.position = new Vector3(posFijaX, transform.position.y, transform.position.z);
