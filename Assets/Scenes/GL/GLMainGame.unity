@@ -2102,7 +2102,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 28.3181, y: 30.8591}
+  m_SizeDelta: {x: 57.8182, y: 30.8591}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &324902264
 MonoBehaviour:
@@ -3609,7 +3609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GLTimer
   timerText: {fileID: 1717560128}
-  remainingTime: 120
+  remainingTime: 30
 --- !u!114 &640775582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4569,7 +4569,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 15
+  m_Spacing: 0
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
