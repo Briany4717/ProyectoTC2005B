@@ -5,6 +5,8 @@ using System.Collections;
 
 public class DrawWithMouse : MonoBehaviour
 {
+    public GameObject tutorialPointer;
+
     public LineRenderer line;
     private Vector3 previousPosition;
 
@@ -20,6 +22,7 @@ public class DrawWithMouse : MonoBehaviour
         line.startWidth = line.endWidth = width;
 
         StartCoroutine(DelayedNudge());
+        tutorialPointer.SetActive(true);
 
 
     }
@@ -37,6 +40,7 @@ public class DrawWithMouse : MonoBehaviour
     {
         if (Mouse.current != null && Mouse.current.leftButton.isPressed)
         {
+            tutorialPointer.SetActive(false);
             // get the position of the mouse in world coordinates
             Vector2 mousePosition = Mouse.current.position.ReadValue();
 

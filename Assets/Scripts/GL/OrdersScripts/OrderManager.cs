@@ -36,6 +36,8 @@ public class OrderManager : MonoBehaviour
     [Header("Pool de Datos")]
     public GameObject orderPrefab;
     public Transform ordersPanel;
+    public ParticleSystem particle1;
+    public ParticleSystem particle2;
 
     // esta lista guarda todas las ordenes activas en el momento.
     private List<OrderUI> activeOrders = new List<OrderUI>();
@@ -81,6 +83,9 @@ public class OrderManager : MonoBehaviour
             if (targetOrder.TryCompleteStation(stationCompleted))
             {
                 Debug.Log("La estacion se completo correctamente");
+                // reproducir particulas
+                particle1.Play();
+                particle2.Play();
 
             }
             else
