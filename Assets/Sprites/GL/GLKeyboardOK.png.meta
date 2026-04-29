@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 251e36a6866d1a94d90090a52e4ace96
+guid: abac40d00baee4af4bc92464db3090d2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2518748052125891947
-    second: EstacionControl_0
+      213: -2251971623052575844
+    second: GLKeyboardOK_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -24,7 +24,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 1
+  isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: EstacionControl_0
+      name: GLKeyboardOK_0
       rect:
         serializedVersion: 2
-        x: 20
-        y: 21
-        width: 919
-        height: 830
+        x: 161
+        y: 68
+        width: 2682
+        height: 1314
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5924452ddfb9b0dd0800000000000000
-      internalID: -2518748052125891947
+      spriteID: c9bf0b38db36fb0e0800000000000000
+      internalID: -2251971623052575844
       vertices: []
       indices: 
       edges: []
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      EstacionControl_0: -2518748052125891947
+      GLKeyboardOK_0: -2251971623052575844
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

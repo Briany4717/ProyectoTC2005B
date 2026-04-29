@@ -14,7 +14,7 @@ public class Interactor : MonoBehaviour
     private IInteractable currentInteractable;
     void Update()
     {
-        if (Keyboard.current.eKey.wasPressedThisFrame && currentInteractable != null)
+        if (Keyboard.current.spaceKey.wasPressedThisFrame && currentInteractable != null)
         {
             currentInteractable.Interact();
         }
