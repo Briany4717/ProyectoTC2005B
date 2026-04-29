@@ -6,10 +6,7 @@ TagManager:
   tags:
   - Ground
   - HOPlayer
-  - GLChecker
-  - GLPlayer
-  - GLDelimiter
-  - GLEnd
+  - HOEnemy
   layers:
   - Default
   - TransparentFX
