@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GLQuestionSetup : MonoBehaviour
 {
@@ -14,6 +13,12 @@ public class GLQuestionSetup : MonoBehaviour
     [SerializeField] private TextMeshProUGUI questionText;
     [SerializeField] private GLAnswerButton[] answerButtons;
     [SerializeField] private int correctAnswerChoice;
+    [SerializeField] private Image errorImage;
+
+
+
+
+
 
 
 
@@ -23,6 +28,8 @@ public class GLQuestionSetup : MonoBehaviour
     private void Awake()
     {
         GetQuestionAssets();
+        errorImage.gameObject.SetActive(false);
+
     }
 
     void Start()
@@ -47,6 +54,28 @@ public class GLQuestionSetup : MonoBehaviour
 
         // Avisamos al OrderManager que completamos la estación
         OrderManager.Instance.OnPlayerCompletedStation(currentStation);
+    }
+
+    public void WrongAnswer()
+    {
+        // Aquí podríamos añadir alguna penalización o mensaje de error
+        Debug.Log("Respuesta incorrecta. Inténtalo de nuevo.");
+
+        ShowError();
+
+    }
+
+
+    // funcion para aparecer una cruz cuando se equivocan
+    public void ShowError()
+    {
+        errorImage.gameObject.SetActive(true);
+        CancelInvoke("HideError"); // Cancelamos cualquier invocación pendiente de HideError
+        Invoke("HideError", 1f); // Oculta la cruz después de 1 segundo
+    }
+    public void HideError()
+    {
+        errorImage.gameObject.SetActive(false);
     }
 
     public void LoadNewQuestion()

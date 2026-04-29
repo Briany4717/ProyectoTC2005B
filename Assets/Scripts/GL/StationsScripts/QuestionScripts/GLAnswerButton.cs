@@ -21,12 +21,12 @@ public class GLAnswerButton : MonoBehaviour
     {
         if (isCorrect)
         {
-            Debug.Log("Correct Answer!!");
             questionSetup.CorrectAnswer();
         }
         else
         {
-            Debug.Log("Wrong Answer!!");
+
+            questionSetup.WrongAnswer();
         }
     }
 
