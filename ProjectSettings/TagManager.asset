@@ -6,7 +6,7 @@ TagManager:
   tags:
   - Ground
   - HOPlayer
-  - GLPlayer
+  - HOEnemy
   layers:
   - Default
   - TransparentFX
@@ -16,8 +16,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - HOPlayerL
+  - HOPlatformL
   - 
   - 
   - 

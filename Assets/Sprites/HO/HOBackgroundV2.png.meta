@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5311cc611316a91459dfb235597982c7
+guid: 99ffdef18f3cbf440a4fa868bdc07c31
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4016499694892348375
-    second: MonedasD_0
+      213: 9215037322759416544
+    second: HOBackgroundV2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -139,23 +139,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MonedasD_0
+      name: HOBackgroundV2_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 5
-        width: 641
-        height: 379
+        y: 76
+        width: 1392
+        height: 593
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 92c0a7dcec68248c0800000000000000
-      internalID: -4016499694892348375
+      spriteID: 0eaaa072f9362ef70800000000000000
+      internalID: 9215037322759416544
       vertices: []
       indices: 
       edges: []
@@ -164,7 +164,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: f07349f5b389cdc4c9ae0b43cd941492
     internalID: 0
     vertices: []
     indices: 
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      MonedasD_0: -4016499694892348375
+      HOBackgroundV2_0: 9215037322759416544
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
