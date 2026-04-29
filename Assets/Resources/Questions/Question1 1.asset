@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f824a03c1d685490a9d7dfdabd09f38c, type: 3}
   m_Name: Question1 1
   m_EditorClassIdentifier: Assembly-CSharp::QuestionData
-  question: buena rola
+  question: "\xBFPara qu\xE9 sirve asignar un 'rol' a la IA (ej. 'Act\xFAa como un
+    experto en ciberseguridad')?"
   answers:
-  - everlong
-  - pipipiriri
+  - ara establecer el tono, el nivel de detalle y el contexto de la respuesta
+  - Para desbloquear funciones ocultas del modelo
   - zapatero con sus zapatos
-  - hola como estan todos
+  - No tiene ninguna utilidad real

@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f824a03c1d685490a9d7dfdabd09f38c, type: 3}
-  m_Name: Question1 2
+  m_Name: Question1 13
   m_EditorClassIdentifier: Assembly-CSharp::QuestionData
-  question: "En el contexto de los LLMs, \xBFqu\xE9 es una 'alucinaci\xF3n'?"
+  question: "\xBFCu\xE1l es la funci\xF3n de los delimitadores (como triple comillas
+    \\\"\\\"\\\" o ###) en un prompt?"
   answers:
-  - "Cuando el modelo genera informaci\xF3n falsa pero presentada como un hecho"
-  - Cuando el servidor de la IA se sobrecarga
-  - "Un error en el c\xF3digo de Python del usuario"
-  - Cuando el prompt es demasiado largo
+  - Ayudar a la IA a distinguir claramente entre diferentes secciones de instrucciones
+    o datos
+  - Aumentar la creatividad del modelo
+  - "Indicar el final de la conversaci\xF3n"
+  - "Hacer que el texto se vea m\xE1s ordenado para el usuario"

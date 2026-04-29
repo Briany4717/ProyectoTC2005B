@@ -90,7 +90,7 @@ public class RapidezControler : MonoBehaviour
     private void CheckInput(char character)
     {
         // Ignoramos cualquier caracter de control invisible (Tab, Esc, y por si acaso, Enter/Backspace)
-        if (char.IsControl(character)) return;
+        // if (char.IsControl(character)) return;
 
         // Agregamos la letra
         string charPressed = character.ToString();
