@@ -4,11 +4,11 @@ public class HOEnemyVerticalFollow : MonoBehaviour, IHOScalableEnemy
 {
     public int danioBase = 1;
     public int incrementoDanio = 1;
-    public int danioMaximo = 3;
+    public int danioMaximo = 4;
 
     public float velocidadBalaBase = 5f;
-    public float incrementoVelocidadBala = 2f;
-    public float velocidadBalaMaxima = 15f;
+    public float incrementoVelocidadBala = 20f;
+    public float velocidadBalaMaxima = 100f;
 
     // HideInInspector porque solo los voy a acceder desde otro script
     [HideInInspector] public int danioActual;
