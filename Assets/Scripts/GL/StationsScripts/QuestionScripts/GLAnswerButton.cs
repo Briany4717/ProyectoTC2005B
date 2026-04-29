@@ -27,6 +27,7 @@ public class GLAnswerButton : MonoBehaviour
         {
 
             questionSetup.WrongAnswer();
+            GLGameControl.Instance.RemoveTime(5f); // Llamamos a la función para quitar tiempo del timer
         }
     }
 

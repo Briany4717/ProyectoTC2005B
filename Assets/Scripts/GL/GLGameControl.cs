@@ -7,6 +7,7 @@ public class GLGameControl : MonoBehaviour
 {
     static public GLGameControl Instance;
 
+    GLTimer timer;
 
 
     public void TriggerMenu(GameObject stationObject)
@@ -25,6 +26,7 @@ public class GLGameControl : MonoBehaviour
     {
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        timer = FindAnyObjectByType<GLTimer>();
     }
 
     public void GameOver()
@@ -33,4 +35,14 @@ public class GLGameControl : MonoBehaviour
         SceneManager.LoadScene("GLFinalScene");
 
     }
+
+    // function to remove seconds from the timer, can be called from other scripts when certain events happen
+    public void RemoveTime(float seconds)
+    {
+        if (timer != null)
+        {
+            timer.remainingTime -= seconds;
+        }
+    }
+
 }
