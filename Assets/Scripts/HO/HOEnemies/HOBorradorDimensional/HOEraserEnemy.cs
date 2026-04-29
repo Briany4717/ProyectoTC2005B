@@ -3,18 +3,11 @@ using UnityEngine;
 
 public class HOEraserEnemy : MonoBehaviour, IHOScalableEnemy
 {
-    [Header("Escalado de dificultad")]
-    [Tooltip("Cuánto aumenta la velocidad de patrulla por nivel")]
-    public float incrementoVelocidad = 0.2f;
-    [Tooltip("Velocidad máxima de patrulla (no escalará más allá)")]
-    public float velocidadMaxima = 6f;
-    [Tooltip("Cuánto disminuye el intervalo entre ataques por nivel (en segundos)")]
-    public float decrementoIntervalo = 0.3f;
-    [Tooltip("Intervalo mínimo entre ataques (no bajará más)")]
-    public float intervaloMinimo = 1.5f;
-    [Tooltip("Cuánto aumenta la velocidad del barrido por nivel")]
-    public float incrementoVelocidadBorrar = 0.5f;
-    [Tooltip("Velocidad máxima del barrido")]
+    public float incrementoVelocidad = 1f;
+    public float velocidadMaxima = 8f;
+    public float decrementoIntervalo = 1f;
+    public float intervaloMinimo = 1f;
+    public float incrementoVelocidadBorrar = 5f;
     public float velocidadBorrarMaxima = 15f;
 
 

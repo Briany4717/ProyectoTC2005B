@@ -116,10 +116,10 @@ MonoBehaviour:
   jugador: {fileID: 0}
   posFijaX: 8
   movRango: 7
-  velocidad: 2
+  velocidad: 5
   intervaloDeAtaq: 3
   radioJugador: 6
-  velocidadBorrar: 8
+  velocidadBorrar: 10
   tiempoBorrar: 0.5
 --- !u!58 &3321729048847735168
 CircleCollider2D:

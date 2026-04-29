@@ -18,7 +18,15 @@ public class HOPlayerControl : MonoBehaviour
     {
         rig = GetComponent<Rigidbody2D>();
     }
+void Start()
+{
+    Invoke("TestAddCoins", 3f);
+}
 
+void TestAddCoins()
+{
+    HOCoins.Instance.AddCoins(10);
+}
     // Update is called once per frame
     void Update()
     {

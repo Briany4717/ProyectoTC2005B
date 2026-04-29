@@ -81,38 +81,4 @@ public class HOErasablePlatform : MonoBehaviour
             Erase();
         }
     }
-
-
-
-
-
-
-
-
-    /*
-    private IEnumerator RespawnRoutine(Color targetColor)
-    {
-        platformCollider.enabled = true;
-
-        float elapsed = 0f;
-        while (elapsed < fadeInDuration)
-        {
-            elapsed += Time.deltaTime;
-            float alpha = Mathf.Lerp(0f, targetColor.a, elapsed / fadeInDuration);
-            spriteRenderer.color = new Color(targetColor.r, targetColor.g, targetColor.b, alpha);
-            yield return null;
-        }
-
-        spriteRenderer.color = targetColor;
-        isErased = false;
-    }
-    */
-    /*
-    public void ForceRespawn()
-    {
-        if (!isErased) return;
-        StopAllCoroutines();
-        StartCoroutine(RespawnRoutine(Color.white));
-    }
-    */
 }
