@@ -69,6 +69,7 @@ public class OrderManager : MonoBehaviour
             currentSelectedOrder.SetSelected(true);
             selectedOrderIndex = activeOrders.IndexOf(currentSelectedOrder);
         }
+        GLSFXManager.Instance.PlaySFX(GLSFXManager.Instance.PaperSound);
     }
     private void SelectOrder(int index)
     {
@@ -121,6 +122,7 @@ public class OrderManager : MonoBehaviour
         // borrar en la list y visualmente
         activeOrders.RemoveAt(selectedOrderIndex);
         Destroy(targetOrder.gameObject);
+        GLSFXManager.Instance.PlaySFX(GLSFXManager.Instance.JeopardyCorrect);
         // cambiar el pointer para no romper el juego
         if (activeOrders.Count > 0)
         {

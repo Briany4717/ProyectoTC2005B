@@ -61,6 +61,7 @@ public class GLMenusStationsManager : MonoBehaviour
         RapidezMenu.SetActive(false);
         playerController.enabled = true;
         interactor.enabled = true;
+        GLSFXManager.Instance.PlaySFX(GLSFXManager.Instance.completeStation);
     }
 
 

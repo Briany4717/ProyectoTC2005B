@@ -18,6 +18,7 @@ public class GLChecker : MonoBehaviour
     {
         drawControl.StartLine(this.transform.position);
         startingPosition = transform.position;
+        GLSFXManager.Instance.PlaySFX(GLSFXManager.Instance.SlideControlPuzzle);
     }
 
     private void OnMouseDrag()
@@ -61,6 +62,7 @@ public class GLChecker : MonoBehaviour
         if (collision.gameObject.CompareTag("GLDelimiter"))
         {
             RestartControlGame();
+            GLSFXManager.Instance.PlaySFX(GLSFXManager.Instance.WallCrash);
         }
     }
 
