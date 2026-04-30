@@ -15,7 +15,7 @@ MonoBehaviour:
   question: "\xBFPara qu\xE9 sirve asignar un 'rol' a la IA (ej. 'Act\xFAa como un
     experto en ciberseguridad')?"
   answers:
-  - ara establecer el tono, el nivel de detalle y el contexto de la respuesta
+  - Para establecer el tono, el nivel de detalle y el contexto de la respuesta
   - Para desbloquear funciones ocultas del modelo
   - zapatero con sus zapatos
   - No tiene ninguna utilidad real

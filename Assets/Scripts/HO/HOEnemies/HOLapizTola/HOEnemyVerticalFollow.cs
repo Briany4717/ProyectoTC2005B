@@ -1,7 +1,26 @@
 using UnityEngine;
 
-public class HOEnemyVerticalFollow : MonoBehaviour
+public class HOEnemyVerticalFollow : MonoBehaviour, IHOScalableEnemy, IHOEnemyReward
 {
+    public int coinsBase = 3;
+    public int incrementoCoins = 1;
+    public int coinsMaximo = 15;
+
+    public float timeBase = 2f;
+    public float incrementoTime = 0.4f;
+    public float timeMaximo = 8f;
+    public int danioBase = 1;
+    public int incrementoDanio = 1;
+    public int danioMaximo = 4;
+
+    public float velocidadBalaBase = 5f;
+    public float incrementoVelocidadBala = 20f;
+    public float velocidadBalaMaxima = 100f;
+
+    // HideInInspector porque solo los voy a acceder desde otro script
+    [HideInInspector] public int danioActual;
+    [HideInInspector] public float velocidadBalaActual;
+
     public Transform player;
     public float posFijaX = -8f;
     // Layermask para detectar plataformas
@@ -12,6 +31,21 @@ public class HOEnemyVerticalFollow : MonoBehaviour
 
     private float targetY;
     private float lastRepositionTime;
+    private bool isEntering = true;
+
+    public bool IsEntering {get {return isEntering;}}
+
+    private int coinsActuales;
+    private float timeActual;
+
+
+    void Awake()
+    {
+        danioActual = danioBase;
+        velocidadBalaActual = velocidadBalaBase;
+        coinsActuales = coinsBase;
+        timeActual = timeBase;
+    }
 
     void Start()
     {
@@ -29,6 +63,11 @@ public class HOEnemyVerticalFollow : MonoBehaviour
 
     void Update()
     {
+        if (isEntering)
+        {
+            Entering();
+            return;
+        }
         if (player == null) 
         {
             return;
@@ -64,6 +103,35 @@ public class HOEnemyVerticalFollow : MonoBehaviour
         newY = Mathf.MoveTowards(cntPos.y, targetY, velocidad * Time.deltaTime);
         
         transform.position = new Vector3(posFijaX, newY, cntPos.z);
+    }
+
+    public void SetDifficulty(int level)
+    {
+        danioActual = Mathf.Min(danioBase + level * incrementoDanio, danioMaximo);
+        velocidadBalaActual = Mathf.Min(velocidadBalaBase + level * incrementoVelocidadBala, velocidadBalaMaxima);
+        coinsActuales = Mathf.Min(coinsBase + level * incrementoCoins, coinsMaximo);
+        timeActual = Mathf.Min(timeBase + level * incrementoTime, timeMaximo);
+    }
+
+    void Entering()
+    {
+        float newX = Mathf.MoveTowards(transform.position.x, posFijaX, velocidad * Time.deltaTime);
+        transform.position = new Vector3(newX, transform.position.y, transform.position.z);
+
+        if (Mathf.Abs(transform.position.x - posFijaX) < 0.05f)
+        {
+            transform.position = new Vector3(posFijaX, transform.position.y, transform.position.z);
+            isEntering = false;
+        }
+    }
+    public int GetCoinsReward()
+    {
+        return coinsActuales;
+    }
+
+    public float GetTimeReward()
+    {
+        return timeActual;
     }
 
     /*

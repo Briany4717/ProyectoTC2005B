@@ -4,10 +4,10 @@ public class HOPlatformSpawner : MonoBehaviour
 {
     public GameObject platformPrefab;
 
-    private float yInicial = 5;
+    private float yInicial = 0.5f;
     private float posFijaX = 0f;
     private float espacioEntrePlat = 1.5f;
-    private float spawnAhead = 1.5f;
+    private float spawnMargin = 3f;
     private float lastSpawnedY;
 
     void Start()
@@ -17,7 +17,7 @@ public class HOPlatformSpawner : MonoBehaviour
 
     void Update()
     {
-        float spawnLimit = HOScrollingCamera.Instance.topEdge + spawnAhead;
+        float spawnLimit = HOScrollingCamera.Instance.topEdge - spawnMargin;
         while (lastSpawnedY < spawnLimit)
         {
             spawnNextPlatform();

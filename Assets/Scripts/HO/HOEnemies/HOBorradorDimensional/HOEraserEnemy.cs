@@ -1,8 +1,25 @@
 using System.Collections;
 using UnityEngine;
 
-public class HOEraserEnemy : MonoBehaviour
+public class HOEraserEnemy : MonoBehaviour, IHOScalableEnemy, IHOEnemyReward
 {
+    public int coinsBase;
+    public int incrementoCoins;
+    public int coinsMaximo;
+
+    public float timeBase = 3f;
+    public float incrementoTime = 0.5f;
+    public float timeMaximo = 10f;
+
+
+    public float incrementoVelocidad = 1f;
+    public float velocidadMaxima = 8f;
+    public float decrementoIntervalo = 1f;
+    public float intervaloMinimo = 1f;
+    public float incrementoVelocidadBorrar = 5f;
+    public float velocidadBorrarMaxima = 15f;
+
+
     public Transform jugador;
     // Parametros del borrador patrullando
     public float posFijaX;
@@ -18,24 +35,40 @@ public class HOEraserEnemy : MonoBehaviour
     private float movDireccion = 1f;
     private float movCentroY;
     private float attackTimer;
-    private enum State {buscando, 
+    private enum State {
+                entrando,
+                buscando, 
                 targetVertical, 
                 barridoHorizontal, 
                 borrando, 
                 volviendo}
 
     // inicialmente va a estar buscando
-    private State cntState = State.buscando;
+    private State cntState = State.entrando;
 
     private HOErasablePlatform plataformaTarget;
     private Vector3 inicioBarrido;
     private Vector3 finalBarrido;
+    private int coinsActuales;
+    private float timeActual;
+
+
+    void Awake()
+    {
+        coinsActuales = coinsBase;
+        timeActual = timeBase;
+    }
 
     void Start()
     {
+        if (jugador == null)
+        {
+            GameObject p = GameObject.FindGameObjectWithTag("HOPlayer");
+            if (p != null) jugador = p.transform;
+        }
+
         attackTimer = intervaloDeAtaq;
         movCentroY = transform.position.y;
-        transform.position = new Vector3(posFijaX, transform.position.y, transform.position.z);
     }
 
     void Update()
@@ -47,6 +80,9 @@ public class HOEraserEnemy : MonoBehaviour
 
         switch (cntState)
         {
+            case State.entrando:
+                entering();
+                break;
             case State.buscando:
                 searchPlayer();
                 countdownAttack();
@@ -189,5 +225,42 @@ public class HOEraserEnemy : MonoBehaviour
         entryPoint = new Vector3(bounds.max.x, sweepY, transform.position.z);
 
         exitPoint = new Vector3(bounds.min.x - 1f, sweepY, transform.position.z);
+    }
+
+    public void SetDifficulty(int level)
+    {
+        velocidad = Mathf.Min(velocidad + level * incrementoVelocidad, velocidadMaxima);
+
+        intervaloDeAtaq = Mathf.Max(intervaloDeAtaq - level * decrementoIntervalo, intervaloMinimo);
+
+        attackTimer = intervaloDeAtaq;
+
+        velocidadBorrar = Mathf.Min(velocidadBorrar + level * incrementoVelocidadBorrar, velocidadBorrarMaxima);
+        
+        coinsActuales = Mathf.Min(coinsBase + level * incrementoCoins, coinsMaximo);
+        timeActual = Mathf.Min(timeBase + level * incrementoTime, timeMaximo);
+    }
+    void entering()
+    {
+        // Mueve al borrador desde donde apareció hacia su posFijaX
+        float newX = Mathf.MoveTowards(transform.position.x, posFijaX, velocidad * Time.deltaTime);
+        transform.position = new Vector3(newX, transform.position.y, transform.position.z);
+
+        // Cuando llega, pasa al estado normal
+        if (Mathf.Abs(transform.position.x - posFijaX) < 0.05f)
+        {
+            transform.position = new Vector3(posFijaX, transform.position.y, transform.position.z);
+            cntState = State.buscando;
+        }
+    }
+
+    public int GetCoinsReward()
+    {
+        return coinsActuales;
+    }
+
+    public float GetTimeReward()
+    {
+        return timeActual;
     }
 }

@@ -38,7 +38,7 @@ public class GLWordBank : MonoBehaviour
         "Actúa como un crítico constructivo y dame retroalimentación específica sobre..."
     };
 
-    //     private List<string> originalPrompts = new List<string>()
+    // private List<string> originalPrompts = new List<string>()
     // {
     //     "Tienes que escribir esto letra por letra",
     //     "Tienes que escribir esto letra por letra",

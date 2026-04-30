@@ -6,16 +6,18 @@ using Unity.VisualScripting;
 public class GLTimer : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI timerText;
-    [SerializeField] private float remainingTime;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
+    [SerializeField] public float remainingTime;
+    private bool gameOverTriggered = false;
 
-    }
 
-    // Update is called once per frame
     void Update()
     {
+
+        if (gameOverTriggered)
+        {
+            return;
+        }
+
         if (remainingTime > 0)
         {
 
@@ -24,13 +26,18 @@ public class GLTimer : MonoBehaviour
         else
         {
             remainingTime = 0;
+            gameOverTriggered = true;
             GLGameControl.Instance.GameOver();
+            return;
         }
 
         int minutes = Mathf.FloorToInt(remainingTime / 60);
         int seconds = Mathf.FloorToInt(remainingTime % 60);
-        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
 
+        if (timerText != null)
+        {
+            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        }
 
     }
 }

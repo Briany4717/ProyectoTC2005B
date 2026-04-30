@@ -76,43 +76,8 @@ public class HOErasablePlatform : MonoBehaviour
         float threshold = HOScrollingCamera.Instance.bottomEdge - offscreenMargin;
         if (transform.position.y < threshold)
         {
-            // Marca para que se destruya tras el fade y dispara el borrado
             destroyAfterErase = true;
             Erase();
         }
     }
-
-
-
-
-
-
-
-
-    /*
-    private IEnumerator RespawnRoutine(Color targetColor)
-    {
-        platformCollider.enabled = true;
-
-        float elapsed = 0f;
-        while (elapsed < fadeInDuration)
-        {
-            elapsed += Time.deltaTime;
-            float alpha = Mathf.Lerp(0f, targetColor.a, elapsed / fadeInDuration);
-            spriteRenderer.color = new Color(targetColor.r, targetColor.g, targetColor.b, alpha);
-            yield return null;
-        }
-
-        spriteRenderer.color = targetColor;
-        isErased = false;
-    }
-    */
-    /*
-    public void ForceRespawn()
-    {
-        if (!isErased) return;
-        StopAllCoroutines();
-        StartCoroutine(RespawnRoutine(Color.white));
-    }
-    */
 }

@@ -142,5 +142,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0869a27964b79864693f79dcb0c3aef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HOEnemyBullet
-  velocidad: 5
+  velocidad: 10
   danio: 1

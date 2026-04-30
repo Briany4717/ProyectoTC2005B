@@ -36,6 +36,10 @@ public class OrderManager : MonoBehaviour
     [Header("Pool de Datos")]
     public GameObject orderPrefab;
     public Transform ordersPanel;
+    public ParticleSystem particle1;
+    public ParticleSystem particle2;
+
+    private OrderUI currentSelectedOrder;
 
     // esta lista guarda todas las ordenes activas en el momento.
     private List<OrderUI> activeOrders = new List<OrderUI>();
@@ -50,23 +54,32 @@ public class OrderManager : MonoBehaviour
         if (Keyboard.current.digit5Key.wasPressedThisFrame) SelectOrder(4);
     }
 
-    private void SelectOrder(int index)
+
+    public void SelectOrder(OrderUI newOrder)
     {
-        // verificamos que esté dentro del rango
-        if (index < activeOrders.Count && index >= 0)
+        if (currentSelectedOrder != null)
         {
-            // apagar la orden anterior
-            if (selectedOrderIndex < activeOrders.Count && selectedOrderIndex >= 0)
-            {
-                activeOrders[selectedOrderIndex].SetSelected(false);
-            }
-            //actualizamos el nuevo index
-            activeOrders[index].SetSelected(true);
-            selectedOrderIndex = index;
+            currentSelectedOrder.SetSelected(false);
         }
 
+        currentSelectedOrder = newOrder;
 
+        if (currentSelectedOrder != null)
+        {
+            currentSelectedOrder.SetSelected(true);
+            selectedOrderIndex = activeOrders.IndexOf(currentSelectedOrder);
+        }
+        GLSFXManager.Instance.PlaySFX(GLSFXManager.Instance.PaperSound);
     }
+    private void SelectOrder(int index)
+    {
+        if (index >= 0 && index < activeOrders.Count)
+        {
+            SelectOrder(activeOrders[index]);
+        }
+    }
+    //
+
 
     public void OnPlayerCompletedStation(StationData stationCompleted)
     {
@@ -81,6 +94,9 @@ public class OrderManager : MonoBehaviour
             if (targetOrder.TryCompleteStation(stationCompleted))
             {
                 Debug.Log("La estacion se completo correctamente");
+                // reproducir particulas
+                particle1.Play();
+                particle2.Play();
 
             }
             else
@@ -106,6 +122,7 @@ public class OrderManager : MonoBehaviour
         // borrar en la list y visualmente
         activeOrders.RemoveAt(selectedOrderIndex);
         Destroy(targetOrder.gameObject);
+        GLSFXManager.Instance.PlaySFX(GLSFXManager.Instance.JeopardyCorrect);
         // cambiar el pointer para no romper el juego
         if (activeOrders.Count > 0)
         {
