@@ -10,6 +10,11 @@ public class GLSFXManager : MonoBehaviour
     [Header("------- Audio Clip ---------")]
     public AudioClip background;
     public AudioClip JeopardyFailure;
+    public AudioClip JeopardyCorrect;
+    public AudioClip Interaction;
+    public AudioClip OrderComplete;
+    public AudioClip SlideControlPuzzle;
+
 
     // creamos una instancia global para facilitar el uso de nuestro Manager a traves de los scripts
     public static GLSFXManager Instance;

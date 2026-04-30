@@ -6907,8 +6907,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GLSFXManager
   musicSource: {fileID: 2073411637}
   SFXSource: {fileID: 2063628776}
-  background: {fileID: 0}
-  coins: {fileID: 0}
+  background: {fileID: 8300000, guid: b1ab49848beb04a458ce8c7a0f7c0e24, type: 3}
+  JeopardyFailure: {fileID: 8300000, guid: 0cde42ee790144fe4912a02a200b3d82, type: 3}
+  JeopardyCorrect: {fileID: 8300000, guid: f5dcd1071434642ccbef4084117f4641, type: 3}
+  Interaction: {fileID: 8300000, guid: 0ef1232ccbec7486a95c8959d32fe82a, type: 3}
+  OrderComplete: {fileID: 8300000, guid: 1ff2d8c0feed04b0bb891415f6efba32, type: 3}
+  SlideControlPuzzle: {fileID: 8300000, guid: e5b63d26bad2e4551b5949178a1ef626, type: 3}
 --- !u!4 &241004179
 Transform:
   m_ObjectHideFlags: 0
