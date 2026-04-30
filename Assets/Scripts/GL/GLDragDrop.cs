@@ -13,6 +13,7 @@ public class GLDragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     private Vector2 initialAnchoredPosition;
     private Transform initialParent;
 
+
     private bool wasDroppedOnValidZone = false;
 
 
@@ -35,6 +36,10 @@ public class GLDragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
 
         initialAnchoredPosition = rectTransform.anchoredPosition;
         initialParent = transform.parent;
+
+        // OrderUI orderUI = GetComponent<OrderUI>();
+        // OrderManager.Instance.SelectOrder(orderUI);
+
 
     }
     public void OnDrag(PointerEventData eventData)
@@ -60,6 +65,8 @@ public class GLDragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     public void OnPointerDown(PointerEventData eventData)
     {
         Debug.Log("Order pressed!!");
+        OrderUI orderPressed = GetComponent<OrderUI>();
+        OrderManager.Instance.SelectOrder(orderPressed);
     }
     public void ReturnToStart()
     {

@@ -17,6 +17,7 @@ public class GLChecker : MonoBehaviour
     private void OnMouseDown()
     {
         drawControl.StartLine(this.transform.position);
+        startingPosition = transform.position;
     }
 
     private void OnMouseDrag()

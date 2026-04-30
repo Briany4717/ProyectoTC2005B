@@ -1,17 +1,20 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
-using UnityEditor.Build.Player;
-using UnityEditor.XR;
-using Unity.VisualScripting;
+using System.Globalization;
+using System.Text;
+using System;
+using UnityEngine.EventSystems;
 
 public class RapidezControler : MonoBehaviour
 {
     [SerializeField] public TextMeshProUGUI wordOutput;
+    [SerializeField] public TMP_InputField inputField;  // Campo de entrada de texto
     [SerializeField] public GLWordBank wordBank = null;
 
     private string remainingWord = string.Empty;
     private string currentWord = string.Empty;
+    private bool isGameActive = false;
 
     StationData currentStation;
 
@@ -25,7 +28,29 @@ public class RapidezControler : MonoBehaviour
         currentStation = station;
         GLMenusStationsManager.Instance.OpenMenu(GLMenusStationsManager.AvailableStations.Rapidez);
         SetCurrenWord();
+
+        // Activamos el campo de entrada y nos suscribimos a sus cambios
+        if (inputField != null)
+        {
+            isGameActive = true;
+            inputField.onValueChanged.AddListener(OnInputFieldValueChanged);
+            inputField.ActivateInputField();
+            inputField.text = string.Empty;
+        }
     }
+
+    private void Update()
+    {
+        // Si el juego está activo y el InputField no está seleccionado, reactivarlo
+        if (isGameActive && inputField != null)
+        {
+            if (EventSystem.current.currentSelectedGameObject != inputField.gameObject)
+            {
+                inputField.ActivateInputField();
+            }
+        }
+    }
+
     private void SetCurrenWord()
     {
         currentWord = wordBank.GetPrompt();
@@ -34,83 +59,60 @@ public class RapidezControler : MonoBehaviour
 
     private void SetRemainingWord(string newString)
     {
-        remainingWord = newString;
+        remainingWord = NormalizeText(newString);
         wordOutput.text = remainingWord;
     }
 
-    // Creamos un evento para recibir el input
-    private void OnEnable()
-    {
-        if (Keyboard.current != null)
-        {
-            Keyboard.current.onTextInput += CheckInput;
-        }
-    }
-
-    // Nos desuscribimos
     private void OnDisable()
     {
-        if (Keyboard.current != null)
+        isGameActive = false;
+        if (inputField != null)
         {
-            Keyboard.current.onTextInput -= CheckInput;
+            inputField.onValueChanged.RemoveListener(OnInputFieldValueChanged);
         }
     }
 
-    // Usamos Update para las teclas especiales (Backspace y Enter)
-    private void Update()
+    // Se llama cada vez que el texto del campo cambia
+    private void OnInputFieldValueChanged(string newText)
     {
-        // if (Keyboard.current == null) return;
+        if (string.IsNullOrEmpty(newText)) return;
 
-        // // Comprobar Backspace
-        // if (Keyboard.current.backspaceKey.wasPressedThisFrame)
-        // {
-        //     if (typedText.Length > 0)
-        //     {
-        //         typedText = typedText.Substring(0, typedText.Length - 1);
-        //         typedTextUI.text = typedText;
-        //     }
-        // }
+        // Obtén el último carácter escrito
+        string lastCharacter = NormalizeText(newText.Substring(newText.Length - 1));
 
-        // // Comprobar Enter (Validamos tanto el Enter normal como el del teclado numérico)
-        // if (Keyboard.current.enterKey.wasPressedThisFrame || Keyboard.current.numpadEnterKey.wasPressedThisFrame)
-        // {
-        //     if (typedText == targetText)
-        //     {
-        //         resultTextUI.text = "¡Correcto!";
-        //         // GLMenusStationsManager.Instance.CloseAllMenus(); // Lógica de victoria
-        //     }
-        //     else
-        //     {
-        //         resultTextUI.text = "Incorrecto";
-        //     }
-        // }
-    }
-
-    // Usamos onTextInput SOLO para las letras y símbolos
-    private void CheckInput(char character)
-    {
-        // Ignoramos cualquier caracter de control invisible (Tab, Esc, y por si acaso, Enter/Backspace)
-        // if (char.IsControl(character)) return;
-
-        // Agregamos la letra
-        string charPressed = character.ToString();
-        EnterLetter(charPressed);
-    }
-
-    private void EnterLetter(string typedLetter)
-    {
-        if (IsCorrectLetter(typedLetter))
+        if (IsCorrectLetter(lastCharacter))
         {
             RemoveLetter();
 
-            // en este if se pone la logica de cuando se completa la palabra
+            // Limpiamos el campo de entrada
+            inputField.text = string.Empty;
+
             if (IsWordComplete())
                 EndGame();
+            else
+            {
+                // Reactivar el InputField para la siguiente letra
+                inputField.ActivateInputField();
+            }
+        }
+        else
+        {
+            // Si no es correcto, limpiamos el campo para que intente de nuevo
+            inputField.text = string.Empty;
+            // Reactivar el InputField
+            inputField.ActivateInputField();
         }
     }
 
     private void EndGame()
     {
+        isGameActive = false;
+        // Desuscribimos antes de cerrar
+        if (inputField != null)
+        {
+            inputField.onValueChanged.RemoveListener(OnInputFieldValueChanged);
+        }
+
         // cerramos todas las pantallas
         GLMenusStationsManager.Instance.CloseAllMenus();
         // avisamos que completamos la estacion
@@ -119,18 +121,34 @@ public class RapidezControler : MonoBehaviour
 
     private bool IsCorrectLetter(string letter)
     {
-        // check if the next one is the first one
-        return remainingWord.IndexOf(letter) == 0;
+        if (string.IsNullOrEmpty(remainingWord)) return false;
+
+        // Obtener el primer carácter de la palabra restante
+        StringInfo stringInfo = new StringInfo(remainingWord);
+        string firstLetter = stringInfo.SubstringByTextElements(0, 1);
+
+        return string.Equals(firstLetter, letter, StringComparison.Ordinal);
     }
 
     private void RemoveLetter()
     {
-        string newString = remainingWord.Remove(0, 1);
-        SetRemainingWord(newString);
+        if (string.IsNullOrEmpty(remainingWord)) return;
+
+        StringInfo stringInfo = new StringInfo(remainingWord);
+        string firstLetter = stringInfo.SubstringByTextElements(0, 1);
+        remainingWord = remainingWord.Substring(firstLetter.Length);
+        wordOutput.text = remainingWord;
     }
+
     private bool IsWordComplete()
     {
         return remainingWord.Length == 0;
+    }
+
+    private static string NormalizeText(string text)
+    {
+        if (string.IsNullOrEmpty(text)) return text;
+        return text.Normalize(NormalizationForm.FormC);
     }
 
 }

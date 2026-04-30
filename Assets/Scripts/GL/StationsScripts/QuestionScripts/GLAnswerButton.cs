@@ -21,12 +21,13 @@ public class GLAnswerButton : MonoBehaviour
     {
         if (isCorrect)
         {
-            Debug.Log("Correct Answer!!");
             questionSetup.CorrectAnswer();
         }
         else
         {
-            Debug.Log("Wrong Answer!!");
+
+            questionSetup.WrongAnswer();
+            GLGameControl.Instance.RemoveTime(5f); // Llamamos a la función para quitar tiempo del timer
         }
     }
 
