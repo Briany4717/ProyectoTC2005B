@@ -66,4 +66,11 @@ public class HOEnemySpawner : MonoBehaviour
         }
         return new Vector3(spawnX, spawnY, 0f);
     }
+
+    public void ReduceDifficulty(float percent)
+    {
+        percent = Mathf.Clamp01(percent);
+        currentDifficultyLevel = Mathf.RoundToInt(currentDifficultyLevel * (1f - percent));
+    }
+
 }
