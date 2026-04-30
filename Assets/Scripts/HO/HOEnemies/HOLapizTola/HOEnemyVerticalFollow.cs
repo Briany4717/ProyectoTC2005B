@@ -1,7 +1,14 @@
 using UnityEngine;
 
-public class HOEnemyVerticalFollow : MonoBehaviour, IHOScalableEnemy
+public class HOEnemyVerticalFollow : MonoBehaviour, IHOScalableEnemy, IHOEnemyReward
 {
+    public int coinsBase = 3;
+    public int incrementoCoins = 1;
+    public int coinsMaximo = 15;
+
+    public float timeBase = 2f;
+    public float incrementoTime = 0.4f;
+    public float timeMaximo = 8f;
     public int danioBase = 1;
     public int incrementoDanio = 1;
     public int danioMaximo = 4;
@@ -28,11 +35,16 @@ public class HOEnemyVerticalFollow : MonoBehaviour, IHOScalableEnemy
 
     public bool IsEntering {get {return isEntering;}}
 
+    private int coinsActuales;
+    private float timeActual;
+
 
     void Awake()
     {
         danioActual = danioBase;
         velocidadBalaActual = velocidadBalaBase;
+        coinsActuales = coinsBase;
+        timeActual = timeBase;
     }
 
     void Start()
@@ -97,8 +109,8 @@ public class HOEnemyVerticalFollow : MonoBehaviour, IHOScalableEnemy
     {
         danioActual = Mathf.Min(danioBase + level * incrementoDanio, danioMaximo);
         velocidadBalaActual = Mathf.Min(velocidadBalaBase + level * incrementoVelocidadBala, velocidadBalaMaxima);
-        Debug.Log($"Arma escalada: nivel {level}, daño={danioActual}, velocidad bala={velocidadBalaActual}");
-
+        coinsActuales = Mathf.Min(coinsBase + level * incrementoCoins, coinsMaximo);
+        timeActual = Mathf.Min(timeBase + level * incrementoTime, timeMaximo);
     }
 
     void Entering()
@@ -111,6 +123,15 @@ public class HOEnemyVerticalFollow : MonoBehaviour, IHOScalableEnemy
             transform.position = new Vector3(posFijaX, transform.position.y, transform.position.z);
             isEntering = false;
         }
+    }
+    public int GetCoinsReward()
+    {
+        return coinsActuales;
+    }
+
+    public float GetTimeReward()
+    {
+        return timeActual;
     }
 
     /*

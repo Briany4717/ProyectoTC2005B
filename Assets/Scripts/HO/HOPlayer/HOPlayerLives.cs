@@ -21,6 +21,10 @@ public class HOPlayerLives : MonoBehaviour
 
         if (cantidadDeVida <= 0)
         {
+            if (HOCoins.Instance != null)
+            {
+                HOCoins.Instance.SaveCoins();
+            }
             SceneManager.LoadScene("HOEndScene");
         }
     }

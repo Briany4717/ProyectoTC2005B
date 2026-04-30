@@ -131,12 +131,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77e883b4c943eac4fa3d952352fcd698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HOEnemyVerticalFollow
+  coinsBase: 10
+  incrementoCoins: 10
+  coinsMaximo: 60
+  timeBase: 5
+  incrementoTime: 0
+  timeMaximo: 5
   danioBase: 1
   incrementoDanio: 1
   danioMaximo: 3
   velocidadBalaBase: 5
-  incrementoVelocidadBala: 0.5
-  velocidadBalaMaxima: 15
+  incrementoVelocidadBala: 5
+  velocidadBalaMaxima: 40
   danioActual: 0
   velocidadBalaActual: 0
   player: {fileID: 0}
@@ -196,7 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f075739abb064441b06beee5d1e86e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HOEnemyLives
-  lives: 6
+  lives: 7
 --- !u!50 &1799544250316763761
 Rigidbody2D:
   serializedVersion: 5

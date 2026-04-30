@@ -107,19 +107,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76d669ae0921d4e44a8067f9de57ed37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HOEraserEnemy
-  incrementoVelocidad: 0.2
-  velocidadMaxima: 6
-  decrementoIntervalo: 0.3
-  intervaloMinimo: 1.5
-  incrementoVelocidadBorrar: 0.5
-  velocidadBorrarMaxima: 15
+  coinsBase: 20
+  incrementoCoins: 5
+  coinsMaximo: 40
+  timeBase: 6
+  incrementoTime: 0
+  timeMaximo: 6
+  incrementoVelocidad: 2
+  velocidadMaxima: 16
+  decrementoIntervalo: 0.5
+  intervaloMinimo: 0.5
+  incrementoVelocidadBorrar: 2
+  velocidadBorrarMaxima: 25
   jugador: {fileID: 0}
   posFijaX: 8
   movRango: 7
-  velocidad: 2
-  intervaloDeAtaq: 3
+  velocidad: 10
+  intervaloDeAtaq: 1.5
   radioJugador: 6
-  velocidadBorrar: 8
+  velocidadBorrar: 15
   tiempoBorrar: 0.5
 --- !u!58 &3321729048847735168
 CircleCollider2D:

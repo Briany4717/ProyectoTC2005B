@@ -16,7 +16,23 @@ public class HOEnemyLives : MonoBehaviour
 
     void death()
     {
-        // Instantiate(deathEffect, transform.position, Quaternion.identity);
+        IHOEnemyReward reward = GetComponent<IHOEnemyReward>();
+        if (reward != null)
+        {
+            if (HOCoins.Instance != null)
+            {
+                HOCoins.Instance.AddCoins(reward.GetCoinsReward());
+            }
+            if (HOTimer.Instance != null)
+            {
+                HOTimer.Instance.AddTime(reward.GetTimeReward());
+            }
+        }
+        if (HOSuperPrompt.Instance != null)
+        {
+            HOSuperPrompt.Instance.OnEnemyDefeated();
+        }
+
         Destroy(gameObject);
     }
 }

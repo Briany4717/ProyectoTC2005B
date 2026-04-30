@@ -42,17 +42,8 @@ public class HOEnemyFire : MonoBehaviour
         GameObject bala = Instantiate(balaEnemigo, controladorlDisparo.position, controladorlDisparo.rotation);
         
         HOEnemyBullet bulletScript = bala.GetComponent<HOEnemyBullet>();
-        if (bulletScript != null && armaScript != null)
-        {
-            bulletScript.danio = armaScript.danioActual;
-            bulletScript.velocidad = armaScript.velocidadBalaActual;
-            Debug.Log($"Bala disparada con daño={bulletScript.danio}, velocidad={bulletScript.velocidad}");
-        }
-        else
-        {
-            Debug.Log($"FALLO: bulletScript={bulletScript}, armaScript={armaScript}");
-        }
-
+        bulletScript.danio = armaScript.danioActual;
+        bulletScript.velocidad = armaScript.velocidadBalaActual;
     }
 
     /*
