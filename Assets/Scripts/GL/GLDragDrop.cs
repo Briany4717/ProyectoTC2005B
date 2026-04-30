@@ -67,6 +67,7 @@ public class GLDragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         Debug.Log("Order pressed!!");
         OrderUI orderPressed = GetComponent<OrderUI>();
         OrderManager.Instance.SelectOrder(orderPressed);
+        GLSFXManager.Instance.PlaySFX(GLSFXManager.Instance.PaperSound);
     }
     public void ReturnToStart()
     {
