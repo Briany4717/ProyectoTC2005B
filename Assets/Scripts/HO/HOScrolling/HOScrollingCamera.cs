@@ -46,4 +46,9 @@ public class HOScrollingCamera : MonoBehaviour
         elapsedTime = 0f;
         currentSpeed = inicialSpeed;
     }
+    public void ReduceDifficulty(float percent)
+    {
+        percent = Mathf.Clamp01(percent);
+        elapsedTime *= (1f - percent);
+    }
 }
