@@ -6,6 +6,8 @@ public class HOSuperPrompt : MonoBehaviour
     public static HOSuperPrompt Instance { get; private set; }
 
     public int enemiesRequired = 4;
+    [Range(0f, 1f)]
+    public float difficultyReductionPercent = 0.5f;
 
     private int enemiesDefeated = 0;
     private bool isPromptActive = false;
@@ -32,16 +34,11 @@ public class HOSuperPrompt : MonoBehaviour
 
     void Start()
     {
-        // Notifica el estado inicial para que la UI arranque correctamente
         OnProgressChanged?.Invoke(enemiesDefeated, enemiesRequired);
     }
 
-    /// <summary>
-    /// Lo llama HOEnemyLives cuando un enemigo muere.
-    /// </summary>
     public void OnEnemyDefeated()
     {
-        // Si el prompt ya está activo, no contar más enemigos
         if (isPromptActive) return;
 
         enemiesDefeated++;
@@ -60,22 +57,30 @@ public class HOSuperPrompt : MonoBehaviour
         OnPromptTriggered?.Invoke();
     }
 
-    /// <summary>
-    /// Lo llama el panel cuando el usuario responde correctamente.
-    /// </summary>
     public void OnAnswerCorrect()
     {
-        // Aquí más adelante invocaremos la reducción de dificultad
-        // Por ahora solo cerramos el prompt
+        ApplyDifficultyReduction();
         ClosePrompt(resetCounter: true);
     }
 
-    /// <summary>
-    /// Lo llama el panel cuando el usuario responde incorrectamente.
-    /// </summary>
+    void ApplyDifficultyReduction()
+    {
+        // Reduce velocidad de cámara
+        if (HOScrollingCamera.Instance != null)
+        {
+            HOScrollingCamera.Instance.ReduceDifficulty(difficultyReductionPercent);
+        }
+
+        // Reduce nivel de todos los spawners de enemigos
+        HOEnemySpawner[] spawners = FindObjectsByType<HOEnemySpawner>();
+        foreach (var spawner in spawners)
+        {
+            spawner.ReduceDifficulty(difficultyReductionPercent);
+        }
+    }
+
     public void OnAnswerIncorrect()
     {
-        // Cierra el panel y reinicia el contador (sin reducir dificultad)
         ClosePrompt(resetCounter: true);
     }
 
