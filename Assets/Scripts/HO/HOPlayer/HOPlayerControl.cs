@@ -18,16 +18,7 @@ public class HOPlayerControl : MonoBehaviour
     {
         rig = GetComponent<Rigidbody2D>();
     }
-void Start()
-{
-    Invoke("TestAddCoins", 3f);
-}
 
-void TestAddCoins()
-{
-    HOCoins.Instance.AddCoins(10);
-}
-    // Update is called once per frame
     void Update()
     {
         xInput = 0f;
@@ -45,6 +36,14 @@ void TestAddCoins()
         {
             jumpRequested = true;
             jumpCount++;
+        }
+        if (Keyboard.current.cKey.wasPressedThisFrame)
+        {
+            HOSuperPrompt.Instance.OnAnswerCorrect();
+        }
+        if (Keyboard.current.iKey.wasPressedThisFrame)
+        {
+            HOSuperPrompt.Instance.OnAnswerIncorrect();
         }
     }
 

@@ -7,10 +7,9 @@ public class HOCoins : MonoBehaviour
 
     private int currentCoins = 0;
 
-    // Evento que se dispara cada vez que cambian las monedas
+    // Evento para cada vez que cambian las monedas
     public event Action<int> OnCoinsChanged;
 
-    // Propiedad pública de solo lectura para consultar las monedas actuales
     public int CurrentCoins => currentCoins;
 
     void Awake()
@@ -25,7 +24,6 @@ public class HOCoins : MonoBehaviour
 
     void Start()
     {
-        // Notifica el valor inicial al arrancar (útil para que la UI arranque en 0)
         OnCoinsChanged?.Invoke(currentCoins);
     }
 
@@ -41,5 +39,11 @@ public class HOCoins : MonoBehaviour
     {
         currentCoins = 0;
         OnCoinsChanged?.Invoke(currentCoins);
+    }
+    
+    public void SaveCoins()
+    {
+        PlayerPrefs.SetInt("LastGameCoins", currentCoins);
+        PlayerPrefs.Save();
     }
 }

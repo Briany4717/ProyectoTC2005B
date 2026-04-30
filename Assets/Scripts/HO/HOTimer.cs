@@ -43,6 +43,10 @@ public class HOTimer : MonoBehaviour
     }
     void GameOver()
     {
+        if (HOCoins.Instance != null)
+        {
+            HOCoins.Instance.SaveCoins();
+        }
         SceneManager.LoadScene("HOEndScene");
     }
 }

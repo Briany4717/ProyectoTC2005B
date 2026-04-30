@@ -1,8 +1,17 @@
 using System.Collections;
 using UnityEngine;
 
-public class HOEraserEnemy : MonoBehaviour, IHOScalableEnemy
+public class HOEraserEnemy : MonoBehaviour, IHOScalableEnemy, IHOEnemyReward
 {
+    public int coinsBase;
+    public int incrementoCoins;
+    public int coinsMaximo;
+
+    public float timeBase = 3f;
+    public float incrementoTime = 0.5f;
+    public float timeMaximo = 10f;
+
+
     public float incrementoVelocidad = 1f;
     public float velocidadMaxima = 8f;
     public float decrementoIntervalo = 1f;
@@ -40,6 +49,15 @@ public class HOEraserEnemy : MonoBehaviour, IHOScalableEnemy
     private HOErasablePlatform plataformaTarget;
     private Vector3 inicioBarrido;
     private Vector3 finalBarrido;
+    private int coinsActuales;
+    private float timeActual;
+
+
+    void Awake()
+    {
+        coinsActuales = coinsBase;
+        timeActual = timeBase;
+    }
 
     void Start()
     {
@@ -218,6 +236,9 @@ public class HOEraserEnemy : MonoBehaviour, IHOScalableEnemy
         attackTimer = intervaloDeAtaq;
 
         velocidadBorrar = Mathf.Min(velocidadBorrar + level * incrementoVelocidadBorrar, velocidadBorrarMaxima);
+        
+        coinsActuales = Mathf.Min(coinsBase + level * incrementoCoins, coinsMaximo);
+        timeActual = Mathf.Min(timeBase + level * incrementoTime, timeMaximo);
     }
     void entering()
     {
@@ -231,5 +252,15 @@ public class HOEraserEnemy : MonoBehaviour, IHOScalableEnemy
             transform.position = new Vector3(posFijaX, transform.position.y, transform.position.z);
             cntState = State.buscando;
         }
+    }
+
+    public int GetCoinsReward()
+    {
+        return coinsActuales;
+    }
+
+    public float GetTimeReward()
+    {
+        return timeActual;
     }
 }

@@ -76,7 +76,6 @@ public class HOErasablePlatform : MonoBehaviour
         float threshold = HOScrollingCamera.Instance.bottomEdge - offscreenMargin;
         if (transform.position.y < threshold)
         {
-            // Marca para que se destruya tras el fade y dispara el borrado
             destroyAfterErase = true;
             Erase();
         }
