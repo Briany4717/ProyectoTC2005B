@@ -7,10 +7,16 @@ public class GLTimer : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI timerText;
     [SerializeField] public float remainingTime;
+    private bool gameOverTriggered = false;
 
 
     void Update()
     {
+
+        if (gameOverTriggered)
+        {
+            return;
+        }
 
         if (remainingTime > 0)
         {
@@ -20,6 +26,7 @@ public class GLTimer : MonoBehaviour
         else
         {
             remainingTime = 0;
+            gameOverTriggered = true;
             GLGameControl.Instance.GameOver();
             return;
         }

@@ -7,7 +7,7 @@ public class MenuSceneController : MonoBehaviour
 
     public void GoToGlotones()
     {
-        SceneManager.LoadScene("GLMainGame");
+        SceneManager.LoadScene("GLStartScene");
     }
 
     public void GoToHO()
