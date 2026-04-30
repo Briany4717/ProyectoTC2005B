@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7906167903093202480}
   - component: {fileID: 4706635664349676223}
   - component: {fileID: 281158489385924858}
-  - component: {fileID: 8282065220427728778}
+  - component: {fileID: 681253864302986834}
   m_Layer: 0
   m_Name: HOBala
   m_TagString: Untagged
@@ -130,7 +130,7 @@ CapsuleCollider2D:
   m_Offset: {x: -0.3, y: 0}
   m_Size: {x: 7, y: 2}
   m_Direction: 1
---- !u!114 &8282065220427728778
+--- !u!114 &681253864302986834
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,8 +139,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 3151267671361340731}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0869a27964b79864693f79dcb0c3aef1, type: 3}
+  m_Script: {fileID: 11500000, guid: c206918d0bcb54d6b9fde8e71dbf71de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HOEnemyBullet
-  velocidad: 10
+  velocidad: 5
   danio: 1

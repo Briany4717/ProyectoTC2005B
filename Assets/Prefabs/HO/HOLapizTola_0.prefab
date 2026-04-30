@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6099167712530619203}
   - component: {fileID: 5149113939270857108}
-  - component: {fileID: 5355166146753999990}
-  - component: {fileID: 4611218116210023624}
   - component: {fileID: 5071980731583634596}
   - component: {fileID: 1777687811073961828}
   - component: {fileID: 1799544250316763761}
+  - component: {fileID: 567466163356483529}
+  - component: {fileID: 6318137578309752104}
   m_Layer: 0
   m_Name: HOLapizTola_0
   m_TagString: HOEnemy
@@ -97,62 +97,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &5355166146753999990
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3064123254338679504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c79ffda886902ce4db85abd7899c093e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HOEnemyFire
-  controladorlDisparo: {fileID: 1224673532459580354}
-  distanciaLinea: 20
-  capaJugador:
-    serializedVersion: 2
-    m_Bits: 256
-  jugadorEnRango: 0
-  tiempoEntreDisparos: 1.5
-  tiempoUltimoDisparo: 0
-  balaEnemigo: {fileID: 3151267671361340731, guid: 4a7253d55215e97459be23f159751af6, type: 3}
-  tiempoEsperaDisparo: 0
---- !u!114 &4611218116210023624
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3064123254338679504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77e883b4c943eac4fa3d952352fcd698, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HOEnemyVerticalFollow
-  coinsBase: 10
-  incrementoCoins: 10
-  coinsMaximo: 60
-  timeBase: 5
-  incrementoTime: 0
-  timeMaximo: 5
-  danioBase: 1
-  incrementoDanio: 1
-  danioMaximo: 3
-  velocidadBalaBase: 5
-  incrementoVelocidadBala: 5
-  velocidadBalaMaxima: 40
-  danioActual: 0
-  velocidadBalaActual: 0
-  player: {fileID: 0}
-  posFijaX: -7
-  platformLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  raycastDist: 20
-  velocidad: 10
-  timeEntreSalto: 0.2
 --- !u!70 &5071980731583634596
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -230,6 +174,62 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &567466163356483529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3064123254338679504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0759b2d5a498f4ea6b2ba8fc443ecee1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HOEnemyFire
+  controladorlDisparo: {fileID: 1224673532459580354}
+  distanciaLinea: 20
+  capaJugador:
+    serializedVersion: 2
+    m_Bits: 256
+  jugadorEnRango: 0
+  tiempoEntreDisparos: 1.5
+  tiempoUltimoDisparo: 1
+  balaEnemigo: {fileID: 3151267671361340731, guid: 4a7253d55215e97459be23f159751af6, type: 3}
+  tiempoEsperaDisparo: 0.5
+--- !u!114 &6318137578309752104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3064123254338679504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c7709343ea584efb899942b0194482a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HOEnemyVerticalFollow
+  coinsBase: 10
+  incrementoCoins: 15
+  coinsMaximo: 40
+  timeBase: 5
+  incrementoTime: 0
+  timeMaximo: 5
+  danioBase: 1
+  incrementoDanio: 1
+  danioMaximo: 3
+  velocidadBalaBase: 10
+  incrementoVelocidadBala: 5
+  velocidadBalaMaxima: 50
+  danioActual: 0
+  velocidadBalaActual: 0
+  player: {fileID: 0}
+  posFijaX: -8
+  platformLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  raycastDist: 20
+  velocidad: 10
+  timeEntreSalto: 0.2
 --- !u!1 &5888671839945418570
 GameObject:
   m_ObjectHideFlags: 0
