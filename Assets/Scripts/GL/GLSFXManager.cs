@@ -14,6 +14,9 @@ public class GLSFXManager : MonoBehaviour
     public AudioClip Interaction;
     public AudioClip OrderComplete;
     public AudioClip SlideControlPuzzle;
+    public AudioClip PaperSound;
+    public AudioClip WallCrash;
+    public AudioClip completeStation;
 
 
     // creamos una instancia global para facilitar el uso de nuestro Manager a traves de los scripts

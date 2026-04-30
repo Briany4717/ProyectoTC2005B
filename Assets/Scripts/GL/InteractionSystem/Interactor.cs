@@ -17,6 +17,8 @@ public class Interactor : MonoBehaviour
         if (Keyboard.current.spaceKey.wasPressedThisFrame && currentInteractable != null)
         {
             currentInteractable.Interact();
+
+            GLSFXManager.Instance.PlaySFX(GLSFXManager.Instance.Interaction);
         }
     }
 

@@ -49,17 +49,20 @@ public class GLQuestionSetup : MonoBehaviour
     public void CorrectAnswer()
     {
 
+        // GLSFXManager.Instance.PlaySFX(GLSFXManager.Instance.JeopardyCorrect);
         // Avisamos al manager general que cierre todos los menús de las estaciones
         GLMenusStationsManager.Instance.CloseAllMenus();
 
         // Avisamos al OrderManager que completamos la estación
         OrderManager.Instance.OnPlayerCompletedStation(currentStation);
+
     }
 
     public void WrongAnswer()
     {
         // Aquí podríamos añadir alguna penalización o mensaje de error
         Debug.Log("Respuesta incorrecta. Inténtalo de nuevo.");
+        GLSFXManager.Instance.PlaySFX(GLSFXManager.Instance.JeopardyFailure);
 
         ShowError();
 
