@@ -1,20 +1,22 @@
 using System.Collections;
 using UnityEngine;
 
-public class HOEraserEnemy : MonoBehaviour, IHOScalableEnemy
+public class HOEraserEnemy : MonoBehaviour, IHOScalableEnemy, IHOEnemyReward
 {
-    [Header("Escalado de dificultad")]
-    [Tooltip("Cuánto aumenta la velocidad de patrulla por nivel")]
-    public float incrementoVelocidad = 0.2f;
-    [Tooltip("Velocidad máxima de patrulla (no escalará más allá)")]
-    public float velocidadMaxima = 6f;
-    [Tooltip("Cuánto disminuye el intervalo entre ataques por nivel (en segundos)")]
-    public float decrementoIntervalo = 0.3f;
-    [Tooltip("Intervalo mínimo entre ataques (no bajará más)")]
-    public float intervaloMinimo = 1.5f;
-    [Tooltip("Cuánto aumenta la velocidad del barrido por nivel")]
-    public float incrementoVelocidadBorrar = 0.5f;
-    [Tooltip("Velocidad máxima del barrido")]
+    public int coinsBase;
+    public int incrementoCoins;
+    public int coinsMaximo;
+
+    public float timeBase = 3f;
+    public float incrementoTime = 0.5f;
+    public float timeMaximo = 10f;
+
+
+    public float incrementoVelocidad = 1f;
+    public float velocidadMaxima = 8f;
+    public float decrementoIntervalo = 1f;
+    public float intervaloMinimo = 1f;
+    public float incrementoVelocidadBorrar = 5f;
     public float velocidadBorrarMaxima = 15f;
 
 
@@ -47,6 +49,15 @@ public class HOEraserEnemy : MonoBehaviour, IHOScalableEnemy
     private HOErasablePlatform plataformaTarget;
     private Vector3 inicioBarrido;
     private Vector3 finalBarrido;
+    private int coinsActuales;
+    private float timeActual;
+
+
+    void Awake()
+    {
+        coinsActuales = coinsBase;
+        timeActual = timeBase;
+    }
 
     void Start()
     {
@@ -225,6 +236,9 @@ public class HOEraserEnemy : MonoBehaviour, IHOScalableEnemy
         attackTimer = intervaloDeAtaq;
 
         velocidadBorrar = Mathf.Min(velocidadBorrar + level * incrementoVelocidadBorrar, velocidadBorrarMaxima);
+        
+        coinsActuales = Mathf.Min(coinsBase + level * incrementoCoins, coinsMaximo);
+        timeActual = Mathf.Min(timeBase + level * incrementoTime, timeMaximo);
     }
     void entering()
     {
@@ -238,5 +252,15 @@ public class HOEraserEnemy : MonoBehaviour, IHOScalableEnemy
             transform.position = new Vector3(posFijaX, transform.position.y, transform.position.z);
             cntState = State.buscando;
         }
+    }
+
+    public int GetCoinsReward()
+    {
+        return coinsActuales;
+    }
+
+    public float GetTimeReward()
+    {
+        return timeActual;
     }
 }
