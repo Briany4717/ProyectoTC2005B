@@ -27,15 +27,15 @@ public class GLFinalSceneControler : MonoBehaviour
             ordersText.text = orders.ToString() + " ordenes!";
 
 
-        if (orders >= 10)
+        if (orders >= 6)
         {
             // dejar las estrellas activas
         }
-        else if (orders >= 8)
+        else if (orders >= 4)
         {
             star3.gameObject.SetActive(false);
         }
-        else if (orders >= 3)
+        else if (orders >= 2)
         {
             // desactivar las estrellas
             star2.gameObject.SetActive(false);

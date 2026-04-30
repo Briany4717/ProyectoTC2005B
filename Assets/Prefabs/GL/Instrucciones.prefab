@@ -1834,7 +1834,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Escribe lo m\xE1s rapido posible"
+  m_text: "Escribe lo m\xE1s r\xE1pido posible"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 60e4a6274fbeb41e191ff83dd41a3dc0, type: 2}
   m_sharedMaterial: {fileID: -4721720548618827887, guid: 60e4a6274fbeb41e191ff83dd41a3dc0, type: 2}
@@ -1972,7 +1972,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Una vez mercada todas las estaciones en verde podr\xE1s arrastrarla con
-    el mouse a esta zona."
+    el rat\xF3n a esta zona."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 60e4a6274fbeb41e191ff83dd41a3dc0, type: 2}
   m_sharedMaterial: {fileID: -4721720548618827887, guid: 60e4a6274fbeb41e191ff83dd41a3dc0, type: 2}
@@ -3477,7 +3477,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Estaciones e iconos
+  m_text: "Estaciones e \xEDconos"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 42947826955aa443f9315ae7f96b505e, type: 2}
   m_sharedMaterial: {fileID: 2725503652450396190, guid: 42947826955aa443f9315ae7f96b505e, type: 2}
