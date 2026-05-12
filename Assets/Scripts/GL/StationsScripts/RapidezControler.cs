@@ -126,7 +126,7 @@ public class RapidezControler : MonoBehaviour
         // Obtener el primer carácter de la palabra restante
         StringInfo stringInfo = new StringInfo(remainingWord);
         string firstLetter = stringInfo.SubstringByTextElements(0, 1);
-
+        // comparacion byte a byte
         return string.Equals(firstLetter, letter, StringComparison.Ordinal);
     }
 
@@ -134,8 +134,12 @@ public class RapidezControler : MonoBehaviour
     {
         if (string.IsNullOrEmpty(remainingWord)) return;
 
+        //strnig que acepta unicode para manejar correctamente los caracteres compuestos
         StringInfo stringInfo = new StringInfo(remainingWord);
+        // Obtener el primer carácter de la palabra restante
         string firstLetter = stringInfo.SubstringByTextElements(0, 1);
+        // Remover el primer carácter de la palabra restante (removiendo la cantidad de bytes que ocupa el caracter)
+        // por la tecla compuesta
         remainingWord = remainingWord.Substring(firstLetter.Length);
         wordOutput.text = remainingWord;
     }

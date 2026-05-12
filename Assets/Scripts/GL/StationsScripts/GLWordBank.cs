@@ -67,6 +67,7 @@ public class GLWordBank : MonoBehaviour
 
     private void Awake()
     {
+        // copiamos los prompts originales a la lista de trabajo y los mezclamos
         workingPrompts.AddRange(originalPrompts);
         Shuffle(workingPrompts);
     }
