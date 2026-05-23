@@ -1,10 +1,103 @@
 fileFormatVersion: 2
-guid: cf44b90a53f284da18458420f3c5660c
+guid: 6d8c5e36aca7e418ab1e22edfe0e7fa1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3979398052296473960
-    second: banda transportadora_0
+      213: 5302385323135332784
+    second: Slime1_Idle_body_0
+  - first:
+      213: -2824051863978842905
+    second: Slime1_Idle_body_1
+  - first:
+      213: 1830285564793719378
+    second: Slime1_Idle_body_2
+  - first:
+      213: 5475771987587111110
+    second: Slime1_Idle_body_3
+  - first:
+      213: -5928631983979424155
+    second: Slime1_Idle_body_4
+  - first:
+      213: -5891091426464729357
+    second: Slime1_Idle_body_5
+  - first:
+      213: 5533485178448895581
+    second: Slime1_Idle_body_6
+  - first:
+      213: -7561079654552713934
+    second: Slime1_Idle_body_7
+  - first:
+      213: -3222294304514404097
+    second: Slime1_Idle_body_8
+  - first:
+      213: 8849265952375085857
+    second: Slime1_Idle_body_9
+  - first:
+      213: -2549764113807204052
+    second: Slime1_Idle_body_10
+  - first:
+      213: 7485862812301040950
+    second: Slime1_Idle_body_11
+  - first:
+      213: 264080576795765128
+    second: Slime1_Idle_body_12
+  - first:
+      213: -8881965973783232703
+    second: Slime1_Idle_body_13
+  - first:
+      213: -1372750291349097911
+    second: Slime1_Idle_body_14
+  - first:
+      213: -385417475480815647
+    second: Slime1_Idle_body_15
+  - first:
+      213: -6317928903343433004
+    second: Slime1_Idle_body_16
+  - first:
+      213: -818170109171203557
+    second: Slime1_Idle_body_17
+  - first:
+      213: 2567297099650441963
+    second: Slime1_Idle_body_18
+  - first:
+      213: -5814085186137114849
+    second: Slime1_Idle_body_19
+  - first:
+      213: -6760356630071439347
+    second: Slime1_Idle_body_20
+  - first:
+      213: -2567852763550635541
+    second: Slime1_Idle_body_21
+  - first:
+      213: 6517946976566107046
+    second: Slime1_Idle_body_22
+  - first:
+      213: 8569658570060495577
+    second: Slime1_Idle_body_23
+  - first:
+      213: -3381411814025242714
+    second: Slime1_Idle_body_24
+  - first:
+      213: -8010366185963029768
+    second: Slime1_Idle_body_25
+  - first:
+      213: -434672143968333848
+    second: Slime1_Idle_body_26
+  - first:
+      213: 4113719818395568780
+    second: Slime1_Idle_body_27
+  - first:
+      213: 9164101950625293239
+    second: Slime1_Idle_body_28
+  - first:
+      213: -7649093153820163340
+    second: Slime1_Idle_body_29
+  - first:
+      213: -7556078506531172388
+    second: Slime1_Idle_body_30
+  - first:
+      213: 4142107562195719031
+    second: Slime1_Idle_body_31
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +130,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -48,10 +141,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +165,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -139,13 +232,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: banda transportadora_0
+      name: Slime1_Idle_body_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 1284
-        width: 265
-        height: 213
+        x: 23
+        y: 215
+        width: 21
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,646 +247,646 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 86d330fd179a93730800000000000000
-      internalID: 3979398052296473960
+      spriteID: 0b1f9bfab5bd59940800000000000000
+      internalID: 5302385323135332784
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: banda transportadora_1
+      name: Slime1_Idle_body_2
       rect:
         serializedVersion: 2
-        x: 293
-        y: 1289
-        width: 261
-        height: 208
+        x: 87
+        y: 215
+        width: 22
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 0e6c545db7efe41d3b37e0e7b14518cd
-      internalID: -658934169
+      spriteID: 25a0e0f160b766910800000000000000
+      internalID: 1830285564793719378
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: banda transportadora_2
+      name: Slime1_Idle_body_4
       rect:
         serializedVersion: 2
-        x: 576
-        y: 1283
-        width: 243
-        height: 212
+        x: 150
+        y: 215
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 2b89dae4926944986bdb63fdc860cac8
-      internalID: -1406083023
+      spriteID: 56613ee2f9449bda0800000000000000
+      internalID: -5928631983979424155
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: banda transportadora_3
+      name: Slime1_Idle_body_5
       rect:
         serializedVersion: 2
-        x: 857
-        y: 1283
-        width: 244
-        height: 213
+        x: 215
+        y: 215
+        width: 20
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: cbd9b2c240f41486b97d26c89de77635
-      internalID: -1809873266
+      spriteID: 3f6783a5f83ae3ea0800000000000000
+      internalID: -5891091426464729357
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: banda transportadora_4
+      name: Slime1_Idle_body_6
       rect:
         serializedVersion: 2
-        x: 1174
-        y: 1284
-        width: 218
-        height: 237
+        x: 279
+        y: 215
+        width: 19
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 1bf8bdeb3ba8f454fad6efdd39ccf627
-      internalID: 2055409430
+      spriteID: d5ed55fb373eacc40800000000000000
+      internalID: 5533485178448895581
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: banda transportadora_5
+      name: Slime1_Idle_body_7
       rect:
         serializedVersion: 2
-        x: 1425
-        y: 1284
-        width: 219
-        height: 236
+        x: 344
+        y: 215
+        width: 19
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 6b8269d4ec8fa4576a10b08080f14569
-      internalID: 387406998
+      spriteID: 235c3ff4d16a11790800000000000000
+      internalID: -7561079654552713934
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: banda transportadora_6
+      name: Slime1_Idle_body_8
       rect:
         serializedVersion: 2
-        x: 1724
-        y: 1299
-        width: 95
-        height: 199
+        x: 21
+        y: 151
+        width: 21
+        height: 18
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 45f4742f0804f4c47ad5f756080745f1
-      internalID: -427034313
+      spriteID: ff097a9076c1843d0800000000000000
+      internalID: -3222294304514404097
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: banda transportadora_7
+      name: Slime1_Idle_body_9
       rect:
         serializedVersion: 2
-        x: 7
-        y: 1030
-        width: 220
-        height: 199
+        x: 24
+        y: 167
+        width: 6
+        height: 6
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 6e59a93c6cfb74b7abc2ae1450714a4b
-      internalID: -2030146225
+      spriteID: 12b964e8f78eeca70800000000000000
+      internalID: 8849265952375085857
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: banda transportadora_8
+      name: Slime1_Idle_body_10
       rect:
         serializedVersion: 2
-        x: 243
-        y: 1031
-        width: 220
-        height: 198
+        x: 84
+        y: 151
+        width: 22
+        height: 18
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: da25dea053a88454ea2bb0d3b2aa0ca0
-      internalID: -1526862255
+      spriteID: c21ab773c0b6d9cd0800000000000000
+      internalID: -2549764113807204052
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: banda transportadora_9
+      name: Slime1_Idle_body_11
       rect:
         serializedVersion: 2
-        x: 560
-        y: 1031
-        width: 124
-        height: 199
+        x: 87
+        y: 168
+        width: 6
+        height: 6
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: edfbaaeaf35754f7f9341412e89cb3f3
-      internalID: -951051652
+      spriteID: 63d9284e09023e760800000000000000
+      internalID: 7485862812301040950
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: banda transportadora_10
+      name: Slime1_Idle_body_12
       rect:
         serializedVersion: 2
-        x: 720
-        y: 1030
-        width: 211
-        height: 200
+        x: 148
+        y: 151
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: a06b8662a74d84cf389cea835ee73edb
-      internalID: 1230748474
+      spriteID: 889edfba2e33aa300800000000000000
+      internalID: 264080576795765128
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: banda transportadora_11
+      name: Slime1_Idle_body_13
       rect:
         serializedVersion: 2
-        x: 8
-        y: 775
-        width: 220
-        height: 197
+        x: 214
+        y: 151
+        width: 20
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 1dae780bc728d408ca96bda3b669e218
-      internalID: -498744282
+      spriteID: 14f3b89610becb480800000000000000
+      internalID: -8881965973783232703
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: banda transportadora_12
+      name: Slime1_Idle_body_14
       rect:
         serializedVersion: 2
-        x: 243
-        y: 775
-        width: 219
-        height: 197
+        x: 279
+        y: 151
+        width: 19
+        height: 20
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: cb655e2632b4e46a5bfafe93e2f196b9
-      internalID: 2097295088
+      spriteID: 942b2d612e203fce0800000000000000
+      internalID: -1372750291349097911
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: banda transportadora_13
+      name: Slime1_Idle_body_15
       rect:
         serializedVersion: 2
-        x: 478
-        y: 776
-        width: 218
-        height: 195
+        x: 342
+        y: 151
+        width: 19
+        height: 21
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 07b9d0c8f3a3b4626b72ebb4c1ee3fe4
-      internalID: 1280618349
+      spriteID: 1e7fcbb19d8b6aaf0800000000000000
+      internalID: -385417475480815647
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: banda transportadora_14
+      name: Slime1_Idle_body_16
       rect:
         serializedVersion: 2
-        x: 713
-        y: 776
-        width: 219
-        height: 196
+        x: 23
+        y: 87
+        width: 20
+        height: 18
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 755f349e6ce9542bf9179cbc5a7d145b
-      internalID: -667737093
+      spriteID: 4da9a00e2253258a0800000000000000
+      internalID: -6317928903343433004
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: banda transportadora_15
+      name: Slime1_Idle_body_17
       rect:
         serializedVersion: 2
-        x: 9
-        y: 519
-        width: 218
-        height: 192
+        x: 35
+        y: 104
+        width: 6
+        height: 6
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 8b9f92642856943608f1da6d744c1f40
-      internalID: 1478510637
+      spriteID: b12020dde9645a4f0800000000000000
+      internalID: -818170109171203557
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: banda transportadora_16
+      name: Slime1_Idle_body_18
       rect:
         serializedVersion: 2
-        x: 242
-        y: 519
-        width: 221
-        height: 192
+        x: 87
+        y: 87
+        width: 21
+        height: 19
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 8fb5ed1eed09d4956848d3eebf2fed18
-      internalID: -529446509
+      spriteID: be22e892c1fd0a320800000000000000
+      internalID: 2567297099650441963
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: banda transportadora_17
+      name: Slime1_Idle_body_19
       rect:
         serializedVersion: 2
-        x: 34
+        x: 100
+        y: 105
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f17bf6ad358305fa0800000000000000
+      internalID: -5814085186137114849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slime1_Idle_body_20
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 87
+        width: 23
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0092ad76736e22a0800000000000000
+      internalID: -6760356630071439347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slime1_Idle_body_21
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 87
+        width: 20
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be92f0144872d5cd0800000000000000
+      internalID: -2567852763550635541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slime1_Idle_body_22
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 87
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6abdd0bdd36647a50800000000000000
+      internalID: 6517946976566107046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slime1_Idle_body_23
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 87
+        width: 19
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9da76d2c01b8de670800000000000000
+      internalID: 8569658570060495577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slime1_Idle_body_24
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 23
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a757b1eedfc211d0800000000000000
+      internalID: -3381411814025242714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slime1_Idle_body_25
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 40
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fa7fd4056675d090800000000000000
+      internalID: -8010366185963029768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slime1_Idle_body_26
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 23
+        width: 21
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ef8201fcfbb7f9f0800000000000000
+      internalID: -434672143968333848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Slime1_Idle_body_27
+      rect:
+        serializedVersion: 2
+        x: 87
         y: 41
-        width: 185
-        height: 163
+        width: 6
+        height: 6
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: fb0e574cdd5874a5ba155565fa07fe33
-      internalID: 1148880054
+      spriteID: c8ac3f0216ed61930800000000000000
+      internalID: 4113719818395568780
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: banda transportadora_18
+      name: Slime1_Idle_body_28
       rect:
         serializedVersion: 2
-        x: 281
-        y: 42
-        width: 149
-        height: 167
+        x: 148
+        y: 23
+        width: 23
+        height: 25
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: eb59ecbe05bc34c649786555a49ad8de
-      internalID: -484030040
+      spriteID: 7b32c7cab2e6d2f70800000000000000
+      internalID: 9164101950625293239
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: banda transportadora_19
+      name: Slime1_Idle_body_29
       rect:
         serializedVersion: 2
-        x: 519
-        y: 41
-        width: 143
-        height: 171
+        x: 214
+        y: 23
+        width: 20
+        height: 25
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: f43a124c4ca294f38bed484d828785d8
-      internalID: 1857641455
+      spriteID: 4f24da0ad46f8d590800000000000000
+      internalID: -7649093153820163340
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: banda transportadora_20
+      name: Slime1_Idle_body_30
       rect:
         serializedVersion: 2
-        x: 760
-        y: 42
-        width: 124
-        height: 173
+        x: 279
+        y: 23
+        width: 19
+        height: 20
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: faf3e5506af7843769c47a84102c79bd
-      internalID: -2078166102
+      spriteID: cdfce33d1aa632790800000000000000
+      internalID: -7556078506531172388
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: banda transportadora_21
+      name: Slime1_Idle_body_31
       rect:
         serializedVersion: 2
-        x: 974
-        y: 59
-        width: 158
-        height: 137
+        x: 342
+        y: 23
+        width: 19
+        height: 21
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: f1c143a85afbf4580b6ce8fca88e40b9
-      internalID: -1536409668
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: banda transportadora_22
-      rect:
-        serializedVersion: 2
-        x: 1208
-        y: 65
-        width: 160
-        height: 120
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2f8deca49ef104aac84af1cc28b5a822
-      internalID: 1058637773
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: banda transportadora_23
-      rect:
-        serializedVersion: 2
-        x: 1437
-        y: 60
-        width: 183
-        height: 136
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 471b205f1061248348ddb616a69d69a7
-      internalID: -806829429
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: banda transportadora_24
-      rect:
-        serializedVersion: 2
-        x: 2129
-        y: 260
-        width: 202
-        height: 248
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5303a3fad2fba4b5c832a681c25981e4
-      internalID: -1362672820
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: banda transportadora_25
-      rect:
-        serializedVersion: 2
-        x: 2370
-        y: 261
-        width: 189
-        height: 247
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2d199941df0134db2957ce270d49b970
-      internalID: 1598605429
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: banda transportadora_26
-      rect:
-        serializedVersion: 2
-        x: 2604
-        y: 276
-        width: 186
-        height: 232
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 18fce7d4777264192bad0d04974dbc3e
-      internalID: -1713202695
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: banda transportadora_27
-      rect:
-        serializedVersion: 2
-        x: 951
-        y: 262
-        width: 211
-        height: 234
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 41d05ad65c1f446798ed2245315e63a8
-      internalID: 2017804519
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: banda transportadora_28
-      rect:
-        serializedVersion: 2
-        x: 1180
-        y: 289
-        width: 221
-        height: 212
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e1471878edf5b498b9e20929b67d4454
-      internalID: 167044204
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: banda transportadora_29
-      rect:
-        serializedVersion: 2
-        x: 1415
-        y: 261
-        width: 218
-        height: 242
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 67ee1ea6219ac40f89b1797a36eb9ab7
-      internalID: -1533177225
+      spriteID: 773922ac1e8bb7930800000000000000
+      internalID: 4142107562195719031
       vertices: []
       indices: 
       edges: []
@@ -802,7 +895,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: cd78145a6affe4f28a385d3f9c5e8e2f
+    spriteID: b4fba18d8609740ebbea77596d0bc280
     internalID: 0
     vertices: []
     indices: 
@@ -812,36 +905,38 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      banda transportadora_0: 3979398052296473960
-      banda transportadora_1: -658934169
-      banda transportadora_10: 1230748474
-      banda transportadora_11: -498744282
-      banda transportadora_12: 2097295088
-      banda transportadora_13: 1280618349
-      banda transportadora_14: -667737093
-      banda transportadora_15: 1478510637
-      banda transportadora_16: -529446509
-      banda transportadora_17: 1148880054
-      banda transportadora_18: -484030040
-      banda transportadora_19: 1857641455
-      banda transportadora_2: -1406083023
-      banda transportadora_20: -2078166102
-      banda transportadora_21: -1536409668
-      banda transportadora_22: 1058637773
-      banda transportadora_23: -806829429
-      banda transportadora_24: -1362672820
-      banda transportadora_25: 1598605429
-      banda transportadora_26: -1713202695
-      banda transportadora_27: 2017804519
-      banda transportadora_28: 167044204
-      banda transportadora_29: -1533177225
-      banda transportadora_3: -1809873266
-      banda transportadora_4: 2055409430
-      banda transportadora_5: 387406998
-      banda transportadora_6: -427034313
-      banda transportadora_7: -2030146225
-      banda transportadora_8: -1526862255
-      banda transportadora_9: -951051652
+      Slime1_Idle_body_0: 5302385323135332784
+      Slime1_Idle_body_1: -2824051863978842905
+      Slime1_Idle_body_10: -2549764113807204052
+      Slime1_Idle_body_11: 7485862812301040950
+      Slime1_Idle_body_12: 264080576795765128
+      Slime1_Idle_body_13: -8881965973783232703
+      Slime1_Idle_body_14: -1372750291349097911
+      Slime1_Idle_body_15: -385417475480815647
+      Slime1_Idle_body_16: -6317928903343433004
+      Slime1_Idle_body_17: -818170109171203557
+      Slime1_Idle_body_18: 2567297099650441963
+      Slime1_Idle_body_19: -5814085186137114849
+      Slime1_Idle_body_2: 1830285564793719378
+      Slime1_Idle_body_20: -6760356630071439347
+      Slime1_Idle_body_21: -2567852763550635541
+      Slime1_Idle_body_22: 6517946976566107046
+      Slime1_Idle_body_23: 8569658570060495577
+      Slime1_Idle_body_24: -3381411814025242714
+      Slime1_Idle_body_25: -8010366185963029768
+      Slime1_Idle_body_26: -434672143968333848
+      Slime1_Idle_body_27: 4113719818395568780
+      Slime1_Idle_body_28: 9164101950625293239
+      Slime1_Idle_body_29: -7649093153820163340
+      Slime1_Idle_body_3: 5475771987587111110
+      Slime1_Idle_body_30: -7556078506531172388
+      Slime1_Idle_body_31: 4142107562195719031
+      Slime1_Idle_body_4: -5928631983979424155
+      Slime1_Idle_body_5: -5891091426464729357
+      Slime1_Idle_body_6: 5533485178448895581
+      Slime1_Idle_body_7: -7561079654552713934
+      Slime1_Idle_body_8: -3222294304514404097
+      Slime1_Idle_body_9: 8849265952375085857
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
