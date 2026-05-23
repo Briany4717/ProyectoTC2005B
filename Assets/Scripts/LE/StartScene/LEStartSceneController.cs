@@ -4,12 +4,14 @@ public class LEStartSceneController : MonoBehaviour
 {
     public GameObject playMenu;
     public GameObject startMenu;
-    public LETutorialController tutorialController;
+    public GameObject tutorialPanel;
+    public LETutorialManager tutorialController;
 
     public void StartTutorial()
     {
         playMenu.SetActive(false);
         startMenu.SetActive(false);
+        tutorialPanel.SetActive(true);
         tutorialController.StartTutorial();
     }
 

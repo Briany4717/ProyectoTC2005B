@@ -1,69 +1,107 @@
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro; // Para los textos premium
 
-public class TutorialManager : MonoBehaviour
+public class LETutorialManager : MonoBehaviour
 {
-    [Header("Controllers")]
-    [SerializeField] private LEGellyCharacterController gellyShared;
-    [SerializeField] private LETutorialFocusController focusShared;
-
-    [Header("UI Elements to Focus")]
-    [SerializeField] private RectTransform step1Button;
-    [SerializeField] private RectTransform step2Menu;
-    [SerializeField] private RectTransform step3Inventory;
-
-    private int currentStep = 0;
-
-    void Start()
+    [System.Serializable]
+    public struct TutorialStep
     {
-        // Inicializamos la posición inicial de Gelly en una tupla
-        gellyShared.actualPosition = (gellyShared.transform.position.x, gellyShared.transform.position.y);
+        [TextArea(2, 4)] public string dialogueText; // El texto que se mostrará en este paso
         
-        // Arrancamos el tutorial automáticamente
-        NextStep();
+        [Header("Character Action")]
+        public bool moveCharacter;
+        public Vector2 targetCharacterPosition;
+
+        [Header("Focus UI Action")]
+        public bool useFocusUI;
+        public RectTransform targetUIElement;
+        [Range(0f, 0.5f)] public float focusCornerRadius;
     }
 
-    public void NextStep()
+    [Header("Controllers Shared")]
+    [SerializeField] private LEGellyCharacterController gellyController;
+    [SerializeField] private LETutorialFocusController focusController; // El script del shader que hicimos antes
+
+    [Header("UI Fields")]
+    [SerializeField] private TextMeshProUGUI dialogueTextMesh; // Tu componente de texto de la UI
+
+    [Header("Steps Configuration")]
+    [SerializeField] private TutorialStep[] tutorialSteps;
+
+    private int currentStepIndex = -1;
+    private bool isStepExecuting = false;
+
+    public void StartTutorial()
     {
-        currentStep++;
+        // Arrancamos en el paso cero
+        AdvanceTutorial();
+    }
 
-        switch (currentStep)
+    /// <summary>
+    /// ¡ESTA FUNCIÓN VA EN EL BOTÓN DE UNITY! 
+    /// Cada vez que el usuario presione el botón "Siguiente", llamará aquí.
+    /// </summary>
+    public void AdvanceTutorial()
+    {
+        // Bloqueamos clics repetidos si el personaje está a mitad de un salto
+        if (isStepExecuting) return; 
+
+        currentStepIndex++;
+
+        // Condición de cierre si se acaban los pasos configurados
+        if (currentStepIndex >= tutorialSteps.Length)
         {
-            case 1:
-                // PASO 1: Gelly viaja a una posición y al llegar ilumina el primer botón
-                gellyShared.MoveTo((-2f, 1f), () => {
-                    focusShared.FocusOnElement(step1Button, 0.04f);
-                });
-                break;
+            EndTutorial();
+            return;
+        }
 
-            case 2:
-                // PASO 2: Gelly se mueve a otro lado y el foco de la UI viaja fluidamente al menú
-                gellyShared.MoveTo((3f, -1.5f), () => {
-                    focusShared.FocusOnElement(step2Menu, 0.08f);
-                });
-                break;
+        ExecuteStep(tutorialSteps[currentStepIndex]);
+    }
 
-            case 3:
-                // PASO 3: Foco en el inventario
-                gellyShared.MoveTo((0f, 0f), () => {
-                    focusShared.FocusOnElement(step3Inventory, 0.02f);
-                });
-                break;
+    private void ExecuteStep(TutorialStep step)
+    {
+        isStepExecuting = true;
 
-            case 4:
-                // FIN DEL TUTORIAL: Gelly celebra y quitamos el fondo oscuro
-                focusShared.HideFocus();
-                Debug.Log("¡Tutorial Completado con éxito! (⌐■_■)");
-                break;
+        // 1. Actualizar el diálogo/texto de forma instantánea
+        if (dialogueTextMesh != null)
+        {
+            dialogueTextMesh.text = step.dialogueText;
+        }
+
+        // 2. Resolver la lógica de movimiento y enfoque en orden
+        if (step.moveCharacter)
+        {
+            // Gelly salta. Al caer, se ejecuta el foco de la UI (Callback)
+            gellyController.JumpTo(step.targetCharacterPosition, () => 
+            {
+                TriggerUIFocus(step);
+                isStepExecuting = false; // Liberamos el botón para el siguiente paso
+            });
+        }
+        else
+        {
+            // Si Gelly no se mueve, el foco de la UI se ejecuta de inmediato
+            TriggerUIFocus(step);
+            isStepExecuting = false;
         }
     }
 
-    // Un método rápido para que puedas avanzar de paso presionando la barra espaciadora al probar
-    void Update()
+    private void TriggerUIFocus(TutorialStep step)
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (step.useFocusUI && step.targetUIElement != null)
         {
-            NextStep();
+            focusController.FocusOnElement(step.targetUIElement, step.focusCornerRadius);
         }
+        else
+        {
+            focusController.HideFocus(); // Si este paso no usa foco, ocultamos el hoyo
+        }
+    }
+
+    private void EndTutorial()
+    {
+        focusController.HideFocus();
+        if (dialogueTextMesh != null) dialogueTextMesh.text = "¡Fin del entrenamiento! (⌐■_■)";
+        // Aquí puedes desactivar el panel de diálogos o cargar la siguiente escena
     }
 }

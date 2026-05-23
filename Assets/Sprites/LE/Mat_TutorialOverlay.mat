@@ -56,11 +56,11 @@ Material:
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
-    - _Radius: 0.01
+    - _Radius: 0.04
     m_Colors:
     - White: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0, g: 0, b: 0, a: 0}
-    - _Contianer: {r: 0.5, g: 0.5, b: 0.2, a: 0.2}
+    - _Contianer: {r: 0.5, g: 0.5, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &6581225137301595344
