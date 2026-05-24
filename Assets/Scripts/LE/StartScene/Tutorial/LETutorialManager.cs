@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.Events; // Requerido para los Custom Behaviors en el Inspector
 
 public class LETutorialManager : MonoBehaviour
 {
@@ -17,21 +18,22 @@ public class LETutorialManager : MonoBehaviour
         public bool moveCharacter;
         public Vector2 targetCharacterPosition;
         public float characterTargetScale; 
-        [Tooltip("Si está activo, Gelly se moverá de forma plana siguiendo el mismo delay, duración y curva elástica que la burbuja.")]
         public bool gellyFollowsChatPace; 
 
         [Header("Chat Bubble Movement")]
         public bool moveChatBubble;       
         public Vector2 targetChatAnchoredPosition; 
-        [Tooltip("Duración personalizada para el viaje de la burbuja en este paso. Si es 0, usa la duración por defecto.")]
-        public float chatBubbleDuration;      // <--- NUEVA VARIABLE
-        [Tooltip("Retraso específico antes de que la burbuja comience a moverse en este paso.")]
-        public float delayBeforeChatBubble;  // <--- NUEVA VARIABLE
+        public float chatBubbleDuration;      
+        public float delayBeforeChatBubble;  
 
         [Header("Focus UI Action")]
         public bool useFocusUI;
         public RectTransform targetUIElement;
         [Range(0f, 0.5f)] public float focusCornerRadius;
+
+        [Header("Custom Behavior (⌐■_■)")]
+        [Tooltip("Cualquier función que coloques aquí se ejecutará inmediatamente al iniciar este paso.")]
+        public UnityEvent onStepStartCustomAction; // <--- SÚPER PODER PARA EVENTOS CUSTOM
     }
 
     [Header("Controllers Shared")]
@@ -41,8 +43,9 @@ public class LETutorialManager : MonoBehaviour
     [Header("UI Chat Container Settings")]
     [SerializeField] private RectTransform chatBubbleContainer; 
     [SerializeField] private AnimationCurve chatBubbleCurve;    
-    [Tooltip("Duración global por defecto en caso de que un paso tenga Chat Bubble Duration en 0.")]
-    [SerializeField] private float defaultChatBubbleDuration = 0.5f; // Fallback seguro
+    [SerializeField] private float defaultChatBubbleDuration = 0.5f; 
+    [Tooltip("El objeto de la flecha que indica que el texto terminó y se puede continuar.")]
+    [SerializeField] private GameObject continueArrowIndicator; // <--- NUEVA REFERENCIA
 
     [Header("UI Text & Audio Elements")]
     [SerializeField] private TextMeshProUGUI dialogueTextMesh; 
@@ -59,11 +62,13 @@ public class LETutorialManager : MonoBehaviour
 
     private int currentStepIndex = -1;
     private bool isStepExecuting = false;
+    private Coroutine tutorialRoutine;
     private Coroutine typewriterCoroutine;
     private Coroutine chatBubbleCoroutine;
 
     public void StartTutorial()
     {
+        if (continueArrowIndicator != null) continueArrowIndicator.SetActive(false);
         AdvanceTutorial();
     }
 
@@ -79,20 +84,29 @@ public class LETutorialManager : MonoBehaviour
             return;
         }
 
-        StartCoroutine(ExecuteStepRoutine(tutorialSteps[currentStepIndex]));
+        // Guardamos la rutina principal para poder detenerla limpiamente si se salta el tutorial
+        if (tutorialRoutine != null) StopCoroutine(tutorialRoutine);
+        tutorialRoutine = StartCoroutine(ExecuteStepRoutine(tutorialSteps[currentStepIndex]));
     }
 
     private IEnumerator ExecuteStepRoutine(TutorialStep step)
     {
         isStepExecuting = true;
 
-        // 1. Delay inicial del paso general
+        // Ocultamos la flecha de continuación al iniciar un nuevo paso
+        if (continueArrowIndicator != null) continueArrowIndicator.SetActive(false);
+
+        // =========================================================
+        // EJECUCIÓN DE CUSTOM BEHAVIOR
+        // =========================================================
+        step.onStepStartCustomAction?.Invoke(); // Dispara lo que sea que hayas programado en el inspector
+        // =========================================================
+
         if (step.delayBeforeStep > 0f)
         {
             yield return new WaitForSeconds(step.delayBeforeStep);
         }
 
-        // 2. FX e inicio de escritura de texto
         if (audioSource != null && step.stepAudio != null) audioSource.PlayOneShot(step.stepAudio);
 
         if (dialogueTextMesh != null)
@@ -101,29 +115,24 @@ public class LETutorialManager : MonoBehaviour
             typewriterCoroutine = StartCoroutine(TypewriterEffect(step.dialogueText, step.voiceSound, step.delayBeforeText));
         }
 
-        // Calcular la duración real de la burbuja para este frame (usar la del paso o el fallback global)
         float currentBubbleDuration = step.chatBubbleDuration <= 0f ? defaultChatBubbleDuration : step.chatBubbleDuration;
 
-        // 3. Mover el contenedor de diálogos con su propio Delay y Duración personalizados
         if (step.moveChatBubble && chatBubbleContainer != null)
         {
             if (chatBubbleCoroutine != null) StopCoroutine(chatBubbleCoroutine);
             chatBubbleCoroutine = StartCoroutine(AnimateChatBubbleRoutine(step.targetChatAnchoredPosition, currentBubbleDuration, step.delayBeforeChatBubble));
         }
 
-        // 4. Resolver movimiento de Gelly (Salto o Deslizamiento Sincronizado Completo)
         if (step.moveCharacter)
         {
             float targetScale = step.characterTargetScale <= 0f ? 1f : step.characterTargetScale;
 
             if (step.gellyFollowsChatPace)
             {
-                // MÁXIMA SINCRONIZACIÓN: Gelly espera el mismo delay y corre a la misma velocidad que la burbuja
                 StartCoroutine(DelayedGellyLinearMovement(step.targetCharacterPosition, targetScale, currentBubbleDuration, step.delayBeforeChatBubble, step));
             }
             else
             {
-                // Salto parabólico estándar independiente (ignora los tiempos de la burbuja)
                 gellyController.JumpTo(step.targetCharacterPosition, targetScale, () => 
                 {
                     TriggerUIFocus(step);
@@ -133,7 +142,6 @@ public class LETutorialManager : MonoBehaviour
         }
         else
         {
-            // Si Gelly no se mueve, esperamos a que la burbuja termine su viaje completo (Delay + Duración) antes de liberar el paso
             if (step.moveChatBubble)
             {
                 yield return new WaitForSeconds(step.delayBeforeChatBubble + currentBubbleDuration);
@@ -142,50 +150,6 @@ public class LETutorialManager : MonoBehaviour
             TriggerUIFocus(step);
             isStepExecuting = false;
         }
-    }
-
-    /// <summary>
-    /// Corrutina que traslada la burbuja aplicando el delay y duración específicos del paso actual
-    /// </summary>
-    private IEnumerator AnimateChatBubbleRoutine(Vector2 targetAnchoredPosition, float customDuration, float delay)
-    {
-        if (delay > 0f)
-        {
-            yield return new WaitForSeconds(delay);
-        }
-
-        Vector2 startAnchoredPos = chatBubbleContainer.anchoredPosition;
-        float timer = 0f;
-
-        while (timer < customDuration)
-        {
-            timer += Time.deltaTime;
-            float t = Mathf.Clamp01(timer / customDuration);
-            
-            float progress = chatBubbleCurve.Evaluate(t);
-            chatBubbleContainer.anchoredPosition = Vector2.LerpUnclamped(startAnchoredPos, targetAnchoredPosition, progress);
-            
-            yield return null;
-        }
-
-        chatBubbleContainer.anchoredPosition = targetAnchoredPosition;
-    }
-
-    /// <summary>
-    /// Sincronizador secundario: Hace que Gelly espere el delay de la burbuja y se desplace en perfecta armonía lineal
-    /// </summary>
-    private IEnumerator DelayedGellyLinearMovement(Vector2 targetPos, float targetScale, float customDuration, float delay, TutorialStep step)
-    {
-        if (delay > 0f)
-        {
-            yield return new WaitForSeconds(delay);
-        }
-
-        gellyController.MoveLinearTo(targetPos, targetScale, customDuration, chatBubbleCurve, () => 
-        {
-            TriggerUIFocus(step);
-            isStepExecuting = false; 
-        });
     }
 
     private IEnumerator TypewriterEffect(string fullText, AudioClip voiceClip, float textDelay)
@@ -219,17 +183,73 @@ public class LETutorialManager : MonoBehaviour
         }
 
         if (voiceAudioSource != null) voiceAudioSource.pitch = 1f;
+
+        // ¡MÁXIMA JUGOSIDAD!: Al terminar de escribir la última letra, encendemos la flecha indicadora
+        if (continueArrowIndicator != null)
+        {
+            continueArrowIndicator.SetActive(true);
+        }
+    }
+
+    /// <summary>
+    /// ¡ESTA FUNCIÓN VA EN TU BOTÓN DE REVENTAR/SALTAR TUTORIAL! 💥
+    /// Detiene todo en seco de forma segura y limpia la pantalla.
+    /// </summary>
+    public void SkipTutorial()
+    {
+        // 1. Detenemos todas las corrutinas activas para evitar desfases de tiempo
+        StopAllCoroutines();
+        
+        // 2. Apagamos los indicadores visuales flotantes
+        if (continueArrowIndicator != null) continueArrowIndicator.SetActive(false);
+        
+        // 3. Forzamos el cierre del sistema
+        EndTutorial();
+        
+        // 4. Liberamos el flag por seguridad
+        isStepExecuting = false;
+        
+        Debug.Log("Tutorial salteado por el usuario con éxito. (o^^)o");
+    }
+
+    private void EndTutorial()
+    {
+        focusController.HideFocus();
+        // Ocultamos o desactivamos el contenedor completo de la burbuja de chat si así lo deseas
+        if (chatBubbleContainer != null) chatBubbleContainer.gameObject.SetActive(false);
+        if (dialogueTextMesh != null) dialogueTextMesh.text = "";
+    }
+
+    // --- Métodos de soporte de animaciones se mantienen idénticos ---
+    private IEnumerator AnimateChatBubbleRoutine(Vector2 targetAnchoredPosition, float customDuration, float delay)
+    {
+        if (delay > 0f) yield return new WaitForSeconds(delay);
+        Vector2 startAnchoredPos = chatBubbleContainer.anchoredPosition;
+        float timer = 0f;
+        while (timer < customDuration)
+        {
+            timer += Time.deltaTime;
+            float t = Mathf.Clamp01(timer / customDuration);
+            float progress = chatBubbleCurve.Evaluate(t);
+            chatBubbleContainer.anchoredPosition = Vector2.LerpUnclamped(startAnchoredPos, targetAnchoredPosition, progress);
+            yield return null;
+        }
+        chatBubbleContainer.anchoredPosition = targetAnchoredPosition;
+    }
+
+    private IEnumerator DelayedGellyLinearMovement(Vector2 targetPos, float targetScale, float customDuration, float delay, TutorialStep step)
+    {
+        if (delay > 0f) yield return new WaitForSeconds(delay);
+        gellyController.MoveLinearTo(targetPos, targetScale, customDuration, chatBubbleCurve, () => 
+        {
+            TriggerUIFocus(step);
+            isStepExecuting = false; 
+        });
     }
 
     private void TriggerUIFocus(TutorialStep step)
     {
         if (step.useFocusUI && step.targetUIElement != null) focusController.FocusOnElement(step.targetUIElement, step.focusCornerRadius);
         else focusController.HideFocus();
-    }
-
-    private void EndTutorial()
-    {
-        focusController.HideFocus();
-        if (dialogueTextMesh != null) dialogueTextMesh.text = "¡Tutorial finalizado! (^_^)";
     }
 }
