@@ -718,10 +718,10 @@ MonoBehaviour:
   textSpeed: 0.03
   tutorialSteps:
   - dialogueText: Hola! Soy Gelly y te doy la bienvendia a la linea de ensamblaje
-    delayBeforeStep: 0.5
+    delayBeforeStep: 0
     stepAudio: {fileID: 0}
     moveCharacter: 1
-    targetCharacterPosition: {x: -11.29, y: 4.54}
+    targetCharacterPosition: {x: -9.91, y: 5.16}
     useFocusUI: 0
     targetUIElement: {fileID: 0}
     focusCornerRadius: 0
@@ -4448,8 +4448,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -4466,8 +4466,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  duration: 1
+  duration: 0.5
   maxJumpHeight: 2
+  anticipationDelay: 0.7
   gellyTransformParent: {fileID: 2098698658}
   gellyAnimatorChild: {fileID: 444571143}
 --- !u!1660057539 &9223372036854775807

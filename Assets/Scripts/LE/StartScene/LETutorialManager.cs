@@ -82,14 +82,15 @@ public class LETutorialManager : MonoBehaviour
             if (typewriterCoroutine != null) StopCoroutine(typewriterCoroutine);
             typewriterCoroutine = StartCoroutine(TypewriterEffect(step.dialogueText));
         }
-
+        
         // 4. Resolver movimiento del personaje
         if (step.moveCharacter)
         {
+            // Mandamos a Gelly a saltar. Todo su delay interno se maneja de forma aislada.
             gellyController.JumpTo(step.targetCharacterPosition, () => 
             {
                 TriggerUIFocus(step);
-                isStepExecuting = false; // Se libera el botón al aterrizar
+                isStepExecuting = false; // El botón de la UI se desbloquea exactamente al aterrizar
             });
         }
         else
