@@ -9,13 +9,17 @@ public class LETutorialManager : MonoBehaviour
     {
         [TextArea(2, 4)] public string dialogueText; 
         public float delayBeforeStep;                 
+        [Tooltip("Delay específico para que el texto comience a escribirse tras iniciar el paso.")]
+        public float delayBeforeText; // <--- NUEVA VARIABLE
         public AudioClip stepAudio;                   
+        [Tooltip("El sonido corto (blip/click) que sonará al escribir estilo Undertale.")]
+        public AudioClip voiceSound;  // <--- NUEVA VARIABLE
         
         [Header("Character Action")]
         public bool moveCharacter;
         public Vector2 targetCharacterPosition;
         [Tooltip("El tamaño/escala general que adoptará el personaje en este paso.")]
-        public float characterTargetScale; // <--- NUEVA VARIABLE
+        public float characterTargetScale; 
 
         [Header("Focus UI Action")]
         public bool useFocusUI;
@@ -29,8 +33,15 @@ public class LETutorialManager : MonoBehaviour
 
     [Header("UI & Audio Elements")]
     [SerializeField] private TextMeshProUGUI dialogueTextMesh; 
-    [SerializeField] private AudioSource audioSource; // Componente que reproducirá tus clips
-    [SerializeField] private float textSpeed = 0.03f; // Tiempo entre cada letra
+    [SerializeField] private AudioSource audioSource;       // FX General (Cambio de paso)
+    [SerializeField] private AudioSource voiceAudioSource;  // <--- NUEVA REFERENCIA: Canal exclusivo para los blips de voz
+    [SerializeField] private float textSpeed = 0.03f; 
+    
+    [Header("Retro Voice Settings")]
+    [Tooltip("Cada cuántos caracteres se reproducirá el sonido. 2 o 3 evita saturación.")]
+    [SerializeField] private int characterSoundInterval = 2; 
+    [Tooltip("Varía ligeramente el tono de cada letra para un efecto más orgánico y vivo.")]
+    [SerializeField] private bool randomizeVoicePitch = true; 
 
     [Header("Steps Configuration")]
     [SerializeField] private TutorialStep[] tutorialSteps;
@@ -41,13 +52,9 @@ public class LETutorialManager : MonoBehaviour
 
     public void StartTutorial()
     {
-        // Posición inicial base
         AdvanceTutorial();
     }
 
-    /// <summary>
-    /// Vincula esta función directamente al OnClick() de tus botones en Unity.
-    /// </summary>
     public void AdvanceTutorial()
     {
         if (isStepExecuting) return; 
@@ -60,7 +67,6 @@ public class LETutorialManager : MonoBehaviour
             return;
         }
 
-        // Iniciamos el proceso mediante una Corrutina para poder manejar el Delay limpiamente
         StartCoroutine(ExecuteStepRoutine(tutorialSteps[currentStepIndex]));
     }
 
@@ -68,27 +74,28 @@ public class LETutorialManager : MonoBehaviour
     {
         isStepExecuting = true;
 
-        // 1. Aplicar el Delay Configurable si existe
+        // 1. Aplicar el Delay del Paso si existe
         if (step.delayBeforeStep > 0f)
         {
             yield return new WaitForSeconds(step.delayBeforeStep);
         }
 
+        // 2. FX de cambio de paso
         if (audioSource != null && step.stepAudio != null)
         {
             audioSource.PlayOneShot(step.stepAudio);
         }
 
+        // 3. Iniciar animación de escritura pasándole sus nuevos parámetros de audio y delay de texto
         if (dialogueTextMesh != null)
         {
             if (typewriterCoroutine != null) StopCoroutine(typewriterCoroutine);
-            typewriterCoroutine = StartCoroutine(TypewriterEffect(step.dialogueText));
+            typewriterCoroutine = StartCoroutine(TypewriterEffect(step.dialogueText, step.voiceSound, step.delayBeforeText));
         }
 
         // 4. Resolver movimiento del personaje
         if (step.moveCharacter)
         {
-            // Si la escala viene en 0 por descuido en el inspector, la forzamos a 1 para que no sea invisible
             float targetScale = step.characterTargetScale <= 0f ? 1f : step.characterTargetScale;
 
             gellyController.JumpTo(step.targetCharacterPosition, targetScale, () => 
@@ -104,12 +111,17 @@ public class LETutorialManager : MonoBehaviour
         }
     }
 
-    private IEnumerator TypewriterEffect(string fullText)
+    private IEnumerator TypewriterEffect(string fullText, AudioClip voiceClip, float textDelay)
     {
         dialogueTextMesh.text = fullText;
         dialogueTextMesh.maxVisibleCharacters = 0;
         
-        // Esperamos un frame para que TextMeshPro genere internamente los caracteres
+        // Aplicamos el delay personalizado antes de que la primera letra aparezca
+        if (textDelay > 0f)
+        {
+            yield return new WaitForSeconds(textDelay);
+        }
+
         yield return null; 
 
         int totalCharacters = fullText.Length;
@@ -118,9 +130,34 @@ public class LETutorialManager : MonoBehaviour
         while (counter <= totalCharacters)
         {
             dialogueTextMesh.maxVisibleCharacters = counter;
+
+            // =========================================================
+            // LÓGICA DE VOZ RETRO PREMIUM STYLE (⌐■_■)
+            // =========================================================
+            if (voiceClip != null && voiceAudioSource != null && counter > 0 && counter < totalCharacters)
+            {
+                char lastChar = fullText[counter - 1];
+
+                // Regla de Oro: Solo suena en el intervalo de caracteres configurado Y si NO es un espacio vacío
+                if (counter % characterSoundInterval == 0 && !char.IsWhiteSpace(lastChar))
+                {
+                    if (randomizeVoicePitch)
+                    {
+                        // Modulación de frecuencia elástica sutil
+                        voiceAudioSource.pitch = Random.Range(0.93f, 1.07f); 
+                    }
+                    
+                    voiceAudioSource.PlayOneShot(voiceClip);
+                }
+            }
+            // =========================================================
+
             counter++;
             yield return new WaitForSeconds(textSpeed);
         }
+
+        // Al terminar la escritura, restablecemos el pitch a su estado neutral por seguridad
+        if (voiceAudioSource != null) voiceAudioSource.pitch = 1f;
     }
 
     private void TriggerUIFocus(TutorialStep step)
