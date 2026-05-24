@@ -4469,6 +4469,7 @@ MonoBehaviour:
   duration: 0.5
   maxJumpHeight: 2
   anticipationDelay: 0.7
+  landingAnticipationTime: 0.2
   gellyTransformParent: {fileID: 2098698658}
   gellyAnimatorChild: {fileID: 444571143}
 --- !u!1660057539 &9223372036854775807
