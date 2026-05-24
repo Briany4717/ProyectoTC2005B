@@ -876,10 +876,11 @@ MonoBehaviour:
   characterSoundInterval: 2
   randomizeVoicePitch: 1
   tutorialSteps:
-  - dialogueText: "Hola! Soy Gelly y te doy la bienvendia a la l\xEDnea de ensamblaje."
+  - dialogueText: "\xA1Hola, hola! Soy Gelly, tu nueva gelatina favorita y experta
+      en circuitos. \xA1Qu\xE9 bendici\xF3n que llegaste! "
     delayBeforeStep: 0
     delayBeforeText: 1.5
-    stepAudio: {fileID: 0}
+    stepAudio: {fileID: 8300000, guid: eec23be66695b4dbc89e84ebf9f5cc08, type: 3}
     voiceSound: {fileID: 8300000, guid: eb0687cf0d59a4e72ae69014d69e0192, type: 3}
     moveCharacter: 1
     targetCharacterPosition: {x: -9.93, y: 5.95}
@@ -895,19 +896,21 @@ MonoBehaviour:
     onStepStartCustomAction:
       m_PersistentCalls:
         m_Calls: []
-  - dialogueText: "Hola! Soy Gelly y te doy la bienvendia a la l\xEDnea de ensamblaje."
+  - dialogueText: "Mi taller de reparaciones est\xE1 un poco... colapsado, y necesito
+      que me eches una mano para revivir estos aparatos. \xA1Prep\xE1rate, porque
+      hoy nos toca chambear duro!"
     delayBeforeStep: 0
-    delayBeforeText: 1.5
-    stepAudio: {fileID: 0}
+    delayBeforeText: 0
+    stepAudio: {fileID: 8300000, guid: eec23be66695b4dbc89e84ebf9f5cc08, type: 3}
     voiceSound: {fileID: 8300000, guid: eb0687cf0d59a4e72ae69014d69e0192, type: 3}
     moveCharacter: 0
-    targetCharacterPosition: {x: -9.93, y: 5.95}
-    characterTargetScale: 1.2
+    targetCharacterPosition: {x: 0, y: 0}
+    characterTargetScale: 0
     gellyFollowsChatPace: 0
-    moveChatBubble: 1
-    targetChatAnchoredPosition: {x: -12.02, y: 130}
+    moveChatBubble: 0
+    targetChatAnchoredPosition: {x: 0, y: 0}
     chatBubbleDuration: 0
-    delayBeforeChatBubble: 0.5
+    delayBeforeChatBubble: 0
     useFocusUI: 0
     targetUIElement: {fileID: 0}
     focusCornerRadius: 0
@@ -926,6 +929,28 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - dialogueText: "\xA1Mira all\xE1! Esta es la cinta transportadora. Por aqu\xED
+      van a ir llegando todos los electrodom\xE9sticos que piden a gritos un milagro.
+      No los dejes acumulase, \xA1hay que mantener el flujo constante y con buena
+      vibra! "
+    delayBeforeStep: 0
+    delayBeforeText: 0
+    stepAudio: {fileID: 8300000, guid: eec23be66695b4dbc89e84ebf9f5cc08, type: 3}
+    voiceSound: {fileID: 8300000, guid: eb0687cf0d59a4e72ae69014d69e0192, type: 3}
+    moveCharacter: 0
+    targetCharacterPosition: {x: 0, y: 0}
+    characterTargetScale: 0
+    gellyFollowsChatPace: 0
+    moveChatBubble: 0
+    targetChatAnchoredPosition: {x: 0, y: 0}
+    chatBubbleDuration: 0
+    delayBeforeChatBubble: 0
+    useFocusUI: 1
+    targetUIElement: {fileID: 809819024}
+    focusCornerRadius: 0.01
+    onStepStartCustomAction:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!4 &164191468
 Transform:
   m_ObjectHideFlags: 0
@@ -1144,8 +1169,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 64.37, y: -8.47}
-  m_SizeDelta: {x: 411.19, y: 55.64}
+  m_AnchoredPosition: {x: 64.37, y: -9.48}
+  m_SizeDelta: {x: 411.19, y: 57.66}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &233669322
 MonoBehaviour:
@@ -1206,14 +1231,14 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
-  m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_wordSpacing: -8
+  m_lineSpacing: -9
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
   m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
+  m_overflowMode: 5
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
@@ -2109,6 +2134,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 801764921}
+  m_CullTransparentMesh: 1
+--- !u!1 &809819023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 809819024}
+  - component: {fileID: 809819026}
+  - component: {fileID: 809819025}
+  m_Layer: 5
+  m_Name: FocusAssemblyLine
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &809819024
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809819023}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1675940112}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -59.35, y: -122.78}
+  m_SizeDelta: {x: 699.3, y: 81.84}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &809819025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809819023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &809819026
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809819023}
   m_CullTransparentMesh: 1
 --- !u!1 &860262287
 GameObject:
@@ -4172,7 +4272,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd47a28a66a074fb295641010c361ee9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LETutorialFocusController
-  focusMaterial: {fileID: 2100000, guid: e7a68e40a531048d88be3517dd0de04d, type: 2}
   transitionCurve:
     serializedVersion: 2
     m_Curve:
@@ -4198,6 +4297,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   duration: 0.5
+  uiCamera: {fileID: 19911370}
 --- !u!1 &1671368046
 GameObject:
   m_ObjectHideFlags: 0
@@ -4231,6 +4331,42 @@ Transform:
   - {fileID: 945040710}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1675940111
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1675940112}
+  m_Layer: 5
+  m_Name: FocusObjects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1675940112
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1675940111}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 809819024}
+  m_Father: {fileID: 1805835791}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1805835790
 GameObject:
   m_ObjectHideFlags: 0
@@ -4263,6 +4399,7 @@ RectTransform:
   m_Children:
   - {fileID: 1651605326}
   - {fileID: 216441319}
+  - {fileID: 1675940112}
   - {fileID: 1605576752}
   m_Father: {fileID: 513114597}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

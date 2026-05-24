@@ -65,6 +65,8 @@ public class LETutorialManager : MonoBehaviour
     private Coroutine tutorialRoutine;
     private Coroutine typewriterCoroutine;
     private Coroutine chatBubbleCoroutine;
+    private int currentPage = 1;
+    private int totalPages = 1;
 
     public void StartTutorial()
     {
@@ -74,8 +76,23 @@ public class LETutorialManager : MonoBehaviour
 
     public void AdvanceTutorial()
     {
-        if (isStepExecuting) return; 
+        // TRUCO DE USABILIDAD: Si el texto aún se está escribiendo y el usuario hace click,
+        // saltamos la animación para mostrar la página completa inmediatamente.
+        if (isStepExecuting)
+        {
+            FinishCurrentPageInstantaneously();
+            return;
+        } 
 
+        // Si hay más páginas por ver en este mismo paso, avanzamos la página en lugar del paso
+        if (currentPage < totalPages)
+        {
+            currentPage++;
+            StartCoroutine(ExecutePageVisuals());
+            return;
+        }
+
+        // Si ya no quedan páginas, avanzamos al siguiente paso del tutorial normalmente
         currentStepIndex++;
 
         if (currentStepIndex >= tutorialSteps.Length)
@@ -84,37 +101,38 @@ public class LETutorialManager : MonoBehaviour
             return;
         }
 
-        // Guardamos la rutina principal para poder detenerla limpiamente si se salta el tutorial
-        if (tutorialRoutine != null) StopCoroutine(tutorialRoutine);
-        tutorialRoutine = StartCoroutine(ExecuteStepRoutine(tutorialSteps[currentStepIndex]));
+        StartCoroutine(ExecuteStepRoutine(tutorialSteps[currentStepIndex]));
     }
 
     private IEnumerator ExecuteStepRoutine(TutorialStep step)
     {
         isStepExecuting = true;
-
-        // Ocultamos la flecha de continuación al iniciar un nuevo paso
+        currentPage = 1; 
         if (continueArrowIndicator != null) continueArrowIndicator.SetActive(false);
 
-        // =========================================================
-        // EJECUCIÓN DE CUSTOM BEHAVIOR
-        // =========================================================
-        step.onStepStartCustomAction?.Invoke(); // Dispara lo que sea que hayas programado en el inspector
-        // =========================================================
+        step.onStepStartCustomAction?.Invoke();
 
-        if (step.delayBeforeStep > 0f)
-        {
-            yield return new WaitForSeconds(step.delayBeforeStep);
-        }
-
+        if (step.delayBeforeStep > 0f) yield return new WaitForSeconds(step.delayBeforeStep);
         if (audioSource != null && step.stepAudio != null) audioSource.PlayOneShot(step.stepAudio);
 
         if (dialogueTextMesh != null)
         {
+            // ====================================================================
+            // EL TRUCO MAESTRO: Bloqueamos la visibilidad en 0 ANTES de mutar el texto
+            // ====================================================================
+            dialogueTextMesh.maxVisibleCharacters = 0; 
+            dialogueTextMesh.text = step.dialogueText;
+            dialogueTextMesh.pageToDisplay = currentPage;
+            
+            // El cálculo geométrico ocurre aquí, pero como maxVisible es 0, la GPU no dibuja nada
+            dialogueTextMesh.ForceMeshUpdate();
+            totalPages = dialogueTextMesh.textInfo.pageCount;
+
             if (typewriterCoroutine != null) StopCoroutine(typewriterCoroutine);
-            typewriterCoroutine = StartCoroutine(TypewriterEffect(step.dialogueText, step.voiceSound, step.delayBeforeText));
+            typewriterCoroutine = StartCoroutine(TypewriterEffect(step.voiceSound, step.delayBeforeText));
         }
 
+        // --- El resto del movimiento de la burbuja y Gelly se mantiene exactamente igual ---
         float currentBubbleDuration = step.chatBubbleDuration <= 0f ? defaultChatBubbleDuration : step.chatBubbleDuration;
 
         if (step.moveChatBubble && chatBubbleContainer != null)
@@ -142,35 +160,53 @@ public class LETutorialManager : MonoBehaviour
         }
         else
         {
-            if (step.moveChatBubble)
-            {
-                yield return new WaitForSeconds(step.delayBeforeChatBubble + currentBubbleDuration);
-            }
-            
+            if (step.moveChatBubble) yield return new WaitForSeconds(step.delayBeforeChatBubble + currentBubbleDuration);
             TriggerUIFocus(step);
             isStepExecuting = false;
         }
     }
 
-    private IEnumerator TypewriterEffect(string fullText, AudioClip voiceClip, float textDelay)
+    private IEnumerator ExecutePageVisuals()
     {
-        dialogueTextMesh.text = fullText;
-        dialogueTextMesh.maxVisibleCharacters = 0;
+        isStepExecuting = true;
+        if (continueArrowIndicator != null) continueArrowIndicator.SetActive(false);
         
+        if (typewriterCoroutine != null) StopCoroutine(typewriterCoroutine);
+        
+        // Al cambiar de página, también forzamos el bloqueo visual antes de iniciar la animación
+        dialogueTextMesh.maxVisibleCharacters = dialogueTextMesh.textInfo.pageInfo[currentPage - 1].firstCharacterIndex;
+        
+        var step = tutorialSteps[currentStepIndex];
+        typewriterCoroutine = StartCoroutine(TypewriterEffect(step.voiceSound, 0f));
+        
+        yield return null;
+    }
+
+    private IEnumerator TypewriterEffect(AudioClip voiceClip, float textDelay)
+    {
+        // Fijamos la página correcta
+        dialogueTextMesh.pageToDisplay = currentPage;
+
+        // Extraemos los índices puros de la página actual recalculada
+        TMP_PageInfo pageInfo = dialogueTextMesh.textInfo.pageInfo[currentPage - 1];
+        int firstCharacterIndex = pageInfo.firstCharacterIndex;
+        int lastCharacterIndex = pageInfo.lastCharacterIndex;
+
+        // Inicializamos el contenedor en el primer carácter exacto de esta página
+        int counter = firstCharacterIndex;
+        dialogueTextMesh.maxVisibleCharacters = counter;
+
+        // Si hay un delay de texto personalizable, la pantalla se queda limpia y vacía durante la espera
         if (textDelay > 0f) yield return new WaitForSeconds(textDelay);
 
-        yield return null; 
-
-        int totalCharacters = fullText.Length;
-        int counter = 0;
-
-        while (counter <= totalCharacters)
+        while (counter <= lastCharacterIndex)
         {
             dialogueTextMesh.maxVisibleCharacters = counter;
 
-            if (voiceClip != null && voiceAudioSource != null && counter > 0 && counter < totalCharacters)
+            // Lógica de Audio/Voz tipo Undertale
+            if (voiceClip != null && voiceAudioSource != null && counter > firstCharacterIndex)
             {
-                char lastChar = fullText[counter - 1];
+                char lastChar = dialogueTextMesh.text[counter - 1];
                 if (counter % characterSoundInterval == 0 && !char.IsWhiteSpace(lastChar))
                 {
                     if (randomizeVoicePitch) voiceAudioSource.pitch = Random.Range(0.93f, 1.07f);
@@ -182,13 +218,20 @@ public class LETutorialManager : MonoBehaviour
             yield return new WaitForSeconds(textSpeed);
         }
 
-        if (voiceAudioSource != null) voiceAudioSource.pitch = 1f;
+        isStepExecuting = false;
+        if (continueArrowIndicator != null) continueArrowIndicator.SetActive(true);
+    }
 
-        // ¡MÁXIMA JUGOSIDAD!: Al terminar de escribir la última letra, encendemos la flecha indicadora
-        if (continueArrowIndicator != null)
-        {
-            continueArrowIndicator.SetActive(true);
-        }
+    private void FinishCurrentPageInstantaneously()
+    {
+        if (typewriterCoroutine != null) StopCoroutine(typewriterCoroutine);
+        
+        // Forzamos a TMP a mostrar todos los caracteres de la página actual de golpe
+        TMP_PageInfo pageInfo = dialogueTextMesh.textInfo.pageInfo[currentPage - 1];
+        dialogueTextMesh.maxVisibleCharacters = pageInfo.lastCharacterIndex;
+        
+        isStepExecuting = false;
+        if (continueArrowIndicator != null) continueArrowIndicator.SetActive(true);
     }
 
     /// <summary>
