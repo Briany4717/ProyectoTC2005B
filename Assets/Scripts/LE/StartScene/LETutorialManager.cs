@@ -8,12 +8,14 @@ public class LETutorialManager : MonoBehaviour
     public struct TutorialStep
     {
         [TextArea(2, 4)] public string dialogueText; 
-        public float delayBeforeStep;                 // Delay configurable antes de que inicie el paso
-        public AudioClip stepAudio;                   // Tu clip de audio personalizado para este paso
+        public float delayBeforeStep;                 
+        public AudioClip stepAudio;                   
         
         [Header("Character Action")]
         public bool moveCharacter;
         public Vector2 targetCharacterPosition;
+        [Tooltip("El tamaño/escala general que adoptará el personaje en este paso.")]
+        public float characterTargetScale; // <--- NUEVA VARIABLE
 
         [Header("Focus UI Action")]
         public bool useFocusUI;
@@ -82,15 +84,17 @@ public class LETutorialManager : MonoBehaviour
             if (typewriterCoroutine != null) StopCoroutine(typewriterCoroutine);
             typewriterCoroutine = StartCoroutine(TypewriterEffect(step.dialogueText));
         }
-        
+
         // 4. Resolver movimiento del personaje
         if (step.moveCharacter)
         {
-            // Mandamos a Gelly a saltar. Todo su delay interno se maneja de forma aislada.
-            gellyController.JumpTo(step.targetCharacterPosition, () => 
+            // Si la escala viene en 0 por descuido en el inspector, la forzamos a 1 para que no sea invisible
+            float targetScale = step.characterTargetScale <= 0f ? 1f : step.characterTargetScale;
+
+            gellyController.JumpTo(step.targetCharacterPosition, targetScale, () => 
             {
                 TriggerUIFocus(step);
-                isStepExecuting = false; // El botón de la UI se desbloquea exactamente al aterrizar
+                isStepExecuting = false; 
             });
         }
         else
