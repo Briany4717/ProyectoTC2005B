@@ -60,6 +60,7 @@ public class LEStartSceneController : MonoBehaviour
         // Apagamos los menús de inmediato para enfocar toda la atención en la caja estallando
         playMenu.SetActive(false);
         startMenu.SetActive(false);
+        tutorialPanel.SetActive(true);
 
         // Iniciamos la secuencia de gacha incremental
         StartCoroutine(GachaBurstRoutine());
@@ -126,7 +127,7 @@ public class LEStartSceneController : MonoBehaviour
 
         // ¡BOOM! Restablecemos coordenadas físicas a la perfección
         boxObject.transform.position = originalPosition;
-        boxObject.transform.rotation = originalRotation;
+        boxObject.transform.rotation = originalRotation * Quaternion.Euler(0f, 0f, 40f);
 
         // Cambiamos el sprite al de la caja abierta de forma nativa
         if (boxObject != null && boxOpenSprite != null)
@@ -138,7 +139,6 @@ public class LEStartSceneController : MonoBehaviour
         yield return new WaitForSeconds(0.25f);
 
         // Activamos la UI del tutorial e iniciamos tu orquestador de datos
-        tutorialPanel.SetActive(true);
         tutorialController.StartTutorial();
     }
 }
