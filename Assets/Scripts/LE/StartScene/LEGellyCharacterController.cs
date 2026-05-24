@@ -3,12 +3,11 @@ using UnityEngine;
 public class LEGellyCharacterController : MonoBehaviour
 {
     [Header("Horizontal Movement")]
-    [SerializeField] private AnimationCurve horizontalCurve; // Una curva suave de inicio a fin (0 a 1)
+    [SerializeField] private AnimationCurve horizontalCurve; // Controla la aceleración/frenado en el suelo
     [SerializeField] private float duration = 0.6f;
 
-    [Header("Jump Arc (Vertical)")]
-    [SerializeField] private AnimationCurve jumpArcCurve; // Una curva con forma de parábola (sube a 1 en el centro y baja a 0)
-    [SerializeField] private float maxJumpHeight = 2.0f;  // Qué tan alto saltará el personaje
+    [Header("Jump Math (Foolproof)")]
+    [SerializeField] private float maxJumpHeight = 2.0f;  // Altura máxima del arco
 
     [Header("References")]
     public Transform gellyTransformParent;
@@ -20,7 +19,7 @@ public class LEGellyCharacterController : MonoBehaviour
     private Vector3 endPos;
     private System.Action onJumpCompleteCallback;
 
-    private static readonly int JumpTriggerHash = Animator.StringToHash("Jump"); // O el nombre de tu Trigger de animación
+    private static readonly int JumpTriggerHash = Animator.StringToHash("Jump");
 
     public void JumpTo(Vector2 targetPos, System.Action onComplete = null)
     {
@@ -33,7 +32,6 @@ public class LEGellyCharacterController : MonoBehaviour
         timer = 0f;
         isJumping = true;
 
-        // Despierta la animación de salto en el hijo inmediatamente
         if (gellyAnimatorChild != null)
         {
             gellyAnimatorChild.SetTrigger(JumpTriggerHash);
@@ -47,15 +45,16 @@ public class LEGellyCharacterController : MonoBehaviour
         timer += Time.deltaTime;
         float t = Mathf.Clamp01(timer / duration);
 
-        // 1. Calculamos la posición base en el suelo (Lerp lineal guiado por la curva de velocidad)
+        // 1. Movimiento horizontal guiado por tu curva elástica
         float hProgress = horizontalCurve.Evaluate(t);
         Vector3 groundPos = Vector3.LerpUnclamped(startPos, endPos, hProgress);
 
-        // 2. Calculamos la altura del salto de forma independiente
-        float vProgress = jumpArcCurve.Evaluate(t);
-        float currentHeight = vProgress * maxJumpHeight;
+        // 2. Parábola matemática pura: 4 * t * (1 - t). 
+        // Siempre da 0 al inicio, 1 al centro y 0 al final. ¡Física perfecta sin fallas!
+        float jumpProgress = 4f * t * (1f - t); 
+        float currentHeight = jumpProgress * maxJumpHeight;
 
-        // 3. Combinamos ambos cálculos en el transform del Padre
+        // 3. Aplicamos la combinación al Padre
         gellyTransformParent.position = new Vector3(groundPos.x, groundPos.y + currentHeight, groundPos.z);
 
         if (t >= 1f)

@@ -1,12 +1,15 @@
 using UnityEngine;
-using TMPro; // Para los textos premium
+using TMPro;
+using System.Collections;
 
 public class LETutorialManager : MonoBehaviour
 {
     [System.Serializable]
     public struct TutorialStep
     {
-        [TextArea(2, 4)] public string dialogueText; // El texto que se mostrará en este paso
+        [TextArea(2, 4)] public string dialogueText; 
+        public float delayBeforeStep;                 // Delay configurable antes de que inicie el paso
+        public AudioClip stepAudio;                   // Tu clip de audio personalizado para este paso
         
         [Header("Character Action")]
         public bool moveCharacter;
@@ -20,69 +23,98 @@ public class LETutorialManager : MonoBehaviour
 
     [Header("Controllers Shared")]
     [SerializeField] private LEGellyCharacterController gellyController;
-    [SerializeField] private LETutorialFocusController focusController; // El script del shader que hicimos antes
+    [SerializeField] private LETutorialFocusController focusController; 
 
-    [Header("UI Fields")]
-    [SerializeField] private TextMeshProUGUI dialogueTextMesh; // Tu componente de texto de la UI
+    [Header("UI & Audio Elements")]
+    [SerializeField] private TextMeshProUGUI dialogueTextMesh; 
+    [SerializeField] private AudioSource audioSource; // Componente que reproducirá tus clips
+    [SerializeField] private float textSpeed = 0.03f; // Tiempo entre cada letra
 
     [Header("Steps Configuration")]
     [SerializeField] private TutorialStep[] tutorialSteps;
 
     private int currentStepIndex = -1;
     private bool isStepExecuting = false;
+    private Coroutine typewriterCoroutine;
 
     public void StartTutorial()
     {
-        // Arrancamos en el paso cero
+        // Posición inicial base
         AdvanceTutorial();
     }
 
     /// <summary>
-    /// ¡ESTA FUNCIÓN VA EN EL BOTÓN DE UNITY! 
-    /// Cada vez que el usuario presione el botón "Siguiente", llamará aquí.
+    /// Vincula esta función directamente al OnClick() de tus botones en Unity.
     /// </summary>
     public void AdvanceTutorial()
     {
-        // Bloqueamos clics repetidos si el personaje está a mitad de un salto
         if (isStepExecuting) return; 
 
         currentStepIndex++;
 
-        // Condición de cierre si se acaban los pasos configurados
         if (currentStepIndex >= tutorialSteps.Length)
         {
             EndTutorial();
             return;
         }
 
-        ExecuteStep(tutorialSteps[currentStepIndex]);
+        // Iniciamos el proceso mediante una Corrutina para poder manejar el Delay limpiamente
+        StartCoroutine(ExecuteStepRoutine(tutorialSteps[currentStepIndex]));
     }
 
-    private void ExecuteStep(TutorialStep step)
+    private IEnumerator ExecuteStepRoutine(TutorialStep step)
     {
         isStepExecuting = true;
 
-        // 1. Actualizar el diálogo/texto de forma instantánea
-        if (dialogueTextMesh != null)
+        // 1. Aplicar el Delay Configurable si existe
+        if (step.delayBeforeStep > 0f)
         {
-            dialogueTextMesh.text = step.dialogueText;
+            yield return new WaitForSeconds(step.delayBeforeStep);
         }
 
-        // 2. Resolver la lógica de movimiento y enfoque en orden
+        if (audioSource != null && step.stepAudio != null)
+        {
+            audioSource.PlayOneShot(step.stepAudio);
+        }
+
+        if (dialogueTextMesh != null)
+        {
+            if (typewriterCoroutine != null) StopCoroutine(typewriterCoroutine);
+            typewriterCoroutine = StartCoroutine(TypewriterEffect(step.dialogueText));
+        }
+
+        // 4. Resolver movimiento del personaje
         if (step.moveCharacter)
         {
-            // Gelly salta. Al caer, se ejecuta el foco de la UI (Callback)
             gellyController.JumpTo(step.targetCharacterPosition, () => 
             {
                 TriggerUIFocus(step);
-                isStepExecuting = false; // Liberamos el botón para el siguiente paso
+                isStepExecuting = false; // Se libera el botón al aterrizar
             });
         }
         else
         {
-            // Si Gelly no se mueve, el foco de la UI se ejecuta de inmediato
             TriggerUIFocus(step);
             isStepExecuting = false;
+        }
+    }
+
+    private IEnumerator TypewriterEffect(string fullText)
+    {
+        dialogueTextMesh.text = fullText;
+        dialogueTextMesh.maxVisibleCharacters = 0;
+        
+        // Esperamos un frame para que TextMeshPro genere internamente los caracteres
+        yield return null; 
+
+        int totalCharacters = fullText.Length;
+        int counter = 0;
+
+        while (counter <= totalCharacters)
+        {
+            dialogueTextMesh.maxVisibleCharacters = counter;
+            counter++;
+            yield return new WaitForSeconds(textSpeed);
         }
     }
 
@@ -94,14 +126,13 @@ public class LETutorialManager : MonoBehaviour
         }
         else
         {
-            focusController.HideFocus(); // Si este paso no usa foco, ocultamos el hoyo
+            focusController.HideFocus();
         }
     }
 
     private void EndTutorial()
     {
         focusController.HideFocus();
-        if (dialogueTextMesh != null) dialogueTextMesh.text = "¡Fin del entrenamiento! (⌐■_■)";
-        // Aquí puedes desactivar el panel de diálogos o cargar la siguiente escena
+        if (dialogueTextMesh != null) dialogueTextMesh.text = "¡Tutorial finalizado! (^_^)";
     }
 }
