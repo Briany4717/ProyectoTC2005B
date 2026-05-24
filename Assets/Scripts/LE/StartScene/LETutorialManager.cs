@@ -9,17 +9,24 @@ public class LETutorialManager : MonoBehaviour
     {
         [TextArea(2, 4)] public string dialogueText; 
         public float delayBeforeStep;                 
-        [Tooltip("Delay específico para que el texto comience a escribirse tras iniciar el paso.")]
-        public float delayBeforeText; // <--- NUEVA VARIABLE
+        public float delayBeforeText; 
         public AudioClip stepAudio;                   
-        [Tooltip("El sonido corto (blip/click) que sonará al escribir estilo Undertale.")]
-        public AudioClip voiceSound;  // <--- NUEVA VARIABLE
+        public AudioClip voiceSound;  
         
         [Header("Character Action")]
         public bool moveCharacter;
         public Vector2 targetCharacterPosition;
-        [Tooltip("El tamaño/escala general que adoptará el personaje en este paso.")]
         public float characterTargetScale; 
+        [Tooltip("Si está activo, Gelly se moverá de forma plana siguiendo el mismo delay, duración y curva elástica que la burbuja.")]
+        public bool gellyFollowsChatPace; 
+
+        [Header("Chat Bubble Movement")]
+        public bool moveChatBubble;       
+        public Vector2 targetChatAnchoredPosition; 
+        [Tooltip("Duración personalizada para el viaje de la burbuja en este paso. Si es 0, usa la duración por defecto.")]
+        public float chatBubbleDuration;      // <--- NUEVA VARIABLE
+        [Tooltip("Retraso específico antes de que la burbuja comience a moverse en este paso.")]
+        public float delayBeforeChatBubble;  // <--- NUEVA VARIABLE
 
         [Header("Focus UI Action")]
         public bool useFocusUI;
@@ -31,16 +38,20 @@ public class LETutorialManager : MonoBehaviour
     [SerializeField] private LEGellyCharacterController gellyController;
     [SerializeField] private LETutorialFocusController focusController; 
 
-    [Header("UI & Audio Elements")]
+    [Header("UI Chat Container Settings")]
+    [SerializeField] private RectTransform chatBubbleContainer; 
+    [SerializeField] private AnimationCurve chatBubbleCurve;    
+    [Tooltip("Duración global por defecto en caso de que un paso tenga Chat Bubble Duration en 0.")]
+    [SerializeField] private float defaultChatBubbleDuration = 0.5f; // Fallback seguro
+
+    [Header("UI Text & Audio Elements")]
     [SerializeField] private TextMeshProUGUI dialogueTextMesh; 
-    [SerializeField] private AudioSource audioSource;       // FX General (Cambio de paso)
-    [SerializeField] private AudioSource voiceAudioSource;  // <--- NUEVA REFERENCIA: Canal exclusivo para los blips de voz
+    [SerializeField] private AudioSource audioSource;       
+    [SerializeField] private AudioSource voiceAudioSource;  
     [SerializeField] private float textSpeed = 0.03f; 
     
     [Header("Retro Voice Settings")]
-    [Tooltip("Cada cuántos caracteres se reproducirá el sonido. 2 o 3 evita saturación.")]
     [SerializeField] private int characterSoundInterval = 2; 
-    [Tooltip("Varía ligeramente el tono de cada letra para un efecto más orgánico y vivo.")]
     [SerializeField] private bool randomizeVoicePitch = true; 
 
     [Header("Steps Configuration")]
@@ -49,6 +60,7 @@ public class LETutorialManager : MonoBehaviour
     private int currentStepIndex = -1;
     private bool isStepExecuting = false;
     private Coroutine typewriterCoroutine;
+    private Coroutine chatBubbleCoroutine;
 
     public void StartTutorial()
     {
@@ -74,41 +86,106 @@ public class LETutorialManager : MonoBehaviour
     {
         isStepExecuting = true;
 
-        // 1. Aplicar el Delay del Paso si existe
+        // 1. Delay inicial del paso general
         if (step.delayBeforeStep > 0f)
         {
             yield return new WaitForSeconds(step.delayBeforeStep);
         }
 
-        // 2. FX de cambio de paso
-        if (audioSource != null && step.stepAudio != null)
-        {
-            audioSource.PlayOneShot(step.stepAudio);
-        }
+        // 2. FX e inicio de escritura de texto
+        if (audioSource != null && step.stepAudio != null) audioSource.PlayOneShot(step.stepAudio);
 
-        // 3. Iniciar animación de escritura pasándole sus nuevos parámetros de audio y delay de texto
         if (dialogueTextMesh != null)
         {
             if (typewriterCoroutine != null) StopCoroutine(typewriterCoroutine);
             typewriterCoroutine = StartCoroutine(TypewriterEffect(step.dialogueText, step.voiceSound, step.delayBeforeText));
         }
 
-        // 4. Resolver movimiento del personaje
+        // Calcular la duración real de la burbuja para este frame (usar la del paso o el fallback global)
+        float currentBubbleDuration = step.chatBubbleDuration <= 0f ? defaultChatBubbleDuration : step.chatBubbleDuration;
+
+        // 3. Mover el contenedor de diálogos con su propio Delay y Duración personalizados
+        if (step.moveChatBubble && chatBubbleContainer != null)
+        {
+            if (chatBubbleCoroutine != null) StopCoroutine(chatBubbleCoroutine);
+            chatBubbleCoroutine = StartCoroutine(AnimateChatBubbleRoutine(step.targetChatAnchoredPosition, currentBubbleDuration, step.delayBeforeChatBubble));
+        }
+
+        // 4. Resolver movimiento de Gelly (Salto o Deslizamiento Sincronizado Completo)
         if (step.moveCharacter)
         {
             float targetScale = step.characterTargetScale <= 0f ? 1f : step.characterTargetScale;
 
-            gellyController.JumpTo(step.targetCharacterPosition, targetScale, () => 
+            if (step.gellyFollowsChatPace)
             {
-                TriggerUIFocus(step);
-                isStepExecuting = false; 
-            });
+                // MÁXIMA SINCRONIZACIÓN: Gelly espera el mismo delay y corre a la misma velocidad que la burbuja
+                StartCoroutine(DelayedGellyLinearMovement(step.targetCharacterPosition, targetScale, currentBubbleDuration, step.delayBeforeChatBubble, step));
+            }
+            else
+            {
+                // Salto parabólico estándar independiente (ignora los tiempos de la burbuja)
+                gellyController.JumpTo(step.targetCharacterPosition, targetScale, () => 
+                {
+                    TriggerUIFocus(step);
+                    isStepExecuting = false; 
+                });
+            }
         }
         else
         {
+            // Si Gelly no se mueve, esperamos a que la burbuja termine su viaje completo (Delay + Duración) antes de liberar el paso
+            if (step.moveChatBubble)
+            {
+                yield return new WaitForSeconds(step.delayBeforeChatBubble + currentBubbleDuration);
+            }
+            
             TriggerUIFocus(step);
             isStepExecuting = false;
         }
+    }
+
+    /// <summary>
+    /// Corrutina que traslada la burbuja aplicando el delay y duración específicos del paso actual
+    /// </summary>
+    private IEnumerator AnimateChatBubbleRoutine(Vector2 targetAnchoredPosition, float customDuration, float delay)
+    {
+        if (delay > 0f)
+        {
+            yield return new WaitForSeconds(delay);
+        }
+
+        Vector2 startAnchoredPos = chatBubbleContainer.anchoredPosition;
+        float timer = 0f;
+
+        while (timer < customDuration)
+        {
+            timer += Time.deltaTime;
+            float t = Mathf.Clamp01(timer / customDuration);
+            
+            float progress = chatBubbleCurve.Evaluate(t);
+            chatBubbleContainer.anchoredPosition = Vector2.LerpUnclamped(startAnchoredPos, targetAnchoredPosition, progress);
+            
+            yield return null;
+        }
+
+        chatBubbleContainer.anchoredPosition = targetAnchoredPosition;
+    }
+
+    /// <summary>
+    /// Sincronizador secundario: Hace que Gelly espere el delay de la burbuja y se desplace en perfecta armonía lineal
+    /// </summary>
+    private IEnumerator DelayedGellyLinearMovement(Vector2 targetPos, float targetScale, float customDuration, float delay, TutorialStep step)
+    {
+        if (delay > 0f)
+        {
+            yield return new WaitForSeconds(delay);
+        }
+
+        gellyController.MoveLinearTo(targetPos, targetScale, customDuration, chatBubbleCurve, () => 
+        {
+            TriggerUIFocus(step);
+            isStepExecuting = false; 
+        });
     }
 
     private IEnumerator TypewriterEffect(string fullText, AudioClip voiceClip, float textDelay)
@@ -116,11 +193,7 @@ public class LETutorialManager : MonoBehaviour
         dialogueTextMesh.text = fullText;
         dialogueTextMesh.maxVisibleCharacters = 0;
         
-        // Aplicamos el delay personalizado antes de que la primera letra aparezca
-        if (textDelay > 0f)
-        {
-            yield return new WaitForSeconds(textDelay);
-        }
+        if (textDelay > 0f) yield return new WaitForSeconds(textDelay);
 
         yield return null; 
 
@@ -131,45 +204,27 @@ public class LETutorialManager : MonoBehaviour
         {
             dialogueTextMesh.maxVisibleCharacters = counter;
 
-            // =========================================================
-            // LÓGICA DE VOZ RETRO PREMIUM STYLE (⌐■_■)
-            // =========================================================
             if (voiceClip != null && voiceAudioSource != null && counter > 0 && counter < totalCharacters)
             {
                 char lastChar = fullText[counter - 1];
-
-                // Regla de Oro: Solo suena en el intervalo de caracteres configurado Y si NO es un espacio vacío
                 if (counter % characterSoundInterval == 0 && !char.IsWhiteSpace(lastChar))
                 {
-                    if (randomizeVoicePitch)
-                    {
-                        // Modulación de frecuencia elástica sutil
-                        voiceAudioSource.pitch = Random.Range(0.93f, 1.07f); 
-                    }
-                    
+                    if (randomizeVoicePitch) voiceAudioSource.pitch = Random.Range(0.93f, 1.07f);
                     voiceAudioSource.PlayOneShot(voiceClip);
                 }
             }
-            // =========================================================
 
             counter++;
             yield return new WaitForSeconds(textSpeed);
         }
 
-        // Al terminar la escritura, restablecemos el pitch a su estado neutral por seguridad
         if (voiceAudioSource != null) voiceAudioSource.pitch = 1f;
     }
 
     private void TriggerUIFocus(TutorialStep step)
     {
-        if (step.useFocusUI && step.targetUIElement != null)
-        {
-            focusController.FocusOnElement(step.targetUIElement, step.focusCornerRadius);
-        }
-        else
-        {
-            focusController.HideFocus();
-        }
+        if (step.useFocusUI && step.targetUIElement != null) focusController.FocusOnElement(step.targetUIElement, step.focusCornerRadius);
+        else focusController.HideFocus();
     }
 
     private void EndTutorial()

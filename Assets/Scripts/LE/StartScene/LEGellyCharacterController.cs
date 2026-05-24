@@ -25,73 +25,95 @@ public class LEGellyCharacterController : MonoBehaviour
     [SerializeField] private AnimationCurve anticipationScaleCurve;
 
     [Header("References")]
-    public Transform gellyTransformParent; // Mueve su posición GLOBAL absoluta
-    public Animator gellyAnimatorChild;   // Su posición local se queda clavada en (0,0,0)
+    public Transform gellyTransformParent; 
+    public Animator gellyAnimatorChild;   
 
     private float elapsedTime = 0f;
     private bool isJumping = false;
+    private bool isMovingLinear = false; // Flag para el nuevo estado sincronizado
     private bool landTriggered = false; 
     
-    // Coordenadas globales puras del suelo
     private Vector3 groundStartPos;
     private Vector3 groundEndPos;
-    
     private float startScale;
     private float targetScale;
+    private float currentMovementDuration; // Duración dinámica
+    private AnimationCurve currentMovementCurve; // Curva dinámica
     
-    private System.Action onJumpCompleteCallback;
+    private System.Action onMovementCompleteCallback;
 
     private static readonly int JumpTriggerHash = Animator.StringToHash("Jump");
     private static readonly int LandTriggerHash = Animator.StringToHash("Land");
+    private static readonly int IsMovingHash = Animator.StringToHash("isMoving"); // Por si usas un estado de correr/deslizarse
 
+    /// <summary>
+    /// Salto parabólico tradicional con anticipación
+    /// </summary>
     public void JumpTo(Vector2 targetWorldPos, float nextScale, System.Action onComplete = null)
     {
-        if (isJumping) return;
+        if (isJumping || isMovingLinear) return;
 
-        // El hijo se queda estricto en el origen local para evitar deformaciones
-        if (gellyAnimatorChild != null)
-        {
-            startScale = gellyAnimatorChild.transform.localScale.y;
-        }
+        SetupBaseMovement(targetWorldPos, nextScale, onComplete);
+        
+        currentMovementDuration = duration;
+        currentMovementCurve = horizontalCurve;
+        isJumping = true;
+
+        if (gellyAnimatorChild != null) gellyAnimatorChild.SetTrigger(JumpTriggerHash);
+    }
+
+    /// <summary>
+    /// NUEVA FUNCIÓN: Se mueve de forma plana y sincronizada al mismo paso que el contenedor de UI
+    /// </summary>
+    public void MoveLinearTo(Vector2 targetWorldPos, float nextScale, float customDuration, AnimationCurve customCurve, System.Action onComplete = null)
+    {
+        if (isJumping || isMovingLinear) return;
+
+        SetupBaseMovement(targetWorldPos, nextScale, onComplete);
+        
+        currentMovementDuration = customDuration;
+        currentMovementCurve = customCurve;
+        isMovingLinear = true;
+
+        // Si tienes una animación de caminar/deslizarse, puedes activarla aquí
+        if (gellyAnimatorChild != null) gellyAnimatorChild.SetBool(IsMovingHash, true);
+    }
+
+    private void SetupBaseMovement(Vector2 targetWorldPos, float nextScale, System.Action onComplete)
+    {
+        if (gellyAnimatorChild != null) startScale = gellyAnimatorChild.transform.localScale.y;
         
         targetScale = nextScale;
-        onJumpCompleteCallback = onComplete;
-
-        // CAMBIO CARDINAL: Capturamos la posición GLOBAL (position) del Padre
+        onMovementCompleteCallback = onComplete;
         groundStartPos = new Vector3(gellyTransformParent.position.x, CalculateCurrentGroundY(), gellyTransformParent.position.z);
         groundEndPos = new Vector3(targetWorldPos.x, targetWorldPos.y, groundStartPos.z);
         
         elapsedTime = 0f;
-        isJumping = true;
-        landTriggered = false; 
-
-        if (gellyAnimatorChild != null)
-        {
-            gellyAnimatorChild.SetTrigger(JumpTriggerHash);
-        }
+        landTriggered = false;
     }
 
     void Update()
     {
-        if (!isJumping) return;
+        if (isJumping) HandleParabolicJump();
+        else if (isMovingLinear) HandleLinearMovement();
+    }
 
+    private void HandleParabolicJump()
+    {
         elapsedTime += Time.deltaTime;
 
-        // FASE 1: Anticipación (Suelo)
         if (elapsedTime < anticipationDelay)
         {
             float antiProgress = elapsedTime / anticipationDelay;
             float currentScale = gellyAnimatorChild.transform.localScale.y;
-            
             UpdateTargetTransformations(groundStartPos, 0f, currentScale);
             return;
         }
 
-        // FASE 2: Vuelo
         float jumpTime = elapsedTime - anticipationDelay;
-        float t = Mathf.Clamp01(jumpTime / duration);
+        float t = Mathf.Clamp01(jumpTime / currentMovementDuration);
 
-        float hProgress = horizontalCurve.Evaluate(t);
+        float hProgress = currentMovementCurve.Evaluate(t);
         Vector3 currentGroundPos = Vector3.LerpUnclamped(groundStartPos, groundEndPos, hProgress);
 
         float jumpProgress = 4f * t * (1f - t); 
@@ -100,30 +122,43 @@ public class LEGellyCharacterController : MonoBehaviour
         float baseScaleAtFrame = Mathf.LerpUnclamped(startScale, targetScale, t);
         float currentScaleAtFrame = baseScaleAtFrame * jumpScaleCurve.Evaluate(t);
 
-        // Actualizamos transformaciones en espacio global
         UpdateTargetTransformations(currentGroundPos, currentJumpHeight, currentScaleAtFrame);
 
-        // Anticipación de Aterrizaje
-        float remainingFlightTime = duration - jumpTime;
+        float remainingFlightTime = currentMovementDuration - jumpTime;
         if (remainingFlightTime <= landingAnticipationTime && !landTriggered)
         {
             landTriggered = true; 
             if (gellyAnimatorChild != null) gellyAnimatorChild.SetTrigger(LandTriggerHash);
         }
 
-        // FASE 3: Fin del salto
         if (t >= 1f)
         {
             isJumping = false;
-            
             UpdateTargetTransformations(groundEndPos, 0f, targetScale);
+            if (!landTriggered && gellyAnimatorChild != null) gellyAnimatorChild.SetTrigger(LandTriggerHash);
+            onMovementCompleteCallback?.Invoke();
+        }
+    }
 
-            if (!landTriggered && gellyAnimatorChild != null)
-            {
-                gellyAnimatorChild.SetTrigger(LandTriggerHash);
-            }
+    private void HandleLinearMovement()
+    {
+        elapsedTime += Time.deltaTime;
+        float t = Mathf.Clamp01(elapsedTime / currentMovementDuration);
 
-            onJumpCompleteCallback?.Invoke();
+        // Evaluamos usando la misma curva que el contenedor de la interfaz
+        float progress = currentMovementCurve.Evaluate(t);
+        Vector3 currentGroundPos = Vector3.LerpUnclamped(groundStartPos, groundEndPos, progress);
+        float currentScaleAtFrame = Mathf.LerpUnclamped(startScale, targetScale, progress);
+
+        // Pasamos 0f en altura de salto porque es un movimiento plano sobre el suelo
+        UpdateTargetTransformations(currentGroundPos, 0f, currentScaleAtFrame);
+
+        if (t >= 1f)
+        {
+            isMovingLinear = false;
+            UpdateTargetTransformations(groundEndPos, 0f, targetScale);
+            if (gellyAnimatorChild != null) gellyAnimatorChild.SetBool(IsMovingHash, false);
+            onMovementCompleteCallback?.Invoke();
         }
     }
 
@@ -131,17 +166,14 @@ public class LEGellyCharacterController : MonoBehaviour
     {
         if (gellyAnimatorChild == null) return;
 
-        // Escala uniforme al hijo
         gellyAnimatorChild.transform.localScale = new Vector3(currentScale, currentScale, 1f);
 
-        // Compensación absoluta de coordenadas respecto al suelo global
         float pivotOffset = 0f;
         if (alignment == PivotAlignment.StayOnGround_CenterPivot)
         {
             pivotOffset = (visualHeight * 0.5f) * currentScale;
         }
 
-        // CAMBIO CARDINAL: Modificamos la posición global pura del Padre
         gellyTransformParent.position = new Vector3(
             groundPosition.x,
             groundPosition.y + jumpHeight + pivotOffset,
