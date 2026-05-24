@@ -33,7 +33,7 @@ public class LETutorialManager : MonoBehaviour
 
         [Header("Custom Behavior (⌐■_■)")]
         [Tooltip("Cualquier función que coloques aquí se ejecutará inmediatamente al iniciar este paso.")]
-        public UnityEvent onStepStartCustomAction; // <--- SÚPER PODER PARA EVENTOS CUSTOM
+        public UnityEvent onStepStartCustomAction; 
     }
 
     [Header("Controllers Shared")]
@@ -45,7 +45,7 @@ public class LETutorialManager : MonoBehaviour
     [SerializeField] private AnimationCurve chatBubbleCurve;    
     [SerializeField] private float defaultChatBubbleDuration = 0.5f; 
     [Tooltip("El objeto de la flecha que indica que el texto terminó y se puede continuar.")]
-    [SerializeField] private GameObject continueArrowIndicator; // <--- NUEVA REFERENCIA
+    [SerializeField] private GameObject continueArrowIndicator; 
 
     [Header("UI Text & Audio Elements")]
     [SerializeField] private TextMeshProUGUI dialogueTextMesh; 
@@ -62,6 +62,7 @@ public class LETutorialManager : MonoBehaviour
 
     private int currentStepIndex = -1;
     private bool isStepExecuting = false;
+    private bool isTyping = false; // <--- NUEVA BANDERA: Control quirúrgico del typewriter
     private Coroutine tutorialRoutine;
     private Coroutine typewriterCoroutine;
     private Coroutine chatBubbleCoroutine;
@@ -76,15 +77,17 @@ public class LETutorialManager : MonoBehaviour
 
     public void AdvanceTutorial()
     {
-        // TRUCO DE USABILIDAD: Si el texto aún se está escribiendo y el usuario hace click,
-        // saltamos la animación para mostrar la página completa inmediatamente.
-        if (isStepExecuting)
+        // FASE 1: Si el texto se está escribiendo actualmente, el click salta la animación de inmediato
+        if (isTyping)
         {
             FinishCurrentPageInstantaneously();
             return;
         } 
 
-        // Si hay más páginas por ver en este mismo paso, avanzamos la página en lugar del paso
+        // FASE 2: Si el texto ya terminó pero Gelly o la interfaz siguen moviéndose, bloqueamos el avance por seguridad
+        if (isStepExecuting) return; 
+
+        // FASE 3: Si hay más páginas por ver en este mismo paso, avanzamos de página
         if (currentPage < totalPages)
         {
             currentPage++;
@@ -92,7 +95,7 @@ public class LETutorialManager : MonoBehaviour
             return;
         }
 
-        // Si ya no quedan páginas, avanzamos al siguiente paso del tutorial normalmente
+        // FASE 4: Si no quedan páginas ni animaciones pendientes, avanzamos al siguiente paso normalmente
         currentStepIndex++;
 
         if (currentStepIndex >= tutorialSteps.Length)
@@ -101,7 +104,8 @@ public class LETutorialManager : MonoBehaviour
             return;
         }
 
-        StartCoroutine(ExecuteStepRoutine(tutorialSteps[currentStepIndex]));
+        if (tutorialRoutine != null) StopCoroutine(tutorialRoutine);
+        tutorialRoutine = StartCoroutine(ExecuteStepRoutine(tutorialSteps[currentStepIndex]));
     }
 
     private IEnumerator ExecuteStepRoutine(TutorialStep step)
@@ -117,14 +121,10 @@ public class LETutorialManager : MonoBehaviour
 
         if (dialogueTextMesh != null)
         {
-            // ====================================================================
-            // EL TRUCO MAESTRO: Bloqueamos la visibilidad en 0 ANTES de mutar el texto
-            // ====================================================================
             dialogueTextMesh.maxVisibleCharacters = 0; 
             dialogueTextMesh.text = step.dialogueText;
             dialogueTextMesh.pageToDisplay = currentPage;
             
-            // El cálculo geométrico ocurre aquí, pero como maxVisible es 0, la GPU no dibuja nada
             dialogueTextMesh.ForceMeshUpdate();
             totalPages = dialogueTextMesh.textInfo.pageCount;
 
@@ -132,7 +132,6 @@ public class LETutorialManager : MonoBehaviour
             typewriterCoroutine = StartCoroutine(TypewriterEffect(step.voiceSound, step.delayBeforeText));
         }
 
-        // --- El resto del movimiento de la burbuja y Gelly se mantiene exactamente igual ---
         float currentBubbleDuration = step.chatBubbleDuration <= 0f ? defaultChatBubbleDuration : step.chatBubbleDuration;
 
         if (step.moveChatBubble && chatBubbleContainer != null)
@@ -173,7 +172,6 @@ public class LETutorialManager : MonoBehaviour
         
         if (typewriterCoroutine != null) StopCoroutine(typewriterCoroutine);
         
-        // Al cambiar de página, también forzamos el bloqueo visual antes de iniciar la animación
         dialogueTextMesh.maxVisibleCharacters = dialogueTextMesh.textInfo.pageInfo[currentPage - 1].firstCharacterIndex;
         
         var step = tutorialSteps[currentStepIndex];
@@ -184,26 +182,22 @@ public class LETutorialManager : MonoBehaviour
 
     private IEnumerator TypewriterEffect(AudioClip voiceClip, float textDelay)
     {
-        // Fijamos la página correcta
+        isTyping = true; // Encendemos el flag al comenzar la escritura
         dialogueTextMesh.pageToDisplay = currentPage;
 
-        // Extraemos los índices puros de la página actual recalculada
         TMP_PageInfo pageInfo = dialogueTextMesh.textInfo.pageInfo[currentPage - 1];
         int firstCharacterIndex = pageInfo.firstCharacterIndex;
         int lastCharacterIndex = pageInfo.lastCharacterIndex;
 
-        // Inicializamos el contenedor en el primer carácter exacto de esta página
         int counter = firstCharacterIndex;
         dialogueTextMesh.maxVisibleCharacters = counter;
 
-        // Si hay un delay de texto personalizable, la pantalla se queda limpia y vacía durante la espera
         if (textDelay > 0f) yield return new WaitForSeconds(textDelay);
 
         while (counter <= lastCharacterIndex)
         {
             dialogueTextMesh.maxVisibleCharacters = counter;
 
-            // Lógica de Audio/Voz tipo Undertale
             if (voiceClip != null && voiceAudioSource != null && counter > firstCharacterIndex)
             {
                 char lastChar = dialogueTextMesh.text[counter - 1];
@@ -218,7 +212,12 @@ public class LETutorialManager : MonoBehaviour
             yield return new WaitForSeconds(textSpeed);
         }
 
-        isStepExecuting = false;
+        isTyping = false; // La escritura terminó de forma natural
+        
+        // Solo bajamos este flag si no hay un personaje moviéndose de fondo para heredar el control
+        var step = tutorialSteps[currentStepIndex];
+        if (!step.moveCharacter) isStepExecuting = false;
+        
         if (continueArrowIndicator != null) continueArrowIndicator.SetActive(true);
     }
 
@@ -226,44 +225,34 @@ public class LETutorialManager : MonoBehaviour
     {
         if (typewriterCoroutine != null) StopCoroutine(typewriterCoroutine);
         
-        // Forzamos a TMP a mostrar todos los caracteres de la página actual de golpe
         TMP_PageInfo pageInfo = dialogueTextMesh.textInfo.pageInfo[currentPage - 1];
         dialogueTextMesh.maxVisibleCharacters = pageInfo.lastCharacterIndex;
         
-        isStepExecuting = false;
+        isTyping = false; // Apagamos el estado inmediatamente
+        
+        var step = tutorialSteps[currentStepIndex];
+        if (!step.moveCharacter) isStepExecuting = false;
+        
         if (continueArrowIndicator != null) continueArrowIndicator.SetActive(true);
     }
 
-    /// <summary>
-    /// ¡ESTA FUNCIÓN VA EN TU BOTÓN DE REVENTAR/SALTAR TUTORIAL! 💥
-    /// Detiene todo en seco de forma segura y limpia la pantalla.
-    /// </summary>
     public void SkipTutorial()
     {
-        // 1. Detenemos todas las corrutinas activas para evitar desfases de tiempo
         StopAllCoroutines();
-        
-        // 2. Apagamos los indicadores visuales flotantes
         if (continueArrowIndicator != null) continueArrowIndicator.SetActive(false);
-        
-        // 3. Forzamos el cierre del sistema
         EndTutorial();
-        
-        // 4. Liberamos el flag por seguridad
+        isTyping = false;
         isStepExecuting = false;
-        
         Debug.Log("Tutorial salteado por el usuario con éxito. (o^^)o");
     }
 
     private void EndTutorial()
     {
         focusController.HideFocus();
-        // Ocultamos o desactivamos el contenedor completo de la burbuja de chat si así lo deseas
         if (chatBubbleContainer != null) chatBubbleContainer.gameObject.SetActive(false);
         if (dialogueTextMesh != null) dialogueTextMesh.text = "";
     }
 
-    // --- Métodos de soporte de animaciones se mantienen idénticos ---
     private IEnumerator AnimateChatBubbleRoutine(Vector2 targetAnchoredPosition, float customDuration, float delay)
     {
         if (delay > 0f) yield return new WaitForSeconds(delay);
