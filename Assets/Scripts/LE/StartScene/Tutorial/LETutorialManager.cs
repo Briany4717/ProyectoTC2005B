@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
-using UnityEngine.Events; // Requerido para los Custom Behaviors en el Inspector
+using UnityEngine.Events;
 
 public class LETutorialManager : MonoBehaviour
 {
@@ -61,8 +61,8 @@ public class LETutorialManager : MonoBehaviour
     [SerializeField] private TutorialStep[] tutorialSteps;
 
     private int currentStepIndex = -1;
-    private bool isStepExecuting = false;
-    private bool isTyping = false; // <--- NUEVA BANDERA: Control quirúrgico del typewriter
+    private bool isActionExecuting = false; // Bloquea avance si Gelly o la UI se están moviendo
+    private bool isTyping = false;          // Controla el estado del machine-writing
     private Coroutine tutorialRoutine;
     private Coroutine typewriterCoroutine;
     private Coroutine chatBubbleCoroutine;
@@ -77,17 +77,17 @@ public class LETutorialManager : MonoBehaviour
 
     public void AdvanceTutorial()
     {
-        // FASE 1: Si el texto se está escribiendo actualmente, el click salta la animación de inmediato
+        // REGLA 1: Si el texto se está escribiendo, el click lo completa de golpe y frena el flujo
         if (isTyping)
         {
             FinishCurrentPageInstantaneously();
             return;
         } 
 
-        // FASE 2: Si el texto ya terminó pero Gelly o la interfaz siguen moviéndose, bloqueamos el avance por seguridad
-        if (isStepExecuting) return; 
+        // REGLA 2: Si el texto ya terminó pero Gelly sigue viajando o la UI acomodándose, ignoramos el click
+        if (isActionExecuting) return; 
 
-        // FASE 3: Si hay más páginas por ver en este mismo paso, avanzamos de página
+        // REGLA 3: Si hay más páginas internas en este paso, avanzamos de página
         if (currentPage < totalPages)
         {
             currentPage++;
@@ -95,7 +95,7 @@ public class LETutorialManager : MonoBehaviour
             return;
         }
 
-        // FASE 4: Si no quedan páginas ni animaciones pendientes, avanzamos al siguiente paso normalmente
+        // REGLA 4: Si todo está libre de procesos, avanzamos de paso limpiamente
         currentStepIndex++;
 
         if (currentStepIndex >= tutorialSteps.Length)
@@ -110,7 +110,7 @@ public class LETutorialManager : MonoBehaviour
 
     private IEnumerator ExecuteStepRoutine(TutorialStep step)
     {
-        isStepExecuting = true;
+        isActionExecuting = true; // Bloqueamos el avance de diálogos al arrancar el paso
         currentPage = 1; 
         if (continueArrowIndicator != null) continueArrowIndicator.SetActive(false);
 
@@ -140,36 +140,39 @@ public class LETutorialManager : MonoBehaviour
             chatBubbleCoroutine = StartCoroutine(AnimateChatBubbleRoutine(step.targetChatAnchoredPosition, currentBubbleDuration, step.delayBeforeChatBubble));
         }
 
+        // CONTROL LINEAL CRUCIAL: Esperamos de forma síncrona a que terminen los movimientos antes de liberar las acciones
         if (step.moveCharacter)
         {
             float targetScale = step.characterTargetScale <= 0f ? 1f : step.characterTargetScale;
 
             if (step.gellyFollowsChatPace)
             {
-                StartCoroutine(DelayedGellyLinearMovement(step.targetCharacterPosition, targetScale, currentBubbleDuration, step.delayBeforeChatBubble, step));
+                yield return StartCoroutine(DelayedGellyLinearMovement(step.targetCharacterPosition, targetScale, currentBubbleDuration, step.delayBeforeChatBubble, step));
             }
             else
             {
+                bool characterMoving = true;
                 gellyController.JumpTo(step.targetCharacterPosition, targetScale, () => 
                 {
                     TriggerUIFocus(step);
-                    isStepExecuting = false; 
+                    characterMoving = false;
                 });
+
+                while (characterMoving) yield return null;
             }
+            isActionExecuting = false;
         }
         else
         {
             if (step.moveChatBubble) yield return new WaitForSeconds(step.delayBeforeChatBubble + currentBubbleDuration);
             TriggerUIFocus(step);
-            isStepExecuting = false;
+            isActionExecuting = false;
         }
     }
 
     private IEnumerator ExecutePageVisuals()
     {
-        isStepExecuting = true;
         if (continueArrowIndicator != null) continueArrowIndicator.SetActive(false);
-        
         if (typewriterCoroutine != null) StopCoroutine(typewriterCoroutine);
         
         dialogueTextMesh.maxVisibleCharacters = dialogueTextMesh.textInfo.pageInfo[currentPage - 1].firstCharacterIndex;
@@ -182,7 +185,7 @@ public class LETutorialManager : MonoBehaviour
 
     private IEnumerator TypewriterEffect(AudioClip voiceClip, float textDelay)
     {
-        isTyping = true; // Encendemos el flag al comenzar la escritura
+        isTyping = true;
         dialogueTextMesh.pageToDisplay = currentPage;
 
         TMP_PageInfo pageInfo = dialogueTextMesh.textInfo.pageInfo[currentPage - 1];
@@ -212,12 +215,7 @@ public class LETutorialManager : MonoBehaviour
             yield return new WaitForSeconds(textSpeed);
         }
 
-        isTyping = false; // La escritura terminó de forma natural
-        
-        // Solo bajamos este flag si no hay un personaje moviéndose de fondo para heredar el control
-        var step = tutorialSteps[currentStepIndex];
-        if (!step.moveCharacter) isStepExecuting = false;
-        
+        isTyping = false; 
         if (continueArrowIndicator != null) continueArrowIndicator.SetActive(true);
     }
 
@@ -228,11 +226,7 @@ public class LETutorialManager : MonoBehaviour
         TMP_PageInfo pageInfo = dialogueTextMesh.textInfo.pageInfo[currentPage - 1];
         dialogueTextMesh.maxVisibleCharacters = pageInfo.lastCharacterIndex;
         
-        isTyping = false; // Apagamos el estado inmediatamente
-        
-        var step = tutorialSteps[currentStepIndex];
-        if (!step.moveCharacter) isStepExecuting = false;
-        
+        isTyping = false; 
         if (continueArrowIndicator != null) continueArrowIndicator.SetActive(true);
     }
 
@@ -242,7 +236,7 @@ public class LETutorialManager : MonoBehaviour
         if (continueArrowIndicator != null) continueArrowIndicator.SetActive(false);
         EndTutorial();
         isTyping = false;
-        isStepExecuting = false;
+        isActionExecuting = false;
         Debug.Log("Tutorial salteado por el usuario con éxito. (o^^)o");
     }
 
@@ -272,11 +266,14 @@ public class LETutorialManager : MonoBehaviour
     private IEnumerator DelayedGellyLinearMovement(Vector2 targetPos, float targetScale, float customDuration, float delay, TutorialStep step)
     {
         if (delay > 0f) yield return new WaitForSeconds(delay);
+        bool linearMoveActive = true;
         gellyController.MoveLinearTo(targetPos, targetScale, customDuration, chatBubbleCurve, () => 
         {
             TriggerUIFocus(step);
-            isStepExecuting = false; 
+            linearMoveActive = false;
         });
+
+        while (linearMoveActive) yield return null;
     }
 
     private void TriggerUIFocus(TutorialStep step)

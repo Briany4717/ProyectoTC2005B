@@ -30,31 +30,28 @@ public class LEGellyCharacterController : MonoBehaviour
 
     private float elapsedTime = 0f;
     private bool isJumping = false;
-    private bool isMovingLinear = false; // Flag para el nuevo estado sincronizado
+    private bool isMovingLinear = false; 
     private bool landTriggered = false; 
     
     private Vector3 groundStartPos;
     private Vector3 groundEndPos;
+    
     private float startScale;
     private float targetScale;
-    private float currentMovementDuration; // Duración dinámica
-    private AnimationCurve currentMovementCurve; // Curva dinámica
+    private float currentMovementDuration;
+    private AnimationCurve currentMovementCurve;
     
     private System.Action onMovementCompleteCallback;
 
     private static readonly int JumpTriggerHash = Animator.StringToHash("Jump");
     private static readonly int LandTriggerHash = Animator.StringToHash("Land");
-    private static readonly int IsMovingHash = Animator.StringToHash("isMoving"); // Por si usas un estado de correr/deslizarse
+    private static readonly int IsMovingHash = Animator.StringToHash("isMoving"); 
 
-    /// <summary>
-    /// Salto parabólico tradicional con anticipación
-    /// </summary>
     public void JumpTo(Vector2 targetWorldPos, float nextScale, System.Action onComplete = null)
     {
         if (isJumping || isMovingLinear) return;
 
         SetupBaseMovement(targetWorldPos, nextScale, onComplete);
-        
         currentMovementDuration = duration;
         currentMovementCurve = horizontalCurve;
         isJumping = true;
@@ -62,21 +59,16 @@ public class LEGellyCharacterController : MonoBehaviour
         if (gellyAnimatorChild != null) gellyAnimatorChild.SetTrigger(JumpTriggerHash);
     }
 
-    /// <summary>
-    /// NUEVA FUNCIÓN: Se mueve de forma plana y sincronizada al mismo paso que el contenedor de UI
-    /// </summary>
     public void MoveLinearTo(Vector2 targetWorldPos, float nextScale, float customDuration, AnimationCurve customCurve, System.Action onComplete = null)
     {
         if (isJumping || isMovingLinear) return;
 
         SetupBaseMovement(targetWorldPos, nextScale, onComplete);
-        
         currentMovementDuration = customDuration;
         currentMovementCurve = customCurve;
         isMovingLinear = true;
 
-        // Si tienes una animación de caminar/deslizarse, puedes activarla aquí
-        // if (gellyAnimatorChild != null) gellyAnimatorChild.SetBool(IsMovingHash, true);
+        if (gellyAnimatorChild != null) gellyAnimatorChild.SetBool(IsMovingHash, true);
     }
 
     private void SetupBaseMovement(Vector2 targetWorldPos, float nextScale, System.Action onComplete)
@@ -145,19 +137,17 @@ public class LEGellyCharacterController : MonoBehaviour
         elapsedTime += Time.deltaTime;
         float t = Mathf.Clamp01(elapsedTime / currentMovementDuration);
 
-        // Evaluamos usando la misma curva que el contenedor de la interfaz
         float progress = currentMovementCurve.Evaluate(t);
         Vector3 currentGroundPos = Vector3.LerpUnclamped(groundStartPos, groundEndPos, progress);
         float currentScaleAtFrame = Mathf.LerpUnclamped(startScale, targetScale, progress);
 
-        // Pasamos 0f en altura de salto porque es un movimiento plano sobre el suelo
         UpdateTargetTransformations(currentGroundPos, 0f, currentScaleAtFrame);
 
         if (t >= 1f)
         {
             isMovingLinear = false;
             UpdateTargetTransformations(groundEndPos, 0f, targetScale);
-            // if (gellyAnimatorChild != null) gellyAnimatorChild.SetBool(IsMovingHash, false);
+            if (gellyAnimatorChild != null) gellyAnimatorChild.SetBool(IsMovingHash, false);
             onMovementCompleteCallback?.Invoke();
         }
     }
