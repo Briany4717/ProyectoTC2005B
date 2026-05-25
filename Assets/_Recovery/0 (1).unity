@@ -12431,8 +12431,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3.685852, y: 2.230957}
-  m_SizeDelta: {x: 86.75, y: 70.25}
+  m_AnchoredPosition: {x: -2.7597046, y: 4.372925}
+  m_SizeDelta: {x: 83, y: 72.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &901427904
 MonoBehaviour:
@@ -12481,11 +12481,11 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25.95
+  m_fontSize: 24.85
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 5
+  m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
@@ -13895,7 +13895,7 @@ GameObject:
   - component: {fileID: 1172744110}
   - component: {fileID: 1172744109}
   m_Layer: 0
-  m_Name: TituloFieldText
+  m_Name: InstruccionBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19626,7 +19626,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RapidezControler
   wordOutput: {fileID: 137375976}
   inputField: {fileID: 1909471947}
-  tituloField: {fileID: 901427904}
   wordBank: {fileID: 658039182}
 --- !u!1 &1777375698
 GameObject:

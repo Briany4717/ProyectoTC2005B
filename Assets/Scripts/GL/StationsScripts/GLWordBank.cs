@@ -2,79 +2,80 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+using UnityEngine.Networking;
+using System.Collections;
+using TMPro;
+using Newtonsoft.Json;
+using UnityEditor.Experimental.GraphView;
+
 public class GLWordBank : MonoBehaviour
 {
 
-    private List<string> originalPrompts = new List<string>() {
-        "Actúa como un experto en el área de...",
-        "Asume el rol de un consultor senior especializado en...",
-        "Imagina que eres un desarrollador de software explicando a un cliente...",
-        "Eres un analista de datos; quiero que interpretes...",
-        "Toma la postura de un instructor corporativo enseñando...",
-        "Redacta un correo electrónico formal y persuasivo dirigido a...",
-        "Resume la siguiente información en puntos clave o viñetas:",
-        "Escribe un informe detallado y estructurado sobre...",
-        "Explica este concepto técnico como si se lo estuvieras enseñando a un principiante.",
-        "Genera una lista de ideas innovadoras para resolver...",
-        "Piensa paso a paso antes de llegar a la conclusión final.",
-        "Desglosa tu razonamiento de forma lógica y secuencial.",
-        "Antes de responder, si necesitas más contexto, hazme las preguntas necesarias.",
-        "Analiza detalladamente los pros y contras de esta decisión:",
-        "Proporciona una guía paso a paso, numerada y clara, para...",
-        "Mantén un tono estrictamente profesional y objetivo en toda la respuesta.",
-        "Utiliza un lenguaje claro, conciso y libre de jerga innecesaria.",
-        "Responde de manera empática, comprensiva y orientada a dar soluciones.",
-        "Sé directo y no añadas información de relleno; ve al grano.",
-        "Asegúrate de incluir ejemplos prácticos o analogías en tu explicación.",
-        "Devuelve la respuesta estructurada en una tabla con las columnas...",
-        "Formatea el resultado utilizando únicamente Markdown.",
-        "Presenta la salida exclusivamente en un formato JSON válido.",
-        "Agrupa tus recomendaciones en categorías claras con sus respectivos encabezados.",
-        "Resalta en negrita los términos más importantes de tu explicación.",
-        "Revisa el siguiente documento y corrige cualquier error de redacción.",
-        "Evalúa este código e identifica posibles vulnerabilidades o áreas de mejora.",
-        "No asumas información externa; básate únicamente en el contexto proporcionado.",
-        "Proporciona tres alternativas diferentes con distintos enfoques para...",
-        "Actúa como un crítico constructivo y dame retroalimentación específica sobre..."
-    };
+    private List<PromptData> promptInfo = new List<PromptData>();
+    private bool isLoaded = false;
 
-    private void GetPromptsFromAPI()
+    public bool IsReady => isLoaded;
+
+    void Update()
     {
-
+        Debug.Log("Prompts jalados: " + promptInfo.Count);
     }
 
-    private List<string> workingPrompts = new List<string>();
-
-    private void Awake()
+    IEnumerator GetPromptsFromAPI()
     {
-        // copiamos los prompts originales a la lista de trabajo y los mezclamos
-        workingPrompts.AddRange(originalPrompts);
-        Shuffle(workingPrompts);
+        string JSONurl = "https://127.0.0.1:8081/glotonesPromptInformation";
+
+        UnityWebRequest web = UnityWebRequest.Get(JSONurl);
+        web.certificateHandler = new ForceAcceptAll();
+        yield return web.SendWebRequest();
+
+        if (web.result != UnityWebRequest.Result.Success)
+            UnityEngine.Debug.Log("Error API: " + web.error);
+        else
+        {
+            promptInfo = JsonConvert.DeserializeObject<List<PromptData>>(web.downloadHandler.text);
+            workingPrompts = new List<PromptData>(promptInfo);
+            Shuffle(workingPrompts);
+        }
+
+        isLoaded = true;
     }
 
-    private void Shuffle(List<string> list)
+    private List<PromptData> workingPrompts = new List<PromptData>();
+
+    void Awake()
+    {
+        StartCoroutine(GetPromptsFromAPI());
+    }
+
+    private void Shuffle(List<PromptData> list)
     {
         for (int i = 0; i < list.Count; i++)
         {
             int random = Random.Range(i, list.Count);
 
             // subtitute with the random int position
-            string temporary = list[i];
+            var temporary = list[i];
             list[i] = list[random];
             list[random] = temporary;
         }
     }
 
-    public string GetPrompt()
+
+
+    public PromptData GetPrompt()
     {
-        string newWord = string.Empty;
+        PromptData newPrompt = new PromptData();
 
         if (workingPrompts.Count != 0)
         {
-            newWord = workingPrompts.Last();
-            workingPrompts.Remove(newWord);
+            newPrompt = workingPrompts.Last();
+            workingPrompts.Remove(newPrompt);
         }
 
-        return newWord;
+        return newPrompt;
     }
+
+
+
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
+using System.Collections;
 using System.Globalization;
 using System.Text;
 using System;
@@ -10,6 +11,7 @@ public class RapidezControler : MonoBehaviour
 {
     [SerializeField] public TextMeshProUGUI wordOutput;
     [SerializeField] public TMP_InputField inputField;  // Campo de entrada de texto
+    [SerializeField] public TextMeshProUGUI tituloField;
     [SerializeField] public GLWordBank wordBank = null;
 
     private string remainingWord = string.Empty;
@@ -27,6 +29,18 @@ public class RapidezControler : MonoBehaviour
     {
         currentStation = station;
         GLMenusStationsManager.Instance.OpenMenu(GLMenusStationsManager.AvailableStations.Rapidez);
+        StartCoroutine(InitializeGameWhenReady());
+    }
+
+    private IEnumerator InitializeGameWhenReady()
+    {
+        if (wordBank == null)
+        {
+            Debug.LogError("Word bank is not assigned.");
+            yield break;
+        }
+
+        yield return new WaitUntil(() => wordBank.IsReady);
         SetCurrenWord();
 
         // Activamos el campo de entrada y nos suscribimos a sus cambios
@@ -41,7 +55,6 @@ public class RapidezControler : MonoBehaviour
 
     private void Update()
     {
-        // Si el juego está activo y el InputField no está seleccionado, reactivarlo
         if (isGameActive && inputField != null)
         {
             if (EventSystem.current.currentSelectedGameObject != inputField.gameObject)
@@ -53,14 +66,18 @@ public class RapidezControler : MonoBehaviour
 
     private void SetCurrenWord()
     {
-        currentWord = wordBank.GetPrompt();
-        SetRemainingWord(currentWord);
+        PromptData prompt = wordBank.GetPrompt();
+        SetRemainingWord(prompt.contenido, prompt.titulo);
     }
 
-    private void SetRemainingWord(string newString)
+    private void SetRemainingWord(string newString, string titulo)
     {
-        remainingWord = NormalizeText(newString);
-        wordOutput.text = remainingWord;
+        currentWord = NormalizeText(newString);
+        remainingWord = currentWord;
+
+        UpdateWordDisplay();
+
+        tituloField.text = titulo;
     }
 
     private void OnDisable()
@@ -134,14 +151,27 @@ public class RapidezControler : MonoBehaviour
     {
         if (string.IsNullOrEmpty(remainingWord)) return;
 
-        //strnig que acepta unicode para manejar correctamente los caracteres compuestos
+        // string que acepta unicode para manejar correctamente los caracteres compuestos
         StringInfo stringInfo = new StringInfo(remainingWord);
         // Obtener el primer carácter de la palabra restante
         string firstLetter = stringInfo.SubstringByTextElements(0, 1);
-        // Remover el primer carácter de la palabra restante (removiendo la cantidad de bytes que ocupa el caracter)
-        // por la tecla compuesta
+        // Remover el primer carácter de la palabra restante
         remainingWord = remainingWord.Substring(firstLetter.Length);
-        wordOutput.text = remainingWord;
+
+        // Instead of wordOutput.text = remainingWord, call the display updater
+        UpdateWordDisplay();
+    }
+
+    private void UpdateWordDisplay()
+    {
+        // Calculate how much of the string has been typed by comparing lengths
+        int typedLength = currentWord.Length - remainingWord.Length;
+
+        // Extract the typed portion and the untyped portion
+        string typedPart = currentWord.Substring(0, typedLength);
+
+        // Wrap the typed part in green color tags, followed by the remaining word
+        wordOutput.text = $"<color=green>{typedPart}</color>{remainingWord}";
     }
 
     private bool IsWordComplete()
@@ -154,5 +184,4 @@ public class RapidezControler : MonoBehaviour
         if (string.IsNullOrEmpty(text)) return text;
         return text.Normalize(NormalizationForm.FormC);
     }
-
 }
