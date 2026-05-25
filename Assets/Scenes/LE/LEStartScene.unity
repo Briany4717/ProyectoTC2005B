@@ -899,7 +899,7 @@ MonoBehaviour:
         m_Calls: []
   - dialogueText: "Mi taller de reparaciones est\xE1 un poco... colapsado, y necesito
       que me eches una mano para revivir estos aparatos. \xA1Prep\xE1rate, porque
-      hoy nos toca chambear duro!"
+      hoy nos toca chambear duro! "
     delayBeforeStep: 0
     delayBeforeText: 0
     stepAudio: {fileID: 8300000, guid: eec23be66695b4dbc89e84ebf9f5cc08, type: 3}
@@ -972,23 +972,44 @@ MonoBehaviour:
     onStepStartCustomAction:
       m_PersistentCalls:
         m_Calls: []
-  - dialogueText: "\xA1Sin tanto rodeo! Una vez que est\xE9 bien acomodado en la
-      mesa, haz clic en el bot\xF3n de \"Reparar\". \xA1Hay que entrar al sistema
-      y dejar que ese motor cocine!"
+  - dialogueText: "Eso s\xED, el tiempo corre y no podemos quedarnos congelados (o
+      derretidos, en mi caso) "
     delayBeforeStep: 0
     delayBeforeText: 0
     stepAudio: {fileID: 8300000, guid: eec23be66695b4dbc89e84ebf9f5cc08, type: 3}
     voiceSound: {fileID: 8300000, guid: eb0687cf0d59a4e72ae69014d69e0192, type: 3}
-    moveCharacter: 0
-    targetCharacterPosition: {x: 0, y: 0}
-    characterTargetScale: 0
-    gellyFollowsChatPace: 0
-    moveChatBubble: 0
-    targetChatAnchoredPosition: {x: 0, y: 0}
+    moveCharacter: 1
+    targetCharacterPosition: {x: -9.92, y: 0.94}
+    characterTargetScale: 1.2
+    gellyFollowsChatPace: 1
+    moveChatBubble: 1
+    targetChatAnchoredPosition: {x: -12.02, y: -98}
     chatBubbleDuration: 0
     delayBeforeChatBubble: 0
     useFocusUI: 1
-    targetUIElement: {fileID: 1979289583}
+    targetUIElement: {fileID: 1850319249}
+    focusCornerRadius: 0.01
+    onStepStartCustomAction:
+      m_PersistentCalls:
+        m_Calls: []
+  - dialogueText: "Si el reloj se pone tenso y sientes que un aparato te va a arruinar
+      la racha, no te preocupes, no es un evento can\xF3nico. \xA1Puedes mandarlo
+      directo a la caja de descartes! A veces toca decir \"siguiente\" y avanzar
+      de chill. "
+    delayBeforeStep: 0
+    delayBeforeText: 0
+    stepAudio: {fileID: 8300000, guid: eec23be66695b4dbc89e84ebf9f5cc08, type: 3}
+    voiceSound: {fileID: 8300000, guid: eb0687cf0d59a4e72ae69014d69e0192, type: 3}
+    moveCharacter: 1
+    targetCharacterPosition: {x: -9.93, y: 5.95}
+    characterTargetScale: 1.2
+    gellyFollowsChatPace: 1
+    moveChatBubble: 1
+    targetChatAnchoredPosition: {x: -12.02, y: 130}
+    chatBubbleDuration: 0
+    delayBeforeChatBubble: 0
+    useFocusUI: 1
+    targetUIElement: {fileID: 2098283043}
     focusCornerRadius: 0.01
     onStepStartCustomAction:
       m_PersistentCalls:
@@ -4600,6 +4621,8 @@ RectTransform:
   - {fileID: 809819024}
   - {fileID: 759911199}
   - {fileID: 1979289583}
+  - {fileID: 1850319249}
+  - {fileID: 2098283043}
   m_Father: {fileID: 1805835791}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -4777,6 +4800,81 @@ Transform:
   m_Children: []
   m_Father: {fileID: 57005936}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1850319248
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1850319249}
+  - component: {fileID: 1850319251}
+  - component: {fileID: 1850319250}
+  m_Layer: 5
+  m_Name: FocusTimer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1850319249
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1850319248}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1675940112}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -306.54, y: 138.19}
+  m_SizeDelta: {x: 178.69, y: 131.28}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1850319250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1850319248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1850319251
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1850319248}
+  m_CullTransparentMesh: 1
 --- !u!1 &1886852912
 GameObject:
   m_ObjectHideFlags: 0
@@ -5250,7 +5348,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 00:00
+  m_text: 05:00
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 42947826955aa443f9315ae7f96b505e, type: 2}
   m_sharedMaterial: {fileID: 2725503652450396190, guid: 42947826955aa443f9315ae7f96b505e, type: 2}
@@ -5709,6 +5807,81 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1147421495}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2098283042
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2098283043}
+  - component: {fileID: 2098283045}
+  - component: {fileID: 2098283044}
+  m_Layer: 5
+  m_Name: FocusDiscardBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2098283043
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098283042}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1675940112}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -334.84, y: -53}
+  m_SizeDelta: {x: 101, y: 78.4}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2098283044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098283042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2098283045
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098283042}
+  m_CullTransparentMesh: 1
 --- !u!1 &2098698657
 GameObject:
   m_ObjectHideFlags: 0

@@ -76,7 +76,7 @@ public class LEGellyCharacterController : MonoBehaviour
         isMovingLinear = true;
 
         // Si tienes una animación de caminar/deslizarse, puedes activarla aquí
-        if (gellyAnimatorChild != null) gellyAnimatorChild.SetBool(IsMovingHash, true);
+        // if (gellyAnimatorChild != null) gellyAnimatorChild.SetBool(IsMovingHash, true);
     }
 
     private void SetupBaseMovement(Vector2 targetWorldPos, float nextScale, System.Action onComplete)
@@ -157,7 +157,7 @@ public class LEGellyCharacterController : MonoBehaviour
         {
             isMovingLinear = false;
             UpdateTargetTransformations(groundEndPos, 0f, targetScale);
-            if (gellyAnimatorChild != null) gellyAnimatorChild.SetBool(IsMovingHash, false);
+            // if (gellyAnimatorChild != null) gellyAnimatorChild.SetBool(IsMovingHash, false);
             onMovementCompleteCallback?.Invoke();
         }
     }
