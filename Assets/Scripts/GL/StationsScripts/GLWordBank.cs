@@ -38,31 +38,11 @@ public class GLWordBank : MonoBehaviour
         "Actúa como un crítico constructivo y dame retroalimentación específica sobre..."
     };
 
-    // private List<string> originalPrompts = new List<string>()
-    // {
-    //     "Tienes que escribir esto letra por letra",
-    //     "Tienes que escribir esto letra por letra",
-    //     "Tienes que escribir esto letra por letra",
-    //     "Tienes que escribir esto letra por letra",
-    //     "Tienes que escribir esto letra por letra",
-    //     "Tienes que escribir esto letra por letra",
-    //     "Tienes que escribir esto letra por letra",
-    //     "Tienes que escribir esto letra por letra",
-    //     "Tienes que escribir esto letra por letra",
-    //     "Tienes que escribir esto letra por letra",
-    //     "Tienes que escribir esto letra por letra",
-    //     "Tienes que escribir esto letra por letra",
-    //     "Tienes que escribir esto letra por letra",
-    //     "Tienes que escribir esto letra por letra",
-    //     "Tienes que escribir esto letra por letra",
-    //     "Tienes que escribir esto letra por letra",
-    //     "Tienes que escribir esto letra por letra",
-    //     "Tienes que escribir esto letra por letra",
-    //     "Tienes que escribir esto letra por letra",
-    //     "Tienes que escribir esto letra por letra",
-    //     "Tienes que escribir esto letra por letra",
-    //     "Tienes que escribir esto letra por letra"
-    // };
+    private void GetPromptsFromAPI()
+    {
+
+    }
+
     private List<string> workingPrompts = new List<string>();
 
     private void Awake()
