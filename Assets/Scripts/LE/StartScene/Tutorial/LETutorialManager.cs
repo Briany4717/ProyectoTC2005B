@@ -247,7 +247,6 @@ public class LETutorialManager : MonoBehaviour
     /// </summary>
     private void EndTutorial()
     {
-        focusController.HideFocus();
         if (chatBubbleContainer != null) chatBubbleContainer.gameObject.SetActive(false);
         if (dialogueTextMesh != null) dialogueTextMesh.text = "";
 

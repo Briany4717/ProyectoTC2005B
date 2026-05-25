@@ -61,14 +61,10 @@ public class LEGellyCharacterController : MonoBehaviour
         if (gellyAnimatorChild != null) gellyAnimatorChild.SetTrigger(JumpTriggerHash);
     }
 
-    /// <summary>
-    /// Ejecuta un salto idéntico en física y coordenadas al de la izquierda, pero disparando el trigger de animación vertical.
-    /// </summary>
     public void JumpVerticalTo(Vector2 targetWorldPos, float nextScale, System.Action onComplete = null)
     {
         if (isJumping || isMovingLinear) return;
 
-        // Conserva el 100% de la matemática exacta de coordenadas del salto estándar
         SetupBaseMovement(targetWorldPos, nextScale, onComplete);
         currentMovementDuration = duration;
         currentMovementCurve = horizontalCurve;
@@ -149,7 +145,11 @@ public class LEGellyCharacterController : MonoBehaviour
         if (t >= 1f)
         {
             isJumping = false;
+            
+            // ¡EL TRUCO MAESTRO!: Forzamos el reset de orientación en el frame final absoluto
+            faceRight = false; 
             UpdateTargetTransformations(groundEndPos, 0f, targetScale);
+            
             if (!landTriggered && gellyAnimatorChild != null) gellyAnimatorChild.SetTrigger(LandTriggerHash);
             onMovementCompleteCallback?.Invoke();
         }
@@ -169,7 +169,11 @@ public class LEGellyCharacterController : MonoBehaviour
         if (t >= 1f)
         {
             isMovingLinear = false;
+            
+            // ¡EL TRUCO MAESTRO!: Forzamos el reset de orientación en el frame final absoluto
+            faceRight = false; 
             UpdateTargetTransformations(groundEndPos, 0f, targetScale);
+            
             if (gellyAnimatorChild != null) gellyAnimatorChild.SetBool(IsMovingHash, false);
             onMovementCompleteCallback?.Invoke();
         }
