@@ -60,9 +60,16 @@ public class LETutorialManager : MonoBehaviour
     [Header("Steps Configuration")]
     [SerializeField] private TutorialStep[] tutorialSteps;
 
+    [Header("End Tutorial Configuration (⌐■_■)")]
+    [SerializeField] private GameObject tutorialPanel;
+    [Tooltip("Posición final exacta en coordenadas del mundo a la que saltará Gelly al terminar el tutorial.")]
+    [SerializeField] private Vector2 endTutorialTargetPosition; // <--- CONFIGURACIÓN EN TEXTO ABSOLUTO
+    [Tooltip("Escala final que adoptará el personaje al aterrizar del salto de despedida.")]
+    [SerializeField] private float endTutorialCharacterTargetScale = 1.0f; // <--- CONFIGURACIÓN EN TEXTO ABSOLUTO
+
     private int currentStepIndex = -1;
-    private bool isActionExecuting = false; // Bloquea avance si Gelly o la UI se están moviendo
-    private bool isTyping = false;          // Controla el estado del machine-writing
+    private bool isActionExecuting = false; 
+    private bool isTyping = false;          
     private Coroutine tutorialRoutine;
     private Coroutine typewriterCoroutine;
     private Coroutine chatBubbleCoroutine;
@@ -77,17 +84,14 @@ public class LETutorialManager : MonoBehaviour
 
     public void AdvanceTutorial()
     {
-        // REGLA 1: Si el texto se está escribiendo, el click lo completa de golpe y frena el flujo
         if (isTyping)
         {
             FinishCurrentPageInstantaneously();
             return;
         } 
 
-        // REGLA 2: Si el texto ya terminó pero Gelly sigue viajando o la UI acomodándose, ignoramos el click
         if (isActionExecuting) return; 
 
-        // REGLA 3: Si hay más páginas internas en este paso, avanzamos de página
         if (currentPage < totalPages)
         {
             currentPage++;
@@ -95,7 +99,6 @@ public class LETutorialManager : MonoBehaviour
             return;
         }
 
-        // REGLA 4: Si todo está libre de procesos, avanzamos de paso limpiamente
         currentStepIndex++;
 
         if (currentStepIndex >= tutorialSteps.Length)
@@ -110,7 +113,7 @@ public class LETutorialManager : MonoBehaviour
 
     private IEnumerator ExecuteStepRoutine(TutorialStep step)
     {
-        isActionExecuting = true; // Bloqueamos el avance de diálogos al arrancar el paso
+        isActionExecuting = true; 
         currentPage = 1; 
         if (continueArrowIndicator != null) continueArrowIndicator.SetActive(false);
 
@@ -140,7 +143,6 @@ public class LETutorialManager : MonoBehaviour
             chatBubbleCoroutine = StartCoroutine(AnimateChatBubbleRoutine(step.targetChatAnchoredPosition, currentBubbleDuration, step.delayBeforeChatBubble));
         }
 
-        // CONTROL LINEAL CRUCIAL: Esperamos de forma síncrona a que terminen los movimientos antes de liberar las acciones
         if (step.moveCharacter)
         {
             float targetScale = step.characterTargetScale <= 0f ? 1f : step.characterTargetScale;
@@ -240,11 +242,27 @@ public class LETutorialManager : MonoBehaviour
         Debug.Log("Tutorial salteado por el usuario con éxito. (o^^)o");
     }
 
+    /// <summary>
+    /// Se ejecuta al consumir el último paso del tutorial.
+    /// </summary>
     private void EndTutorial()
     {
         focusController.HideFocus();
         if (chatBubbleContainer != null) chatBubbleContainer.gameObject.SetActive(false);
         if (dialogueTextMesh != null) dialogueTextMesh.text = "";
+
+        // CINEMÁTICA FINAL CONFIGURABLE (⌐■_■)
+        if (gellyController != null)
+        {
+            // Ejecuta el salto parabólico unificado hacia el destino absoluto fijado en el Inspector
+            gellyController.JumpTo(endTutorialTargetPosition, endTutorialCharacterTargetScale, () => 
+            {
+                // =========================================================
+                // TRANSICIÓN REAL: Aquí gatillas la carga de escena o nivel real
+                // =========================================================
+                tutorialPanel.SetActive(false);
+            });
+        }
     }
 
     private IEnumerator AnimateChatBubbleRoutine(Vector2 targetAnchoredPosition, float customDuration, float delay)

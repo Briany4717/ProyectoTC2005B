@@ -19,14 +19,22 @@ public class LEStartSceneController : MonoBehaviour
     [SerializeField] private float idleIntensity = 0.05f;
     [SerializeField] private float idleSpeed = 25f;
     [SerializeField] private float idleDuration = 0.4f;
-    [SerializeField] private float idleInterval = 2.5f; // Tiempo de espera entre pequeños temblores de misterio
+    [SerializeField] private float idleInterval = 2.5f; 
 
     [Header("Phase 2: Gacha Burst Settings")]
-    [SerializeField] private float burstDuration = 1.8f;   // Cuánto tiempo se agita antes de estallar
+    [SerializeField] private float burstDuration = 1.8f;   
+    [Tooltip("Duración corta para el inicio directo sin tutorial.")]
+    [SerializeField] private float directPlayBurstDuration = 0.45f; 
     [SerializeField] private float maxBurstIntensity = 0.35f; 
     [SerializeField] private float maxBurstSpeed = 60f;
 
-    // Cache de transformación absoluta para evitar desvíos de coordenadas
+    [Header("Direct Mode Configuration (⌐■_■)")]
+    [SerializeField] private LEGellyCharacterController gellyCharacter; 
+    [Tooltip("Posición final exacta en coordenadas del mundo donde caerá Gelly.")]
+    [SerializeField] private Vector2 directTargetPosition; // <--- SE DEFINE EN TEXTO DESDE EL INSPECTOR
+    [Tooltip("Escala final que adoptará el personaje al aterrizar.")]
+    [SerializeField] private float directCharacterTargetScale = 1.0f; // <--- SE DEFINE EN TEXTO DESDE EL INSPECTOR
+
     private Vector3 originalPosition;
     private Quaternion originalRotation;
     private WaitForSeconds cachedIdleWait;
@@ -40,105 +48,106 @@ public class LEStartSceneController : MonoBehaviour
             boxObject.sprite = closeBoxSprite;
         }
 
-        // Optimización quirúrgica: Cacheamos el WaitForSeconds para tener ZERO Allocations en el loop
         cachedIdleWait = new WaitForSeconds(idleInterval);
-
         boxIsMoving = true;
         StartCoroutine(IdleShakeRoutine());
     }
 
-    /// <summary>
-    /// Vincula esta función directamente al botón de Unity para iniciar.
-    /// </summary>
     public void StartTutorial()
     {
-        // Seguridad: Si ya se presionó, evitamos doble ejecución
         if (!boxIsMoving) return; 
-        
-        boxIsMoving = false; // Detiene el bucle pasivo del menú
+        boxIsMoving = false; 
 
-        // Apagamos los menús de inmediato para enfocar toda la atención en la caja estallando
         playMenu.SetActive(false);
         startMenu.SetActive(false);
         tutorialPanel.SetActive(true);
 
-        // Iniciamos la secuencia de gacha incremental
-        StartCoroutine(GachaBurstRoutine());
+        StartCoroutine(GachaBurstRoutine(isTutorialFlow: true));
     }
 
-    /// <summary>
-    /// FASE 1: Pequeños temblores misteriosos en el menú principal para indicar que hay vida dentro.
-    /// </summary>
+    public void StartDirectGame()
+    {
+        if (!boxIsMoving) return;
+        boxIsMoving = false;
+
+        playMenu.SetActive(false);
+        startMenu.SetActive(false);
+
+        StartCoroutine(GachaBurstRoutine(isTutorialFlow: false));
+    }
+
     private IEnumerator IdleShakeRoutine()
     {
         while (boxIsMoving)
         {
             yield return cachedIdleWait;
-
             if (!boxIsMoving) break;
 
             float timer = 0f;
             while (timer < idleDuration && boxIsMoving)
             {
                 timer += Time.deltaTime;
-                
-                // Ondas senoidales rápidas para un temblor sutil en X
                 float offsetX = Mathf.Sin(Time.time * idleSpeed) * idleIntensity;
                 boxObject.transform.position = originalPosition + new Vector3(offsetX, 0f, 0f);
-                
                 yield return null;
             }
-
-            // Regresa a su estado base perfectamente estable
             boxObject.transform.position = originalPosition;
         }
     }
 
-    /// <summary>
-    /// FASE 2: Animación incremental dramática. Se agita más rápido y fuerte hasta explotar.
-    /// </summary>
-    private IEnumerator GachaBurstRoutine()
+    private IEnumerator GachaBurstRoutine(bool isTutorialFlow)
     {
         float timer = 0f;
+        float targetBurstDuration = isTutorialFlow ? burstDuration : directPlayBurstDuration;
 
-        while (timer < burstDuration)
+        while (timer < targetBurstDuration)
         {
             timer += Time.deltaTime;
-            float progress = timer / burstDuration; // Va de 0.0 a 1.0 de forma lineal
-
-            // Curva de aceleración exponencial para el sentimiento de "Sorpresa Gacha"
+            float progress = timer / targetBurstDuration; 
             float curveSmooth = progress * progress; 
 
-            // Intensidad y velocidad escalan dinámicamente con el tiempo
             float currentIntensity = Mathf.Lerp(idleIntensity, maxBurstIntensity, curveSmooth);
             float currentSpeed = Mathf.Lerp(idleSpeed, maxBurstSpeed, curveSmooth);
 
-            // Matemática de oscilación: X se agita, Y salta un poco, Z rota elásticamente
             float offsetX = Mathf.Sin(Time.time * currentSpeed) * currentIntensity;
             float offsetY = Mathf.Abs(Mathf.Cos(Time.time * currentSpeed)) * (currentIntensity * 0.4f);
-            float offsetRotationZ = Mathf.Sin(Time.time * (currentSpeed * 1.2f)) * (currentIntensity * 30f); // Balanceo de la caja
+            float offsetRotationZ = Mathf.Sin(Time.time * (currentSpeed * 1.2f)) * (currentIntensity * 30f); 
 
-            // Aplicamos transformaciones al SpriteRenderer directamente
             boxObject.transform.position = originalPosition + new Vector3(offsetX, offsetY, 0f);
             boxObject.transform.rotation = originalRotation * Quaternion.Euler(0f, 0f, offsetRotationZ);
 
             yield return null;
         }
 
-        // ¡BOOM! Restablecemos coordenadas físicas a la perfección
         boxObject.transform.position = originalPosition;
-        boxObject.transform.rotation = originalRotation * Quaternion.Euler(0f, 0f, 40f);
+        
+        boxObject.transform.rotation = originalRotation * Quaternion.Euler(0f, 0f, isTutorialFlow ? 40f : 0f);
 
-        // Cambiamos el sprite al de la caja abierta de forma nativa
         if (boxObject != null && boxOpenSprite != null)
         {
             boxObject.sprite = boxOpenSprite;
         }
 
-        // Un pequeño golpe de retraso (0.25s) para el impacto visual antes de abrir los diálogos
         yield return new WaitForSeconds(0.25f);
 
-        // Activamos la UI del tutorial e iniciamos tu orquestador de datos
-        tutorialController.StartTutorial();
+        if (isTutorialFlow)
+        {
+            tutorialController.StartTutorial();
+        }
+        else
+        {
+            if (gellyCharacter != null)
+            {
+                // Dispara el movimiento usando exactamente la misma física simétrica del salto regular
+                gellyCharacter.JumpVerticalTo(directTargetPosition, directCharacterTargetScale, () => 
+                {
+                    Debug.Log("Gelly aterrizó perfectamente usando el sistema unificado. (⌐■_■)");
+                });
+
+                yield return new WaitForSeconds(1f);
+                boxObject.gameObject.SetActive(false);
+                playMenu.SetActive(true);
+            }
+        }
     }
 }

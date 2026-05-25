@@ -13,6 +13,5 @@ public class LEExtraBehaviourSteps : MonoBehaviour
 
     public void FinalStepExtraB()
     {
-        playBtn.SetActive(true);
     }
 }

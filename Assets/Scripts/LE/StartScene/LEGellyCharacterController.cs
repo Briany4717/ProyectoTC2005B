@@ -32,6 +32,7 @@ public class LEGellyCharacterController : MonoBehaviour
     private bool isJumping = false;
     private bool isMovingLinear = false; 
     private bool landTriggered = false; 
+    private bool faceRight = false; 
     
     private Vector3 groundStartPos;
     private Vector3 groundEndPos;
@@ -44,6 +45,7 @@ public class LEGellyCharacterController : MonoBehaviour
     private System.Action onMovementCompleteCallback;
 
     private static readonly int JumpTriggerHash = Animator.StringToHash("Jump");
+    private static readonly int JumpVerticalTriggerHash = Animator.StringToHash("JumpVertical"); 
     private static readonly int LandTriggerHash = Animator.StringToHash("Land");
     private static readonly int IsMovingHash = Animator.StringToHash("isMoving"); 
 
@@ -57,6 +59,22 @@ public class LEGellyCharacterController : MonoBehaviour
         isJumping = true;
 
         if (gellyAnimatorChild != null) gellyAnimatorChild.SetTrigger(JumpTriggerHash);
+    }
+
+    /// <summary>
+    /// Ejecuta un salto idéntico en física y coordenadas al de la izquierda, pero disparando el trigger de animación vertical.
+    /// </summary>
+    public void JumpVerticalTo(Vector2 targetWorldPos, float nextScale, System.Action onComplete = null)
+    {
+        if (isJumping || isMovingLinear) return;
+
+        // Conserva el 100% de la matemática exacta de coordenadas del salto estándar
+        SetupBaseMovement(targetWorldPos, nextScale, onComplete);
+        currentMovementDuration = duration;
+        currentMovementCurve = horizontalCurve;
+        isJumping = true;
+
+        if (gellyAnimatorChild != null) gellyAnimatorChild.SetTrigger(JumpVerticalTriggerHash);
     }
 
     public void MoveLinearTo(Vector2 targetWorldPos, float nextScale, float customDuration, AnimationCurve customCurve, System.Action onComplete = null)
@@ -80,6 +98,11 @@ public class LEGellyCharacterController : MonoBehaviour
         groundStartPos = new Vector3(gellyTransformParent.position.x, CalculateCurrentGroundY(), gellyTransformParent.position.z);
         groundEndPos = new Vector3(targetWorldPos.x, targetWorldPos.y, groundStartPos.z);
         
+        if (Mathf.Abs(targetWorldPos.x - gellyTransformParent.position.x) > 0.01f)
+        {
+            faceRight = targetWorldPos.x > gellyTransformParent.position.x;
+        }
+
         elapsedTime = 0f;
         landTriggered = false;
     }
@@ -156,7 +179,8 @@ public class LEGellyCharacterController : MonoBehaviour
     {
         if (gellyAnimatorChild == null) return;
 
-        gellyAnimatorChild.transform.localScale = new Vector3(currentScale, currentScale, 1f);
+        float finalScaleX = faceRight ? -currentScale : currentScale;
+        gellyAnimatorChild.transform.localScale = new Vector3(finalScaleX, currentScale, 1f);
 
         float pivotOffset = 0f;
         if (alignment == PivotAlignment.StayOnGround_CenterPivot)
