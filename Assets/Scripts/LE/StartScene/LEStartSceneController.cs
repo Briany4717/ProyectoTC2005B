@@ -138,10 +138,11 @@ public class LEStartSceneController : MonoBehaviour
         {
             if (gellyCharacter != null)
             {
-                // Dispara el movimiento usando exactamente la misma física simétrica del salto regular
                 gellyCharacter.JumpVerticalTo(directTargetPosition, directCharacterTargetScale, () => 
                 {
-                    Debug.Log("Gelly aterrizó perfectamente usando el sistema unificado. (⌐■_■)");
+                    // ¡GATILLO JUSTO A TIEMPO!: La cinta despierta exactamente cuando Gelly aterriza
+                    FindAnyObjectByType<LEConveyorManager>().InitializeConveyorGameplay();
+                    Debug.Log("Gelly aterrizó. ¡Cinta transportadora activada! (⌐■_■)");
                 });
 
                 yield return new WaitForSeconds(1f);
