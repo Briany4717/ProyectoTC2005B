@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class LEConveyorManager : MonoBehaviour
 {
@@ -89,6 +90,7 @@ public class LEConveyorManager : MonoBehaviour
     public void StartGame()
     {
         gameTimer = gameDurationSeconds;
+        LEGameSessionData.Instance.totalMatchDuration = gameDurationSeconds;
         automaticSpawnTimer = 0f;
         repairedCount = 0;
         discardedCount = 0;
@@ -205,9 +207,11 @@ public class LEConveyorManager : MonoBehaviour
         if (discardedCount >= totalSpawnedLimit)
         {
             gameActive = false;
-            if (scoreTextMesh != null) scoreTextMesh.text = "¡PERDISTE!";
+            LEGameSessionData.Instance.isVictory = false; // <--- SE ACLARA LA DERROTA
+            SceneManager.LoadScene("LEFinalScene"); // <--- CARGA UNIFICADA
             return;
         }
+
         SpawnNewAppliance();
         CheckMatchEndCondition();
     }
@@ -246,19 +250,20 @@ public class LEConveyorManager : MonoBehaviour
 
     private void EvaluateMatchResult(bool timeOut)
     {
+        gameActive = false;
+        var session = LEGameSessionData.Instance;
+
         if (timeOut)
         {
-            if (scoreTextMesh != null) scoreTextMesh.text = "¡TIEMPO AGOTADO!";
-            return;
-        }
-        if (repairedCount >= 1)
-        {
-            if (scoreTextMesh != null) scoreTextMesh.text = "¡VICTORIA!";
+            session.isVictory = false;
         }
         else
         {
-            if (scoreTextMesh != null) scoreTextMesh.text = "¡PERDISTE!";
+            int totalN = totalSpawnedLimit - discardedCount;
+            session.isVictory = (repairedCount >= totalN);
         }
+
+        SceneManager.LoadScene("LEFinalScene");
     }
 
     public void PauseGame()

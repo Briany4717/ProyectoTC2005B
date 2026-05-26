@@ -23,13 +23,14 @@ public class LEGameSessionData
     public LEApplianceRepairData[] currentMatchData;
     public int currentMatchDataIndex = 0;
     public bool isGameInProgress = false; 
-
-    // ¡NUEVO GUARDIÁN DE COLA!: Guarda el histórico de aparatos creados (⌐■_■)
     public int totalSpawnedCount; 
+    public bool isVictory = false; 
+    public float totalMatchDuration = 300f; 
 
     public void ResetSession(float durationSeconds)
     {
         remainingTime = durationSeconds;
+        totalMatchDuration = durationSeconds;
         currentApplianceSprite = null;
         repairedCount = 0;
         discardedCount = 0;
@@ -37,6 +38,7 @@ public class LEGameSessionData
         currentMatchDataIndex = 0;
         currentMatchData = null;
         isGameInProgress = false;
-        totalSpawnedCount = 0; // Reset
+        totalSpawnedCount = 0;
+        isVictory = false; // Reset
     }
 }

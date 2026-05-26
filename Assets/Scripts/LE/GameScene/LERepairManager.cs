@@ -318,13 +318,46 @@ public class LERepairManager : MonoBehaviour
         StartCoroutine(ExecuteRepairAnimationRoutine());
     }
 
+    /// <summary>
+    /// ¡REINTEGRADA! Llama a esta función pública desde tus minijuegos cuando el jugador cometa un fallo definitivo.
+    /// </summary>
+    public void RegisterMinigameStrikeFailure()
+    {
+        // 1. Incrementamos el contador global persistente en memoria
+        LEGameSessionData.Instance.globalStrikes++;
+        UpdateStrikesUI();
+
+        // 2. Condición crítica de derrota instantánea (3 Strikes)
+        if (LEGameSessionData.Instance.globalStrikes >= 3)
+        {
+            isMatchActive = false;
+            LEGameSessionData.Instance.isVictory = false; // Declaramos la derrota
+            
+            // Viajamos directo a la pantalla de resultados unificada
+            SceneManager.LoadScene("LEFinalScene"); 
+            return;
+        }
+
+        // 3. Si aún le quedan vidas, el juego lo penaliza repitiendo la animación de balanceo
+        // por la cantidad de segundos configurada en el inspector, dándole feedback de impacto al jugador
+        StartCoroutine(ExecuteRepairAnimationRoutine());
+    }
+
     private void EvaluateApplianceFixConclusion()
     {
         LEGameSessionData.Instance.repairedCount++;
         LEGameSessionData.Instance.currentMatchDataIndex++;
         int totalN = LEGameSessionData.Instance.totalSpawnedLimit - LEGameSessionData.Instance.discardedCount;
 
-        SceneManager.LoadScene(LEGameSessionData.Instance.repairedCount >= totalN ? "LEVictoryScene" : "LEConveyorScene");
+        if (LEGameSessionData.Instance.repairedCount >= totalN)
+        {
+            LEGameSessionData.Instance.isVictory = true; // <--- SE ACLARA LA VICTORIA ABSOLUTA
+            SceneManager.LoadScene("LEFinalScene"); // <--- CARGA UNIFICADA
+        }
+        else
+        {
+            SceneManager.LoadScene("LEConveyorScene");
+        }
     }
 
     private void HandleRemainingGlobalTimer()
@@ -368,4 +401,5 @@ public class LERepairManager : MonoBehaviour
         currentState = stateBeforePause;
         if (pausePanel != null) pausePanel.SetActive(false);
     }
+    
 }
