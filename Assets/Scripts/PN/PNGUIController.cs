@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class PNGUIController : MonoBehaviour
 {
-    public TextMeshProUGUI coinsText;
-    public TextMeshProUGUI promptsText;
+    public TextMeshProUGUI coinsText, promptsText;
+    public SpriteRenderer PNSky; 
+    public Sprite[] skySprites; 
+    public static PNGUIController Instance { get; private set; }
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -20,6 +27,16 @@ public class PNGUIController : MonoBehaviour
 
     public void setPrompt()
     {
-        coinsText.text = PlayerPrefs.GetInt("HuntedPrompts").ToString();
+        promptsText.text = PlayerPrefs.GetInt("HuntedPrompts").ToString();
+    }
+
+    public void ChangeSkyAsset(int spriteIndex)
+    {
+        if (PNSky == null) return;
+
+        if (skySprites != null && spriteIndex >= 0 && spriteIndex < skySprites.Length)
+        {
+            PNSky.sprite = skySprites[spriteIndex];
+        }
     }
 }

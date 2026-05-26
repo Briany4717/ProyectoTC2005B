@@ -26,7 +26,6 @@ public class PNGoldenBehaviour : MonoBehaviour
         while (spawned < maxCoins)
         {
             yield return new WaitForSeconds(Random.Range(coinSpawnIntervalMin, coinSpawnIntervalMax));
-            if (this == null || gameObject == null) yield break;
             Instantiate(PNCoin, transform.position, Quaternion.identity);
             spawned++;
         }

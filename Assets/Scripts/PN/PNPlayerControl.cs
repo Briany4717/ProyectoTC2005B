@@ -5,12 +5,10 @@ public class PNPlayerControl : MonoBehaviour
 {
     public float moveSpeed, jumpForce;
     public Rigidbody2D rig;
-    
     private float xInput;
-    private bool jumpRequested, facingRight = true;
+    private bool jumpRequested, facingRight = false;
     private int jumpCount = 0;
     private const int maxJumps = 2;
-
     private PNHunt huntController;
 
     void Awake()
@@ -27,6 +25,13 @@ public class PNPlayerControl : MonoBehaviour
 
     void HandleMovementInput()
     {
+        if (huntController != null && huntController.CurrentState == PNHunt.HunterState.Hunt)
+        {
+            xInput = 0f;
+            jumpRequested = false;
+            return;
+        }
+
         xInput = 0f;
 
         if (Keyboard.current.leftArrowKey.isPressed || Keyboard.current.aKey.isPressed)
@@ -34,13 +39,13 @@ public class PNPlayerControl : MonoBehaviour
             xInput = -1f;
             if (facingRight) Flip();
         } 
-        else if (Keyboard.current.rightArrowKey.isPressed || Keyboard.current.dKey.isPressed )
+        else if (Keyboard.current.rightArrowKey.isPressed || Keyboard.current.dKey.isPressed)
         {
             xInput = 1f;
             if (!facingRight) Flip();
         }
 
-        if ((Keyboard.current.upArrowKey.wasPressedThisFrame || Keyboard.current.wKey.isPressed)&& jumpCount < maxJumps)
+        if ((Keyboard.current.upArrowKey.wasPressedThisFrame || Keyboard.current.wKey.isPressed) && jumpCount < maxJumps)
         {
             jumpRequested = true;
             jumpCount++;
@@ -55,13 +60,16 @@ public class PNPlayerControl : MonoBehaviour
 
         if (state == PNHunt.HunterState.Normal)
         {
-            if (Keyboard.current.spaceKey.wasPressedThisFrame) huntController.EnterScanning();
+            if (Keyboard.current.spaceKey.wasPressedThisFrame){
+                huntController.EnterScanning();
+            }
         }
         else if (state == PNHunt.HunterState.Scanning)
         {
             if (Keyboard.current.spaceKey.wasPressedThisFrame) huntController.CycleTarget(1);
 
-            if (Keyboard.current.enterKey.wasPressedThisFrame){
+            if (Keyboard.current.enterKey.wasPressedThisFrame)
+            {
                 huntController.EnterHunt();
                 jumpCount = 0;
             }
@@ -93,7 +101,6 @@ public class PNPlayerControl : MonoBehaviour
     void Flip()
     {
         facingRight = !facingRight;
-        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y + 180, 0);
+        transform.eulerAngles = new Vector3(0,transform.eulerAngles.y +180,0);
     }
-       
 }

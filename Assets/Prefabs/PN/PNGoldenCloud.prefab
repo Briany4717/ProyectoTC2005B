@@ -109,4 +109,4 @@ MonoBehaviour:
   coinSpawnIntervalMax: 5
   xLimit: -11
   maxCoins: 5
-  PNCoin: {fileID: 3360125900907775900, guid: f3749c4d5a910e24a8c6142a0a39758b, type: 3}
+  PNCoin: {fileID: 89182182220818766, guid: 613d83f0c2ff1804d84f3bee5b197eb2, type: 3}

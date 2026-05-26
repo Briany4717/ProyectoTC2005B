@@ -7,6 +7,7 @@ public class CloudSpawner : MonoBehaviour
     public float minHeight = -2f, maxHeight = 4f;
     public float maxStateDuration = 5f;
     public float timeToSpawnMin = 1f, timeToSpawnMax = 3f;
+    public PNGUIController guiController;
 
     private enum CloudState { Prompt, Golden, Storm }
 
@@ -22,6 +23,7 @@ public class CloudSpawner : MonoBehaviour
         for(int i = 0; i < 3; i++)
         {
             currentState = (CloudState)i;
+            if (guiController != null) guiController.ChangeSkyAsset((int)currentState);
             float stateDuration = Random.Range(1f, 6f);
 
             yield return StartCoroutine(SpawnForDuration(currentState, stateDuration));
@@ -30,6 +32,7 @@ public class CloudSpawner : MonoBehaviour
         while (true)
         {
             currentState = (CloudState)Random.Range(0, 3);
+            if (guiController != null) guiController.ChangeSkyAsset((int)currentState);
             float stateDuration = Random.Range(1f, maxStateDuration);
             yield return StartCoroutine(SpawnForDuration(currentState, stateDuration));
 

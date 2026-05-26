@@ -12,12 +12,14 @@ public class PNHunt : MonoBehaviour
     private int _selectedIndex = 0;
     private PNPromptBehaviour _targetCloud;
     private Rigidbody2D _rb;
-
     public HunterState CurrentState => _state;
+    public PNGUIController guiController;
+    private Animator animator;
 
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -39,6 +41,7 @@ public class PNHunt : MonoBehaviour
     public void ExitScanning()
     {
         Time.timeScale = 1f;
+        animator.SetTrigger("BackToIdle");
         ClearHighlightsAndScrolls();
         _clouds.Clear();
         _state = HunterState.Normal;
@@ -57,6 +60,7 @@ public class PNHunt : MonoBehaviour
 
         if (_clouds.Count > 0)
         {
+            animator.SetTrigger("IsHunting");
             _clouds.Sort((a, b) => 
                 Vector2.Distance(transform.position, a.transform.position)
                 .CompareTo(Vector2.Distance(transform.position, b.transform.position)));
@@ -107,6 +111,7 @@ public class PNHunt : MonoBehaviour
         if (_targetCloud == null)
         {
             ResetPhysics();
+            animator.SetTrigger("BackToIdle");
             _state = HunterState.Normal;
             return;
         }
@@ -117,7 +122,10 @@ public class PNHunt : MonoBehaviour
         {
             _targetCloud.DestroyScroll();
             Destroy(_targetCloud.gameObject);
+            PlayerPrefs.SetInt("HuntedPrompts", PlayerPrefs.GetInt("HuntedPrompts") + 1);
+            guiController.setPrompt();
             ResetPhysics();
+            animator.SetTrigger("BackToIdle");
             _state = HunterState.Normal;
         }
     }
