@@ -25,7 +25,7 @@ public class LEWorkbench : MonoBehaviour
         LEGameSessionData.Instance.discardedCount = conveyorManager.GetDiscardedCount();
 
         // 2. SALTO MECÁNICO: Viajamos limpios a la escena de reparación
-        SceneManager.LoadScene("LERepairScene");
+        SceneManager.LoadScene("LEGameScene");
     }
 
     void Start()

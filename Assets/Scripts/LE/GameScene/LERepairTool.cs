@@ -1,0 +1,89 @@
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+
+public class LERepairTool : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
+{
+    [Header("Tool Properties")]
+    [SerializeField] private int toolId;
+
+    [Header("UI Tooltip & Hitbox")]
+    [SerializeField] private GameObject tooltipPanel; 
+    [SerializeField] private RectTransform applianceHitboxRect; 
+
+    private RectTransform rectTransform;
+    private CanvasGroup canvasGroup;
+    private Vector3 originalAnchoredPosition;
+    private Camera uiCamera;
+    private LERepairManager repairManager;
+
+    void Awake()
+    {
+        rectTransform = GetComponent<RectTransform>();
+        canvasGroup = GetComponent<CanvasGroup>();
+        if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
+        
+        repairManager = FindAnyObjectByType<LERepairManager>();
+        uiCamera = CanvasCameraDetectorReference();
+        originalAnchoredPosition = rectTransform.anchoredPosition;
+
+        if (tooltipPanel != null) tooltipPanel.SetActive(false);
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        // La caja de herramientas siempre está disponible, solo se bloquea si el juego está en pausa real
+        if (repairManager.currentState == LERepairManager.RepairState.Paused) return;
+
+        if (tooltipPanel != null) tooltipPanel.SetActive(false);
+        canvasGroup.alpha = 0.6f;
+        canvasGroup.blocksRaycasts = false; 
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (repairManager.currentState == LERepairManager.RepairState.Paused) return;
+
+        Vector3 mouseWorldPos = uiCamera.ScreenToWorldPoint(eventData.position);
+        mouseWorldPos.z = 0f;
+        transform.position = mouseWorldPos;
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        canvasGroup.alpha = 1.0f;
+        canvasGroup.blocksRaycasts = true;
+
+        if (repairManager.currentState == LERepairManager.RepairState.Paused)
+        {
+            rectTransform.anchoredPosition = originalAnchoredPosition;
+            return;
+        }
+
+        if (applianceHitboxRect != null && RectTransformUtility.RectangleContainsScreenPoint(applianceHitboxRect, eventData.position, uiCamera))
+        {
+            repairManager.ProcessToolDropped(toolId);
+        }
+
+        rectTransform.anchoredPosition = originalAnchoredPosition;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (tooltipPanel != null && repairManager.currentState != LERepairManager.RepairState.Paused)
+        {
+            tooltipPanel.SetActive(true);
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (tooltipPanel != null) tooltipPanel.SetActive(false);
+    }
+
+    private Camera CanvasCameraDetectorReference()
+    {
+        Canvas rootCanvas = GetComponentInParent<Canvas>();
+        return (rootCanvas != null && rootCanvas.renderMode != RenderMode.ScreenSpaceOverlay) ? rootCanvas.worldCamera : Camera.main;
+    }
+}

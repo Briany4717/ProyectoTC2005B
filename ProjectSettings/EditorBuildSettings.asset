@@ -32,5 +32,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LE/LEStartScene.unity
     guid: 4751f2dbc9b234b90bde11463bd84713
+  - enabled: 1
+    path: Assets/Scenes/LE/LEGameScene.unity
+    guid: 096db1a1c84df40fdb2310f61bd74850
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
