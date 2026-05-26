@@ -3133,6 +3133,7 @@ MonoBehaviour:
   startMenu: {fileID: 61049143}
   tutorialPanel: {fileID: 1805835790}
   tutorialController: {fileID: 164191467}
+  gamePanel: {fileID: 2540520}
   boxObject: {fileID: 1954472091}
   boxOpenSprite: {fileID: 5199490883070718787, guid: 01b3cfe35e21e46a99df772c6833b8d8, type: 3}
   closeBoxSprite: {fileID: -314981870589425659, guid: 01b3cfe35e21e46a99df772c6833b8d8, type: 3}
@@ -3149,6 +3150,7 @@ MonoBehaviour:
   directTargetPosition: {x: 0.43, y: 3.88}
   directCharacterTargetScale: 1.2
   networkManager: {fileID: 483320295}
+  conveyorManager: {fileID: 1036828544}
 --- !u!4 &640636711
 Transform:
   m_ObjectHideFlags: 0

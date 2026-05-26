@@ -14,17 +14,18 @@ public class LEGameSessionData
     private static LEGameSessionData instance;
     public static LEGameSessionData Instance => instance ??= new LEGameSessionData();
 
-    // Variables de Estado de la Sesión de 5 Minutos
     public float remainingTime;
     public Sprite currentApplianceSprite;
     public int repairedCount;
     public int discardedCount;
     public int globalStrikes;
     public int totalSpawnedLimit = 5;
-
-    // Base de Datos en Memoria para la Partida Actual (X5 electrodomésticos aleatorios)
     public LEApplianceRepairData[] currentMatchData;
     public int currentMatchDataIndex = 0;
+    public bool isGameInProgress = false; 
+
+    // ¡NUEVO GUARDIÁN DE COLA!: Guarda el histórico de aparatos creados (⌐■_■)
+    public int totalSpawnedCount; 
 
     public void ResetSession(float durationSeconds)
     {
@@ -35,5 +36,7 @@ public class LEGameSessionData
         globalStrikes = 0;
         currentMatchDataIndex = 0;
         currentMatchData = null;
+        isGameInProgress = false;
+        totalSpawnedCount = 0; // Reset
     }
 }

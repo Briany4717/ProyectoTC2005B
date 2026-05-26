@@ -4,7 +4,6 @@ using TMPro;
 
 public class LEConveyorManager : MonoBehaviour
 {
-    // ... Tus variables de control estructurales de la cinta ...
     [SerializeField] private Transform spawnPoint;         
     [SerializeField] private Transform endpointReference;   
     [SerializeField] private float itemSeparation = 1.8f;
@@ -27,68 +26,52 @@ public class LEConveyorManager : MonoBehaviour
     private int cachedMinutes = -1;
     private int cachedSeconds = -1;
     private readonly Quaternion flatObjectsRotation = Quaternion.Euler(0f, 0f, 90f);
-
-    // NUEVA VARIABLE DE CONTROL
     private bool isPaused = false; 
 
-    // ====================================================================
-    // NÚCLEO DEL SISTEMA DE PAUSA (⌐■_幫)
-    // ====================================================================
-    
-    public void PauseGame()
-    {
-        if (!gameActive || isPaused) return;
-        isPaused = true;
-
-        // 1. Congelamos a Gelly de inmediato (animación y lógicas complejas)
-        if (gellyController != null) gellyController.PauseCharacter();
-
-        // 2. Buscamos y congelamos todos los electrodomésticos activos de forma directa
-        LEAppliance[] activeAppliances = FindObjectsByType<LEAppliance>();
-        for (int i = 0; i < activeAppliances.Length; i++)
-        {
-            activeAppliances[i].SetPauseState(true);
-        }
-        pausePanel.gameObject.SetActive(true);
-        Debug.Log(" Juego pausado correctamente. Flujos congelados.");
-    }
-
-    public void ResumeGame()
-    {
-        if (!gameActive || !isPaused) return;
-        isPaused = false;
-
-        // 1. Reanudamos a Gelly restaurando su velocidad exacta
-        if (gellyController != null) gellyController.ResumeCharacter();
-
-        // 2. Descongelamos los electrodomésticos activos
-        LEAppliance[] activeAppliances = FindObjectsByType<LEAppliance>();
-        for (int i = 0; i < activeAppliances.Length; i++)
-        {
-            activeAppliances[i].SetPauseState(false);
-        }
-
-        pausePanel.gameObject.SetActive(false);
-        Debug.Log(" Juego reanudado. Flujos reactivados.");
-    }
-
-    void Update()
-    {
-        // Si el juego terminó O está en pausa, el Update no procesa nada. Rendimiento óptimo.
-        if (!gameActive || isPaused) return;
-
-        HandleTimer();
-        HandleTemporalSpawns();
-    }
-
-    // ... El resto de tus métodos (InitializeConveyorGameplay, StartGame, HandleTimer, HandleTemporalSpawns, SpawnNewAppliance, etc.) se quedan exactamente IGUALES ...
     [Header("Controllers Shared")]
-    [SerializeField] private LEGellyCharacterController gellyController; // Asegúrate de arrastrarlo en el Inspector
+    [SerializeField] private LEGellyCharacterController gellyController; 
 
     public void InitializeConveyorGameplay()
     {
         InitializePool();
-        StartGame();
+        
+        if (LEGameSessionData.Instance.isGameInProgress)
+        {
+            // 1. Restauramos telemetría básica
+            gameTimer = LEGameSessionData.Instance.remainingTime;
+            repairedCount = LEGameSessionData.Instance.repairedCount;
+            discardedCount = LEGameSessionData.Instance.discardedCount;
+            
+            // 2. Recuperamos el conteo histórico total de spawns exacto de la sesión
+            currentSpawnedCount = LEGameSessionData.Instance.totalSpawnedCount;
+            
+            gameActive = true;
+            UpdateScoreUI();
+            
+            // ====================================================================
+            // 🛠️ ALGORITMO DE RECONSTRUCCIÓN DE COLA DE ALTO RENDIMIENTO (⌐■_■)
+            // Calculamos cuántos aparatos se quedaron esperando fila en la cinta 
+            // antes de irnos a la otra escena. El cálculo matemático exacto es:
+            // ConteoHistórico - YaReparados - YaDescartados
+            // ====================================================================
+            int appliancesLeftWaiting = currentSpawnedCount - repairedCount - discardedCount;
+            
+            for (int i = 0; i < appliancesLeftWaiting; i++)
+            {
+                ReconstructApplianceOnConveyor();
+            }
+
+            // 3. REGLA DE ORO: Como acabamos de completar una reparación con éxito,
+            // la cinta transportadora debe escupir el siguiente objeto de reemplazo de inmediato
+            SpawnNewAppliance();
+            
+            Debug.Log("🔌 [Session Restored] Cola reconstruida y nuevo spawn inyectado.");
+        }
+        else
+        {
+            LEGameSessionData.Instance.isGameInProgress = true;
+            StartGame();
+        }
     }
 
     private void InitializePool()
@@ -111,23 +94,68 @@ public class LEConveyorManager : MonoBehaviour
         discardedCount = 0;
         currentSpawnedCount = 0;
         gameActive = true;
+        
         UpdateScoreUI();
         SpawnNewAppliance(); 
+
+        // Sincronizamos el conteo inicial en el contenedor estático
+        LEGameSessionData.Instance.totalSpawnedCount = currentSpawnedCount;
     }
 
-    public float GetRemainingTime()
+    /// <summary>
+    /// Reconstruye un aparato de la fila vieja sin alterar ni duplicar el conteo histórico general.
+    /// </summary>
+    private void ReconstructApplianceOnConveyor()
     {
-        return gameTimer;
+        if (objectPool.Count > 0)
+        {
+            LEAppliance appliance = objectPool.Dequeue();
+            appliance.gameObject.SetActive(true);
+            appliance.SetupInConveyor(spawnPoint.position);
+            conveyorQueue.Add(appliance);
+            
+            UpdateQueuePositions();
+        }
     }
 
-    public int GetRepairedCount()
+    public void SpawnNewAppliance()
     {
-        return repairedCount;
+        if (currentSpawnedCount >= totalSpawnedLimit) return;
+        if (objectPool.Count > 0)
+        {
+            LEAppliance appliance = objectPool.Dequeue();
+            appliance.gameObject.SetActive(true);
+            appliance.SetupInConveyor(spawnPoint.position);
+            conveyorQueue.Add(appliance);
+            
+            currentSpawnedCount++;
+            
+            // ¡VITAL!: Guardamos el nuevo conteo en el puente estático para el siguiente viaje (⌐■_■)
+            LEGameSessionData.Instance.totalSpawnedCount = currentSpawnedCount;
+            
+            UpdateQueuePositions();
+        }
     }
 
-    public int GetDiscardedCount()
+    public void RemoveFromConveyor(LEAppliance appliance)
     {
-        return discardedCount;
+        if (conveyorQueue.Contains(appliance))
+        {
+            conveyorQueue.Remove(appliance);
+            UpdateQueuePositions(); 
+        }
+    }
+
+    public float GetRemainingTime() => gameTimer;
+    public int GetRepairedCount() => repairedCount;
+    public int GetDiscardedCount() => discardedCount;
+    public int GetTotalSpawnedCount() => currentSpawnedCount; // Getter expuesto
+
+    void Update()
+    {
+        if (!gameActive || isPaused) return;
+        HandleTimer();
+        HandleTemporalSpawns();
     }
 
     private void HandleTimer()
@@ -157,29 +185,6 @@ public class LEConveyorManager : MonoBehaviour
         {
             automaticSpawnTimer = 0f;
             SpawnNewAppliance();
-        }
-    }
-
-    public void SpawnNewAppliance()
-    {
-        if (currentSpawnedCount >= totalSpawnedLimit) return;
-        if (objectPool.Count > 0)
-        {
-            LEAppliance appliance = objectPool.Dequeue();
-            appliance.gameObject.SetActive(true);
-            appliance.SetupInConveyor(spawnPoint.position);
-            conveyorQueue.Add(appliance);
-            currentSpawnedCount++;
-            UpdateQueuePositions();
-        }
-    }
-
-    public void RemoveFromConveyor(LEAppliance appliance)
-    {
-        if (conveyorQueue.Contains(appliance))
-        {
-            conveyorQueue.Remove(appliance);
-            UpdateQueuePositions(); 
         }
     }
 
@@ -254,5 +259,25 @@ public class LEConveyorManager : MonoBehaviour
         {
             if (scoreTextMesh != null) scoreTextMesh.text = "¡PERDISTE!";
         }
+    }
+
+    public void PauseGame()
+    {
+        if (!gameActive || isPaused) return;
+        isPaused = true;
+        if (gellyController != null) gellyController.PauseCharacter();
+        LEAppliance[] activeAppliances = FindObjectsByType<LEAppliance>(FindObjectsSortMode.None);
+        for (int i = 0; i < activeAppliances.Length; i++) activeAppliances[i].SetPauseState(true);
+        pausePanel.gameObject.SetActive(true);
+    }
+
+    public void ResumeGame()
+    {
+        if (!gameActive || !isPaused) return;
+        isPaused = false;
+        if (gellyController != null) gellyController.ResumeCharacter();
+        LEAppliance[] activeAppliances = FindObjectsByType<LEAppliance>(FindObjectsSortMode.None);
+        for (int i = 0; i < activeAppliances.Length; i++) activeAppliances[i].SetPauseState(false);
+        pausePanel.gameObject.SetActive(false);
     }
 }

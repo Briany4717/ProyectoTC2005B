@@ -8,6 +8,10 @@ public class LEStartSceneController : MonoBehaviour
     public GameObject startMenu;
     public GameObject tutorialPanel;
     public LETutorialManager tutorialController;
+    
+    // ¡REINTEGRADO!: El contenedor principal de toda la UI de juego de la cinta (⌐■_■)
+    [Tooltip("Arrastra aquí el panel principal que contiene el HUD y elementos del juego.")]
+    public GameObject gamePanel; 
 
     [Header("Box Visuals")]
     public SpriteRenderer boxObject;
@@ -31,10 +35,11 @@ public class LEStartSceneController : MonoBehaviour
     [Header("Direct Mode Configuration (⌐■_■)")]
     [SerializeField] private LEGellyCharacterController gellyCharacter; 
     [Tooltip("Posición final exacta en coordenadas del mundo donde caerá Gelly.")]
-    [SerializeField] private Vector2 directTargetPosition; // <--- SE DEFINE EN TEXTO DESDE EL INSPECTOR
+    [SerializeField] private Vector2 directTargetPosition; 
     [Tooltip("Escala final que adoptará el personaje al aterrizar.")]
-    [SerializeField] private float directCharacterTargetScale = 1.0f; // <--- SE DEFINE EN TEXTO DESDE EL INSPECTOR
+    [SerializeField] private float directCharacterTargetScale = 1.0f; 
     [SerializeField] private LENetworkManager networkManager;
+    [SerializeField] private LEConveyorManager conveyorManager; 
 
     private Vector3 originalPosition;
     private Quaternion originalRotation;
@@ -42,10 +47,26 @@ public class LEStartSceneController : MonoBehaviour
 
     void Start()
     {
-        // Reseteamos el contenedor de datos al iniciar el juego
+        if (LEGameSessionData.Instance.isGameInProgress)
+        {
+            if (playMenu != null) playMenu.SetActive(false);
+            if (startMenu != null) startMenu.SetActive(false);
+            if (tutorialPanel != null) tutorialPanel.SetActive(false);
+            if (boxObject != null) boxObject.gameObject.SetActive(false); 
+
+            // ¡SOLUCIÓN 1!: Activamos el panel de juego crucial de forma inmediata
+            if (gamePanel != null) gamePanel.SetActive(true);
+
+            if (conveyorManager != null)
+            {
+                conveyorManager.gameObject.SetActive(true);
+                conveyorManager.InitializeConveyorGameplay();
+            }
+            return;
+        }
+
         LEGameSessionData.Instance.ResetSession(burstDuration); 
     
-        // Descargamos de inmediato los 5 problemas aleatorios que usará la partida entera
         if (networkManager != null) networkManager.FetchMatchData();
         if (boxObject != null)
         {
@@ -126,7 +147,6 @@ public class LEStartSceneController : MonoBehaviour
         }
 
         boxObject.transform.position = originalPosition;
-        
         boxObject.transform.rotation = originalRotation * Quaternion.Euler(0f, 0f, isTutorialFlow ? 40f : 0f);
 
         if (boxObject != null && boxOpenSprite != null)
@@ -144,11 +164,15 @@ public class LEStartSceneController : MonoBehaviour
         {
             if (gellyCharacter != null)
             {
+                // Al iniciar normal, también encendemos el gamePanel al aterrizar
                 gellyCharacter.JumpVerticalTo(directTargetPosition, directCharacterTargetScale, () => 
                 {
-                    // ¡GATILLO JUSTO A TIEMPO!: La cinta despierta exactamente cuando Gelly aterriza
-                    FindAnyObjectByType<LEConveyorManager>().InitializeConveyorGameplay();
-                    Debug.Log("Gelly aterrizó. ¡Cinta transportadora activada! (⌐■_■)");
+                    if (gamePanel != null) gamePanel.SetActive(true);
+                    if (conveyorManager != null)
+                    {
+                        conveyorManager.gameObject.SetActive(true);
+                        conveyorManager.InitializeConveyorGameplay();
+                    }
                 });
 
                 yield return new WaitForSeconds(1f);

@@ -43,6 +43,11 @@ public class LEAppliance : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void SetupInConveyor(Vector3 startPos)
     {
+        if (applianceImage == null) applianceImage = GetComponent<Image>();
+        if (rectTransform == null) rectTransform = GetComponent<RectTransform>();
+        if (mainCamera == null) mainCamera = Camera.main;
+        if (conveyorManager == null) conveyorManager = FindAnyObjectByType<LEConveyorManager>();
+
         if (possibleSprites != null && possibleSprites.Length > 0)
         {
             applianceImage.sprite = possibleSprites[Random.Range(0, possibleSprites.Length)];
