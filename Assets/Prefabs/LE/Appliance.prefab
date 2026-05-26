@@ -95,5 +95,5 @@ MonoBehaviour:
   - {fileID: -2223796924812096957, guid: b79c46e86f01a4fda9bb6af43e99d9fb, type: 3}
   - {fileID: -9006596249876528868, guid: f9e39a2d964c94b50b9a7204114b8d69, type: 3}
   shakeSpeed: 60
-  shakeIntensity: 0.08
-  moveSpeed: 0.3
+  shakeIntensity: 0.01
+  moveSpeed: 1

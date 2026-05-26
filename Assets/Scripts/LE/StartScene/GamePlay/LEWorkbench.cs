@@ -18,9 +18,12 @@ public class LEWorkbench : MonoBehaviour
 
     public bool TryPlaceAppliance(LEAppliance appliance)
     {
+        // Si el objeto que se soltó es el mismo que ya estaba en la mesa, es totalmente válido (re-drag cancelado)
+        if (currentApplianceOnTable == appliance) return true;
+
+        // Si la mesa ya tiene otro objeto diferente bloqueado, deniega el acceso
         if (currentApplianceOnTable != null) return false;
 
-        // Validar cercanía al slot de la mesa mediante un radio de tolerancia
         float distance = Vector2.Distance(appliance.transform.position, slotCenter.position);
         if (distance > 2.0f) return false; 
 
@@ -30,8 +33,14 @@ public class LEWorkbench : MonoBehaviour
     }
 
     /// <summary>
-    /// LLÁMAME al regresar de la escena de minijuego tras una reparación exitosa (⌐■_■)
+    /// Remueve el registro del electrodoméstico actual liberando la mesa por completo (⌐■_■)
     /// </summary>
+    public void ClearWorkbench()
+    {
+        currentApplianceOnTable = null;
+        UpdateButtonState();
+    }
+
     public void CompleteActiveRepair()
     {
         if (currentApplianceOnTable == null) return;

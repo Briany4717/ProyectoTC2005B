@@ -161,7 +161,7 @@ public class LEConveyorManager : MonoBehaviour
         {
             gameActive = false;
             if (scoreTextMesh != null) scoreTextMesh.text = "¡PERDISTE!";
-            Debug.Log("💔 PERDISTE: Descartaste todos los electrodomésticos de la partida.");
+            Debug.Log("PERDISTE: Descartaste todos los electrodomésticos de la partida.");
             return;
         }
 
@@ -217,7 +217,7 @@ public class LEConveyorManager : MonoBehaviour
         if (timeOut)
         {
             if (scoreTextMesh != null) scoreTextMesh.text = "¡TIEMPO AGOTADO!";
-            Debug.Log("💔 ¡TIEMPO AGOTADO! Perdiste.");
+            Debug.Log("¡TIEMPO AGOTADO!");
             return;
         }
 
@@ -231,7 +231,7 @@ public class LEConveyorManager : MonoBehaviour
         else
         {
             if (scoreTextMesh != null) scoreTextMesh.text = "¡PERDISTE!";
-            Debug.Log("💔 Perdiste: No lograste reparar ni un solo electrodoméstico.");
+            Debug.Log("Perdiste: No lograste reparar ni un solo electrodoméstico.");
         }
     }
 }

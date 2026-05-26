@@ -16,12 +16,17 @@ public class LEAppliance : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     [Header("Procedural Shake Settings")]
     [SerializeField] private float shakeSpeed = 60f;
-    [SerializeField] private float shakeIntensity = 4.0f; // Ahora en pixeles de UI
+    [SerializeField] private float shakeIntensity = 4.0f; 
     [SerializeField] private float moveSpeed = 10f;
 
     private RectTransform rectTransform;
     private Image applianceImage;
     private Vector3 targetPosition;
+    
+    // GUARDIÁN DE RENDIMIENTO: Almacena la posición lineal pura sin la contaminación del shake
+    private Vector3 smoothPosition; 
+    private ApplianceState previousState; 
+    
     private Camera mainCamera;
     private LEConveyorManager conveyorManager;
 
@@ -35,13 +40,13 @@ public class LEAppliance : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void SetupInConveyor(Vector3 startPos)
     {
-        // TRUCO DE OPTIMIZACIÓN: Cambiamos el sprite de forma aleatoria antes de aparecer
         if (possibleSprites != null && possibleSprites.Length > 0)
         {
             applianceImage.sprite = possibleSprites[Random.Range(0, possibleSprites.Length)];
         }
 
         transform.position = startPos;
+        smoothPosition = startPos; // Sincronizamos el tracking base
         targetPosition = startPos;
         currentState = ApplianceState.OnConveyor;
     }
@@ -55,57 +60,87 @@ public class LEAppliance : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     {
         if (currentState == ApplianceState.BeingDragged) return;
 
-        // Desplazamiento elástico nativo de UI
-        transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * moveSpeed);
+        // El cálculo elástico ocurre sobre la variable limpia e inmune al sacudido
+        smoothPosition = Vector3.Lerp(smoothPosition, targetPosition, Time.deltaTime * moveSpeed);
 
-        // El sacudido procedimental solo ocurre si el objeto se está desplazando por la cinta
-        if (currentState == ApplianceState.OnConveyor && Vector3.Distance(transform.position, targetPosition) > 0.1f)
+        // REGLA SOLUCIONADA: Evaluamos la distancia real usando el vector limpio para evitar falsos positivos
+        float distanceToTarget = Vector3.Distance(smoothPosition, targetPosition);
+
+        Vector3 shakeOffset = Vector3.zero;
+
+        // El sacudido SOLO se activa si está en la cinta Y la distancia lógica es mayor al umbral de parada
+        if (currentState == ApplianceState.OnConveyor && distanceToTarget > 0.05f)
         {
             float shakeX = Mathf.Sin(Time.time * shakeSpeed) * shakeIntensity;
-            rectTransform.anchoredPosition += new Vector2(shakeX, 0f);
+            shakeOffset = new Vector3(shakeX, 0f, 0f);
         }
+
+        // Combinamos la traslación pura con el efecto visual decorativo
+        transform.position = smoothPosition + shakeOffset;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (currentState == ApplianceState.OnWorkbench) return; 
-        currentState = ApplianceState.BeingDragged;
+        // DESBLOQUEO: Ahora permitimos el drag tanto si viene de la cinta como si ya estaba en la mesa
+        if (currentState == ApplianceState.OnConveyor || currentState == ApplianceState.OnWorkbench)
+        {
+            previousState = currentState;
+            currentState = ApplianceState.BeingDragged;
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         if (currentState != ApplianceState.BeingDragged) return;
 
-        // Arrastre perfecto y suave amarrado al puntero de la UI
         Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(eventData.position);
         mouseWorldPos.z = 0f;
+        
         transform.position = mouseWorldPos;
+        smoothPosition = mouseWorldPos; // Mantenemos el tracking sincronizado con el puntero
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         if (currentState != ApplianceState.BeingDragged) return;
 
-        // 1. Validar Drop en Mesa de Trabajo
         LEWorkbench workbench = FindAnyObjectByType<LEWorkbench>();
-        if (workbench != null && workbench.TryPlaceAppliance(this))
-        {
-            currentState = ApplianceState.OnWorkbench;
-            targetPosition = workbench.SlotCenter.position;
-            conveyorManager.RemoveFromConveyor(this); 
-            return;
-        }
-
-        // 2. Validar Drop en Caja de Descartes usando matemática de UI (0% Física)
         LEDiscardBox discardBox = FindAnyObjectByType<LEDiscardBox>();
+
+        // CASO 1: Tirar a la Caja de Descartes
         if (discardBox != null && discardBox.TryDiscardAppliance(eventData.position, eventData.pressEventCamera))
         {
-            conveyorManager.RemoveFromConveyor(this); 
-            conveyorManager.RegisterDiscard(this);    
+            if (previousState == ApplianceState.OnConveyor)
+            {
+                conveyorManager.RemoveFromConveyor(this);
+            }
+            else if (previousState == ApplianceState.OnWorkbench && workbench != null)
+            {
+                workbench.ClearWorkbench(); // Limpia el slot de la mesa para poder meter otro
+            }
+
+            conveyorManager.RegisterDiscard(this);
             return;
         }
 
-        // Retorno si se soltó en zona inválida
-        currentState = ApplianceState.OnConveyor;
+        // CASO 2: Colocar en la Mesa de Trabajo
+        if (workbench != null && workbench.TryPlaceAppliance(this))
+        {
+            if (previousState == ApplianceState.OnConveyor)
+            {
+                conveyorManager.RemoveFromConveyor(this);
+            }
+
+            currentState = ApplianceState.OnWorkbench;
+            targetPosition = workbench.SlotCenter.position;
+            return;
+        }
+
+        // CASO 3: Drop Inválido (Regresa de forma elástica a donde pertenecía originalmente)
+        currentState = previousState;
+        if (currentState == ApplianceState.OnWorkbench && workbench != null)
+        {
+            targetPosition = workbench.SlotCenter.position;
+        }
     }
 }
