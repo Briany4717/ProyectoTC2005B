@@ -115,6 +115,21 @@ public class LEConveyorManager : MonoBehaviour
         SpawnNewAppliance(); 
     }
 
+    public float GetRemainingTime()
+    {
+        return gameTimer;
+    }
+
+    public int GetRepairedCount()
+    {
+        return repairedCount;
+    }
+
+    public int GetDiscardedCount()
+    {
+        return discardedCount;
+    }
+
     private void HandleTimer()
     {
         gameTimer -= Time.deltaTime;

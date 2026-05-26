@@ -34,6 +34,7 @@ public class LEStartSceneController : MonoBehaviour
     [SerializeField] private Vector2 directTargetPosition; // <--- SE DEFINE EN TEXTO DESDE EL INSPECTOR
     [Tooltip("Escala final que adoptará el personaje al aterrizar.")]
     [SerializeField] private float directCharacterTargetScale = 1.0f; // <--- SE DEFINE EN TEXTO DESDE EL INSPECTOR
+    [SerializeField] private LENetworkManager networkManager;
 
     private Vector3 originalPosition;
     private Quaternion originalRotation;
@@ -41,6 +42,11 @@ public class LEStartSceneController : MonoBehaviour
 
     void Start()
     {
+        // Reseteamos el contenedor de datos al iniciar el juego
+        LEGameSessionData.Instance.ResetSession(burstDuration); 
+    
+        // Descargamos de inmediato los 5 problemas aleatorios que usará la partida entera
+        if (networkManager != null) networkManager.FetchMatchData();
         if (boxObject != null)
         {
             originalPosition = boxObject.transform.position;

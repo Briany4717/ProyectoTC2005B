@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LEWorkbench : MonoBehaviour
@@ -10,6 +11,22 @@ public class LEWorkbench : MonoBehaviour
     private LEAppliance currentApplianceOnTable = null;
 
     public Transform SlotCenter => slotCenter;
+
+    public void OnClickRepairButton()
+    {
+        if (currentApplianceOnTable == null) return;
+
+        LEConveyorManager conveyorManager = FindAnyObjectByType<LEConveyorManager>();
+
+        // 1. EXTRAEMOS Y EMBALAMOS LOS DATOS DE LA ESCENA ACTUAL (⌐■_■)
+        LEGameSessionData.Instance.remainingTime = conveyorManager.GetRemainingTime(); // (Crea un getter público en tu mánager que regrese gameTimer)
+        LEGameSessionData.Instance.currentApplianceSprite = currentApplianceOnTable.GetComponent<Image>().sprite;
+        LEGameSessionData.Instance.repairedCount = conveyorManager.GetRepairedCount();
+        LEGameSessionData.Instance.discardedCount = conveyorManager.GetDiscardedCount();
+
+        // 2. SALTO MECÁNICO: Viajamos limpios a la escena de reparación
+        SceneManager.LoadScene("LERepairScene");
+    }
 
     void Start()
     {
