@@ -1,14 +1,18 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class LERepairTool : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Tool Properties")]
     [SerializeField] private int toolId;
+    [Tooltip("Descripción personalizada de esta herramienta para el Tooltip dinámico.")]
+    [SerializeField, TextArea(2, 3)] private string toolDescription;
 
-    [Header("UI Tooltip & Hitbox")]
-    [SerializeField] private GameObject tooltipPanel; 
+    [Header("UI Tooltip Shared Container (⌐■_■)")]
+    [SerializeField] private GameObject sharedTooltipPanel; 
+    [SerializeField] private TextMeshProUGUI sharedTooltipTextMesh; // <--- TEXTO DINÁMICO ÚNICO
     [SerializeField] private RectTransform applianceHitboxRect; 
 
     private RectTransform rectTransform;
@@ -19,23 +23,19 @@ public class LERepairTool : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 
     void Awake()
     {
-        rectTransform = GetComponent<RectTransform>();
-        canvasGroup = GetComponent<CanvasGroup>();
-        if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
+        rectTransform = GetComponent<Transform>() as RectTransform;
+        canvasGroup = GetComponent<CanvasGroup>() ?? gameObject.AddComponent<CanvasGroup>();
         
         repairManager = FindAnyObjectByType<LERepairManager>();
         uiCamera = CanvasCameraDetectorReference();
         originalAnchoredPosition = rectTransform.anchoredPosition;
-
-        if (tooltipPanel != null) tooltipPanel.SetActive(false);
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        // La caja de herramientas siempre está disponible, solo se bloquea si el juego está en pausa real
         if (repairManager.currentState == LERepairManager.RepairState.Paused) return;
 
-        if (tooltipPanel != null) tooltipPanel.SetActive(false);
+        if (sharedTooltipPanel != null) sharedTooltipPanel.SetActive(false);
         canvasGroup.alpha = 0.6f;
         canvasGroup.blocksRaycasts = false; 
     }
@@ -70,15 +70,22 @@ public class LERepairTool : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (tooltipPanel != null && repairManager.currentState != LERepairManager.RepairState.Paused)
+        if (repairManager.currentState == LERepairManager.RepairState.Paused) return;
+
+        // INYECCIÓN DINÁMICA PREMIUM: Modificamos el contenido antes de prender el contenedor compartido
+        if (sharedTooltipPanel != null && sharedTooltipTextMesh != null)
         {
-            tooltipPanel.SetActive(true);
+            sharedTooltipTextMesh.text = toolDescription;
+            sharedTooltipPanel.SetActive(true);
         }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (tooltipPanel != null) tooltipPanel.SetActive(false);
+        if (sharedTooltipPanel != null)
+        {
+            sharedTooltipPanel.SetActive(false);
+        }
     }
 
     private Camera CanvasCameraDetectorReference()

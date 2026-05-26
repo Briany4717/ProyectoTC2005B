@@ -16,9 +16,17 @@ public class LERepairManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI globalTimerTextMesh;
     [SerializeField] private GameObject pausePanel;
 
-    [Header("Gelly Intro Chat Bubble")]
+    [Header("Gelly Intro Chat Bubble & Typewriter (⌐■_■)")]
     [SerializeField] private GameObject gellyIntroChatBubble;
     [SerializeField] private TextMeshProUGUI gellyIntroTextMesh;
+    [Tooltip("Velocidad de escritura de la intro (Segundos por letra).")]
+    [SerializeField] private float introTextSpeed = 0.03f;
+    [Tooltip("Cada cuántas letras suena la voz de Gelly.")]
+    [SerializeField] private int voiceSoundInterval = 2;
+    [Tooltip("Tiempo que se queda visible la burbuja de inicio DESPUÉS de terminar de escribirse.")]
+    [SerializeField] private float introDisplayDuration = 2.0f; // <--- CONFIGURABLE POR TIEMPO
+    [Tooltip("Tiempo que se queda visible la burbuja de error de herramienta.")]
+    [SerializeField] private float wrongToolDisplayDuration = 1.8f; // <--- CONFIGURABLE POR TIEMPO
 
     [Header("Gelly Floating Problem Bubble (?)")]
     [SerializeField] private GameObject gellyProblemBubbleContainer;
@@ -32,34 +40,40 @@ public class LERepairManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI overlayBodyText;
 
     [Header("Instruction Sheet")]
-    [SerializeField] private TextMeshProUGUI[] taskTextMeshes; // Estrictamente 3
+    [SerializeField] private TextMeshProUGUI[] taskTextMeshes; 
 
     [Header("Strikes UI")]
     [SerializeField] private TextMeshProUGUI strikesTextMesh;
 
-    [Header("Procedural Debris Settings (⌐■_■)")]
+    [Header("Procedural Debris & Animation Settings")]
+    [Tooltip("Duración exacta en segundos del sacudido del electrodoméstico.")]
     [SerializeField] private float repairAnimDuration = 2.5f;
     [SerializeField] private float shakeSpeed = 80f;
     [SerializeField] private float shakeIntensity = 7.0f;
-    [SerializeField] private GameObject debrisUIPrefab; // Prefab con el script LEDebrisPhysics
+    [SerializeField] private GameObject debrisUIPrefab; 
     [SerializeField] private Transform debrisSpawnPoint;
-    [SerializeField] private Sprite[] debrisSpritesPool; // Lista de tornillos/tuercas en el inspector
+    [SerializeField] private Sprite[] debrisSpritesPool; 
     [SerializeField] private float timeBetweenDebrisSpawns = 0.08f;
 
-    [Header("Audio (Rejection / Success)")]
-    [SerializeField] private AudioSource sfxSource;
+    [Header("Audio Source & Retro Clips")]
+    [SerializeField] private AudioSource sfxAudioSource;
+    [SerializeField] private AudioClip gellyVoiceSound;
     [SerializeField] private AudioClip rejectionSFX;
 
     private LEApplianceRepairData currentData;
     private Vector3 applianceOriginalPosition;
     private Vector3 problemBubbleOriginalAnchoredPos;
+    
     private int currentTaskIndex = 0;
     private bool isMatchActive = false;
+    
     private int cachedMinutes = -1;
     private int cachedSeconds = -1;
     private RepairState stateBeforePause;
     
+    private Coroutine introFlowCoroutine;
     private Coroutine wrongToolFeedbackCoroutine;
+    private string cachedIntroPhrase;
 
     void Start()
     {
@@ -97,18 +111,67 @@ public class LERepairManager : MonoBehaviour
     private void InitializeRepairFlow()
     {
         currentState = RepairState.IntroDialogue;
-        if (gellyIntroChatBubble != null)
-        {
-            gellyIntroChatBubble.SetActive(true);
-            gellyIntroTextMesh.text = Random.Range(0, 2) == 0 ? "¡Manos a la obra con esto!" : "¡Comencemos la reparación ya!";
-        }
+        if (gellyIntroChatBubble != null) gellyIntroChatBubble.SetActive(true);
+        
+        cachedIntroPhrase = Random.Range(0, 2) == 0 ? "¡Manos a la obra con esto!" : "¡Comencemos la reparación ya!";
+        
+        // Iniciamos el flujo automático controlado por tiempo (0 clicks requeridos)
+        if (introFlowCoroutine != null) StopCoroutine(introFlowCoroutine);
+        introFlowCoroutine = StartCoroutine(AutomatedIntroFlowRoutine());
     }
 
-    public void AdvanceFromIntro()
+    /// <summary>
+    /// Flujo de introducción controlado estrictamente por tiempo e inmune a pausas.
+    /// </summary>
+    private IEnumerator AutomatedIntroFlowRoutine()
     {
-        if (currentState != RepairState.IntroDialogue) return;
-        if (gellyIntroChatBubble != null) gellyIntroChatBubble.SetActive(false);
+        gellyIntroTextMesh.text = cachedIntroPhrase;
+        gellyIntroTextMesh.maxVisibleCharacters = 0;
+        gellyIntroTextMesh.ForceMeshUpdate();
 
+        int totalVisibleCharacters = cachedIntroPhrase.Length;
+        int counter = 0;
+        float typewriterTimer = 0f;
+
+        // 1. Escritura animada de la Intro con soporte para pausa por código
+        while (counter <= totalVisibleCharacters)
+        {
+            if (currentState != RepairState.Paused)
+            {
+                typewriterTimer += Time.deltaTime;
+                if (typewriterTimer >= introTextSpeed)
+                {
+                    typewriterTimer = 0f;
+                    gellyIntroTextMesh.maxVisibleCharacters = counter;
+
+                    if (gellyVoiceSound != null && sfxAudioSource != null && counter > 0)
+                    {
+                        char lastChar = cachedIntroPhrase[counter - 1];
+                        if (counter % voiceSoundInterval == 0 && !char.IsWhiteSpace(lastChar))
+                        {
+                            sfxAudioSource.pitch = Random.Range(0.94f, 1.06f);
+                            sfxAudioSource.PlayOneShot(gellyVoiceSound);
+                        }
+                    }
+                    counter++;
+                }
+            }
+            yield return null;
+        }
+
+        // 2. Espera estricta configurable post-escritura (Soporta congelación en pausa)
+        float displayTimer = 0f;
+        while (displayTimer < introDisplayDuration)
+        {
+            if (currentState != RepairState.Paused)
+            {
+                displayTimer += Time.deltaTime;
+            }
+            yield return null;
+        }
+
+        // 3. Transición automática al sacudido de reparación
+        if (gellyIntroChatBubble != null) gellyIntroChatBubble.SetActive(false);
         StartCoroutine(ExecuteRepairAnimationRoutine());
     }
 
@@ -116,31 +179,27 @@ public class LERepairManager : MonoBehaviour
     {
         currentState = RepairState.RepairingAnimation;
         
-        // Escondemos las burbujas durante la animación de reparación por diseño
         if (gellyProblemBubbleContainer != null) gellyProblemBubbleContainer.SetActive(false);
         if (gellyIntroChatBubble != null) gellyIntroChatBubble.SetActive(false);
 
         float timer = 0f;
         float debrisTimer = 0f;
 
-        while (timer < repairAnimDuration)
+        while (timer < repairAnimDuration) 
         {
             if (currentState != RepairState.Paused)
             {
                 timer += Time.deltaTime;
                 debrisTimer += Time.deltaTime;
 
-                // 1. Sacudido procedimental puro
                 float shakeX = Mathf.Sin(Time.time * shakeSpeed) * shakeIntensity;
                 applianceMainImage.transform.position = applianceOriginalPosition + new Vector3(shakeX, 0f, 0f);
 
-                // 2. Lanzador de Chatarra a trayectorias aleatorias por código (0 Allocations de partículas)
                 if (debrisTimer >= timeBetweenDebrisSpawns && debrisSpritesPool.Length > 0 && debrisUIPrefab != null)
                 {
                     debrisTimer = 0f;
-                    GameObject debrisObj = Instantiate(debrisUIPrefab, transform); // Se instancia bajo el canvas
+                    GameObject debrisObj = Instantiate(debrisUIPrefab, transform); 
                     LEDebrisPhysics debrisScript = debrisObj.GetComponent<LEDebrisPhysics>();
-                    
                     Sprite randomDebrisSprite = debrisSpritesPool[Random.Range(0, debrisSpritesPool.Length)];
                     debrisScript.InitializeDebris(randomDebrisSprite, debrisSpawnPoint.position);
                 }
@@ -156,7 +215,6 @@ public class LERepairManager : MonoBehaviour
             yield break;
         }
 
-        // Habilitamos el Gameplay y despertamos la burbuja del "?"
         currentState = RepairState.GameplayActive;
         if (gellyProblemBubbleContainer != null) gellyProblemBubbleContainer.SetActive(true);
     }
@@ -171,7 +229,6 @@ public class LERepairManager : MonoBehaviour
 
     private void HandleProblemBubbleFloatingEffect()
     {
-        // Efecto elástico y armónico de globo flotando de arriba a abajo de forma perpetua (o^^)o
         if (currentState == RepairState.GameplayActive && problemBubbleRect != null && gellyProblemBubbleContainer.activeSelf)
         {
             float newY = problemBubbleOriginalAnchoredPos.y + (Mathf.Sin(Time.time * floatSpeed) * floatIntensity);
@@ -200,31 +257,28 @@ public class LERepairManager : MonoBehaviour
 
         currentState = RepairState.GameplayActive;
         
-        // SE ACLARA: Al cerrar el panel, el globo del "?" vuelve a emerger para consultas futuras
+        // REGLA: Al cerrar la problemática, el globo del "?" emerge de inmediato para re-consulta
         if (gellyProblemBubbleContainer != null) gellyProblemBubbleContainer.SetActive(true);
     }
 
     public void ProcessToolDropped(int toolId)
     {
-        // Las herramientas siempre pueden arrastrarse en Gameplay Activo
         if (currentState != RepairState.GameplayActive) return;
 
         if (toolId == currentData.correctToolId)
         {
             if (wrongToolFeedbackCoroutine != null) StopCoroutine(wrongToolFeedbackCoroutine);
             applianceMainImage.color = Color.white;
-
             currentState = RepairState.ExecutingMinigame;
             
             // =========================================================
-            // PASO PREPARADO: Aquí se conectará tu minijuego interactivo.
-            // Simulación temporal de victoria automática para testeo de flujos.
+            // COPLAS DE MINIJUEGO: Listos para inyectar tu minijuego interactivo.
             // =========================================================
             SimulateWinMinigame();
         }
         else
         {
-            // REGLA CORREGIDA: Herramienta incorrecta NO da strikes, ejecuta el feedback de rechazo
+            // REGLA: Herramienta incorrecta gatilla feedback de RECHAZO automático por tiempo
             if (wrongToolFeedbackCoroutine != null) StopCoroutine(wrongToolFeedbackCoroutine);
             wrongToolFeedbackCoroutine = StartCoroutine(WrongToolFeedbackRoutine());
         }
@@ -232,18 +286,27 @@ public class LERepairManager : MonoBehaviour
 
     private IEnumerator WrongToolFeedbackRoutine()
     {
-        if (sfxSource != null && rejectionSFX != null) sfxSource.PlayOneShot(rejectionSFX);
+        if (sfxAudioSource != null && rejectionSFX != null) sfxAudioSource.PlayOneShot(rejectionSFX);
 
-        // Feedback visual: Tiñe el aparato de rojo por un instante corto
         applianceMainImage.color = new Color(1f, 0.4f, 0.4f, 1f);
 
         if (gellyIntroChatBubble != null)
         {
             gellyIntroChatBubble.SetActive(true);
+            gellyIntroTextMesh.maxVisibleCharacters = 999; 
             gellyIntroTextMesh.text = "No creo que sea la herramienta correcta...";
         }
 
-        yield return new WaitForSeconds(1.5f);
+        // REGLA CONTROLADA POR TIEMPO E INMUNE A PAUSA (o^^)o
+        float errorTimer = 0f;
+        while (errorTimer < wrongToolDisplayDuration)
+        {
+            if (currentState != RepairState.Paused)
+            {
+                errorTimer += Time.deltaTime;
+            }
+            yield return null;
+        }
 
         applianceMainImage.color = Color.white;
         if (gellyIntroChatBubble != null) gellyIntroChatBubble.SetActive(false);
@@ -260,40 +323,13 @@ public class LERepairManager : MonoBehaviour
         StartCoroutine(ExecuteRepairAnimationRoutine());
     }
 
-    /// <summary>
-    /// LLÁMAME ÚNICAMENTE cuando el jugador pierda de verdad dentro del minijuego (En la sig. página)
-    /// </summary>
-    public void RegisterMinigameStrikeFailure()
-    {
-        LEGameSessionData.Instance.globalStrikes++;
-        UpdateStrikesUI();
-
-        if (LEGameSessionData.Instance.globalStrikes >= 3)
-        {
-            isMatchActive = false;
-            SceneManager.LoadScene("LEGameOverScene");
-            return;
-        }
-
-        currentState = RepairState.GameplayActive;
-        StartCoroutine(ExecuteRepairAnimationRoutine());
-    }
-
     private void EvaluateApplianceFixConclusion()
     {
         LEGameSessionData.Instance.repairedCount++;
         LEGameSessionData.Instance.currentMatchDataIndex++;
-
         int totalN = LEGameSessionData.Instance.totalSpawnedLimit - LEGameSessionData.Instance.discardedCount;
 
-        if (LEGameSessionData.Instance.repairedCount >= totalN)
-        {
-            SceneManager.LoadScene("LEVictoryScene");
-        }
-        else
-        {
-            SceneManager.LoadScene("LEStartScene");
-        }
+        SceneManager.LoadScene(LEGameSessionData.Instance.repairedCount >= totalN ? "LEVictoryScene" : "LEConveyorScene");
     }
 
     private void HandleRemainingGlobalTimer()
