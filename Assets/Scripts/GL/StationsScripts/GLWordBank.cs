@@ -21,31 +21,29 @@ public class GLWordBank : MonoBehaviour
         Debug.Log("Prompts jalados: " + promptInfo.Count);
     }
 
-    IEnumerator GetPromptsFromAPI()
+    private void GetPromptsFromAPI()
     {
-        string JSONurl = "https://127.0.0.1:8081/glotonesPromptInformation";
-
-        UnityWebRequest web = UnityWebRequest.Get(JSONurl);
-        web.certificateHandler = new ForceAcceptAll();
-        yield return web.SendWebRequest();
-
-        if (web.result != UnityWebRequest.Result.Success)
-            UnityEngine.Debug.Log("Error API: " + web.error);
-        else
+        ApiManager.Instance.Get("glotonesPromptInformation",
+        onSuccess: (jsonRespone) =>
         {
-            promptInfo = JsonConvert.DeserializeObject<List<PromptData>>(web.downloadHandler.text);
+            promptInfo = JsonConvert.DeserializeObject<List<PromptData>>(jsonRespone);
             workingPrompts = new List<PromptData>(promptInfo);
             Shuffle(workingPrompts);
+            isLoaded = true;
+        },
+        onError: (error) =>
+        {
+            Debug.LogError("Error API en GLWordBank: " + error);
         }
-
-        isLoaded = true;
+        );
     }
+
 
     private List<PromptData> workingPrompts = new List<PromptData>();
 
     void Awake()
     {
-        StartCoroutine(GetPromptsFromAPI());
+        GetPromptsFromAPI();
     }
 
     private void Shuffle(List<PromptData> list)
