@@ -5,15 +5,16 @@ using TMPro;
 public class LEConveyorManager : MonoBehaviour
 {
     [Header("Conveyor Configuration")]
-    [SerializeField] private Transform spawnPoint;
-    [SerializeField] private Transform endpointReference;
+    [SerializeField] private Transform spawnPoint;         // Ahora debe estar a la IZQUIERDA
+    [SerializeField] private Transform endpointReference;   // Ahora debe estar a la DERECHA
     [SerializeField] private float itemSeparation = 1.8f;
-    [SerializeField] private Vector2 moveDirection = Vector2.left;
+    [Tooltip("Dirección del flujo de la cinta. Ahora fijada de izquierda a derecha.")]
+    [SerializeField] private Vector2 moveDirection = Vector2.right; // <--- CAMBIO: Flujo hacia la derecha
 
     [Header("UI Score & Timer Elements")]
     [SerializeField] private TextMeshProUGUI timerTextMesh;
-    [SerializeField] private TextMeshProUGUI scoreTextMesh; // Muestra el (X / N) en tiempo real
-    [SerializeField] private float gameDurationSeconds = 300f; // 5 Minutos Max
+    [SerializeField] private TextMeshProUGUI scoreTextMesh; 
+    [SerializeField] private float gameDurationSeconds = 300f; 
 
     [Header("Pool Settings (Strict Limit: 5)")]
     [SerializeField] private LEAppliance appliancePrefab;
@@ -21,10 +22,8 @@ public class LEConveyorManager : MonoBehaviour
     private List<LEAppliance> conveyorQueue = new List<LEAppliance>();
     private Queue<LEAppliance> objectPool = new Queue<LEAppliance>();
     
-    // Reglas del juego controladas numéricamente
     private int totalSpawnedLimit = 5;
     private int currentSpawnedCount = 0;
-    
     private int repairedCount = 0;
     private int discardedCount = 0;
 
@@ -35,7 +34,9 @@ public class LEConveyorManager : MonoBehaviour
     private int cachedMinutes = -1;
     private int cachedSeconds = -1;
 
-    // En LEConveyorManager.cs, REEMPLAZA el void Start() por esto:
+    // EL TRUCO DE ROTACIÓN (⌐■_■): Los objetos nacen acostados en Z = 90
+    private readonly Quaternion flatObjectsRotation = Quaternion.Euler(0f, 0f, 90f);
+
     public void InitializeConveyorGameplay()
     {
         InitializePool();
@@ -44,10 +45,18 @@ public class LEConveyorManager : MonoBehaviour
 
     private void InitializePool()
     {
-        // Al ser máximo 5 objetos por partida, el pool es diminuto y ultra-eficiente
         for (int i = 0; i < totalSpawnedLimit; i++)
         {
-            LEAppliance obj = Instantiate(appliancePrefab, Vector3.zero, Quaternion.identity, transform);
+            // ¡AJUSTE CRUCIAL!: Inyectamos la rotación Z = 90 en el frame de nacimiento
+            LEAppliance obj = Instantiate(appliancePrefab, Vector3.zero, flatObjectsRotation, transform);
+            
+            RectTransform rt = obj.GetComponent<RectTransform>();
+            if (rt != null)
+            {
+                rt.localScale = Vector3.one; 
+                rt.anchoredPosition = Vector2.zero;
+            }
+
             obj.gameObject.SetActive(false);
             objectPool.Enqueue(obj);
         }
@@ -63,7 +72,7 @@ public class LEConveyorManager : MonoBehaviour
         gameActive = true;
 
         UpdateScoreUI();
-        SpawnNewAppliance(); // Primer electrodoméstico obligatorio
+        SpawnNewAppliance(); 
     }
 
     void Update()
@@ -108,7 +117,6 @@ public class LEConveyorManager : MonoBehaviour
 
     public void SpawnNewAppliance()
     {
-        // Candado estricto: Si ya inyectamos los 5 electros de la partida, la cinta no genera más
         if (currentSpawnedCount >= totalSpawnedLimit) return;
 
         if (objectPool.Count > 0)
@@ -129,7 +137,7 @@ public class LEConveyorManager : MonoBehaviour
         if (conveyorQueue.Contains(appliance))
         {
             conveyorQueue.Remove(appliance);
-            UpdateQueuePositions(); // Al ser válido, los de atrás avanzan para tapar el bache (o^^)o
+            UpdateQueuePositions(); 
         }
     }
 
@@ -139,7 +147,6 @@ public class LEConveyorManager : MonoBehaviour
         ReturnToPool(appliance);
         UpdateScoreUI();
         
-        // REGLA: Cada que se repare uno con éxito, sale el siguiente inmediatamente
         SpawnNewAppliance();
         CheckMatchEndCondition();
     }
@@ -150,15 +157,14 @@ public class LEConveyorManager : MonoBehaviour
         ReturnToPool(appliance);
         UpdateScoreUI();
 
-        // REGLA: Si descarta los 5, pierde en automático de forma fulminante (0/0)
         if (discardedCount >= totalSpawnedLimit)
         {
             gameActive = false;
+            if (scoreTextMesh != null) scoreTextMesh.text = "¡PERDISTE!";
             Debug.Log("💔 PERDISTE: Descartaste todos los electrodomésticos de la partida.");
             return;
         }
 
-        // Al descartar uno, la cinta debe avanzar metiendo otro si queda en el límite
         SpawnNewAppliance();
         CheckMatchEndCondition();
     }
@@ -167,14 +173,23 @@ public class LEConveyorManager : MonoBehaviour
     {
         appliance.gameObject.SetActive(false);
         appliance.currentState = LEAppliance.ApplianceState.InPool;
+        
+        // Al regresar al pool, nos aseguramos de restaurar su rotación Z = 90 original de fábrica
+        appliance.transform.rotation = flatObjectsRotation;
+        
         objectPool.Enqueue(appliance);
     }
 
     private void UpdateQueuePositions()
     {
+        // ====================================================================
+        // MATEMÁTICA DE RETRO-ACUMULACIÓN (Izquierda a Derecha)
+        // Como el flujo va a la derecha, los objetos que vienen atrás deben
+        // apilarse restando (-) el vector de dirección para hacer fila hacia la izquierda.
+        // ====================================================================
         for (int i = 0; i < conveyorQueue.Count; i++)
         {
-            Vector3 targetPos = endpointReference.position + (Vector3)(moveDirection * (i * itemSeparation));
+            Vector3 targetPos = endpointReference.position - (Vector3)(moveDirection * (i * itemSeparation));
             conveyorQueue[i].SetTargetPosition(targetPos);
         }
     }
@@ -190,7 +205,6 @@ public class LEConveyorManager : MonoBehaviour
 
     private void CheckMatchEndCondition()
     {
-        // Si procesamos los 5 elementos totales entre reparados y descartados, la partida termina
         if (repairedCount + discardedCount >= totalSpawnedLimit)
         {
             gameActive = false;
@@ -202,19 +216,21 @@ public class LEConveyorManager : MonoBehaviour
     {
         if (timeOut)
         {
+            if (scoreTextMesh != null) scoreTextMesh.text = "¡TIEMPO AGOTADO!";
             Debug.Log("💔 ¡TIEMPO AGOTADO! Perdiste.");
             return;
         }
 
-        // Condición de Victoria Dinámica: Requiere por lo menos (1 / N) para ganar
         if (repairedCount >= 1)
         {
-            int maxPossibleScore = totalSpawnedLimit; // 5
+            int maxPossibleScore = totalSpawnedLimit; 
             int finalScore = repairedCount; 
+            if (scoreTextMesh != null) scoreTextMesh.text = "¡VICTORIA!";
             Debug.Log($" Ganaste la partida. Puntuación: {finalScore} de {maxPossibleScore} puntos posibles. (o^^)o");
         }
         else
         {
+            if (scoreTextMesh != null) scoreTextMesh.text = "¡PERDISTE!";
             Debug.Log("💔 Perdiste: No lograste reparar ni un solo electrodoméstico.");
         }
     }
