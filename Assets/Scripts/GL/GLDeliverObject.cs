@@ -20,12 +20,6 @@ public class GLDeliverObject : MonoBehaviour, IDropHandler
         GLDragDrop dragData = eventData.pointerDrag.GetComponent<GLDragDrop>();
         if (dragData == null) return;
 
-        if (orderDrag == null)
-        {
-            Debug.Log("No se encontro la orden arrastrada");
-            return;
-        }
-
 
         // necesito obtener la orden
         // checar si la orden tiene las estaciones

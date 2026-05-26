@@ -34,6 +34,7 @@ public class OrderUI : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+        // borra las referencias a los pasos anteriores
         stationSteps.Clear();
 
         // generar los iconos correspondientes a la estacion
@@ -58,17 +59,17 @@ public class OrderUI : MonoBehaviour
             // 2. ¿AÚN NO está completada?
             if (CurrentOrderData.requiredStations[i] == finishedStation && !CurrentOrderData.stationsCompleted[i])
             {
-                // ¡Coincidencia! La marcamos como completada en los datos
+                // SI lo es la marcamos como completada en los datos
                 CurrentOrderData.stationsCompleted[i] = true;
 
                 // Actualizamos la bolita verde en la UI
                 UpdateStationProgress(i);
 
-                // Retornamos true para avisar que esta orden "se comió" la acción
+                // Retornamos true 
                 return true;
             }
         }
-        // Si termina el ciclo y no encontró nada útil, retorna falso
+        // Si termina el ciclo y no encontro nada util, retorna falso
         return false;
     }
 

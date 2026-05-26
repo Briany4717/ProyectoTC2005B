@@ -3,10 +3,8 @@ using UnityEngine;
 public class GLTutorialPointer : MonoBehaviour
 {
     [Header("Referencias de Posición")]
-    [Tooltip("El Transform de la gelatina")]
     public Transform startPoint;
 
-    [Tooltip("Un GameObject vacío hacia donde apuntará el arrastre")]
     public Transform endPoint;
 
     [Header("Ajustes de Animación")]
@@ -24,7 +22,7 @@ public class GLTutorialPointer : MonoBehaviour
         // Movemos el puntero interpolando entre el inicio y el final
         transform.position = Vector3.Lerp(startPoint.position, endPoint.position, t);
 
-        // Opcional: Desvanecer el cursor a medida que llega al final (requiere SpriteRenderer)
+        // Desvanecer el cursor cuando se acerca al final
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         if (sr != null)
         {

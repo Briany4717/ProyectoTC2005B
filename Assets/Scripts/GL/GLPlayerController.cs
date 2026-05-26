@@ -41,9 +41,8 @@ public class GLPlayerController : MonoBehaviour
             moveInput = Vector2.zero;
             return;
         }
-
-        float x = (Keyboard.current.dKey.isPressed ? 1f : 0f) - (Keyboard.current.aKey.isPressed ? 1f : 0f);
-        float y = (Keyboard.current.wKey.isPressed ? 1f : 0f) - (Keyboard.current.sKey.isPressed ? 1f : 0f);
+        float x = (Keyboard.current.rightArrowKey.isPressed ? 1f : 0f) - (Keyboard.current.leftArrowKey.isPressed ? 1f : 0f);
+        float y = (Keyboard.current.upArrowKey.isPressed ? 1f : 0f) - (Keyboard.current.downArrowKey.isPressed ? 1f : 0f);
 
         moveInput = new Vector2(x, y);
         if (moveInput.sqrMagnitude > 1f) moveInput.Normalize();

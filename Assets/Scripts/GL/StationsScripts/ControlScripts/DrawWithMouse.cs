@@ -16,11 +16,13 @@ public class DrawWithMouse : MonoBehaviour
 
     private void Start()
     {
+        // inicializar valores
         line = GetComponent<LineRenderer>();
         line.positionCount = 1;
         previousPosition = transform.position;
         line.startWidth = line.endWidth = width;
 
+        // mover un poco el objeto
         StartCoroutine(DelayedNudge());
         tutorialPointer.SetActive(true);
 
@@ -47,6 +49,7 @@ public class DrawWithMouse : MonoBehaviour
             // Obtiene la distancia absoluta entre la cámara y el plano Z=0
             float distanceToZZero = Mathf.Abs(Camera.main.transform.position.z);
 
+            // convertir la posición del mouse a coordenadas del mundo
             Vector3 currentPosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, distanceToZZero));
 
             // si se supera la distancia minimia entonces dibuja
