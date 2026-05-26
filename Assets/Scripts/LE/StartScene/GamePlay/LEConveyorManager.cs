@@ -266,7 +266,7 @@ public class LEConveyorManager : MonoBehaviour
         if (!gameActive || isPaused) return;
         isPaused = true;
         if (gellyController != null) gellyController.PauseCharacter();
-        LEAppliance[] activeAppliances = FindObjectsByType<LEAppliance>(FindObjectsSortMode.None);
+        LEAppliance[] activeAppliances = FindObjectsByType<LEAppliance>();
         for (int i = 0; i < activeAppliances.Length; i++) activeAppliances[i].SetPauseState(true);
         pausePanel.gameObject.SetActive(true);
     }
@@ -276,7 +276,7 @@ public class LEConveyorManager : MonoBehaviour
         if (!gameActive || !isPaused) return;
         isPaused = false;
         if (gellyController != null) gellyController.ResumeCharacter();
-        LEAppliance[] activeAppliances = FindObjectsByType<LEAppliance>(FindObjectsSortMode.None);
+        LEAppliance[] activeAppliances = FindObjectsByType<LEAppliance>();
         for (int i = 0; i < activeAppliances.Length; i++) activeAppliances[i].SetPauseState(false);
         pausePanel.gameObject.SetActive(false);
     }
