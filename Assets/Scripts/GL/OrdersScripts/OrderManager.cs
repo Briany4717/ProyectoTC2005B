@@ -36,6 +36,8 @@ public class OrderManager : MonoBehaviour
     [Header("Pool de Datos")]
     public GameObject orderPrefab;
     public Transform ordersPanel;
+
+    // efectos de particulas para completar orden
     public ParticleSystem particle1;
     public ParticleSystem particle2;
 
@@ -81,6 +83,8 @@ public class OrderManager : MonoBehaviour
     //
 
 
+    // esta funcion sirve para cuando el jugador complete una estacion,
+    //  para verificar si esa estacion se encuentra en la orden seleccionada y marcarla como completada.
     public void OnPlayerCompletedStation(StationData stationCompleted)
     {
         // obtenemos la orden actual

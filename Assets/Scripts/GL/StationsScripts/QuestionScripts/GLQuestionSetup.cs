@@ -73,8 +73,10 @@ public class GLQuestionSetup : MonoBehaviour
     public void ShowError()
     {
         errorImage.gameObject.SetActive(true);
-        CancelInvoke("HideError"); // Cancelamos cualquier invocación pendiente de HideError
-        Invoke("HideError", 1f); // Oculta la cruz después de 1 segundo
+        // Cancelamos cualquier invocación pendiente de HideError
+        CancelInvoke("HideError");
+        // Oculta la cruz después de 1 segundo
+        Invoke("HideError", 1f);
     }
     public void HideError()
     {

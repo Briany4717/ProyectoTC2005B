@@ -45,7 +45,8 @@ public class GLDragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     public void OnDrag(PointerEventData eventData)
     {
         Debug.Log("OnDrag!!");
-        // esto mueve el mouse la posicion anterior del mouse
+        // actualiza la posición del objeto mientras se arrastra 
+        // sumando el delta del mouse a la posicion actual del rectTransform 
         rectTransform.anchoredPosition += eventData.delta;
 
     }
@@ -71,6 +72,8 @@ public class GLDragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     }
     public void ReturnToStart()
     {
+        // regresa el objeto a su posición original y 
+        // lo vuelve a poner como hijo del contenedor original
         transform.SetParent(initialParent, false);
         rectTransform.anchoredPosition = initialAnchoredPosition;
     }
