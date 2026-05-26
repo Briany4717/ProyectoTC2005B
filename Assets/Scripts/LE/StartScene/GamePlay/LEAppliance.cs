@@ -23,12 +23,15 @@ public class LEAppliance : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     private Image applianceImage;
     private Vector3 targetPosition;
     
-    // GUARDIÁN DE RENDIMIENTO: Almacena la posición lineal pura sin la contaminación del shake
+    // Tracking lineal inmune a la contaminación del sacudido sinusoidal
     private Vector3 smoothPosition; 
     private ApplianceState previousState; 
     
     private Camera mainCamera;
     private LEConveyorManager conveyorManager;
+
+    // SISTEMA DE PAUSA (⌐■_■)
+    private bool isPaused = false; 
 
     void Awake()
     {
@@ -46,42 +49,68 @@ public class LEAppliance : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         }
 
         transform.position = startPos;
-        smoothPosition = startPos; // Sincronizamos el tracking base
+        smoothPosition = startPos; 
         targetPosition = startPos;
         currentState = ApplianceState.OnConveyor;
     }
 
+    /// <summary>
+    /// Asigna el nuevo objetivo en la cola calculado por el ConveyorManager.
+    /// </summary>
     public void SetTargetPosition(Vector3 newTarget)
     {
         targetPosition = newTarget;
     }
 
+    /// <summary>
+    /// ¡REINTEGRADA!: Controla el estado de pausa individual para detener actualizaciones e interacciones.
+    /// </summary>
+    public void SetPauseState(bool paused)
+    {
+        isPaused = paused;
+
+        // DETALLE DE UX EXTREMA: Si pausan el juego en pleno drag, forzamos el drop de seguridad
+        if (isPaused && currentState == ApplianceState.BeingDragged)
+        {
+            currentState = previousState;
+            if (currentState == ApplianceState.OnWorkbench)
+            {
+                LEWorkbench workbench = FindAnyObjectByType<LEWorkbench>();
+                if (workbench != null) targetPosition = workbench.SlotCenter.position;
+            }
+        }
+    }
+
     void Update()
     {
-        if (currentState == ApplianceState.BeingDragged) return;
+        // Si está pausado o se está arrastrando, detenemos cualquier interpolación o sacudido lineal
+        if (isPaused || currentState == ApplianceState.BeingDragged) return;
 
-        // El cálculo elástico ocurre sobre la variable limpia e inmune al sacudido
+        // La interpolación elástica se calcula sobre la posición limpia
         smoothPosition = Vector3.Lerp(smoothPosition, targetPosition, Time.deltaTime * moveSpeed);
 
-        // REGLA SOLUCIONADA: Evaluamos la distancia real usando el vector limpio para evitar falsos positivos
         float distanceToTarget = Vector3.Distance(smoothPosition, targetPosition);
-
         Vector3 shakeOffset = Vector3.zero;
 
-        // El sacudido SOLO se activa si está en la cinta Y la distancia lógica es mayor al umbral de parada
+        // El sacudido SOLO se activa si se mueve en la cinta y no ha llegado a su fila
         if (currentState == ApplianceState.OnConveyor && distanceToTarget > 0.05f)
         {
             float shakeX = Mathf.Sin(Time.time * shakeSpeed) * shakeIntensity;
             shakeOffset = new Vector3(shakeX, 0f, 0f);
         }
 
-        // Combinamos la traslación pura con el efecto visual decorativo
+        // Aplicamos la posición final real combinando ambos vectores
         transform.position = smoothPosition + shakeOffset;
     }
 
+    // ====================================================================
+    // CANDADOS DE INTERACCIÓN: Si está pausado, bloqueamos los eventos del Canvas
+    // ====================================================================
+
     public void OnBeginDrag(PointerEventData eventData)
     {
-        // DESBLOQUEO: Ahora permitimos el drag tanto si viene de la cinta como si ya estaba en la mesa
+        if (isPaused) return; // Candado de pausa
+
         if (currentState == ApplianceState.OnConveyor || currentState == ApplianceState.OnWorkbench)
         {
             previousState = currentState;
@@ -91,23 +120,23 @@ public class LEAppliance : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (currentState != ApplianceState.BeingDragged) return;
+        if (isPaused || currentState != ApplianceState.BeingDragged) return;
 
         Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(eventData.position);
         mouseWorldPos.z = 0f;
         
         transform.position = mouseWorldPos;
-        smoothPosition = mouseWorldPos; // Mantenemos el tracking sincronizado con el puntero
+        smoothPosition = mouseWorldPos; 
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (currentState != ApplianceState.BeingDragged) return;
+        if (isPaused || currentState != ApplianceState.BeingDragged) return;
 
         LEWorkbench workbench = FindAnyObjectByType<LEWorkbench>();
         LEDiscardBox discardBox = FindAnyObjectByType<LEDiscardBox>();
 
-        // CASO 1: Tirar a la Caja de Descartes
+        // CASO 1: Descarte válido desde Cinta o Mesa
         if (discardBox != null && discardBox.TryDiscardAppliance(eventData.position, eventData.pressEventCamera))
         {
             if (previousState == ApplianceState.OnConveyor)
@@ -116,14 +145,14 @@ public class LEAppliance : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             }
             else if (previousState == ApplianceState.OnWorkbench && workbench != null)
             {
-                workbench.ClearWorkbench(); // Limpia el slot de la mesa para poder meter otro
+                workbench.ClearWorkbench(); 
             }
 
             conveyorManager.RegisterDiscard(this);
             return;
         }
 
-        // CASO 2: Colocar en la Mesa de Trabajo
+        // CASO 2: Colocación válida en Mesa de Trabajo
         if (workbench != null && workbench.TryPlaceAppliance(this))
         {
             if (previousState == ApplianceState.OnConveyor)
@@ -136,7 +165,7 @@ public class LEAppliance : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             return;
         }
 
-        // CASO 3: Drop Inválido (Regresa de forma elástica a donde pertenecía originalmente)
+        // CASO 3: Cancelación/Drop Inválido (Retorno elástico)
         currentState = previousState;
         if (currentState == ApplianceState.OnWorkbench && workbench != null)
         {

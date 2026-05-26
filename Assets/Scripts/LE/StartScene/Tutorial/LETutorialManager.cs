@@ -259,6 +259,7 @@ public class LETutorialManager : MonoBehaviour
                 // =========================================================
                 // TRANSICIÓN REAL: Aquí gatillas la carga de escena o nivel real
                 // =========================================================
+                FindAnyObjectByType<LEConveyorManager>().InitializeConveyorGameplay();
                 tutorialPanel.SetActive(false);
             });
         }
