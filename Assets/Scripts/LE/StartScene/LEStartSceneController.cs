@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class LEStartSceneController : MonoBehaviour
@@ -40,6 +41,7 @@ public class LEStartSceneController : MonoBehaviour
     [SerializeField] private float directCharacterTargetScale = 1.0f; 
     [SerializeField] private LENetworkManager networkManager;
     [SerializeField] private LEConveyorManager conveyorManager; 
+    [SerializeField] private TextMeshProUGUI dificultyButtonText;
 
     private Vector3 originalPosition;
     private Quaternion originalRotation;
@@ -75,6 +77,18 @@ public class LEStartSceneController : MonoBehaviour
 
         cachedIdleWait = new WaitForSeconds(idleInterval);
         boxIsMoving = true;
+        switch (PlayerPrefs.GetInt("LE_Minigames_Difficulty", 1))
+        {
+            case 0:
+                dificultyButtonText.text = "Facil";
+                break;
+            case 1:
+                dificultyButtonText.text = "Media";
+                break;
+            case 2:
+                dificultyButtonText.text = "Difícil";
+                break;
+        }
         StartCoroutine(IdleShakeRoutine());
     }
 
@@ -178,5 +192,27 @@ public class LEStartSceneController : MonoBehaviour
                 playMenu.SetActive(true);
             }
         }
+    }
+
+    public void ToggleDificulty()
+    {
+        var dificulty = PlayerPrefs.GetInt("LE_Minigames_Difficulty",1);
+        dificulty++;
+        if (dificulty > 2) dificulty = 0;
+
+        switch (dificulty)
+        {
+            case 0:
+                dificultyButtonText.text = "Facil";
+                break;
+            case 1:
+                dificultyButtonText.text = "Media";
+                break;
+            case 2:
+                dificultyButtonText.text = "Difícil";
+                break;
+        }
+        PlayerPrefs.SetInt("LE_Minigames_Difficulty",dificulty);
+        PlayerPrefs.Save();
     }
 }

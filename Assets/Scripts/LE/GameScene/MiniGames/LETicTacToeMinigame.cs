@@ -141,15 +141,38 @@ public class LETicTacToeMinigame : MonoBehaviour
             yield return null;
         }
 
-        // Inteligencia Artificial del Bot (0 Allocations):
-        // 1. Busca si puede ganar en este turno.
-        // 2. Si no puede ganar, busca bloquear el gane inminente del jugador.
-        // 3. Si no hay jugadas críticas, escoge una casilla vacía aleatoria.
-        int targetCell = FindCriticalMove(2); // Intentar ganar
-        if (targetCell == -1) targetCell = FindCriticalMove(1); // Intentar bloquear
-        if (targetCell == -1) targetCell = GetRandomEmptyCell(); // Movimiento aleatorio
+        // ====================================================================
+        // 🎛️ SELECTOR DE DIFICULTAD DINÁMICO POR PLAYERPREFS (⌐■_■)
+        // 0 = Fácil (100% Random), 1 = Medio (50% Inteligente), 2 = Difícil (100% Inteligente)
+        // ====================================================================
+        int difficulty = PlayerPrefs.GetInt("LE_Minigames_Difficulty", 1); // Por defecto inicia en Medio (1)
+        int targetCell = -1;
 
-        // Registrar tiro del bot
+        if (difficulty == 2)
+        {
+            // DIFICULTAD DIFÍCIL: Mente maestra impecable
+            targetCell = FindCriticalMove(2); // Intentar ganar
+            if (targetCell == -1) targetCell = FindCriticalMove(1); // Intentar bloquear
+        }
+        else if (difficulty == 1)
+        {
+            // DIFICULTAD MEDIA: El bot tiene un 50% de probabilidad de jugar de forma brillante
+            if (Random.value > 0.5f)
+            {
+                targetCell = FindCriticalMove(2); // Intentar ganar
+                if (targetCell == -1) targetCell = FindCriticalMove(1); // Intentar bloquear
+            }
+        }
+        // NOTA: Si es Dificultad Fácil (0), se salta los checks e irá directo al tiro aleatorio inferior
+
+        // Fallback defensivo: Si es Fácil, falló el tiro de dados de la dificultad Media, 
+        // o simplemente no hay movimientos de peligro en el tablero, tira de forma aleatoria.
+        if (targetCell == -1)
+        {
+            targetCell = GetRandomEmptyCell();
+        }
+
+        // Registrar tiro final del bot
         boardState[targetCell] = 2;
         if (gridImages[targetCell] != null) gridImages[targetCell].sprite = botOSprite;
         gridButtons[targetCell].interactable = false;
@@ -167,7 +190,7 @@ public class LETicTacToeMinigame : MonoBehaviour
             yield break;
         }
 
-        // Devolver turno al jugador
+        // Devolver turno al jugador de forma fluida
         isPlayerTurn = true;
         announcementTextMesh.text = "¡Tu turno!";
         SetGridInteractivity(true);
