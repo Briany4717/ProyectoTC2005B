@@ -78,6 +78,9 @@ public class LERepairManager : MonoBehaviour
     private Coroutine wrongToolFeedbackCoroutine;
     private string cachedIntroPhrase;
 
+    [Header("Minigames Container")]
+    [SerializeField] private LETicTacToeMinigame ticTacToeMinigame;
+
     void Start()
     {
         if (pausePanel != null) pausePanel.SetActive(false);
@@ -265,19 +268,23 @@ public class LERepairManager : MonoBehaviour
     {
         if (currentState != RepairState.GameplayActive) return;
 
-        if (toolId == currentData.correctToolId)
+    if (toolId == currentData.correctToolId)
+    {
+        if (wrongToolFeedbackCoroutine != null) StopCoroutine(wrongToolFeedbackCoroutine);
+        applianceMainImage.color = Color.white;
+        currentState = RepairState.ExecutingMinigame;
+
+        // ¡CONEXIÓN REAL!: Arranca el gato interactivo en lugar del placeholder
+        if (ticTacToeMinigame != null)
         {
-            if (wrongToolFeedbackCoroutine != null) StopCoroutine(wrongToolFeedbackCoroutine);
-            applianceMainImage.color = Color.white;
-            currentState = RepairState.ExecutingMinigame;
-            
-            SimulateWinMinigame();
+            ticTacToeMinigame.StartMinigame();
         }
         else
         {
-            if (wrongToolFeedbackCoroutine != null) StopCoroutine(wrongToolFeedbackCoroutine);
-            wrongToolFeedbackCoroutine = StartCoroutine(WrongToolFeedbackRoutine());
+            // Fallback de seguridad por si olvidas arrastrarlo
+            SimulateWinMinigame();
         }
+    }
     }
 
     private IEnumerator WrongToolFeedbackRoutine()

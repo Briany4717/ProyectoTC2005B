@@ -32,7 +32,7 @@ public class LEStartSceneController : MonoBehaviour
     [SerializeField] private float maxBurstIntensity = 0.35f; 
     [SerializeField] private float maxBurstSpeed = 60f;
 
-    [Header("Direct Mode Configuration (⌐■_■)")]
+    [Header("Direct Mode Configuration")]
     [SerializeField] private LEGellyCharacterController gellyCharacter; 
     [Tooltip("Posición final exacta en coordenadas del mundo donde caerá Gelly.")]
     [SerializeField] private Vector2 directTargetPosition; 
@@ -53,8 +53,6 @@ public class LEStartSceneController : MonoBehaviour
             if (startMenu != null) startMenu.SetActive(false);
             if (tutorialPanel != null) tutorialPanel.SetActive(false);
             if (boxObject != null) boxObject.gameObject.SetActive(false); 
-
-            // ¡SOLUCIÓN 1!: Activamos el panel de juego crucial de forma inmediata
             if (gamePanel != null) gamePanel.SetActive(true);
 
             if (conveyorManager != null)

@@ -72,10 +72,17 @@ public class LERepairTool : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     {
         if (repairManager.currentState == LERepairManager.RepairState.Paused) return;
 
-        // INYECCIÓN DINÁMICA PREMIUM: Modificamos el contenido antes de prender el contenedor compartido
         if (sharedTooltipPanel != null && sharedTooltipTextMesh != null)
         {
-            sharedTooltipTextMesh.text = toolDescription;
+            if (LENetworkManager.ToolsCache.TryGetValue(toolId, out LENetworkManager.APITool liveToolData))
+            {
+                sharedTooltipTextMesh.text = $"<b>{liveToolData.nombre_herramienta}</b>\n{liveToolData.descripcion_herramienta}";
+            }
+            else
+            {
+                sharedTooltipTextMesh.text = "Herramienta Desconocida";
+            }
+
             sharedTooltipPanel.SetActive(true);
         }
     }
