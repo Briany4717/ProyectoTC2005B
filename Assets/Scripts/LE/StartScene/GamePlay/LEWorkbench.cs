@@ -20,7 +20,7 @@ public class LEWorkbench : MonoBehaviour
 
         if (conveyorManager != null)
         {
-            // 1. EXTRAEMOS Y EMBALAMOS LOS DATOS DE LA SESIÓN (⌐■_■)
+            // 1. EXTRAEMOS Y EMBALAMOS LOS DATOS DE LA SESIÓN  
             LEGameSessionData.Instance.remainingTime = conveyorManager.GetRemainingTime(); 
             LEGameSessionData.Instance.currentApplianceSprite = currentApplianceOnTable.GetComponent<Image>().sprite;
             LEGameSessionData.Instance.repairedCount = conveyorManager.GetRepairedCount();

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class LEDiscardBox : MonoBehaviour
 {
-    [Header("UI Detection Area (⌐■_■)")]
+    [Header("UI Detection Area  ")]
     [Tooltip("Arrastra aquí el RectTransform de la imagen de tu caja de descartes.")]
     [SerializeField] private RectTransform discardRect;
 

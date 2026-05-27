@@ -10,7 +10,7 @@ public class LEStartSceneController : MonoBehaviour
     public GameObject tutorialPanel;
     public LETutorialManager tutorialController;
     
-    // ¡REINTEGRADO!: El contenedor principal de toda la UI de juego de la cinta (⌐■_■)
+    // ¡REINTEGRADO!: El contenedor principal de toda la UI de juego de la cinta  
     [Tooltip("Arrastra aquí el panel principal que contiene el HUD y elementos del juego.")]
     public GameObject gamePanel; 
 

@@ -31,7 +31,7 @@ public class LETutorialManager : MonoBehaviour
         public RectTransform targetUIElement;
         [Range(0f, 0.5f)] public float focusCornerRadius;
 
-        [Header("Custom Behavior (⌐■_■)")]
+        [Header("Custom Behavior  ")]
         [Tooltip("Cualquier función que coloques aquí se ejecutará inmediatamente al iniciar este paso.")]
         public UnityEvent onStepStartCustomAction; 
     }
@@ -60,7 +60,7 @@ public class LETutorialManager : MonoBehaviour
     [Header("Steps Configuration")]
     [SerializeField] private TutorialStep[] tutorialSteps;
 
-    [Header("End Tutorial Configuration (⌐■_■)")]
+    [Header("End Tutorial Configuration  ")]
     [SerializeField] private GameObject tutorialPanel;
     [Tooltip("Posición final exacta en coordenadas del mundo a la que saltará Gelly al terminar el tutorial.")]
     [SerializeField] private Vector2 endTutorialTargetPosition; // <--- CONFIGURACIÓN EN TEXTO ABSOLUTO
@@ -250,7 +250,7 @@ public class LETutorialManager : MonoBehaviour
         if (chatBubbleContainer != null) chatBubbleContainer.gameObject.SetActive(false);
         if (dialogueTextMesh != null) dialogueTextMesh.text = "";
 
-        // CINEMÁTICA FINAL CONFIGURABLE (⌐■_■)
+        // CINEMÁTICA FINAL CONFIGURABLE  
         if (gellyController != null)
         {
             // Ejecuta el salto parabólico unificado hacia el destino absoluto fijado en el Inspector

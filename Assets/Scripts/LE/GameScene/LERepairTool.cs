@@ -10,7 +10,7 @@ public class LERepairTool : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     [Tooltip("Descripción personalizada de esta herramienta para el Tooltip dinámico.")]
     [SerializeField, TextArea(2, 3)] private string toolDescription;
 
-    [Header("UI Tooltip Shared Container (⌐■_■)")]
+    [Header("UI Tooltip Shared Container  ")]
     [SerializeField] private GameObject sharedTooltipPanel; 
     [SerializeField] private TextMeshProUGUI sharedTooltipTextMesh; // <--- TEXTO DINÁMICO ÚNICO
     [SerializeField] private RectTransform applianceHitboxRect; 

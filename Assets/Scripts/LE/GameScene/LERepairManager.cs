@@ -16,7 +16,7 @@ public class LERepairManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI globalTimerTextMesh;
     [SerializeField] private GameObject pausePanel;
 
-    [Header("Gelly Intro Chat Bubble & Typewriter (⌐■_■)")]
+    [Header("Gelly Intro Chat Bubble & Typewriter")]
     [SerializeField] private GameObject gellyIntroChatBubble;
     [SerializeField] private TextMeshProUGUI gellyIntroTextMesh;
     [Tooltip("Velocidad de escritura de la intro (Segundos por letra).")]
@@ -42,10 +42,11 @@ public class LERepairManager : MonoBehaviour
     [Header("Instruction Sheet")]
     [SerializeField] private TextMeshProUGUI[] taskTextMeshes; 
 
-    [Header("Strikes UI")]
-    [SerializeField] private TextMeshProUGUI strikesTextMesh;
+    [Header("Strikes UI (Visual X System)")]
+    [Tooltip("Arrastra aquí los 3 GameObjects de las imágenes 'X' que están dentro de tu Horizontal Layout Group.")]
+    [SerializeField] private GameObject[] strikeVisualElements; // Reemplaza a strikesTextMesh
 
-    [Header("Procedural Debris & Rotational Animation (⌐■_■)")]
+    [Header("Procedural Debris & Rotational Animation ")]
     [Tooltip("Duración exacta en segundos del balanceo por reparación.")]
     [SerializeField] private float repairAnimDuration = 2.5f;
     [Tooltip("Velocidad u oscilación del balanceo en Z.")]
@@ -194,7 +195,7 @@ public class LERepairManager : MonoBehaviour
                 timer += Time.deltaTime;
                 debrisTimer += Time.deltaTime;
 
-                // REGLA: Posición estática e inalterada, rotación procedural pura en el eje Z (⌐■_■)
+                // REGLA: Posición estática e inalterada, rotación procedural pura en el eje Z  
                 float rotZ = Mathf.Sin(Time.time * shakeSpeed) * shakeIntensity;
                 applianceMainImage.transform.localRotation = applianceOriginalRotation * Quaternion.Euler(0f, 0f, rotZ);
 
@@ -291,7 +292,7 @@ public class LERepairManager : MonoBehaviour
         else
         {
             // ====================================================================
-            // ❌ ¡REINTEGRADO!: FEEDBACK DE HERRAMIENTA INCORRECTA (⌐■_■)
+            // ❌ ¡REINTEGRADO!: FEEDBACK DE HERRAMIENTA INCORRECTA  
             // Lanza la corrutina que tiñe de rojo el aparato y reproduce el SFX
             // ====================================================================
             if (wrongToolFeedbackCoroutine != null) StopCoroutine(wrongToolFeedbackCoroutine);
@@ -403,7 +404,20 @@ public class LERepairManager : MonoBehaviour
 
     private void UpdateStrikesUI()
     {
-        if (strikesTextMesh != null) strikesTextMesh.text = $"STRIKES: {LEGameSessionData.Instance.globalStrikes} / 3";
+        if (strikeVisualElements == null || strikeVisualElements.Length == 0) return;
+
+        int currentStrikes = LEGameSessionData.Instance.globalStrikes;
+
+        // Bucle ultra rápido indexado en caché (0 Allocations)
+        for (int i = 0; i < strikeVisualElements.Length; i++)
+        {
+            if (strikeVisualElements[i] != null)
+            {
+                // La "X" se enciende SOLO si el índice es menor a los strikes acumulados
+                // Ejemplo: Con 1 strike, solo el índice 0 se vuelve true.
+                strikeVisualElements[i].SetActive(i < currentStrikes);
+            }
+        }
     }
 
     public void PauseGame()

@@ -16,7 +16,7 @@ public class LETicTacToeMinigame : MonoBehaviour
     [SerializeField] private Button[] gridButtons;
     [SerializeField] private Image[] gridImages; // Componentes Image de los 9 botones
 
-    [Header("Visual Customization (⌐■_■)")]
+    [Header("Visual Customization  ")]
     [SerializeField] private Sprite playerXSprite;
     [SerializeField] private Sprite botOSprite;
     [SerializeField] private Sprite emptySprite; // Un sprite transparente o el fondo vacío
@@ -142,7 +142,7 @@ public class LETicTacToeMinigame : MonoBehaviour
         }
 
         // ====================================================================
-        // 🎛️ SELECTOR DE DIFICULTAD DINÁMICO POR PLAYERPREFS (⌐■_■)
+        // 🎛️ SELECTOR DE DIFICULTAD DINÁMICO POR PLAYERPREFS  
         // 0 = Fácil (100% Random), 1 = Medio (50% Inteligente), 2 = Difícil (100% Inteligente)
         // ====================================================================
         int difficulty = PlayerPrefs.GetInt("LE_Minigames_Difficulty", 1); // Por defecto inicia en Medio (1)

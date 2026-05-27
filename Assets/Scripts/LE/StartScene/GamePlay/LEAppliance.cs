@@ -10,7 +10,7 @@ public class LEAppliance : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     [Header("State")]
     public ApplianceState currentState = ApplianceState.InPool;
 
-    [Header("Visual Randomization (⌐■_■)")]
+    [Header("Visual Randomization  ")]
     [Tooltip("Arrastra aquí todos los sprites de tus 5 electrodomésticos (licuadora, refri, etc.)")]
     [SerializeField] private Sprite[] possibleSprites;
 
@@ -30,7 +30,7 @@ public class LEAppliance : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     private Camera mainCamera;
     private LEConveyorManager conveyorManager;
 
-    // SISTEMA DE PAUSA (⌐■_■)
+    // SISTEMA DE PAUSA  
     private bool isPaused = false; 
 
     void Awake()

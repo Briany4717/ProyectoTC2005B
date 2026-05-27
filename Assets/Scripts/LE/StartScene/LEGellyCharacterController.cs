@@ -34,7 +34,7 @@ public class LEGellyCharacterController : MonoBehaviour
     private static readonly int LandTriggerHash = Animator.StringToHash("Land");
     private static readonly int IsMovingHash = Animator.StringToHash("isMoving"); 
 
-    // CONTROLES DE PAUSA QUIRÚRGICOS (⌐■_■)
+    // CONTROLES DE PAUSA QUIRÚRGICOS  
     private bool isPaused = false;
     private float cachedAnimatorSpeed = 1f;
 

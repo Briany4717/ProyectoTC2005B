@@ -50,7 +50,7 @@ public class LEConveyorManager : MonoBehaviour
             UpdateScoreUI();
             
             // ====================================================================
-            // 🛠️ ALGORITMO DE RECONSTRUCCIÓN DE COLA DE ALTO RENDIMIENTO (⌐■_■)
+            // 🛠️ ALGORITMO DE RECONSTRUCCIÓN DE COLA DE ALTO RENDIMIENTO  
             // Calculamos cuántos aparatos se quedaron esperando fila en la cinta 
             // antes de irnos a la otra escena. El cálculo matemático exacto es:
             // ConteoHistórico - YaReparados - YaDescartados
@@ -132,7 +132,7 @@ public class LEConveyorManager : MonoBehaviour
             
             currentSpawnedCount++;
             
-            // ¡VITAL!: Guardamos el nuevo conteo en el puente estático para el siguiente viaje (⌐■_■)
+            // ¡VITAL!: Guardamos el nuevo conteo en el puente estático para el siguiente viaje  
             LEGameSessionData.Instance.totalSpawnedCount = currentSpawnedCount;
             
             UpdateQueuePositions();

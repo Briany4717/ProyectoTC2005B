@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LEFinalSceneController : MonoBehaviour
 {
-    [Header("UI Background & Customization (⌐■_■)")]
+    [Header("UI Background & Customization  ")]
     [SerializeField] private Image backgroundMainImage;
     [SerializeField] private Sprite winBackgroundSprite;
     [SerializeField] private Sprite loseBackgroundSprite;

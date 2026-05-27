@@ -3154,7 +3154,7 @@ MonoBehaviour:
   directCharacterTargetScale: 1.2
   networkManager: {fileID: 483320295}
   conveyorManager: {fileID: 1036828544}
-  dificultyButtonText: {fileID: 0}
+  dificultyButtonText: {fileID: 1061105163}
 --- !u!4 &640636711
 Transform:
   m_ObjectHideFlags: 0
@@ -4383,7 +4383,7 @@ GameObject:
   - component: {fileID: 1061105164}
   - component: {fileID: 1061105163}
   m_Layer: 5
-  m_Name: TBtnIniciar
+  m_Name: TBDificulty
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4430,8 +4430,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Medio
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42947826955aa443f9315ae7f96b505e, type: 2}
-  m_sharedMaterial: {fileID: 2725503652450396190, guid: 42947826955aa443f9315ae7f96b505e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d028e3d9615b14fe3a7ab1341ca01d7d, type: 2}
+  m_sharedMaterial: {fileID: 5207195576099893726, guid: d028e3d9615b14fe3a7ab1341ca01d7d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
