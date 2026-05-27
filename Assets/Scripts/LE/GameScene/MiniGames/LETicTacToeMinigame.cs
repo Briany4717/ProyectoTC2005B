@@ -51,6 +51,7 @@ public class LETicTacToeMinigame : MonoBehaviour
     {
         if (minigamePanel != null) minigamePanel.SetActive(true);
         isMinigameActive = true;
+        Debug.Log("Entrando a TicTacToe minigame");
         
         ResetBoardData();
         StartCoroutine(DetermineStartingTurnRoutine());

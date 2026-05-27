@@ -323,7 +323,7 @@ MonoBehaviour:
   sfxAudioSource: {fileID: 1115990272}
   gellyVoiceSound: {fileID: 8300000, guid: eb0687cf0d59a4e72ae69014d69e0192, type: 3}
   rejectionSFX: {fileID: 8300000, guid: 0cacb72f0339f45a482445205345e0a6, type: 3}
-  ticTacToeMinigame: {fileID: 400845952}
+  ticTacToeMinigame: {fileID: 15845724}
 --- !u!4 &14219896
 Transform:
   m_ObjectHideFlags: 0
@@ -338,6 +338,77 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8193227051089632764}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &15845723
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 15845725}
+  - component: {fileID: 15845724}
+  m_Layer: 0
+  m_Name: LETikTakToeController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &15845724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15845723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bda5cf2c124c4839a91c51c324baa56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LETicTacToeMinigame
+  repairManager: {fileID: 14219895}
+  minigamePanel: {fileID: 400845950}
+  announcementTextMesh: {fileID: 1040871184}
+  gridButtons:
+  - {fileID: 545744630}
+  - {fileID: 392676009}
+  - {fileID: 129023280}
+  - {fileID: 2069467616}
+  - {fileID: 406917337}
+  - {fileID: 1840451056}
+  - {fileID: 1714469242}
+  - {fileID: 792414090}
+  - {fileID: 1195498465}
+  gridImages:
+  - {fileID: 545744631}
+  - {fileID: 392676010}
+  - {fileID: 129023281}
+  - {fileID: 2069467617}
+  - {fileID: 406917338}
+  - {fileID: 1840451057}
+  - {fileID: 1714469243}
+  - {fileID: 792414091}
+  - {fileID: 1195498466}
+  playerXSprite: {fileID: 237626616891364934, guid: 491c121addbcec64598ebb1de9802afb, type: 3}
+  botOSprite: {fileID: 1485354386452812100, guid: 491c121addbcec64598ebb1de9802afb, type: 3}
+  emptySprite: {fileID: 0}
+  botThinkingDuration: 0.6
+--- !u!4 &15845725
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15845723}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.06801, y: -2.28044, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &22798642
 GameObject:
@@ -919,7 +990,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -937,7 +1008,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 129023281}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 15845724}
+        m_TargetAssemblyTypeName: LETicTacToeMinigame, Assembly-CSharp
+        m_MethodName: OnClickGridCell
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &129023281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1722,7 +1805,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -1740,7 +1823,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 392676010}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 15845724}
+        m_TargetAssemblyTypeName: LETicTacToeMinigame, Assembly-CSharp
+        m_MethodName: OnClickGridCell
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &392676010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1927,7 +2022,6 @@ GameObject:
   - component: {fileID: 400845951}
   - component: {fileID: 400845954}
   - component: {fileID: 400845953}
-  - component: {fileID: 400845952}
   m_Layer: 5
   m_Name: GatoMinigamePanel
   m_TagString: Untagged
@@ -1955,45 +2049,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &400845952
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 400845950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bda5cf2c124c4839a91c51c324baa56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LETicTacToeMinigame
-  repairManager: {fileID: 14219895}
-  minigamePanel: {fileID: 400845950}
-  announcementTextMesh: {fileID: 1040871184}
-  gridButtons:
-  - {fileID: 545744630}
-  - {fileID: 392676009}
-  - {fileID: 129023280}
-  - {fileID: 2069467616}
-  - {fileID: 406917337}
-  - {fileID: 1840451056}
-  - {fileID: 1714469242}
-  - {fileID: 792414090}
-  - {fileID: 1195498465}
-  gridImages:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  playerXSprite: {fileID: 237626616891364934, guid: 491c121addbcec64598ebb1de9802afb, type: 3}
-  botOSprite: {fileID: 1485354386452812100, guid: 491c121addbcec64598ebb1de9802afb, type: 3}
-  emptySprite: {fileID: 0}
-  botThinkingDuration: 0.6
 --- !u!114 &400845953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2095,7 +2150,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -2113,7 +2168,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 406917338}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 15845724}
+        m_TargetAssemblyTypeName: LETicTacToeMinigame, Assembly-CSharp
+        m_MethodName: OnClickGridCell
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &406917338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2972,7 +3039,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -2990,7 +3057,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 545744631}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 15845724}
+        m_TargetAssemblyTypeName: LETicTacToeMinigame, Assembly-CSharp
+        m_MethodName: OnClickGridCell
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &545744631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4160,7 +4239,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -4178,7 +4257,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 792414091}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 15845724}
+        m_TargetAssemblyTypeName: LETicTacToeMinigame, Assembly-CSharp
+        m_MethodName: OnClickGridCell
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 7
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &792414091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5783,7 +5874,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1040871183
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5800,8 +5891,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 0, y: 154.7}
+  m_SizeDelta: {x: 225.35, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1040871184
 MonoBehaviour:
@@ -5823,19 +5914,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Comienzas
-
-    tu'
+  m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 36994c6c8b016406184d7277be49a48d, type: 2}
-  m_sharedMaterial: {fileID: -5237881990902290116, guid: 36994c6c8b016406184d7277be49a48d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d028e3d9615b14fe3a7ab1341ca01d7d, type: 2}
+  m_sharedMaterial: {fileID: 5207195576099893726, guid: d028e3d9615b14fe3a7ab1341ca01d7d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5852,8 +5941,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -7012,7 +7101,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -7030,7 +7119,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1195498466}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 15845724}
+        m_TargetAssemblyTypeName: LETicTacToeMinigame, Assembly-CSharp
+        m_MethodName: OnClickGridCell
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 8
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1195498466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9525,7 +9626,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -9543,7 +9644,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1714469243}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 15845724}
+        m_TargetAssemblyTypeName: LETicTacToeMinigame, Assembly-CSharp
+        m_MethodName: OnClickGridCell
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 6
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1714469243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10108,7 +10221,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -10126,7 +10239,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1840451057}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 15845724}
+        m_TargetAssemblyTypeName: LETicTacToeMinigame, Assembly-CSharp
+        m_MethodName: OnClickGridCell
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 5
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1840451057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11949,7 +12074,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -11967,7 +12092,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2069467617}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 15845724}
+        m_TargetAssemblyTypeName: LETicTacToeMinigame, Assembly-CSharp
+        m_MethodName: OnClickGridCell
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2069467617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12537,3 +12674,4 @@ SceneRoots:
   - {fileID: 1546800418}
   - {fileID: 8193227051089632765}
   - {fileID: 2016539812}
+  - {fileID: 15845725}

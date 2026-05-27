@@ -264,27 +264,39 @@ public class LERepairManager : MonoBehaviour
         if (gellyProblemBubbleContainer != null) gellyProblemBubbleContainer.SetActive(true);
     }
 
-    public void ProcessToolDropped(int toolId)
+     public void ProcessToolDropped(int toolId)
     {
+        // 1. CANDADO DE CONTROL: Las herramientas solo responden en Gameplay Activo
         if (currentState != RepairState.GameplayActive) return;
 
-    if (toolId == currentData.correctToolId)
-    {
-        if (wrongToolFeedbackCoroutine != null) StopCoroutine(wrongToolFeedbackCoroutine);
-        applianceMainImage.color = Color.white;
-        currentState = RepairState.ExecutingMinigame;
-
-        // ¡CONEXIÓN REAL!: Arranca el gato interactivo en lugar del placeholder
-        if (ticTacToeMinigame != null)
+        if (toolId == currentData.correctToolId)
         {
-            ticTacToeMinigame.StartMinigame();
+            // Si había un feedback de error corriendo de un intento previo, lo limpiamos
+            if (wrongToolFeedbackCoroutine != null) StopCoroutine(wrongToolFeedbackCoroutine);
+            applianceMainImage.color = Color.white;
+            
+            currentState = RepairState.ExecutingMinigame;
+            
+            // CONEXIÓN INTEGRAL: Despierta el panel del minijuego de Gato (#)
+            if (ticTacToeMinigame != null)
+            {
+                ticTacToeMinigame.StartMinigame();
+            }
+            else
+            {
+                // Fallback de seguridad automático por si olvidas arrastrar la referencia
+                SimulateWinMinigame();
+            }
         }
         else
         {
-            // Fallback de seguridad por si olvidas arrastrarlo
-            SimulateWinMinigame();
+            // ====================================================================
+            // ❌ ¡REINTEGRADO!: FEEDBACK DE HERRAMIENTA INCORRECTA (⌐■_■)
+            // Lanza la corrutina que tiñe de rojo el aparato y reproduce el SFX
+            // ====================================================================
+            if (wrongToolFeedbackCoroutine != null) StopCoroutine(wrongToolFeedbackCoroutine);
+            wrongToolFeedbackCoroutine = StartCoroutine(WrongToolFeedbackRoutine());
         }
-    }
     }
 
     private IEnumerator WrongToolFeedbackRoutine()
