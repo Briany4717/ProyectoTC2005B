@@ -309,6 +309,7 @@ public class LERepairManager : MonoBehaviour
         if (gellyIntroChatBubble != null)
         {
             gellyIntroChatBubble.SetActive(true);
+            gellyProblemBubbleContainer.SetActive(false);
             gellyIntroTextMesh.maxVisibleCharacters = 999; 
             gellyIntroTextMesh.text = "No creo que sea la herramienta correcta...";
         }
@@ -324,7 +325,10 @@ public class LERepairManager : MonoBehaviour
         }
 
         applianceMainImage.color = Color.white;
-        if (gellyIntroChatBubble != null) gellyIntroChatBubble.SetActive(false);
+        if (gellyIntroChatBubble != null) {
+            gellyIntroChatBubble.SetActive(false);
+            gellyProblemBubbleContainer.SetActive(true);
+        }
     }
 
     public void SimulateWinMinigame()
