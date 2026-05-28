@@ -31,13 +31,13 @@ public class SistemaFinJuego : MonoBehaviour
 
     public void MostrarDerrota()
     {
-        // Detener el reloj
         if (SistemaReloj.instancia != null)
-            SistemaReloj.instancia.SetPausa(true);
+            SistemaReloj.instancia.TerminarJuego();
 
         MusicController.instancia?.DetenerMusica();
+        MusicController.instancia?.PlayDerrota();
+
         Time.timeScale = 0f;
-        SistemaMonedas.instancia?.MostrarResumen();
         panelDerrota.SetActive(true);
     }
 

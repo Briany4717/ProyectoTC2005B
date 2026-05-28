@@ -60,9 +60,9 @@ public class SistemaReloj : MonoBehaviour
 
         SistemaMonedas.instancia?.RegistrarHoraSobrevivida();
 
-        if (horaActual >= spritesHoras.Length)
+        if (horaActual >= nombresHoras.Length - 1)
         {
-            horaActual = spritesHoras.Length - 1;
+            horaActual = nombresHoras.Length - 1;
             ActualizarReloj();
             FinDelJuego();
             return;
@@ -132,6 +132,10 @@ public class SistemaReloj : MonoBehaviour
         // Cerrar pantalla de cámaras si está abierta
         if (SistemaCamaras.instancia != null)
             SistemaCamaras.instancia.CerrarCamaras();
+
+        // Cerrar panel del generador si está abierto
+        if (SistemaPreguntas.instancia != null)
+            SistemaPreguntas.instancia.ForzarCierre();
 
         // Detener enemigo en puerta si hay uno
         if (EnemigoPuerta.instancia != null)

@@ -52,8 +52,8 @@ public class EnemigoPuerta : MonoBehaviour
                 break;
             }
 
-            if (Time.timeScale > 0f && !MenuPausa.instancia.EstaEnPausa())
-                tiempoEsperando += Time.deltaTime;
+            if (!MenuPausa.instancia.EstaEnPausa())
+                tiempoEsperando += Time.unscaledDeltaTime;
 
             yield return null;
         }
@@ -63,11 +63,19 @@ public class EnemigoPuerta : MonoBehaviour
             sr.enabled = false;
             ocupado = false;
             Debug.Log("¡Derrota! El gato entró");
+
             SistemaFinJuego.instancia.MostrarDerrota();
             yield break;
         }
 
-        yield return new WaitForSeconds(2f);
+        float tiempoDespedida = 0f;
+        while (tiempoDespedida < 2f)
+        {
+            if (!MenuPausa.instancia.EstaEnPausa())
+                tiempoDespedida += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
         SistemaMonedas.instancia?.RegistrarCerrarPuerta();
         sr.enabled = false;
         ocupado = false;

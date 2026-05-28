@@ -172,6 +172,11 @@ public class SistemaPreguntas : MonoBehaviour
         SistemaCamaras.instancia.AbrirMenuPC();
     }
 
+    public void ForzarCierre()
+    {
+        panelGenerador.SetActive(false);
+    }
+
     void MostrarPregunta()
     {
         if (preguntasCargadas.Count == 0)

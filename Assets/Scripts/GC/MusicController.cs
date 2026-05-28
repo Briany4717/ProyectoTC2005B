@@ -169,7 +169,7 @@ public class MusicController : MonoBehaviour
             sfxSource.PlayOneShot(sfxWin, volumenWin * volumenSFX);
     }
 
-    public void PlayDerrota()   // ← NUEVO
+    public void PlayDerrota()
     {
         if (sfxDerrota != null)
             sfxSource.PlayOneShot(sfxDerrota, volumenDerrota * volumenSFX);
