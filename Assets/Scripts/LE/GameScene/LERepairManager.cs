@@ -103,7 +103,6 @@ public class LERepairManager : MonoBehaviour
         int currentDataIndex = LEGameSessionData.Instance.currentMatchDataIndex;
         currentData = LEGameSessionData.Instance.currentMatchData[currentDataIndex];
 
-        // Rellenamos las descripciones de la hoja de instrucciones con sus sub-tareas correspondientes
         for (int i = 0; i < taskTextMeshes.Length; i++)
         {
             if (i < currentData.steps.Length) 
@@ -125,7 +124,6 @@ public class LERepairManager : MonoBehaviour
 
     private IEnumerator AutomatedIntroFlowRoutine()
     {
-        // El diálogo inicial de la escena lee estrictamente el texto del PASO 1 (Índice 0)
         string activeIntroText = "¡Hora de Trabajar!";
 
         gellyIntroTextMesh.text = activeIntroText;
@@ -206,7 +204,6 @@ public class LERepairManager : MonoBehaviour
 
         applianceMainImage.transform.localRotation = applianceOriginalRotation;
 
-        // Si ya completamos los 3 sub-pasos, cerramos el ciclo del electrodoméstico
         if (currentTaskIndex >= 3)
         {
             EvaluateApplianceFixConclusion();
