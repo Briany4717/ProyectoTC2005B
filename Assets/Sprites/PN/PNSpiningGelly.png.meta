@@ -1,0 +1,508 @@
+fileFormatVersion: 2
+guid: 70719d6e00b5a2c4f9e184497999210c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4292709707232792327
+    second: PNSpiningGelly_0
+  - first:
+      213: -4435728440775691764
+    second: PNSpiningGelly_1
+  - first:
+      213: -3695448289831334221
+    second: PNSpiningGelly_2
+  - first:
+      213: 4263088511687005834
+    second: PNSpiningGelly_3
+  - first:
+      213: -8110295053414991727
+    second: PNSpiningGelly_4
+  - first:
+      213: 355576510883937084
+    second: PNSpiningGelly_5
+  - first:
+      213: -17037724890502117
+    second: PNSpiningGelly_6
+  - first:
+      213: -269496649420235534
+    second: PNSpiningGelly_7
+  - first:
+      213: -194039700822963696
+    second: PNSpiningGelly_8
+  - first:
+      213: 6662212413458311106
+    second: PNSpiningGelly_9
+  - first:
+      213: -9214518116045030619
+    second: PNSpiningGelly_10
+  - first:
+      213: 3557116044593370032
+    second: PNSpiningGelly_11
+  - first:
+      213: -2743487865812619298
+    second: PNSpiningGelly_12
+  - first:
+      213: 2888718438924097733
+    second: PNSpiningGelly_13
+  - first:
+      213: 36581105033775498
+    second: PNSpiningGelly_14
+  - first:
+      213: 3259667946511840144
+    second: PNSpiningGelly_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 190
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PNSpiningGelly_0
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 662
+        width: 217
+        height: 203
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70f4b772cb4c29b30800000000000000
+      internalID: 4292709707232792327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PNSpiningGelly_1
+      rect:
+        serializedVersion: 2
+        x: 534
+        y: 0
+        width: 234
+        height: 243
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c02b77f0c702172c0800000000000000
+      internalID: -4435728440775691764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PNSpiningGelly_2
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 646
+        width: 247
+        height: 219
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3be47c61c5127bcc0800000000000000
+      internalID: -3695448289831334221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PNSpiningGelly_3
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 641
+        width: 255
+        height: 224
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8617212a68892b30800000000000000
+      internalID: 4263088511687005834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PNSpiningGelly_4
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 328
+        width: 244
+        height: 241
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 198779d7e91727f80800000000000000
+      internalID: -8110295053414991727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PNSpiningGelly_6
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 334
+        width: 246
+        height: 228
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1cee1c874873cff0800000000000000
+      internalID: -17037724890502117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PNSpiningGelly_8
+      rect:
+        serializedVersion: 2
+        x: 534
+        y: 336
+        width: 236
+        height: 215
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01acf109be1ae4df0800000000000000
+      internalID: -194039700822963696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PNSpiningGelly_9
+      rect:
+        serializedVersion: 2
+        x: 793
+        y: 627
+        width: 237
+        height: 238
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c7616264eee47c50800000000000000
+      internalID: 6662212413458311106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PNSpiningGelly_10
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 334
+        width: 236
+        height: 237
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52bfbb418947f1080800000000000000
+      internalID: -9214518116045030619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PNSpiningGelly_11
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 421
+        width: 5
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b394d6323a6d5130800000000000000
+      internalID: 3557116044593370032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PNSpiningGelly_12
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 6
+        width: 223
+        height: 230
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: edfe4a8525c2de9d0800000000000000
+      internalID: -2743487865812619298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PNSpiningGelly_14
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 29
+        width: 207
+        height: 208
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a89870b3256f18000800000000000000
+      internalID: 36581105033775498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PNSpiningGelly_15
+      rect:
+        serializedVersion: 2
+        x: 781
+        y: 0
+        width: 249
+        height: 244
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 093b0951abaac3d20800000000000000
+      internalID: 3259667946511840144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: b7ee9323cec8d0d46903388161fae1b9
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      PNSpiningGelly_0: 4292709707232792327
+      PNSpiningGelly_1: -4435728440775691764
+      PNSpiningGelly_10: -9214518116045030619
+      PNSpiningGelly_11: 3557116044593370032
+      PNSpiningGelly_12: -2743487865812619298
+      PNSpiningGelly_13: 2888718438924097733
+      PNSpiningGelly_14: 36581105033775498
+      PNSpiningGelly_15: 3259667946511840144
+      PNSpiningGelly_2: -3695448289831334221
+      PNSpiningGelly_3: 4263088511687005834
+      PNSpiningGelly_4: -8110295053414991727
+      PNSpiningGelly_5: 355576510883937084
+      PNSpiningGelly_6: -17037724890502117
+      PNSpiningGelly_7: -269496649420235534
+      PNSpiningGelly_8: -194039700822963696
+      PNSpiningGelly_9: 6662212413458311106
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

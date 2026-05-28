@@ -47,25 +47,17 @@ public class ApiManager : MonoBehaviour
         }
     }
 
-    private readonly String baseUrl = "https://127.0.0.1:8081/";
+    private readonly string baseUrl = "https://127.0.0.1:8081/";
 
-    /// <summary>
-    /// Inicia una petición GET a la API.
-    /// </summary>
-    /// <param name="endpoint">Ruta del endpoint a consultar.</param>
-    /// <param name="onSuccess">Acción a ejecutar si la petición es exitosa.</param>
-    /// <param name="onError">Acción a ejecutar si ocurre un error.</param>
-    public void Get(string endpoint, Action<string> onSuccess, Action<string> onError)
+    public void Get(string endpoint, Action<string> onSuccess, Action<string> onError, string customBaseUrl = null)
     {
-        StartCoroutine(GetCoroutine(endpoint, onSuccess, onError));
+        StartCoroutine(GetCoroutine(endpoint, onSuccess, onError, customBaseUrl));
     }
 
-    /// <summary>
-    /// Corrutina que maneja la lógica interna de la petición GET.
-    /// </summary>
-    private IEnumerator GetCoroutine(string endpoint, Action<string> onSucces, Action<string> onError)
+
+    private IEnumerator GetCoroutine(string endpoint, Action<string> onSuccess, Action<string> onError, string customBaseUrl = null)
     {
-        string url = baseUrl + endpoint;
+        string url = (customBaseUrl ?? baseUrl) + endpoint;
 
         using (UnityWebRequest request = UnityWebRequest.Get(url))
         {
@@ -80,29 +72,19 @@ public class ApiManager : MonoBehaviour
             }
             else
             {
-                onSucces?.Invoke(request.downloadHandler.text);
+                onSuccess?.Invoke(request.downloadHandler.text);
             }
         }
     }
 
-    /// <summary>
-    /// Inicia una petición POST a la API enviando datos en formato JSON.
-    /// </summary>
-    /// <param name="endpoint">Ruta del endpoint a consultar.</param>
-    /// <param name="jsonData">Datos a enviar en formato JSON.</param>
-    /// <param name="onSucces">Acción a ejecutar si la petición es exitosa.</param>
-    /// <param name="onError">Acción a ejecutar si ocurre un error.</param>
-    public void Post(string endpoint, string jsonData, Action<string> onSucces, Action<string> onError)
+    public void Post(string endpoint, string jsonData, Action<string> onSuccess, Action<string> onError, string customBaseUrl = null)
     {
-        StartCoroutine(PostCoroutine(endpoint, jsonData, onSucces, onError));
+        StartCoroutine(PostCoroutine(endpoint, jsonData, onSuccess, onError, customBaseUrl));
     }
 
-    /// <summary>
-    /// Corrutina que maneja la lógica interna de la petición POST.
-    /// </summary>
-    private IEnumerator PostCoroutine(string endpoint, string jsonData, Action<string> onSucces, Action<string> onError)
+    private IEnumerator PostCoroutine(string endpoint, string jsonData, Action<string> onSuccess, Action<string> onError, string customBaseUrl = null)
     {
-        string url = baseUrl + endpoint;
+        string url = (customBaseUrl ?? baseUrl) + endpoint;
 
         using (UnityWebRequest request = new UnityWebRequest(url, "POST"))
         {
@@ -124,7 +106,7 @@ public class ApiManager : MonoBehaviour
             }
             else
             {
-                onSucces?.Invoke(request.downloadHandler.text);
+                onSuccess?.Invoke(request.downloadHandler.text);
             }
         }
     }

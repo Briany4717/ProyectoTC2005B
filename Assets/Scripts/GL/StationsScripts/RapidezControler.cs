@@ -80,7 +80,7 @@ public class RapidezControler : MonoBehaviour
     private void SetCurrenWord()
     {
         PromptData prompt = wordBank.GetPrompt();
-        SetRemainingWord(prompt.contenido, prompt.titulo);
+        //SetRemainingWord(prompt.contenido, prompt.titulo);
     }
 
     /// <summary>

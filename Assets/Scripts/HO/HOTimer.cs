@@ -11,6 +11,7 @@ public class HOTimer : MonoBehaviour
 
     public TextMeshProUGUI timertext;
     public float remainingtime;
+    public string scene;
 
     /// <summary>
     /// Configura el singleton del temporizador.
@@ -61,6 +62,6 @@ public class HOTimer : MonoBehaviour
         {
             HOCoins.Instance.SaveCoins();
         }
-        SceneManager.LoadScene("HOEndScene");
+        SceneManager.LoadScene(scene);
     }
 }

@@ -21,20 +21,13 @@ public class MenuSceneController : MonoBehaviour
     {
         SceneManager.LoadScene("HOIntroScene");
     }
-
-    /// <summary>
-    /// Método de inicialización llamado antes del primer frame.
-    /// </summary>
-    void Start()
+    public void GoToPN()
     {
-
+        SceneManager.LoadScene("PNStartScene");
     }
-
-    /// <summary>
-    /// Método llamado una vez por cada frame.
-    /// </summary>
-    void Update()
+    
+    public void GoToLE()
     {
-
+        SceneManager.LoadScene("LEConveyorScene");
     }
 }
