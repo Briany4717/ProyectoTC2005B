@@ -12,27 +12,22 @@ public class LETicTacToeMinigame : MonoBehaviour
     [SerializeField] private GameObject minigamePanel;
     [SerializeField] private TextMeshProUGUI announcementTextMesh;
     
-    [Tooltip("Arrastra estrictamente los 9 botones del tablero en orden (0-8, de izquierda a derecha, arriba a abajo).")]
     [SerializeField] private Button[] gridButtons;
-    [SerializeField] private Image[] gridImages; // Componentes Image de los 9 botones
+    [SerializeField] private Image[] gridImages;
 
     [Header("Visual Customization  ")]
     [SerializeField] private Sprite playerXSprite;
     [SerializeField] private Sprite botOSprite;
-    [SerializeField] private Sprite emptySprite; // Un sprite transparente o el fondo vacío
-    [Tooltip("Tiempo en segundos que el bot 'piensa' antes de tirar.")]
+    [SerializeField] private Sprite emptySprite;
     [SerializeField] private float botThinkingDuration = 0.6f;
 
-    // MATRICES DE CONTROL INTERNO (0 Allocations en Gameloop)
-    // 0 = Vacío, 1 = Jugador (X), 2 = Bot (O)
     private readonly int[] boardState = new int[9]; 
     
-    // Combinaciones ganadoras estándar indexadas en memoria estática
     private readonly int[,] winIndices = new int[8, 3]
     {
-        {0, 1, 2}, {3, 4, 5}, {6, 7, 8}, // Horizontales
-        {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, // Verticales
-        {0, 4, 8}, {2, 4, 6}             // Diagonales
+        {0, 1, 2}, {3, 4, 5}, {6, 7, 8},
+        {0, 3, 6}, {1, 4, 7}, {2, 5, 8},
+        {0, 4, 8}, {2, 4, 6}             
     };
 
     private bool isPlayerTurn = false;
@@ -61,7 +56,7 @@ public class LETicTacToeMinigame : MonoBehaviour
         {
             boardState[i] = 0;
             if (gridImages[i] != null) gridImages[i].sprite = emptySprite;
-            if (gridButtons[i] != null) gridButtons[i].interactable = false; // Bloqueados hasta que pase el banner
+            if (gridButtons[i] != null) gridButtons[i].interactable = false;
         }
     }
 
