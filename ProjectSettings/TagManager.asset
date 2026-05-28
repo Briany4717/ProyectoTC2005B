@@ -10,11 +10,12 @@ TagManager:
   - GLPlayer
   - GLDelimiter
   - GLEnd
+  - HOEnemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
   - 
