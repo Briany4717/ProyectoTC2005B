@@ -1,12 +1,14 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Gestiona el comportamiento de las plataformas que pueden ser borradas y su desvanecimiento.
+/// </summary>
 public class HOErasablePlatform : MonoBehaviour
 {
     public bool eraseOffScreen = true;
     public float offscreenMargin = 2f;
     public bool destroyAfterErase = false;
-
 
     private float fadeOutDuration = 0.8f;
     public bool autoRespawn = true;
@@ -17,24 +19,34 @@ public class HOErasablePlatform : MonoBehaviour
     private bool isErased = false;
     public bool IsErased {get{return isErased;}}
 
+    /// <summary>
+    /// Inicializa las referencias a los componentes.
+    /// </summary>
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         platformCollider = GetComponent<Collider2D>();
     }
 
-    // registramos plataforma
+    /// <summary>
+    /// Registra la plataforma en el gestor global al activarse.
+    /// </summary>
     void OnEnable()
     {
         HOPlatformRegistry.Register(this);
     }
 
-    // quitamos del registro
+    /// <summary>
+    /// Elimina la plataforma del registro al desactivarse.
+    /// </summary>
     void OnDisable()
     {
         HOPlatformRegistry.Unregister(this);
     }
 
+    /// <summary>
+    /// Inicia el proceso de borrado de la plataforma.
+    /// </summary>
     public void Erase()
     {
         if (isErased)
@@ -44,6 +56,9 @@ public class HOErasablePlatform : MonoBehaviour
         StartCoroutine(eraseRoutine());
     }
 
+    /// <summary>
+    /// Corrutina para desvanecer la plataforma gradualmente y desactivar su colisión.
+    /// </summary>
     private IEnumerator eraseRoutine()
     {
         isErased = true;
@@ -65,8 +80,11 @@ public class HOErasablePlatform : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
     }
+    
+    /// <summary>
+    /// Borra la plataforma automáticamente si sale de los límites de la pantalla.
+    /// </summary>
     void Update()
     {
         if (isErased) return;

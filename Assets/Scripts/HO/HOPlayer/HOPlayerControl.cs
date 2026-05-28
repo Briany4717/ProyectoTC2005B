@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Controla el movimiento principal, salto y giro del jugador.
+/// </summary>
 public class HOPlayerControl : MonoBehaviour
 {
     public float moveSpeed;
@@ -13,12 +16,17 @@ public class HOPlayerControl : MonoBehaviour
 
     private bool mirandoDerecha= true;
 
-
-     void Awake()
+    /// <summary>
+    /// Obtiene el componente Rigidbody2D.
+    /// </summary>
+    void Awake()
     {
         rig = GetComponent<Rigidbody2D>();
     }
 
+    /// <summary>
+    /// Captura la entrada del usuario para movimiento y otras acciones.
+    /// </summary>
     void Update()
     {
         xInput = 0f;
@@ -47,6 +55,9 @@ public class HOPlayerControl : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Aplica el movimiento y el salto usando las físicas.
+    /// </summary>
     public void FixedUpdate()
     {
         rig.linearVelocity = new Vector2(xInput * moveSpeed, rig.linearVelocity.y);
@@ -58,11 +69,17 @@ public class HOPlayerControl : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Reinicia el contador de saltos al tocar una superficie.
+    /// </summary>
     void OnCollisionEnter2D(Collision2D col)
     {
         jumpCount = 0;
     }
 
+    /// <summary>
+    /// Invierte la dirección visual del jugador.
+    /// </summary>
     void girar()
     {
         mirandoDerecha = !mirandoDerecha;

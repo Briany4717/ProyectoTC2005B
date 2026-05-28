@@ -4,10 +4,16 @@ using System.Collections;
 using UnityEngine.Networking;
 using UnityEngine.Categorization;
 
+/// <summary>
+/// Gestor centralizado para realizar peticiones a la API utilizando el patrón Singleton.
+/// </summary>
 public class ApiManager : MonoBehaviour
 {
     private static ApiManager _instance;
 
+    /// <summary>
+    /// Instancia única del ApiManager.
+    /// </summary>
     public static ApiManager Instance
     {
         get
@@ -25,6 +31,9 @@ public class ApiManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Configura el Singleton y evita que el objeto se destruya al cargar nuevas escenas.
+    /// </summary>
     private void Awake()
     {
         if (_instance == null)
@@ -103,4 +112,3 @@ public class ApiManager : MonoBehaviour
     }
 
 }
-

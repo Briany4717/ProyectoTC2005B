@@ -2,6 +2,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
+/// Controla la lógica y animación para cerrar una de las puertas de seguridad.
+
 public class BotonPuerta : MonoBehaviour
 {
     [Header("Configuración")]
@@ -16,13 +19,14 @@ public class BotonPuerta : MonoBehaviour
     [Header("Velocidad animación")]
     public float fps = 10f;
 
-    
-
     private bool presionando = false;
     private bool animacionTerminada = false;
     private bool rayoConsumido = false;
     private Coroutine coroutineActual;
 
+    
+    /// Revisa la proximidad del jugador y su entrada para intentar cerrar la puerta.
+    
     void Update()
     {
         float distancia = Mathf.Abs(jugador.position.x - transform.position.x);
@@ -33,7 +37,6 @@ public class BotonPuerta : MonoBehaviour
         {
             if (!presionando)
             {
-                // Verificar si tiene rayos antes de empezar
                 if (!SistemaRayos.instancia.UsarRayo())
                 {
                     Debug.Log("No tienes rayos para cerrar la puerta");
@@ -60,6 +63,9 @@ public class BotonPuerta : MonoBehaviour
         }
     }
 
+    
+    /// Reproduce la animación de la puerta cerrándose cuadro por cuadro.
+    
     IEnumerator AnimarCierre()
     {
         float intervalo = 1f / fps;
@@ -73,12 +79,18 @@ public class BotonPuerta : MonoBehaviour
         spritePuerta.sprite = framesCerrar[framesCerrar.Length - 1];
     }
 
+    
+    /// Dibuja el área de activación de la puerta en el editor de Unity.
+    
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, rangoActivacion);
     }
 
+    
+    /// Indica si la puerta cerró por completo.
+    
     public bool EstaAnimacionTerminada()
     {
         return animacionTerminada;

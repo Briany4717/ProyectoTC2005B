@@ -2,6 +2,9 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+
+/// Controla el flujo general de los enemigos y sus posiciones en las cámaras.
+
 public class SistemaEnemigos : MonoBehaviour
 {
     [Header("Enemigos en juego")]
@@ -18,8 +21,14 @@ public class SistemaEnemigos : MonoBehaviour
 
     public static SistemaEnemigos instancia;
 
+    
+    /// Inicializa la instancia Singleton.
+    
     void Awake() => instancia = this;
 
+    
+    /// Oculta advertencias y comienza el ciclo de movimiento de todos los enemigos.
+    
     void Start()
     {
         if (advertenciaPuerta != null)
@@ -34,15 +43,16 @@ public class SistemaEnemigos : MonoBehaviour
         }
     }
 
+    
+    /// Rutina que disminuye el contador de la cámara en la que está el enemigo.
+    
     IEnumerator MoverEnemigo(Enemigo enemigo)
     {
         while (true)
         {
-            // Contador manual que respeta pausa de menú pero NO las cámaras
             float timer = 0f;
             while (timer < enemigo.tiempoMovimiento)
             {
-                // Solo contar si NO hay pausa de menú
                 if (!MenuPausa.instancia.EstaEnPausa())
                     timer += Time.unscaledDeltaTime;
                 yield return null;
@@ -66,6 +76,9 @@ public class SistemaEnemigos : MonoBehaviour
         }
     }
 
+    
+    /// Pone a un enemigo específico en la puerta y activa la advertencia.
+    
     IEnumerator EnemigoEnPuerta(Enemigo enemigo)
     {
         puertaOcupada = true;
@@ -82,6 +95,9 @@ public class SistemaEnemigos : MonoBehaviour
         StartCoroutine(MoverEnemigo(enemigo));
     }
 
+    
+    /// Maneja el momento en que un enemigo sale de la puerta y se reinicia.
+    
     public void EnemigoSeFueDePuerta(Enemigo enemigo)
     {
         MostrarAdvertencia(false);
@@ -94,6 +110,9 @@ public class SistemaEnemigos : MonoBehaviour
         Debug.Log($"{enemigo.nombre} se fue de la puerta");
     }
 
+    
+    /// Comprueba si alguna de las puertas está cerrada en el momento.
+    
     bool PuertaCerrada()
     {
         var botones = FindObjectsByType<BotonPuerta>(FindObjectsSortMode.None);
@@ -105,6 +124,9 @@ public class SistemaEnemigos : MonoBehaviour
         return false;
     }
 
+    
+    /// Instancia la interfaz de los enemigos que se encuentren en la cámara actual.
+    
     public void MostrarEnemigosEnCamara(int indexCamara)
     {
         foreach (Transform hijo in contenedorEnemigos)
@@ -133,12 +155,18 @@ public class SistemaEnemigos : MonoBehaviour
         }
     }
 
+    
+    /// Marca un enemigo como eliminado y lo envía a la cámara de inicio temporalmente.
+    
     public void EliminarEnemigo(Enemigo enemigo)
     {
         enemigo.eliminado = true;
         StartCoroutine(RegresarAEntrada(enemigo));
     }
 
+    
+    /// Espera un tiempo antes de reactivar al enemigo en la primera cámara.
+    
     IEnumerator RegresarAEntrada(Enemigo enemigo)
     {
         float timer = 0f;
@@ -156,6 +184,9 @@ public class SistemaEnemigos : MonoBehaviour
             MostrarEnemigosEnCamara(4);
     }
 
+    
+    /// Muestra u oculta la advertencia visual de que un enemigo está en la puerta.
+    
     public void MostrarAdvertencia(bool mostrar)
     {
         if (advertenciaPuerta != null)
@@ -172,6 +203,9 @@ public class SistemaEnemigos : MonoBehaviour
         }
     }
 
+    
+    /// Hace que el ícono de la advertencia parpadee mientras el objeto esté activo.
+    
     IEnumerator ParpadeaObjeto(GameObject obj)
     {
         var img = obj.GetComponent<UnityEngine.UI.Image>();

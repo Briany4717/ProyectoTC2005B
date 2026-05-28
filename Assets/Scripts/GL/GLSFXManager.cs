@@ -1,8 +1,10 @@
 using UnityEngine;
 
+/// <summary>
+/// Administra la reproducción de música de fondo y efectos de sonido.
+/// </summary>
 public class GLSFXManager : MonoBehaviour
 {
-    // Declaracion de variables
     [Header("------- Audio Source ---------")]
     [SerializeField] AudioSource musicSource;
     [SerializeField] AudioSource SFXSource;
@@ -18,33 +20,37 @@ public class GLSFXManager : MonoBehaviour
     public AudioClip WallCrash;
     public AudioClip completeStation;
 
-
-    // creamos una instancia global para facilitar el uso de nuestro Manager a traves de los scripts
     public static GLSFXManager Instance;
 
+    /// <summary>
+    /// Configura el Singleton asegurando que solo haya un administrador de audio.
+    /// </summary>
     private void Awake()
     {
-        // verificamos que no exista y la creamos 
         if (Instance == null)
         {
             Instance = this;
         }
         else
         {
-            // si ya existe una destruimos la actual (para no duplicar instancias)
             Destroy(gameObject);
         }
     }
 
+    /// <summary>
+    /// Reproduce la música de fondo al iniciar el componente.
+    /// </summary>
     private void Start()
     {
-        // asignamos el clip de background a music y lo reproducimos
         musicSource.clip = background;
         musicSource.Play();
     }
+
+    /// <summary>
+    /// Reproduce un efecto de sonido específico una sola vez.
+    /// </summary>
     public void PlaySFX(AudioClip clip)
     {
-        // reproducimos una vez el clip que le pasemo
         SFXSource.PlayOneShot(clip);
     }
 }

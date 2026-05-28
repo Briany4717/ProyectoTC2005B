@@ -784,6 +784,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2278840503385734134, guid: 05d16482a0b6a4669b43707078bf9505, type: 3}
+      propertyPath: sfxDerrota
+      value: 
+      objectReference: {fileID: 8300000, guid: cd68e2dc25af74484a92da5c8bac88d8, type: 3}
     - target: {fileID: 3698992257892101714, guid: 05d16482a0b6a4669b43707078bf9505, type: 3}
       propertyPath: m_LocalPosition.x
       value: 362.8239

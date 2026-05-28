@@ -1,22 +1,29 @@
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Controla el comportamiento y los datos de un botón de respuesta en el minijuego de preguntas.
+/// </summary>
 public class GLAnswerButton : MonoBehaviour
 {
     private bool isCorrect;
     [SerializeField] TextMeshProUGUI answerText;
 
-
-    // Guardamos la referencia del manager de la pregunta
     private GLQuestionSetup questionSetup;
 
-    // Poner los valores al boton
+    /// <summary>
+    /// Configura el texto, la validez de la respuesta y la referencia al controlador principal.
+    /// </summary>
     public void SetupButton(string text, bool newBool, GLQuestionSetup setup)
     {
         answerText.text = text;
         isCorrect = newBool;
-        questionSetup = setup; // Guardamos quién creó esta pregunta
+        questionSetup = setup;
     }
+
+    /// <summary>
+    /// Procesa la selección de esta respuesta, notificando el acierto o penalizando el tiempo por error.
+    /// </summary>
     public void OnClick()
     {
         if (isCorrect)
@@ -25,10 +32,8 @@ public class GLAnswerButton : MonoBehaviour
         }
         else
         {
-
             questionSetup.WrongAnswer();
-            GLGameControl.Instance.RemoveTime(5f); // Llamamos a la función para quitar tiempo del timer
+            GLGameControl.Instance.RemoveTime(5f);
         }
     }
-
 }

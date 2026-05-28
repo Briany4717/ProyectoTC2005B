@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Controla las colisiones del jugador, específicamente permitiéndole bajar de plataformas.
+/// </summary>
 public class HOPlayerCol : MonoBehaviour
 {
     private HOPlayerControl player;
@@ -9,16 +12,20 @@ public class HOPlayerCol : MonoBehaviour
     private bool startTimer;
 
     public Collider2D coll;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
+    /// <summary>
+    /// Inicializa las variables de estado y la referencia del jugador.
+    /// </summary>
     void Start()
     {
         player = GetComponentInParent<HOPlayerControl>();
         timer = 0.3f;
         startTimer = false;
-        
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Detecta la entrada hacia abajo para desactivar colisiones temporalmente.
+    /// </summary>
     void Update()
     {
         v = 0f;
@@ -40,9 +47,11 @@ public class HOPlayerCol : MonoBehaviour
         {
             timer = -18;
         }
-        
     }
 
+    /// <summary>
+    /// Desactiva la colisión si el jugador presiona abajo al tocar el suelo.
+    /// </summary>
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.tag == "Ground")
@@ -56,6 +65,9 @@ public class HOPlayerCol : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Mantiene la verificación de bajar plataformas mientras el jugador permanece en el suelo.
+    /// </summary>
     void OnTriggerStay2D(Collider2D col)
     {
         if (col.gameObject.tag == "Ground")

@@ -1,5 +1,8 @@
 using UnityEngine;
 
+
+/// Gestiona la reproducción global de la música y efectos de sonido en el juego.
+
 public class MusicController : MonoBehaviour
 {
     [Header("Música")]
@@ -15,7 +18,7 @@ public class MusicController : MonoBehaviour
     public AudioClip sfxRight;
     public AudioClip sfxWin;
     public AudioClip sfxWrong;
-    public AudioClip sfxDerrota;          // ← NUEVO: arrastra tu clip de derrota
+    public AudioClip sfxDerrota;
     [Range(0f, 1f)] public float volumenSFX = 1f;
 
     [Header("Volúmenes individuales")]
@@ -27,12 +30,15 @@ public class MusicController : MonoBehaviour
     [Range(0f, 1f)] public float volumenWrong    = 1f;
     [Range(0f, 1f)] public float volumenAlarm    = 1f;
     [Range(0f, 1f)] public float volumenWin      = 1f;
-    [Range(0f, 1f)] public float volumenDerrota  = 1f;  // ← NUEVO
+    [Range(0f, 1f)] public float volumenDerrota  = 1f;
 
     private AudioSource musicaSource;
     private AudioSource sfxSource;
 
     public static MusicController instancia;
+
+    
+    /// Configura el singleton y los componentes de audio necesarios.
 
     void Awake()
     {
@@ -66,12 +72,14 @@ public class MusicController : MonoBehaviour
         sfxSource.loop           = false;
         sfxSource.playOnAwake    = false;
 
-        // ── Cargar valores guardados (claves unificadas) ──────────────
-        volumenMusica      = PlayerPrefs.GetFloat("VolMusica", volumenMusica);
-        volumenSFX         = PlayerPrefs.GetFloat("VolSFX",    volumenSFX);
+        volumenMusica       = PlayerPrefs.GetFloat("VolMusica", volumenMusica);
+        volumenSFX          = PlayerPrefs.GetFloat("VolSFX",    volumenSFX);
         musicaSource.volume = volumenMusica;
         sfxSource.volume    = volumenSFX;
     }
+
+    
+    /// Inicia la reproducción de la música del juego si está asignada.
 
     void Start()
     {
@@ -82,13 +90,13 @@ public class MusicController : MonoBehaviour
         }
     }
 
-    // ── Música ────────────────────────────────────────────────────────
+    
+    /// Reinicia la música actual cargando los últimos valores de volumen guardados.
 
     public void ReiniciarMusica()
     {
-        // Recargar volúmenes guardados antes de reproducir
-        volumenMusica      = PlayerPrefs.GetFloat("VolMusica", volumenMusica);
-        volumenSFX         = PlayerPrefs.GetFloat("VolSFX",    volumenSFX);
+        volumenMusica       = PlayerPrefs.GetFloat("VolMusica", volumenMusica);
+        volumenSFX          = PlayerPrefs.GetFloat("VolSFX",    volumenSFX);
         musicaSource.volume = volumenMusica;
         sfxSource.volume    = volumenSFX;
 
@@ -99,7 +107,14 @@ public class MusicController : MonoBehaviour
             musicaSource.Play();
         }
     }
+
+    
+    /// Detiene la reproducción de la música actual.
+
     public void DetenerMusica() => musicaSource.Stop();
+
+    
+    /// Modifica y guarda el nivel de volumen global para la música.
 
     public void SetVolumenMusica(float valor)
     {
@@ -109,6 +124,9 @@ public class MusicController : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    
+    /// Modifica y guarda el nivel de volumen global para los efectos.
+
     public void SetVolumenSFX(float valor)
     {
         volumenSFX = valor;
@@ -117,7 +135,8 @@ public class MusicController : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    // ── Efectos ───────────────────────────────────────────────────────
+    
+    /// Reproduce el efecto de sonido de clic.
 
     public void PlayClick()
     {
@@ -125,11 +144,17 @@ public class MusicController : MonoBehaviour
             sfxSource.PlayOneShot(sfxClick, volumenClick * volumenSFX);
     }
 
+    
+    /// Reproduce el efecto de sonido de las cámaras.
+
     public void PlayCameras()
     {
         if (sfxCameras != null)
             sfxSource.PlayOneShot(sfxCameras, volumenCameras * volumenSFX);
     }
+
+    
+    /// Reproduce el efecto de sonido al cerrar una puerta.
 
     public void PlayDoorSlam()
     {
@@ -137,11 +162,17 @@ public class MusicController : MonoBehaviour
             sfxSource.PlayOneShot(sfxDoorSlam, volumenDoorSlam * volumenSFX);
     }
 
+    
+    /// Reproduce el efecto de sonido de descarga eléctrica.
+
     public void PlayElectricShock()
     {
         if (sfxElectricShock != null)
             sfxSource.PlayOneShot(sfxElectricShock, volumenElectric * volumenSFX);
     }
+
+    
+    /// Reproduce el efecto de sonido de acierto o respuesta correcta.
 
     public void PlayRight()
     {
@@ -149,11 +180,17 @@ public class MusicController : MonoBehaviour
             sfxSource.PlayOneShot(sfxRight, volumenRight * volumenSFX);
     }
 
+    
+    /// Reproduce el efecto de sonido de fallo o respuesta incorrecta.
+
     public void PlayWrong()
     {
         if (sfxWrong != null)
             sfxSource.PlayOneShot(sfxWrong, volumenWrong * volumenSFX);
     }
+
+    
+    /// Reproduce la alarma sonora de forma continua o puntual.
 
     public void PlayAlarm()
     {
@@ -161,7 +198,13 @@ public class MusicController : MonoBehaviour
             sfxSource.PlayOneShot(sfxAlarm, volumenAlarm * volumenSFX);
     }
 
+    
+    /// Detiene la alarma sonora (o cualquier efecto que se esté reproduciendo principal).
+
     public void StopAlarm() => sfxSource.Stop();
+
+    
+    /// Reproduce el efecto de sonido de victoria.
 
     public void PlayWin()
     {
@@ -169,12 +212,22 @@ public class MusicController : MonoBehaviour
             sfxSource.PlayOneShot(sfxWin, volumenWin * volumenSFX);
     }
 
-    public void PlayDerrota()   // ← NUEVO
+    
+    /// Reproduce el efecto de sonido de derrota.
+
+    public void PlayDerrota()
     {
         if (sfxDerrota != null)
             sfxSource.PlayOneShot(sfxDerrota, volumenDerrota * volumenSFX);
     }
 
+    
+    /// Retorna el volumen actual de la música.
+
     public float GetVolumenMusica() => volumenMusica;
+
+    
+    /// Retorna el volumen actual de los efectos de sonido.
+
     public float GetVolumenSFX()    => volumenSFX;
 }

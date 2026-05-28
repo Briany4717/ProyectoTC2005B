@@ -1,5 +1,8 @@
 using UnityEngine;
-// clase para ligar la estacion con su icono
+
+/// <summary>
+/// Contiene los datos configurables de una estación, como su nombre y su ícono.
+/// </summary>
 [CreateAssetMenu(fileName = "NewStation", menuName = "Overcooked/Station")]
 public class StationData : ScriptableObject
 {

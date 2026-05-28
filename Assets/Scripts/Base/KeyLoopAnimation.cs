@@ -3,11 +3,14 @@ using UnityEngine.UI;
 using System.Collections;
 using TMPro;
 
+/// <summary>
+/// Controla la animación de un botón o tecla alternando entre dos sprites e interactuando con su texto.
+/// </summary>
 public class KeyLoopAnimation : MonoBehaviour
 {
     public Sprite normalSprite;
     public Sprite pressedSprite;
-    public float speed = 0.5f; // Segundos entre cada cambio
+    public float speed = 0.5f;
 
     private Image imageComponent;
 
@@ -15,8 +18,11 @@ public class KeyLoopAnimation : MonoBehaviour
     private TextMeshProUGUI textComponent;
 
     private Color originalTextColor;
-    private Vector3 originalTextScale; // Variable para guardar el tamaño original
+    private Vector3 originalTextScale;
 
+    /// <summary>
+    /// Inicializa los componentes, guarda los valores originales e inicia la corrutina de animación.
+    /// </summary>
     void Start()
     {
         imageComponent = GetComponent<Image>();
@@ -26,31 +32,29 @@ public class KeyLoopAnimation : MonoBehaviour
             textComponent = GetComponentInChildren<TextMeshProUGUI>();
         }
 
-        // Guardamos el color y la escala con la que empieza el texto
         originalTextColor = textComponent.color;
         originalTextScale = textComponent.transform.localScale;
 
         StartCoroutine(AnimateKey());
     }
 
+    /// <summary>
+    /// Corrutina que alterna cíclicamente los estados visuales del botón y del texto.
+    /// </summary>
     IEnumerator AnimateKey()
     {
         while (true)
         {
-            // ESTADO PRESIONADO 
             imageComponent.sprite = pressedSprite;
             textComponent.color = Color.gray;
 
-            // Hacemos el texto un 10% más pequeño multiplicando su escala original por 0.9
             textComponent.transform.localScale = originalTextScale * 0.9f;
 
             yield return new WaitForSeconds(speed);
 
-            // ESTADO NORMAL
             imageComponent.sprite = normalSprite;
             textComponent.color = originalTextColor;
 
-            // Restauramos el tamaño exacto que tenía al inicio
             textComponent.transform.localScale = originalTextScale;
 
             yield return new WaitForSeconds(speed);

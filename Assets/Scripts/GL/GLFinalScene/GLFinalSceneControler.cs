@@ -4,6 +4,9 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEditor.Experimental.GraphView;
 
+/// <summary>
+/// Controla la pantalla final mostrando estadísticas y el puntaje obtenido en forma de estrellas.
+/// </summary>
 public class GLFinalSceneControler : MonoBehaviour
 {
     public TextMeshProUGUI coinsText;
@@ -13,6 +16,9 @@ public class GLFinalSceneControler : MonoBehaviour
     public Image star2;
     public Image star3;
 
+    /// <summary>
+    /// Carga los puntajes guardados y calcula la cantidad de estrellas a mostrar.
+    /// </summary>
     void Start()
     {
         int orders = PlayerPrefs.GetInt("Orders");
@@ -29,7 +35,6 @@ public class GLFinalSceneControler : MonoBehaviour
 
         if (orders >= 6)
         {
-            // dejar las estrellas activas
         }
         else if (orders >= 4)
         {
@@ -37,29 +42,30 @@ public class GLFinalSceneControler : MonoBehaviour
         }
         else if (orders >= 2)
         {
-            // desactivar las estrellas
             star2.gameObject.SetActive(false);
             star3.gameObject.SetActive(false);
         }
         else
         {
-            // desactivar las estrellas
             star1.gameObject.SetActive(false);
             star2.gameObject.SetActive(false);
             star3.gameObject.SetActive(false);
         }
-
     }
 
+    /// <summary>
+    /// Reinicia la escena principal del minijuego.
+    /// </summary>
     public void RestartGame()
     {
         SceneManager.LoadScene("GLMainGame");
-
     }
 
+    /// <summary>
+    /// Carga la escena principal del menú del juego general.
+    /// </summary>
     public void GoToMenu()
     {
-
         SceneManager.LoadScene("MenuScene");
     }
 }

@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// datos que contendrá la ordens
+/// <summary>
+/// Estructura de datos que define los elementos requeridos y el progreso de una orden.
+/// </summary>
 [System.Serializable]
 public class OrderData
 {
@@ -10,4 +12,3 @@ public class OrderData
     public List<StationData> requiredStations;
     public List<bool> stationsCompleted;
 }
-

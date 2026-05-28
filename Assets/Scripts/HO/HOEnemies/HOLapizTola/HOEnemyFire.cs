@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Maneja la detección del jugador y el disparo del enemigo.
+/// </summary>
 public class HOEnemyFire : MonoBehaviour
 {
     public Transform controladorlDisparo;
@@ -13,12 +16,17 @@ public class HOEnemyFire : MonoBehaviour
 
     private HOEnemyVerticalFollow armaScript;
 
+    /// <summary>
+    /// Obtiene la referencia al script de movimiento vertical.
+    /// </summary>
     void Start()
     {
         armaScript = GetComponent<HOEnemyVerticalFollow>();
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Detecta si el jugador está en rango y dispara si ha pasado el tiempo necesario.
+    /// </summary>
     void Update()
     {
         if (armaScript != null && armaScript.IsEntering)
@@ -37,6 +45,9 @@ public class HOEnemyFire : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Instancia la bala y le asigna las estadísticas de daño y velocidad.
+    /// </summary>
     private void Disparar()
     {
         GameObject bala = Instantiate(balaEnemigo, controladorlDisparo.position, controladorlDisparo.rotation);
@@ -45,12 +56,4 @@ public class HOEnemyFire : MonoBehaviour
         bulletScript.danio = armaScript.danioActual;
         bulletScript.velocidad = armaScript.velocidadBalaActual;
     }
-
-    /*
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(controladorlDisparo.position, controladorlDisparo.position + transform.right * distanciaLinea);
-    }
-    */
 }

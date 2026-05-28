@@ -14372,6 +14372,10 @@ PrefabInstance:
       propertyPath: volumenSFX
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2278840503385734134, guid: 05d16482a0b6a4669b43707078bf9505, type: 3}
+      propertyPath: volumenDerrota
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3698992257892101714, guid: 05d16482a0b6a4669b43707078bf9505, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

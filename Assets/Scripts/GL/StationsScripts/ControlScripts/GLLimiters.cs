@@ -1,18 +1,21 @@
 using UnityEngine;
 
+/// <summary>
+/// Representa los límites físicos en el minijuego de control.
+/// </summary>
 public class GLLimiters : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    /// <summary>
+    /// Método de inicio de Unity.
+    /// </summary>
     void Start()
     {
-
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Método de actualización de Unity.
+    /// </summary>
     void Update()
     {
-
     }
-
-
 }

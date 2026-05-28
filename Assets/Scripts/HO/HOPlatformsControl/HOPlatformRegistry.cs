@@ -1,10 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Mantiene un registro centralizado de las plataformas borrables activas en la escena.
+/// </summary>
 public class HOPlatformRegistry : MonoBehaviour
 {
     private static readonly List<HOErasablePlatform> platforms = new List<HOErasablePlatform>();
 
+    /// <summary>
+    /// Añade una plataforma al registro.
+    /// </summary>
     public static void Register(HOErasablePlatform platform)
     {
         if (!platforms.Contains(platform))
@@ -13,12 +19,17 @@ public class HOPlatformRegistry : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Elimina una plataforma del registro.
+    /// </summary>
     public static void Unregister(HOErasablePlatform platform)
     {
         platforms.Remove(platform);
     }
 
-    // solo las que no han sido borradas
+    /// <summary>
+    /// Obtiene una lista de plataformas cercanas a una posición dada dentro de un radio.
+    /// </summary>
     public static List<HOErasablePlatform> getPlatformsNear(Vector3 playerPos, float radio)
     {
         List<HOErasablePlatform> result = new List<HOErasablePlatform>();

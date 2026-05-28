@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
+
+/// Controla la aparición y el comportamiento de los enemigos en las puertas.
+
 public class EnemigoPuerta : MonoBehaviour
 {
     [Header("Posiciones de aparición")]
@@ -16,6 +19,9 @@ public class EnemigoPuerta : MonoBehaviour
 
     public static EnemigoPuerta instancia;
 
+    
+    /// Inicializa la instancia y obtiene los componentes necesarios.
+    
     void Awake()
     {
         instancia = this;
@@ -23,6 +29,9 @@ public class EnemigoPuerta : MonoBehaviour
         sr.enabled = false;
     }
 
+    
+    /// Muestra un enemigo en una de las puertas.
+    
     public void MostrarEnPuerta(Enemigo enemigo, int indexEnemigo)
     {
         if (ocupado) return;
@@ -31,6 +40,9 @@ public class EnemigoPuerta : MonoBehaviour
         StartCoroutine(RutinaAparicion(enemigo, indexEnemigo));
     }
 
+    
+    /// Maneja el tiempo de espera del enemigo y la condición de derrota.
+    
     IEnumerator RutinaAparicion(Enemigo enemigo, int indexEnemigo)
     {
         bool izquierda = Random.value > 0.5f;
@@ -52,8 +64,8 @@ public class EnemigoPuerta : MonoBehaviour
                 break;
             }
 
-            if (Time.timeScale > 0f && !MenuPausa.instancia.EstaEnPausa())
-                tiempoEsperando += Time.deltaTime;
+            if (!MenuPausa.instancia.EstaEnPausa())
+                tiempoEsperando += Time.unscaledDeltaTime;
 
             yield return null;
         }
@@ -63,17 +75,28 @@ public class EnemigoPuerta : MonoBehaviour
             sr.enabled = false;
             ocupado = false;
             Debug.Log("¡Derrota! El gato entró");
+
             SistemaFinJuego.instancia.MostrarDerrota();
             yield break;
         }
 
-        yield return new WaitForSeconds(2f);
+        float tiempoDespedida = 0f;
+        while (tiempoDespedida < 2f)
+        {
+            if (!MenuPausa.instancia.EstaEnPausa())
+                tiempoDespedida += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
         SistemaMonedas.instancia?.RegistrarCerrarPuerta();
         sr.enabled = false;
         ocupado = false;
         SistemaEnemigos.instancia.EnemigoSeFueDePuerta(enemigo);
     }
 
+    
+    /// Verifica si la puerta en la que está el enemigo fue cerrada.
+    
     bool PuertaCorrespondienteCerrada(bool izquierda)
     {
         var botones = FindObjectsByType<BotonPuerta>(FindObjectsSortMode.None);
@@ -86,6 +109,9 @@ public class EnemigoPuerta : MonoBehaviour
         return false;
     }
 
+    
+    /// Oculta al enemigo de inmediato y detiene su rutina.
+    
     public void OcultarInmediatamente()
     {
         StopAllCoroutines();
