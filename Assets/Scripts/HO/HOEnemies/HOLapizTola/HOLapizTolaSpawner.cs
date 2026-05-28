@@ -1,8 +1,8 @@
 using UnityEngine;
 
-/// <summary>
+
 /// Controla la aparición y reaparición del enemigo lápiz en la escena.
-/// </summary>
+
 public class HOLapizTolaSpawner : MonoBehaviour
 {
     public GameObject lapizPrefab;
@@ -14,9 +14,9 @@ public class HOLapizTolaSpawner : MonoBehaviour
     private float respawnTimer;
     private bool waitingToRespawn = false;
 
-    /// <summary>
+    
     /// Verifica la asignación del prefab e inicia el ciclo de aparición.
-    /// </summary>
+    
     void Start()
     {
         if (lapizPrefab == null)
@@ -29,9 +29,9 @@ public class HOLapizTolaSpawner : MonoBehaviour
         spawnLapiz();
     }
 
-    /// <summary>
+    
     /// Maneja el temporizador para la reaparición del lápiz tras ser derrotado.
-    /// </summary>
+    
     void Update()
     {
         if (cntEnemy == null && !waitingToRespawn)
@@ -51,18 +51,18 @@ public class HOLapizTolaSpawner : MonoBehaviour
         }
     }
 
-    /// <summary>
+    
     /// Instancia un nuevo lápiz en la posición definida.
-    /// </summary>
+    
     void spawnLapiz()
     {
         Vector3 spawnPos = getSpawnPos();
         cntEnemy = Instantiate(lapizPrefab, spawnPos, Quaternion.identity);
     }
 
-    /// <summary>
+    
     /// Calcula la posición de aparición del lápiz.
-    /// </summary>
+    
     Vector3 getSpawnPos()
     {
         float spawnY = transform.position.y;

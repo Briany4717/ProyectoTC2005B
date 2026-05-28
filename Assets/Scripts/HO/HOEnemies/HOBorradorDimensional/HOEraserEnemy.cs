@@ -1,9 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
-/// <summary>
+
 /// Controla el comportamiento del enemigo borrador, su patrullaje y ataques a plataformas.
-/// </summary>
+
 public class HOEraserEnemy : MonoBehaviour, IHOScalableEnemy, IHOEnemyReward
 {
     public int coinsBase;
@@ -51,18 +51,18 @@ public class HOEraserEnemy : MonoBehaviour, IHOScalableEnemy, IHOEnemyReward
     private int coinsActuales;
     private float timeActual;
 
-    /// <summary>
+    
     /// Inicializa las recompensas del enemigo.
-    /// </summary>
+    
     void Awake()
     {
         coinsActuales = coinsBase;
         timeActual = timeBase;
     }
 
-    /// <summary>
+    
     /// Configura las referencias y estado inicial.
-    /// </summary>
+    
     void Start()
     {
         if (jugador == null)
@@ -75,9 +75,9 @@ public class HOEraserEnemy : MonoBehaviour, IHOScalableEnemy, IHOEnemyReward
         movCentroY = transform.position.y;
     }
 
-    /// <summary>
+    
     /// Ejecuta la máquina de estados del borrador.
-    /// </summary>
+    
     void Update()
     {
         if (HOScrollingCamera.Instance != null)
@@ -108,9 +108,9 @@ public class HOEraserEnemy : MonoBehaviour, IHOScalableEnemy, IHOEnemyReward
         }
     }
 
-    /// <summary>
+    
     /// Realiza el patrullaje vertical buscando al jugador.
-    /// </summary>
+    
     void searchPlayer()
     {
         float minY = movCentroY - movRango;
@@ -133,9 +133,9 @@ public class HOEraserEnemy : MonoBehaviour, IHOScalableEnemy, IHOEnemyReward
         transform.position = pos;
     }
 
-    /// <summary>
+    
     /// Reduce el temporizador para el siguiente ataque.
-    /// </summary>
+    
     void countdownAttack()
     {
         attackTimer -= Time.deltaTime;
@@ -145,9 +145,9 @@ public class HOEraserEnemy : MonoBehaviour, IHOScalableEnemy, IHOEnemyReward
         }
     }
 
-    /// <summary>
+    
     /// Intenta iniciar un ataque hacia una plataforma cercana al jugador.
-    /// </summary>
+    
     void TryStartAttack()
     {
         if (jugador == null) 
@@ -168,9 +168,9 @@ public class HOEraserEnemy : MonoBehaviour, IHOScalableEnemy, IHOEnemyReward
         cntState = State.targetVertical;
     }
 
-    /// <summary>
+    
     /// Alinea verticalmente al enemigo con la plataforma objetivo.
-    /// </summary>
+    
     void alingVertical()
     {
         if (plataformaTarget == null || plataformaTarget.IsErased)
@@ -192,9 +192,9 @@ public class HOEraserEnemy : MonoBehaviour, IHOScalableEnemy, IHOEnemyReward
         }
     }
 
-    /// <summary>
+    
     /// Realiza un barrido horizontal para borrar la plataforma.
-    /// </summary>
+    
     void sweepHorizontal()
     {
         float newX = Mathf.MoveTowards(transform.position.x, finalBarrido.x, velocidadBorrar * Time.deltaTime);
@@ -207,18 +207,18 @@ public class HOEraserEnemy : MonoBehaviour, IHOScalableEnemy, IHOEnemyReward
         }
     }
 
-    /// <summary>
+    
     /// Pausa antes de que el enemigo regrese a su posición.
-    /// </summary>
+    
     IEnumerator returning()
     {
         yield return new WaitForSeconds(tiempoBorrar);
         cntState = State.volviendo;
     }
 
-    /// <summary>
+    
     /// Retorna al enemigo a su posición de búsqueda inicial.
-    /// </summary>
+    
     void returnToSearchPlayer()
     {
         Vector3 returnTarget = new Vector3(posFijaX, transform.position.y, transform.position.z);
@@ -233,9 +233,9 @@ public class HOEraserEnemy : MonoBehaviour, IHOScalableEnemy, IHOEnemyReward
         }
     }
 
-    /// <summary>
+    
     /// Calcula los puntos de inicio y fin del borrado sobre la plataforma.
-    /// </summary>
+    
     private void getPuntosBorrado(HOErasablePlatform platform, out Vector3 entryPoint, out Vector3 exitPoint)
     {
         Collider2D col = platform.GetComponent<Collider2D>();
@@ -248,9 +248,9 @@ public class HOEraserEnemy : MonoBehaviour, IHOScalableEnemy, IHOEnemyReward
         exitPoint = new Vector3(bounds.min.x - 1f, sweepY, transform.position.z);
     }
 
-    /// <summary>
+    
     /// Ajusta la dificultad del enemigo según el nivel.
-    /// </summary>
+    
     public void SetDifficulty(int level)
     {
         velocidad = Mathf.Min(velocidad + level * incrementoVelocidad, velocidadMaxima);
@@ -265,9 +265,9 @@ public class HOEraserEnemy : MonoBehaviour, IHOScalableEnemy, IHOEnemyReward
         timeActual = Mathf.Min(timeBase + level * incrementoTime, timeMaximo);
     }
 
-    /// <summary>
+    
     /// Controla la animación de entrada a la escena.
-    /// </summary>
+    
     void entering()
     {
         float newX = Mathf.MoveTowards(transform.position.x, posFijaX, velocidad * Time.deltaTime);
@@ -280,17 +280,17 @@ public class HOEraserEnemy : MonoBehaviour, IHOScalableEnemy, IHOEnemyReward
         }
     }
 
-    /// <summary>
+    
     /// Devuelve las monedas que otorga el enemigo al ser derrotado.
-    /// </summary>
+    
     public int GetCoinsReward()
     {
         return coinsActuales;
     }
 
-    /// <summary>
+    
     /// Devuelve el tiempo extra que otorga el enemigo.
-    /// </summary>
+    
     public float GetTimeReward()
     {
         return timeActual;

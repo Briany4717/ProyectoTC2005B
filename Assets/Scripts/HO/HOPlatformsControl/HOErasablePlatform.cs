@@ -1,9 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
-/// <summary>
+
 /// Gestiona el comportamiento de las plataformas que pueden ser borradas y su desvanecimiento.
-/// </summary>
+
 public class HOErasablePlatform : MonoBehaviour
 {
     public bool eraseOffScreen = true;
@@ -19,34 +19,34 @@ public class HOErasablePlatform : MonoBehaviour
     private bool isErased = false;
     public bool IsErased {get{return isErased;}}
 
-    /// <summary>
+    
     /// Inicializa las referencias a los componentes.
-    /// </summary>
+    
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         platformCollider = GetComponent<Collider2D>();
     }
 
-    /// <summary>
+    
     /// Registra la plataforma en el gestor global al activarse.
-    /// </summary>
+    
     void OnEnable()
     {
         HOPlatformRegistry.Register(this);
     }
 
-    /// <summary>
+    
     /// Elimina la plataforma del registro al desactivarse.
-    /// </summary>
+    
     void OnDisable()
     {
         HOPlatformRegistry.Unregister(this);
     }
 
-    /// <summary>
+    
     /// Inicia el proceso de borrado de la plataforma.
-    /// </summary>
+    
     public void Erase()
     {
         if (isErased)
@@ -56,9 +56,9 @@ public class HOErasablePlatform : MonoBehaviour
         StartCoroutine(eraseRoutine());
     }
 
-    /// <summary>
+    
     /// Corrutina para desvanecer la plataforma gradualmente y desactivar su colisión.
-    /// </summary>
+    
     private IEnumerator eraseRoutine()
     {
         isErased = true;
@@ -82,9 +82,9 @@ public class HOErasablePlatform : MonoBehaviour
         }
     }
     
-    /// <summary>
+    
     /// Borra la plataforma automáticamente si sale de los límites de la pantalla.
-    /// </summary>
+    
     void Update()
     {
         if (isErased) return;

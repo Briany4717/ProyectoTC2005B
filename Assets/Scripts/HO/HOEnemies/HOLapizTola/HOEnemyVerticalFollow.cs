@@ -1,8 +1,8 @@
 using UnityEngine;
 
-/// <summary>
+
 /// Controla el movimiento vertical del enemigo para seguir la posición de las plataformas o del jugador.
-/// </summary>
+
 public class HOEnemyVerticalFollow : MonoBehaviour, IHOScalableEnemy, IHOEnemyReward
 {
     public int coinsBase = 3;
@@ -39,9 +39,9 @@ public class HOEnemyVerticalFollow : MonoBehaviour, IHOScalableEnemy, IHOEnemyRe
     private int coinsActuales;
     private float timeActual;
 
-    /// <summary>
+    
     /// Inicializa las estadísticas actuales base.
-    /// </summary>
+    
     void Awake()
     {
         danioActual = danioBase;
@@ -50,9 +50,9 @@ public class HOEnemyVerticalFollow : MonoBehaviour, IHOScalableEnemy, IHOEnemyRe
         timeActual = timeBase;
     }
 
-    /// <summary>
+    
     /// Busca al jugador si no está asignado y establece la posición objetivo inicial.
-    /// </summary>
+    
     void Start()
     {
         if (player == null)
@@ -67,9 +67,9 @@ public class HOEnemyVerticalFollow : MonoBehaviour, IHOScalableEnemy, IHOEnemyRe
         targetY = transform.position.y;
     }
 
-    /// <summary>
+    
     /// Maneja el estado de entrada y actualiza el objetivo de movimiento.
-    /// </summary>
+    
     void Update()
     {
         if (isEntering)
@@ -90,9 +90,9 @@ public class HOEnemyVerticalFollow : MonoBehaviour, IHOScalableEnemy, IHOEnemyRe
         MoveToTarget();
     }
 
-    /// <summary>
+    
     /// Actualiza la altura objetivo proyectando un rayo hacia abajo.
-    /// </summary>
+    
     void UpdateTargetPlatform()
     {
         RaycastHit2D hit = Physics2D.Raycast(player.position, Vector2.down, raycastDist, platformLayer);
@@ -107,9 +107,9 @@ public class HOEnemyVerticalFollow : MonoBehaviour, IHOScalableEnemy, IHOEnemyRe
         }
     }
 
-    /// <summary>
+    
     /// Mueve al enemigo suavemente hacia la altura objetivo.
-    /// </summary>
+    
     void MoveToTarget()
     {
         Vector3 cntPos = transform.position;
@@ -120,9 +120,9 @@ public class HOEnemyVerticalFollow : MonoBehaviour, IHOScalableEnemy, IHOEnemyRe
         transform.position = new Vector3(posFijaX, newY, cntPos.z);
     }
 
-    /// <summary>
+    
     /// Ajusta la dificultad escalando el daño, velocidad y recompensas.
-    /// </summary>
+    
     public void SetDifficulty(int level)
     {
         danioActual = Mathf.Min(danioBase + level * incrementoDanio, danioMaximo);
@@ -131,9 +131,9 @@ public class HOEnemyVerticalFollow : MonoBehaviour, IHOScalableEnemy, IHOEnemyRe
         timeActual = Mathf.Min(timeBase + level * incrementoTime, timeMaximo);
     }
 
-    /// <summary>
+    
     /// Mueve al enemigo a la posición inicial en pantalla.
-    /// </summary>
+    
     void Entering()
     {
         float newX = Mathf.MoveTowards(transform.position.x, posFijaX, velocidad * Time.deltaTime);
@@ -146,17 +146,17 @@ public class HOEnemyVerticalFollow : MonoBehaviour, IHOScalableEnemy, IHOEnemyRe
         }
     }
     
-    /// <summary>
+    
     /// Devuelve la cantidad de monedas como recompensa.
-    /// </summary>
+    
     public int GetCoinsReward()
     {
         return coinsActuales;
     }
 
-    /// <summary>
+    
     /// Devuelve el tiempo extra como recompensa.
-    /// </summary>
+    
     public float GetTimeReward()
     {
         return timeActual;

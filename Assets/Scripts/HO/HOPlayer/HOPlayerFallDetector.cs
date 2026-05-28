@@ -1,9 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
-/// <summary>
+
 /// Detecta si el jugador cae fuera de los límites de la pantalla.
-/// </summary>
+
 public class HOPlayerFallDetector : MonoBehaviour
 {
     private float fallMargin = 1f;
@@ -13,17 +13,17 @@ public class HOPlayerFallDetector : MonoBehaviour
 
     public bool IsInvulnerable {get{return isInvulnerable;}}
 
-    /// <summary>
+    
     /// Obtiene el componente Rigidbody2D al iniciar.
-    /// </summary>
+    
     void Awake()
     {
         rig = GetComponent<Rigidbody2D>();
     }
 
-    /// <summary>
+    
     /// Comprueba si el jugador ha caído por debajo del límite de la cámara.
-    /// </summary>
+    
     void Update()
     {
         if (isFalling) 
@@ -38,9 +38,9 @@ public class HOPlayerFallDetector : MonoBehaviour
         }
     }
 
-    /// <summary>
+    
     /// Resta vida al jugador cuando cae.
-    /// </summary>
+    
     void HandleFall()
     {
         isFalling = true;
@@ -57,9 +57,9 @@ public class HOPlayerFallDetector : MonoBehaviour
         }
     }
 
-    /// <summary>
+    
     /// Reposiciona al jugador e inicia su invulnerabilidad.
-    /// </summary>
+    
     void Respawn()
     {
         Vector3 respawnPos = findRespawnPos();
@@ -74,18 +74,18 @@ public class HOPlayerFallDetector : MonoBehaviour
         isFalling = false;
     }
 
-    /// <summary>
+    
     /// Encuentra una posición de reaparición basada en la cámara.
-    /// </summary>
+    
     Vector3 findRespawnPos()
     {
         Vector3 cameraCenter = HOScrollingCamera.Instance.transform.position;
         return new Vector3(cameraCenter.x, cameraCenter.y, 0f);
     }
 
-    /// <summary>
+    
     /// Corrutina para otorgar invulnerabilidad temporal después de reaparecer.
-    /// </summary>
+    
     IEnumerator invulnerable()
     {
         isInvulnerable = true;

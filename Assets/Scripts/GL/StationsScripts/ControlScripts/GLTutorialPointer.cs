@@ -1,8 +1,8 @@
 using UnityEngine;
 
-/// <summary>
+
 /// Controla la animación de un cursor de tutorial que se mueve entre dos puntos.
-/// </summary>
+
 public class GLTutorialPointer : MonoBehaviour
 {
     [Header("Referencias de Posición")]
@@ -12,9 +12,9 @@ public class GLTutorialPointer : MonoBehaviour
     [Header("Ajustes de Animación")]
     public float speed = 2f;
 
-    /// <summary>
+    
     /// Actualiza la posición y transparencia del cursor interpolando entre los puntos de inicio y fin.
-    /// </summary>
+    
     void Update()
     {
         if (startPoint == null || endPoint == null) return;

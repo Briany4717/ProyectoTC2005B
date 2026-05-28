@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using UnityEditor.Rendering.Universal;
 using Unity.VisualScripting;
 
-/// <summary>
+
 /// Gestiona la visualización en la interfaz de usuario para una orden específica.
-/// </summary>
+
 public class OrderUI : MonoBehaviour
 {
     public OrderData CurrentOrderData { get; private set; }
@@ -22,9 +22,9 @@ public class OrderUI : MonoBehaviour
 
     private List<StationStepUI> stationSteps = new List<StationStepUI>();
 
-    /// <summary>
+    
     /// Configura y muestra los datos iniciales de una nueva orden.
-    /// </summary>
+    
     public void InitializeOrder(OrderData order)
     {
         CurrentOrderData = order;
@@ -47,9 +47,9 @@ public class OrderUI : MonoBehaviour
         }
     }
 
-    /// <summary>
+    
     /// Intenta marcar como completada una estación si pertenece a esta orden.
-    /// </summary>
+    
     public bool TryCompleteStation(StationData finishedStation)
     {
         for (int i = 0; i < CurrentOrderData.requiredStations.Count; i++)
@@ -64,9 +64,9 @@ public class OrderUI : MonoBehaviour
         return false;
     }
 
-    /// <summary>
+    
     /// Actualiza visualmente el progreso de una estación específica en la UI.
-    /// </summary>
+    
     public void UpdateStationProgress(int stationIndex)
     {
         if (stationIndex >= 0 && stationIndex < stationSteps.Count)
@@ -75,17 +75,17 @@ public class OrderUI : MonoBehaviour
         }
     }
 
-    /// <summary>
+    
     /// Cambia el color de fondo para indicar si la orden está seleccionada o no.
-    /// </summary>
+    
     public void SetSelected(bool isSelected)
     {
         imageBackground.color = isSelected ? selectedColor : normalColor;
     }
 
-    /// <summary>
+    
     /// Comprueba si se han completado todas las estaciones de esta orden.
-    /// </summary>
+    
     public bool IsOrderCompleted()
     {
         for (int i = 0; i < stationSteps.Count; i++)

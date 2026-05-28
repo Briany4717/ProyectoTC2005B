@@ -3,9 +3,9 @@ using UnityEngine.UI;
 using System.Collections;
 using TMPro;
 
-/// <summary>
+
 /// Controla la animación de un botón o tecla alternando entre dos sprites e interactuando con su texto.
-/// </summary>
+
 public class KeyLoopAnimation : MonoBehaviour
 {
     public Sprite normalSprite;
@@ -20,9 +20,9 @@ public class KeyLoopAnimation : MonoBehaviour
     private Color originalTextColor;
     private Vector3 originalTextScale;
 
-    /// <summary>
+    
     /// Inicializa los componentes, guarda los valores originales e inicia la corrutina de animación.
-    /// </summary>
+    
     void Start()
     {
         imageComponent = GetComponent<Image>();
@@ -38,9 +38,9 @@ public class KeyLoopAnimation : MonoBehaviour
         StartCoroutine(AnimateKey());
     }
 
-    /// <summary>
+    
     /// Corrutina que alterna cíclicamente los estados visuales del botón y del texto.
-    /// </summary>
+    
     IEnumerator AnimateKey()
     {
         while (true)

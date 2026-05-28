@@ -5,16 +5,16 @@ using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-/// <summary>
+
 /// Gestiona la creación, selección y entrega de las órdenes del juego.
-/// </summary>
+
 public class OrderManager : MonoBehaviour
 {
     public static OrderManager Instance { get; private set; }
 
-    /// <summary>
+    
     /// Establece el patrón Singleton para la clase.
-    /// </summary>
+    
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -27,9 +27,9 @@ public class OrderManager : MonoBehaviour
         }
     }
 
-    /// <summary>
+    
     /// Inicia la generación automática de órdenes.
-    /// </summary>
+    
     private void Start()
     {
         startOrderGenerator();
@@ -51,9 +51,9 @@ public class OrderManager : MonoBehaviour
     private OrderUI currentSelectedOrder;
     private List<OrderUI> activeOrders = new List<OrderUI>();
 
-    /// <summary>
+    
     /// Verifica la entrada del teclado para seleccionar las órdenes activas.
-    /// </summary>
+    
     private void Update()
     {
         if (Keyboard.current.digit1Key.wasPressedThisFrame) SelectOrder(0);
@@ -63,9 +63,9 @@ public class OrderManager : MonoBehaviour
         if (Keyboard.current.digit5Key.wasPressedThisFrame) SelectOrder(4);
     }
 
-    /// <summary>
+    
     /// Marca visualmente una orden específica como seleccionada.
-    /// </summary>
+    
     public void SelectOrder(OrderUI newOrder)
     {
         if (currentSelectedOrder != null)
@@ -83,9 +83,9 @@ public class OrderManager : MonoBehaviour
         GLSFXManager.Instance.PlaySFX(GLSFXManager.Instance.PaperSound);
     }
 
-    /// <summary>
+    
     /// Selecciona una orden activa en base a su índice.
-    /// </summary>
+    
     private void SelectOrder(int index)
     {
         if (index >= 0 && index < activeOrders.Count)
@@ -94,9 +94,9 @@ public class OrderManager : MonoBehaviour
         }
     }
 
-    /// <summary>
+    
     /// Verifica si una estación completada corresponde a la orden seleccionada.
-    /// </summary>
+    
     public void OnPlayerCompletedStation(StationData stationCompleted)
     {
         if (selectedOrderIndex >= 0 && selectedOrderIndex < activeOrders.Count)
@@ -119,9 +119,9 @@ public class OrderManager : MonoBehaviour
         }
     }
 
-    /// <summary>
+    
     /// Entrega una orden completada, otorga puntos y la elimina de la pantalla.
-    /// </summary>
+    
     public void DeliverOrder(OrderUI targetOrder)
     {
         Debug.Log("Se completó la orden!!!");
@@ -142,9 +142,9 @@ public class OrderManager : MonoBehaviour
         }
     }
 
-    /// <summary>
+    
     /// Genera una nueva orden aleatoria con íconos y estaciones requeridas.
-    /// </summary>
+    
     public void GenerateRandomOrder()
     {
         OrderData newOrder = new OrderData();
@@ -173,18 +173,18 @@ public class OrderManager : MonoBehaviour
         }
     }
 
-    /// <summary>
+    
     /// Comienza la corrutina de generación de órdenes por tiempo.
-    /// </summary>
+    
     public void startOrderGenerator()
     {
         GenerateRandomOrder();
         StartCoroutine(TimeOrderGenerator());
     }
 
-    /// <summary>
+    
     /// Genera nuevas órdenes aleatorias periódicamente si no se ha alcanzado el límite.
-    /// </summary>
+    
     IEnumerator TimeOrderGenerator()
     {
         if (activeOrders.Count < 5)

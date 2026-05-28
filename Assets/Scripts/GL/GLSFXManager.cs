@@ -1,8 +1,8 @@
 using UnityEngine;
 
-/// <summary>
+
 /// Administra la reproducción de música de fondo y efectos de sonido.
-/// </summary>
+
 public class GLSFXManager : MonoBehaviour
 {
     [Header("------- Audio Source ---------")]
@@ -22,9 +22,9 @@ public class GLSFXManager : MonoBehaviour
 
     public static GLSFXManager Instance;
 
-    /// <summary>
+    
     /// Configura el Singleton asegurando que solo haya un administrador de audio.
-    /// </summary>
+    
     private void Awake()
     {
         if (Instance == null)
@@ -37,18 +37,18 @@ public class GLSFXManager : MonoBehaviour
         }
     }
 
-    /// <summary>
+    
     /// Reproduce la música de fondo al iniciar el componente.
-    /// </summary>
+    
     private void Start()
     {
         musicSource.clip = background;
         musicSource.Play();
     }
 
-    /// <summary>
+    
     /// Reproduce un efecto de sonido específico una sola vez.
-    /// </summary>
+    
     public void PlaySFX(AudioClip clip)
     {
         SFXSource.PlayOneShot(clip);

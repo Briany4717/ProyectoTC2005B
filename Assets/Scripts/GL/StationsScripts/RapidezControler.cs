@@ -7,9 +7,9 @@ using System.Text;
 using System;
 using UnityEngine.EventSystems;
 
-/// <summary>
+
 /// Controlador de la estación de juego de mecanografía rápida.
-/// </summary>
+
 public class RapidezControler : MonoBehaviour
 {
     [SerializeField] public TextMeshProUGUI wordOutput;
@@ -27,9 +27,9 @@ public class RapidezControler : MonoBehaviour
     {
     }
 
-    /// <summary>
+    
     /// Configura y comienza el juego de rapidez para una estación dada.
-    /// </summary>
+    
     public void SetRapidezGame(StationData station)
     {
         currentStation = station;
@@ -37,9 +37,9 @@ public class RapidezControler : MonoBehaviour
         StartCoroutine(InitializeGameWhenReady());
     }
 
-    /// <summary>
+    
     /// Espera a que el banco de palabras esté listo antes de inicializar el juego.
-    /// </summary>
+    
     private IEnumerator InitializeGameWhenReady()
     {
         if (wordBank == null)
@@ -60,9 +60,9 @@ public class RapidezControler : MonoBehaviour
         }
     }
 
-    /// <summary>
+    
     /// Mantiene el enfoque en el campo de entrada mientras el juego está activo.
-    /// </summary>
+    
     private void Update()
     {
         if (isGameActive && inputField != null)
@@ -74,18 +74,18 @@ public class RapidezControler : MonoBehaviour
         }
     }
 
-    /// <summary>
+    
     /// Obtiene y configura la palabra actual a escribir.
-    /// </summary>
+    
     private void SetCurrenWord()
     {
         PromptData prompt = wordBank.GetPrompt();
         //SetRemainingWord(prompt.contenido, prompt.titulo);
     }
 
-    /// <summary>
+    
     /// Inicializa la visualización de la palabra restante y su título.
-    /// </summary>
+    
     private void SetRemainingWord(string newString, string titulo)
     {
         currentWord = NormalizeText(newString);
@@ -96,9 +96,9 @@ public class RapidezControler : MonoBehaviour
         tituloField.text = titulo;
     }
 
-    /// <summary>
+    
     /// Finaliza la actividad y limpia los eventos del campo de entrada.
-    /// </summary>
+    
     private void OnDisable()
     {
         isGameActive = false;
@@ -108,9 +108,9 @@ public class RapidezControler : MonoBehaviour
         }
     }
 
-    /// <summary>
+    
     /// Maneja los cambios de texto en el campo de entrada.
-    /// </summary>
+    
     private void OnInputFieldValueChanged(string newText)
     {
         if (string.IsNullOrEmpty(newText)) return;
@@ -136,9 +136,9 @@ public class RapidezControler : MonoBehaviour
         }
     }
 
-    /// <summary>
+    
     /// Finaliza el minijuego de rapidez y notifica el éxito.
-    /// </summary>
+    
     private void EndGame()
     {
         isGameActive = false;
@@ -151,9 +151,9 @@ public class RapidezControler : MonoBehaviour
         OrderManager.Instance.OnPlayerCompletedStation(currentStation);
     }
 
-    /// <summary>
+    
     /// Verifica si la letra ingresada es correcta.
-    /// </summary>
+    
     private bool IsCorrectLetter(string letter)
     {
         if (string.IsNullOrEmpty(remainingWord)) return false;
@@ -163,9 +163,9 @@ public class RapidezControler : MonoBehaviour
         return string.Equals(firstLetter, letter, StringComparison.Ordinal);
     }
 
-    /// <summary>
+    
     /// Elimina la primera letra de la palabra restante y actualiza la vista.
-    /// </summary>
+    
     private void RemoveLetter()
     {
         if (string.IsNullOrEmpty(remainingWord)) return;
@@ -177,9 +177,9 @@ public class RapidezControler : MonoBehaviour
         UpdateWordDisplay();
     }
 
-    /// <summary>
+    
     /// Actualiza la visualización de la palabra resaltando las letras correctas.
-    /// </summary>
+    
     private void UpdateWordDisplay()
     {
         int typedLength = currentWord.Length - remainingWord.Length;
@@ -187,17 +187,17 @@ public class RapidezControler : MonoBehaviour
         wordOutput.text = $"<color=green>{typedPart}</color>{remainingWord}";
     }
 
-    /// <summary>
+    
     /// Comprueba si se ha terminado de escribir la palabra.
-    /// </summary>
+    
     private bool IsWordComplete()
     {
         return remainingWord.Length == 0;
     }
 
-    /// <summary>
+    
     /// Normaliza el texto ingresado.
-    /// </summary>
+    
     private static string NormalizeText(string text)
     {
         if (string.IsNullOrEmpty(text)) return text;

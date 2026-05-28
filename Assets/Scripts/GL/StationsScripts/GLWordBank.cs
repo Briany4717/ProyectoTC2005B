@@ -7,9 +7,9 @@ using TMPro;
 using Newtonsoft.Json;
 using UnityEditor.Experimental.GraphView;
 
-/// <summary>
+
 /// Gestiona la carga y distribución de palabras o frases obtenidas desde una API.
-/// </summary>
+
 public class GLWordBank : MonoBehaviour
 {
     private List<PromptData> promptInfo = new List<PromptData>();
@@ -18,17 +18,17 @@ public class GLWordBank : MonoBehaviour
 
     public bool IsReady => isLoaded;
 
-    /// <summary>
+    
     /// Registra en consola el total de prompts cargados.
-    /// </summary>
+    
     void Update()
     {
         Debug.Log("Prompts jalados: " + promptInfo.Count);
     }
 
-    /// <summary>
+    
     /// Obtiene información de prompts consumiendo una API externa.
-    /// </summary>
+    
     private void GetPromptsFromAPI()
     {
         ApiManager.Instance.Get("glotonesPromptInformation",
@@ -46,17 +46,17 @@ public class GLWordBank : MonoBehaviour
         );
     }
 
-    /// <summary>
+    
     /// Inicia la carga de datos de la API al despertar el objeto.
-    /// </summary>
+    
     void Awake()
     {
         GetPromptsFromAPI();
     }
 
-    /// <summary>
+    
     /// Mezcla de forma aleatoria una lista de prompts.
-    /// </summary>
+    
     private void Shuffle(List<PromptData> list)
     {
         for (int i = 0; i < list.Count; i++)
@@ -68,9 +68,9 @@ public class GLWordBank : MonoBehaviour
         }
     }
 
-    /// <summary>
+    
     /// Retorna un prompt disponible de la lista activa y lo remueve.
-    /// </summary>
+    
     public PromptData GetPrompt()
     {
         PromptData newPrompt = new PromptData();

@@ -1,8 +1,8 @@
 using UnityEngine;
 
-/// <summary>
+
 /// Controla la aparición de enemigos y aumenta su dificultad progresivamente.
-/// </summary>
+
 public class HOEnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
@@ -18,18 +18,18 @@ public class HOEnemySpawner : MonoBehaviour
 
     private int currentDifficultyLevel;
 
-    /// <summary>
+    
     /// Inicializa la dificultad y genera el primer enemigo.
-    /// </summary>
+    
     void Start()
     {
         currentDifficultyLevel = 0;
         SpawnEnemy();
     }
 
-    /// <summary>
+    
     /// Verifica si el enemigo actual fue destruido para iniciar el temporizador de reaparición.
-    /// </summary>
+    
     void Update()
     {
         if (currentEnemy == null && !waitingToRespawn)
@@ -49,9 +49,9 @@ public class HOEnemySpawner : MonoBehaviour
         }
     }
 
-    /// <summary>
+    
     /// Instancia un nuevo enemigo y ajusta su dificultad.
-    /// </summary>
+    
     void SpawnEnemy()
     {
         Vector3 spawnPos = GetSpawnPosition();
@@ -64,9 +64,9 @@ public class HOEnemySpawner : MonoBehaviour
         currentDifficultyLevel++;
     }
 
-    /// <summary>
+    
     /// Calcula la posición de aparición basada en la cámara o posición actual.
-    /// </summary>
+    
     Vector3 GetSpawnPosition()
     {
         float spawnY;
@@ -81,9 +81,9 @@ public class HOEnemySpawner : MonoBehaviour
         return new Vector3(spawnX, spawnY, 0f);
     }
 
-    /// <summary>
+    
     /// Reduce la dificultad actual en un porcentaje dado.
-    /// </summary>
+    
     public void ReduceDifficulty(float percent)
     {
         percent = Mathf.Clamp01(percent);

@@ -3,9 +3,9 @@ using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 
-/// <summary>
+
 /// Gestiona la interacción de arrastrar y soltar objetos de interfaz (Drag and Drop).
-/// </summary>
+
 public class GLDragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
     private RectTransform rectTransform;
@@ -14,18 +14,18 @@ public class GLDragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     private Transform initialParent;
     private bool wasDroppedOnValidZone = false;
 
-    /// <summary>
+    
     /// Inicializa las referencias a los componentes visuales del elemento arrastrable.
-    /// </summary>
+    
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
     }
 
-    /// <summary>
+    
     /// Configura el estado inicial al comenzar el arrastre del objeto.
-    /// </summary>
+    
     public void OnBeginDrag(PointerEventData eventData)
     {
         Debug.Log("OnBeginDrag!!");
@@ -35,18 +35,18 @@ public class GLDragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         initialParent = transform.parent;
     }
 
-    /// <summary>
+    
     /// Actualiza la posición en pantalla durante el arrastre basado en el movimiento del cursor.
-    /// </summary>
+    
     public void OnDrag(PointerEventData eventData)
     {
         Debug.Log("OnDrag!!");
         rectTransform.anchoredPosition += eventData.delta;
     }
 
-    /// <summary>
+    
     /// Restablece el estado visual y comprueba si se soltó en una zona válida.
-    /// </summary>
+    
     public void OnEndDrag(PointerEventData eventData)
     {
         Debug.Log("OnEndDrag!!");
@@ -59,9 +59,9 @@ public class GLDragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         }
     }
 
-    /// <summary>
+    
     /// Selecciona la orden interactuada reproduciendo su sonido al hacer clic sobre ella.
-    /// </summary>
+    
     public void OnPointerDown(PointerEventData eventData)
     {
         Debug.Log("Order pressed!!");
@@ -70,18 +70,18 @@ public class GLDragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         GLSFXManager.Instance.PlaySFX(GLSFXManager.Instance.PaperSound);
     }
 
-    /// <summary>
+    
     /// Devuelve el objeto a su posición original si el arrastre no fue exitoso.
-    /// </summary>
+    
     public void ReturnToStart()
     {
         transform.SetParent(initialParent, false);
         rectTransform.anchoredPosition = initialAnchoredPosition;
     }
 
-    /// <summary>
+    
     /// Marca el objeto como depositado en una zona correcta, evitando que regrese a su origen.
-    /// </summary>
+    
     public void MarkAsDropped()
     {
         wasDroppedOnValidZone = true;

@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
+
 /// Estructura de datos que define los elementos requeridos y el progreso de una orden.
-/// </summary>
+
 [System.Serializable]
 public class OrderData
 {

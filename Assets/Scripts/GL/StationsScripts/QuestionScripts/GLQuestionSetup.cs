@@ -3,9 +3,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
+
 /// Gestiona la lógica y visualización del minijuego de preguntas.
-/// </summary>
+
 public class GLQuestionSetup : MonoBehaviour
 {
     [SerializeField] private List<QuestionData> questions;
@@ -18,9 +18,9 @@ public class GLQuestionSetup : MonoBehaviour
 
     StationData currentStation;
 
-    /// <summary>
+    
     /// Carga las preguntas y oculta la imagen de error.
-    /// </summary>
+    
     private void Awake()
     {
         GetQuestionAssets();
@@ -31,9 +31,9 @@ public class GLQuestionSetup : MonoBehaviour
     {
     }
 
-    /// <summary>
+    
     /// Abre la pregunta actual al interactuar con una estación.
-    /// </summary>
+    
     public void OpenQuestion(StationData station)
     {
         currentStation = station;
@@ -41,18 +41,18 @@ public class GLQuestionSetup : MonoBehaviour
         this.gameObject.SetActive(true);
     }
 
-    /// <summary>
+    
     /// Ejecuta la lógica cuando se elige la respuesta correcta.
-    /// </summary>
+    
     public void CorrectAnswer()
     {
         GLMenusStationsManager.Instance.CloseAllMenus();
         OrderManager.Instance.OnPlayerCompletedStation(currentStation);
     }
 
-    /// <summary>
+    
     /// Ejecuta la lógica de error y reproducción de sonido al fallar.
-    /// </summary>
+    
     public void WrongAnswer()
     {
         Debug.Log("Respuesta incorrecta. Inténtalo de nuevo.");
@@ -60,9 +60,9 @@ public class GLQuestionSetup : MonoBehaviour
         ShowError();
     }
 
-    /// <summary>
+    
     /// Muestra un indicador visual de error por un tiempo breve.
-    /// </summary>
+    
     public void ShowError()
     {
         errorImage.gameObject.SetActive(true);
@@ -70,17 +70,17 @@ public class GLQuestionSetup : MonoBehaviour
         Invoke("HideError", 1f);
     }
 
-    /// <summary>
+    
     /// Oculta el indicador visual de error.
-    /// </summary>
+    
     public void HideError()
     {
         errorImage.gameObject.SetActive(false);
     }
 
-    /// <summary>
+    
     /// Prepara y muestra una nueva pregunta en pantalla.
-    /// </summary>
+    
     public void LoadNewQuestion()
     {
         SelectNewQuestion();
@@ -88,17 +88,17 @@ public class GLQuestionSetup : MonoBehaviour
         SetAnswerValues();
     }
 
-    /// <summary>
+    
     /// Obtiene los datos de las preguntas de la carpeta de recursos.
-    /// </summary>
+    
     private void GetQuestionAssets()
     {
         questions = new List<QuestionData>(Resources.LoadAll<QuestionData>("Questions"));
     }
 
-    /// <summary>
+    
     /// Selecciona aleatoriamente una pregunta de la lista y la elimina.
-    /// </summary>
+    
     private void SelectNewQuestion()
     {
         int randomQuestionIndex = Random.Range(0, questions.Count);
@@ -106,17 +106,17 @@ public class GLQuestionSetup : MonoBehaviour
         questions.RemoveAt(randomQuestionIndex);
     }
 
-    /// <summary>
+    
     /// Configura el texto de la pregunta actual.
-    /// </summary>
+    
     private void SetQuestionValues()
     {
         questionText.text = currentQuestion.question;
     }
 
-    /// <summary>
+    
     /// Configura los botones con respuestas aleatorizadas.
-    /// </summary>
+    
     private void SetAnswerValues()
     {
         List<string> answers = RandomizeAnswer(new List<string>(currentQuestion.answers));
@@ -132,9 +132,9 @@ public class GLQuestionSetup : MonoBehaviour
         }
     }
 
-    /// <summary>
+    
     /// Aleatoriza el orden de las respuestas para evitar patrones.
-    /// </summary>
+    
     private List<string> RandomizeAnswer(List<string> originalList)
     {
         bool correctAnswerChosen = false;

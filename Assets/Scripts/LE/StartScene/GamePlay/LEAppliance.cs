@@ -59,17 +59,17 @@ public class LEAppliance : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         currentState = ApplianceState.OnConveyor;
     }
 
-    /// <summary>
+    
     /// Asigna el nuevo objetivo en la cola calculado por el ConveyorManager.
-    /// </summary>
+    
     public void SetTargetPosition(Vector3 newTarget)
     {
         targetPosition = newTarget;
     }
 
-    /// <summary>
+    
     /// ¡REINTEGRADA!: Controla el estado de pausa individual para detener actualizaciones e interacciones.
-    /// </summary>
+    
     public void SetPauseState(bool paused)
     {
         isPaused = paused;

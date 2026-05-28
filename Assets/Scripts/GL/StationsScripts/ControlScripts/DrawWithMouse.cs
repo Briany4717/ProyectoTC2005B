@@ -3,9 +3,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 
-/// <summary>
+
 /// Permite dibujar una línea interactiva siguiendo el movimiento del cursor.
-/// </summary>
+
 public class DrawWithMouse : MonoBehaviour
 {
     public GameObject tutorialPointer;
@@ -15,9 +15,9 @@ public class DrawWithMouse : MonoBehaviour
     [SerializeField] private float minDistance = 0.1f;
     [SerializeField, Range(0.1f, 2f)] private float width;
 
-    /// <summary>
+    
     /// Inicializa las propiedades de la línea y muestra el puntero del tutorial.
-    /// </summary>
+    
     private void Start()
     {
         line = GetComponent<LineRenderer>();
@@ -29,9 +29,9 @@ public class DrawWithMouse : MonoBehaviour
         tutorialPointer.SetActive(true);
     }
 
-    /// <summary>
+    
     /// Configura el punto de inicio de la línea dibujada.
-    /// </summary>
+    
     public void StartLine(Vector2 position)
     {
         line.positionCount = 1;
@@ -39,9 +39,9 @@ public class DrawWithMouse : MonoBehaviour
         previousPosition = position;
     }
 
-    /// <summary>
+    
     /// Actualiza la línea agregando nuevos puntos mientras el usuario presiona el mouse.
-    /// </summary>
+    
     public void UpdateLine()
     {
         if (Mouse.current != null && Mouse.current.leftButton.isPressed)
@@ -68,9 +68,9 @@ public class DrawWithMouse : MonoBehaviour
         }
     }
 
-    /// <summary>
+    
     /// Borra la línea actual reiniciando su conteo de puntos.
-    /// </summary>
+    
     public void ClearLine()
     {
         Debug.Log("borraste la linea");
@@ -79,9 +79,9 @@ public class DrawWithMouse : MonoBehaviour
         previousPosition = transform.position;
     }
 
-    /// <summary>
+    
     /// Realiza un pequeño movimiento inicial para evitar problemas visuales en la línea.
-    /// </summary>
+    
     private IEnumerator DelayedNudge()
     {
         yield return null;
