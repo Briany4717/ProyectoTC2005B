@@ -38,23 +38,14 @@ public class LEConveyorManager : MonoBehaviour
         
         if (LEGameSessionData.Instance.isGameInProgress)
         {
-            // 1. Restauramos telemetría básica
             gameTimer = LEGameSessionData.Instance.remainingTime;
             repairedCount = LEGameSessionData.Instance.repairedCount;
             discardedCount = LEGameSessionData.Instance.discardedCount;
             
-            // 2. Recuperamos el conteo histórico total de spawns exacto de la sesión
             currentSpawnedCount = LEGameSessionData.Instance.totalSpawnedCount;
             
             gameActive = true;
             UpdateScoreUI();
-            
-            // ====================================================================
-            // 🛠️ ALGORITMO DE RECONSTRUCCIÓN DE COLA DE ALTO RENDIMIENTO  
-            // Calculamos cuántos aparatos se quedaron esperando fila en la cinta 
-            // antes de irnos a la otra escena. El cálculo matemático exacto es:
-            // ConteoHistórico - YaReparados - YaDescartados
-            // ====================================================================
             int appliancesLeftWaiting = currentSpawnedCount - repairedCount - discardedCount;
             
             for (int i = 0; i < appliancesLeftWaiting; i++)
@@ -62,11 +53,8 @@ public class LEConveyorManager : MonoBehaviour
                 ReconstructApplianceOnConveyor();
             }
 
-            // 3. REGLA DE ORO: Como acabamos de completar una reparación con éxito,
-            // la cinta transportadora debe escupir el siguiente objeto de reemplazo de inmediato
             SpawnNewAppliance();
             
-            Debug.Log("🔌 [Session Restored] Cola reconstruida y nuevo spawn inyectado.");
         }
         else
         {
@@ -101,13 +89,9 @@ public class LEConveyorManager : MonoBehaviour
         UpdateScoreUI();
         SpawnNewAppliance(); 
 
-        // Sincronizamos el conteo inicial en el contenedor estático
         LEGameSessionData.Instance.totalSpawnedCount = currentSpawnedCount;
     }
 
-    /// <summary>
-    /// Reconstruye un aparato de la fila vieja sin alterar ni duplicar el conteo histórico general.
-    /// </summary>
     private void ReconstructApplianceOnConveyor()
     {
         if (objectPool.Count > 0)
@@ -133,7 +117,6 @@ public class LEConveyorManager : MonoBehaviour
             
             currentSpawnedCount++;
             
-            // ¡VITAL!: Guardamos el nuevo conteo en el puente estático para el siguiente viaje  
             LEGameSessionData.Instance.totalSpawnedCount = currentSpawnedCount;
             
             UpdateQueuePositions();
@@ -152,7 +135,7 @@ public class LEConveyorManager : MonoBehaviour
     public float GetRemainingTime() => gameTimer;
     public int GetRepairedCount() => repairedCount;
     public int GetDiscardedCount() => discardedCount;
-    public int GetTotalSpawnedCount() => currentSpawnedCount; // Getter expuesto
+    public int GetTotalSpawnedCount() => currentSpawnedCount;
 
     void Update()
     {

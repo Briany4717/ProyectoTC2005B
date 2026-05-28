@@ -1176,7 +1176,7 @@ MonoBehaviour:
         m_Calls: []
   - dialogueText: "Mi taller de reparaciones est\xE1 un poco... colapsado, y necesito
       que me eches una mano para revivir estos aparatos. \xA1Prep\xE1rate, porque
-      hoy nos toca chambear duro! "
+      hoy nos toca trabajar duro! "
     delayBeforeStep: 0
     delayBeforeText: 0
     stepAudio: {fileID: 8300000, guid: eec23be66695b4dbc89e84ebf9f5cc08, type: 3}
@@ -1272,7 +1272,7 @@ MonoBehaviour:
   - dialogueText: "Si el reloj se pone tenso y sientes que un aparato te va a arruinar
       la racha, no te preocupes, no es un evento can\xF3nico. \xA1Puedes mandarlo
       directo a la caja de descartes! A veces toca decir \"siguiente\" y avanzar
-      de chill. "
+      tranquilo. "
     delayBeforeStep: 0
     delayBeforeText: 0
     stepAudio: {fileID: 8300000, guid: eec23be66695b4dbc89e84ebf9f5cc08, type: 3}
@@ -1353,7 +1353,7 @@ MonoBehaviour:
         m_Calls: []
   - dialogueText: "Muy bien, ya te la sabes. El dise\xF1o de este taller es de alto
       rendimiento, \xA1as\xED que demuestra de lo que eres capaz! \xBFListo para
-      iniciar la simulaci\xF3n? \xA1Dale jugar y que empiecen los chispazos!"
+      iniciar la simulaci\xF3n? \xA1Vamos a Jugar!... ejm... digo... trabajar. "
     delayBeforeStep: 0
     delayBeforeText: 0
     stepAudio: {fileID: 8300000, guid: eec23be66695b4dbc89e84ebf9f5cc08, type: 3}
@@ -1765,7 +1765,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Comenzar
+  m_text: Saltar
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 42947826955aa443f9315ae7f96b505e, type: 2}
   m_sharedMaterial: {fileID: 2725503652450396190, guid: 42947826955aa443f9315ae7f96b505e, type: 2}
@@ -1774,8 +1774,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278336000
-  m_fontColor: {r: 0.0010679982, g: 0.2264151, b: 0.009070921, a: 1}
+    rgba: 4281019179
+  m_fontColor: {r: 0.16981131, g: 0.16981131, b: 0.16981131, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5429,7 +5429,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1350013226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5473,7 +5473,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1350013227}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 164191467}
+        m_TargetAssemblyTypeName: LETutorialManager, Assembly-CSharp
+        m_MethodName: SkipTutorial
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1350013227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5487,7 +5499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.38714847, g: 0.9433962, b: 0.40812066, a: 1}
+  m_Color: {r: 0.8207547, g: 0.80914026, b: 0.80914026, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5529,8 +5541,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 277, y: -168}
-  m_SizeDelta: {x: 184.21, y: 57.24}
+  m_AnchoredPosition: {x: 344.96, y: 188.05}
+  m_SizeDelta: {x: 110.09, y: 57.24}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1367950595
 GameObject:

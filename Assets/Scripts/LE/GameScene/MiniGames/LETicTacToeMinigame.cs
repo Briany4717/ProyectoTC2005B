@@ -44,9 +44,6 @@ public class LETicTacToeMinigame : MonoBehaviour
         if (minigamePanel != null) minigamePanel.SetActive(false);
     }
 
-    /// <summary>
-    /// Punto de entrada principal disparado por el LERepairManager.
-    /// </summary>
     public void StartMinigame()
     {
         if (minigamePanel != null) minigamePanel.SetActive(true);
@@ -70,7 +67,6 @@ public class LETicTacToeMinigame : MonoBehaviour
 
     private IEnumerator DetermineStartingTurnRoutine()
     {
-        // Decisión aleatoria pura de quién arranca
         isPlayerTurn = Random.Range(0, 2) == 0;
 
         if (isPlayerTurn)
@@ -82,7 +78,6 @@ public class LETicTacToeMinigame : MonoBehaviour
             announcementTextMesh.text = "¡Inicia el rival!";
         }
 
-        // Retraso controlado inmune a pausas para leer el aviso
         float timer = 0f;
         while (timer < 1.5f)
         {
@@ -98,20 +93,15 @@ public class LETicTacToeMinigame : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Vincula esta función en el Inspector a los 9 botones usando el ID dinámico correspondiente (0 a 8).
-    /// </summary>
     public void OnClickGridCell(int cellIndex)
     {
         if (!isMinigameActive || !isPlayerTurn || boardState[cellIndex] != 0) return;
 
-        // 1. Registrar tiro del jugador
         boardState[cellIndex] = 1;
         if (gridImages[cellIndex] != null) gridImages[cellIndex].sprite = playerXSprite;
         gridButtons[cellIndex].interactable = false;
         totalMovesCount++;
 
-        // 2. Evaluar tablero
         if (CheckWinCondition(1))
         {
             EndMinigame(playerWon: true);
@@ -124,7 +114,6 @@ public class LETicTacToeMinigame : MonoBehaviour
             return;
         }
 
-        // 3. Pasar turno al bot
         isPlayerTurn = false;
         SetGridInteractivity(false);
         StartCoroutine(ExecuteBotTurnRoutine());
@@ -141,38 +130,27 @@ public class LETicTacToeMinigame : MonoBehaviour
             yield return null;
         }
 
-        // ====================================================================
-        // 🎛️ SELECTOR DE DIFICULTAD DINÁMICO POR PLAYERPREFS  
-        // 0 = Fácil (100% Random), 1 = Medio (50% Inteligente), 2 = Difícil (100% Inteligente)
-        // ====================================================================
-        int difficulty = PlayerPrefs.GetInt("LE_Minigames_Difficulty", 1); // Por defecto inicia en Medio (1)
+        int difficulty = PlayerPrefs.GetInt("LE_Minigames_Difficulty", 1);
         int targetCell = -1;
 
         if (difficulty == 2)
         {
-            // DIFICULTAD DIFÍCIL: Mente maestra impecable
-            targetCell = FindCriticalMove(2); // Intentar ganar
-            if (targetCell == -1) targetCell = FindCriticalMove(1); // Intentar bloquear
+            targetCell = FindCriticalMove(2);
+            if (targetCell == -1) targetCell = FindCriticalMove(1);
         }
         else if (difficulty == 1)
         {
-            // DIFICULTAD MEDIA: El bot tiene un 50% de probabilidad de jugar de forma brillante
             if (Random.value > 0.5f)
             {
-                targetCell = FindCriticalMove(2); // Intentar ganar
-                if (targetCell == -1) targetCell = FindCriticalMove(1); // Intentar bloquear
+                targetCell = FindCriticalMove(2);
+                if (targetCell == -1) targetCell = FindCriticalMove(1);
             }
         }
-        // NOTA: Si es Dificultad Fácil (0), se salta los checks e irá directo al tiro aleatorio inferior
-
-        // Fallback defensivo: Si es Fácil, falló el tiro de dados de la dificultad Media, 
-        // o simplemente no hay movimientos de peligro en el tablero, tira de forma aleatoria.
         if (targetCell == -1)
         {
             targetCell = GetRandomEmptyCell();
         }
 
-        // Registrar tiro final del bot
         boardState[targetCell] = 2;
         if (gridImages[targetCell] != null) gridImages[targetCell].sprite = botOSprite;
         gridButtons[targetCell].interactable = false;
@@ -190,7 +168,6 @@ public class LETicTacToeMinigame : MonoBehaviour
             yield break;
         }
 
-        // Devolver turno al jugador de forma fluida
         isPlayerTurn = true;
         announcementTextMesh.text = "¡Tu turno!";
         SetGridInteractivity(true);
@@ -257,7 +234,6 @@ public class LETicTacToeMinigame : MonoBehaviour
     {
         for (int i = 0; i < gridButtons.Length; i++)
         {
-            // Solo se vuelven interactuables las casillas vacías
             if (gridButtons[i] != null)
             {
                 gridButtons[i].interactable = state && (boardState[i] == 0);

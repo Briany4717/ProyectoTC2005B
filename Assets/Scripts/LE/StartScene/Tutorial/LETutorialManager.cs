@@ -239,26 +239,17 @@ public class LETutorialManager : MonoBehaviour
         EndTutorial();
         isTyping = false;
         isActionExecuting = false;
-        Debug.Log("Tutorial salteado por el usuario con éxito. (o^^)o");
+        Debug.Log("Tutorial salteado por el usuario");
     }
-
-    /// <summary>
-    /// Se ejecuta al consumir el último paso del tutorial.
-    /// </summary>
     private void EndTutorial()
     {
         if (chatBubbleContainer != null) chatBubbleContainer.gameObject.SetActive(false);
         if (dialogueTextMesh != null) dialogueTextMesh.text = "";
 
-        // CINEMÁTICA FINAL CONFIGURABLE  
         if (gellyController != null)
         {
-            // Ejecuta el salto parabólico unificado hacia el destino absoluto fijado en el Inspector
             gellyController.JumpTo(endTutorialTargetPosition, endTutorialCharacterTargetScale, () => 
             {
-                // =========================================================
-                // TRANSICIÓN REAL: Aquí gatillas la carga de escena o nivel real
-                // =========================================================
                 FindAnyObjectByType<LEConveyorManager>().InitializeConveyorGameplay();
                 tutorialPanel.SetActive(false);
             });
