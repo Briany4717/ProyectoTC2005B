@@ -15,7 +15,6 @@ public class PNPlayerFallDetector : MonoBehaviour
 
     public void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);        
         rig = GetComponent<Rigidbody2D>();
         gameController = FindAnyObjectByType<PNGameController>();
         sr = GetComponent<SpriteRenderer>();

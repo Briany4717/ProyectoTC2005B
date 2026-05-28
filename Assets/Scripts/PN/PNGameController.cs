@@ -11,22 +11,13 @@ public class PNGameController : MonoBehaviour
   
     public void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
+        Instance = this;
 
         StopAllCoroutines();
         PlayerPrefs.SetInt("Coins", 0);
         PlayerPrefs.SetInt("HuntedPrompts", 0);
         PlayerPrefs.SetInt("id_usuario", 1);
-        PlayerPrefs.SetInt("Win", 0); 
+        PlayerPrefs.SetInt("Win", 1); 
         SetReferences(); 
         sceneChanger = FindAnyObjectByType<PNSceneChanger>();
     }

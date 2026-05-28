@@ -36,9 +36,6 @@ public class PNFinalScene : MonoBehaviour
             if (background != null && loseSprite != null) background.sprite = loseSprite;
             if (PNSFXController.Instance != null) PNSFXController.Instance.PlayLoseMusic();
         }
-
-        PlayerPrefs.SetInt("Coins", 0);
-        PlayerPrefs.SetInt("HuntedPrompts", 0);
     }
 
 }
