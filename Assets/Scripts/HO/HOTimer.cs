@@ -8,6 +8,7 @@ public class HOTimer : MonoBehaviour
 
     public TextMeshProUGUI timertext;
     public float remainingtime;
+    public string scene;
 
     void Awake()
     {
@@ -47,6 +48,6 @@ public class HOTimer : MonoBehaviour
         {
             HOCoins.Instance.SaveCoins();
         }
-        SceneManager.LoadScene("HOEndScene");
+        SceneManager.LoadScene(scene);
     }
 }

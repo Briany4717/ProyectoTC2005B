@@ -35,5 +35,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HO/HOIntroScene.unity
     guid: 37ce96794ab865748aecb2c33bba1854
+  - enabled: 1
+    path: Assets/Scenes/PN/PNMainGame.unity
+    guid: 09249c2dc4b7d5542a5b4832e046d61f
+  - enabled: 1
+    path: Assets/Scenes/PN/PNFinalScene.unity
+    guid: 0555982af39847a479e219a4a8652063
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
