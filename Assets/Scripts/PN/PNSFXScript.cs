@@ -8,6 +8,25 @@ public class PNSFXController : MonoBehaviour
     public AudioClip hunt, charge, coin, fah;
     public AudioClip[] stageMusic;
 
+    public void StopMusic()
+    {
+        ASBackground.Stop();
+    }
+
+    public void PlayWinMusic()
+    {
+        ASBackground.clip = stageMusic[1];
+        ASBackground.loop = false;
+        ASBackground.Play();
+    }
+
+    public void PlayLoseMusic()
+    {
+        ASBackground.clip = stageMusic[2];
+        ASBackground.loop = false;
+        ASBackground.Play();
+    }
+
     private void Awake()
     {
         if (Instance == null)
