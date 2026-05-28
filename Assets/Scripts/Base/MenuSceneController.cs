@@ -30,4 +30,10 @@ public class MenuSceneController : MonoBehaviour
     {
         SceneManager.LoadScene("LEConveyorScene");
     }
+
+    public void GoToGC()
+    {
+        SceneManager.LoadScene("GCMenuPrincipal");
+    }
+    
 }
