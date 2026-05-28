@@ -105,7 +105,6 @@ public class LEFlappyMinigame : MonoBehaviour
         currentScore = 0;
         birdVerticalVelocity = 0f;
         
-        // El centinela inicia abajo: El mundo físico se congela temporalmente (o^^)o
         hasStarted = false; 
 
         if (birdRectTransform != null) 
