@@ -8035,6 +8035,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Sprite sheet for Basic Pack_316
+      rect:
+        serializedVersion: 2
+        x: 674
+        y: 32
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58000c9f4f3f34e9185b92883ae9bb43
+      internalID: 1926422739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -8291,6 +8313,7 @@ TextureImporter:
       Sprite sheet for Basic Pack_313: -8644539488467344900
       Sprite sheet for Basic Pack_314: -123669246465474846
       Sprite sheet for Basic Pack_315: 1870887884173457352
+      Sprite sheet for Basic Pack_316: 1926422739
       Sprite sheet for Basic Pack_32: 7705211433067917941
       Sprite sheet for Basic Pack_33: -7826805756446346755
       Sprite sheet for Basic Pack_34: 8862725565541780137

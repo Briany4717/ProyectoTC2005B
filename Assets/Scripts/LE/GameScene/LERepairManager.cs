@@ -60,7 +60,7 @@ public class LERepairManager : MonoBehaviour
     private Quaternion applianceOriginalRotation; 
     private Vector3 problemBubbleOriginalAnchoredPos;
     
-    private int currentTaskIndex = 0; // Marca el sub-paso activo de 0 a 2 (⌐■_■)
+    private int currentTaskIndex = 0;
     private bool isMatchActive = false;
     
     private int cachedMinutes = -1;
@@ -74,6 +74,8 @@ public class LERepairManager : MonoBehaviour
     [SerializeField] private LETicTacToeMinigame ticTacToeMinigame;
     [SerializeField] private LEHanoiMinigame hanoiMinigame;
     [SerializeField] private LEFlappyMinigame flappyMinigame;
+    [SerializeField] private GameObject[] instructionSteps;
+    private int instructionStepIndex = 0;
 
     void Start()
     {
@@ -124,7 +126,7 @@ public class LERepairManager : MonoBehaviour
     private IEnumerator AutomatedIntroFlowRoutine()
     {
         // El diálogo inicial de la escena lee estrictamente el texto del PASO 1 (Índice 0)
-        string activeIntroText = currentData.steps[0].gellyDialogue;
+        string activeIntroText = "¡Hora de Trabajar!";
 
         gellyIntroTextMesh.text = activeIntroText;
         gellyIntroTextMesh.maxVisibleCharacters = 0;
@@ -419,5 +421,42 @@ public class LERepairManager : MonoBehaviour
         if (currentState != RepairState.Paused) return;
         currentState = stateBeforePause;
         if (pausePanel != null) pausePanel.SetActive(false);
+    }
+
+    public void ShowInstructions()
+    {
+        if (instructionSteps.Length > 0)
+        {
+            instructionStepIndex = 0;
+            instructionSteps[0].SetActive(true);
+        }
+    }
+
+    public void CloseInsructions()
+    {
+        if (instructionSteps.Length > 0)
+        {
+            instructionSteps[instructionStepIndex].SetActive(false);
+        }
+    }
+
+    public void GoBackInstruction()
+    {
+        if (instructionStepIndex - 1 >= 0)
+        {
+            instructionSteps[instructionStepIndex].SetActive(false);
+            instructionStepIndex--;
+            instructionSteps[instructionStepIndex].SetActive(true);
+        }
+    }
+
+    public void GoNextInstruction()
+    {
+        if (instructionStepIndex + 1 < instructionSteps.Length)
+        {
+            instructionSteps[instructionStepIndex].SetActive(false);
+            instructionStepIndex++;
+            instructionSteps[instructionStepIndex].SetActive(true);
+        }
     }
 }
