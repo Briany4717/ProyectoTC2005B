@@ -20,6 +20,7 @@
 /[Uu]ser[Ss]ettings/
 *.log
 .DS_Store
+*/.DS_Store
 
 # By default unity supports Blender asset imports, *.blend1 blender files do not need to be committed to version control.
 *.blend1
