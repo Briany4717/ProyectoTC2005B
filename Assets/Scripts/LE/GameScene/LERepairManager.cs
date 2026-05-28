@@ -82,6 +82,7 @@ public class LERepairManager : MonoBehaviour
     [Header("Minigames Container")]
     [SerializeField] private LETicTacToeMinigame ticTacToeMinigame;
     [SerializeField] private LEHanoiMinigame hanoiMinigame;
+    [SerializeField] private LEFlappyMinigame flappyMinigame;
 
     void Start()
     {
@@ -280,10 +281,11 @@ public class LERepairManager : MonoBehaviour
             currentState = RepairState.ExecutingMinigame;
             
             // CONEXIÓN INTEGRAL: Despierta el panel del minijuego de Gato (#)
-            if (ticTacToeMinigame != null && hanoiMinigame != null)
+            if (ticTacToeMinigame != null && hanoiMinigame != null && flappyMinigame != null)
             {
                 //ticTacToeMinigame.StartMinigame();
-                hanoiMinigame.StartMinigame();
+                //hanoiMinigame.StartMinigame();
+                flappyMinigame.StartMinigame();
             }
             else
             {
