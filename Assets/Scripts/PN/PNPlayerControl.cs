@@ -5,10 +5,9 @@ public class PNPlayerControl : MonoBehaviour
 {
     public float moveSpeed, jumpForce;
     public Rigidbody2D rig;
-    private float xInput;
-    private bool jumpRequested, facingRight = false;
-    private int jumpCount = 0;
-    private const int maxJumps = 2;
+    private float xInput, knockbackTimer = 0f;
+    private bool jumpRequested, facingRight = true;
+    private int jumpCount = 0, maxJumps = 2;
     private PNHunt huntController;
 
     void Awake()
@@ -45,7 +44,7 @@ public class PNPlayerControl : MonoBehaviour
             if (!facingRight) Flip();
         }
 
-        if ((Keyboard.current.upArrowKey.wasPressedThisFrame || Keyboard.current.wKey.isPressed) && jumpCount < maxJumps)
+        if ((Keyboard.current.upArrowKey.wasPressedThisFrame || Keyboard.current.wKey.wasPressedThisFrame) && jumpCount < maxJumps)
         {
             jumpRequested = true;
             jumpCount++;
@@ -84,13 +83,23 @@ public class PNPlayerControl : MonoBehaviour
 
     public void FixedUpdate()
     {
-        rig.linearVelocity = new Vector2(xInput * moveSpeed, rig.linearVelocity.y);
+        if (knockbackTimer > 0)
+            knockbackTimer -= Time.fixedDeltaTime;
+        else
+            rig.linearVelocity = new Vector2(xInput * moveSpeed, rig.linearVelocity.y);
         
         if (jumpRequested)
         {
             rig.linearVelocity = new Vector2(rig.linearVelocity.x, jumpForce);
             jumpRequested = false;
         }
+    }
+
+    public void ApplyKnockback(Vector2 force)
+    {
+        knockbackTimer = 0.2f; 
+        rig.linearVelocity = Vector2.zero;
+        rig.AddForce(force, ForceMode2D.Impulse);
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -101,6 +110,8 @@ public class PNPlayerControl : MonoBehaviour
     void Flip()
     {
         facingRight = !facingRight;
-        transform.eulerAngles = new Vector3(0,transform.eulerAngles.y +180,0);
+        Vector3 scale = transform.localScale;
+        scale.x *= -1f;
+        transform.localScale = scale;
     }
 }

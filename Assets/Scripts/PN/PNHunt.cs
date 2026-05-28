@@ -41,7 +41,7 @@ public class PNHunt : MonoBehaviour
     public void ExitScanning()
     {
         Time.timeScale = 1f;
-        animator.SetTrigger("BackToIdle");
+        if (animator != null) animator.SetTrigger("BackToIdle");
         ClearHighlightsAndScrolls();
         _clouds.Clear();
         _state = HunterState.Normal;
@@ -60,7 +60,9 @@ public class PNHunt : MonoBehaviour
 
         if (_clouds.Count > 0)
         {
-            animator.SetTrigger("IsHunting");
+            if (PNSFXController.Instance != null) PNSFXController.Instance.chargeSound();
+            if (animator != null) animator.SetTrigger("IsHunting");
+            
             _clouds.Sort((a, b) => 
                 Vector2.Distance(transform.position, a.transform.position)
                 .CompareTo(Vector2.Distance(transform.position, b.transform.position)));
@@ -120,8 +122,10 @@ public class PNHunt : MonoBehaviour
 
         if (Vector2.Distance(transform.position, _targetCloud.transform.position) <= arrivalThreshold)
         {
+            _targetCloud.savePrompt();
             _targetCloud.DestroyScroll();
             Destroy(_targetCloud.gameObject);
+            if (PNSFXController.Instance != null) PNSFXController.Instance.huntSound();
             PlayerPrefs.SetInt("HuntedPrompts", PlayerPrefs.GetInt("HuntedPrompts") + 1);
             guiController.setPrompt();
             ResetPhysics();

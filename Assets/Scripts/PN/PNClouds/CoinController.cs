@@ -15,11 +15,11 @@ public class CoinController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        //float _seconds = col.gameObject.CompareTag(playerTag) ? 0 : seconds; 
         if(col.gameObject.CompareTag(playerTag))
         {
             PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + 1);
             PNGUIController.Instance.setCoin();
+            if (PNSFXController.Instance != null) PNSFXController.Instance.coinSound();
             Destroy(gameObject);    
         }
         Destroy(gameObject, seconds);

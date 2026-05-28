@@ -6,11 +6,9 @@ public class PNStormBehaviour : MonoBehaviour
     public float speed = 3f, pushForce = 5f, xLimit =  -11F;
     public string playerTag = "PNPlayer";
     Rigidbody2D rb;
-    private Collider2D cloudcol; 
 
     void Awake()
     {
-        cloudcol = GetComponent<Collider2D>();
     }
 
     void Update()
@@ -24,11 +22,14 @@ public class PNStormBehaviour : MonoBehaviour
     {
         if (col.gameObject.CompareTag(playerTag))
         {
-            Debug.Log("aa");
-            rb = col.attachedRigidbody;
-            Vector2 dir = (col.transform.position - transform.position).normalized;
-            rb.AddForce(dir * pushForce, ForceMode2D.Impulse);
+            PNPlayerControl player = col.GetComponent<PNPlayerControl>();
+            if (player != null)
+            {
+                Vector2 dir = (col.transform.position - transform.position).normalized;
+                player.ApplyKnockback(dir * pushForce);
+            }
+
+            if (PNSFXController.Instance != null)  PNSFXController.Instance.pushSound();
         }
-        
     }
 }

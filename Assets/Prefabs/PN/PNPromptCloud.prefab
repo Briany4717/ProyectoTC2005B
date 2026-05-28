@@ -106,18 +106,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09466a52dbb6e874796f11fc7db98e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PNPromptBehaviour
-  speed: 3
+  speed: 4
   xLimit: -11
   playerTag: PNPlayer
   objectRenderer: {fileID: 4831977678404675232}
   cloudCategories:
-  - {fileID: 4534589866840897755, guid: 054179062d3fef242a54b4c2296883f6, type: 3}
   - {fileID: 5946253610678577518, guid: 6454c415c5917e147a719246e418e847, type: 3}
-  - {fileID: 9178434035511497623, guid: e563865de318a1c4d8a4028516c155e9, type: 3}
   - {fileID: 2492347284342296726, guid: 2f1886dc0f9747a4bb84cd20261100cd, type: 3}
+  - {fileID: 4534589866840897755, guid: 054179062d3fef242a54b4c2296883f6, type: 3}
+  - {fileID: 9178434035511497623, guid: e563865de318a1c4d8a4028516c155e9, type: 3}
+  _originalSprite: {fileID: 0}
   aimCloud: {fileID: -4281771975705255532, guid: 0f40b3ed1008bf64db76c45b4363f86f, type: 3}
   scrollOffset: {x: 0, y: -3, z: 0}
-  currentCategory: 0
 --- !u!65 &1874962267377600953
 BoxCollider:
   m_ObjectHideFlags: 0

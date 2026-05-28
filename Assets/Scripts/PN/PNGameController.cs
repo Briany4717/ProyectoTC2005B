@@ -12,6 +12,7 @@ public class PNGameController : MonoBehaviour
         StopAllCoroutines();
         PlayerPrefs.SetInt("Coins", 0);
         PlayerPrefs.SetInt("HuntedPrompts", 0);
+        PlayerPrefs.SetInt("id_usuario", 1);
         Instance = this; 
         Instance.SetReferences(); 
         DontDestroyOnLoad(this.gameObject);
@@ -32,8 +33,8 @@ public class PNGameController : MonoBehaviour
 
     public void SpendCoins()
     {
-        int newLives = PlayerPrefs.GetInt("Coins") - 1;
-        PlayerPrefs.SetInt("Lives", newLives);
+        PlayerPrefs.SetInt("Coins", 0); 
+        uiController.setCoin(); 
     }
 
     public void gameOver(bool win)

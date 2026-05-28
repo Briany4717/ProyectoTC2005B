@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PNStormBehaviour
   speed: 5
-  pushForce: 30
+  pushForce: 10
   xLimit: -11
   playerTag: PNPlayer
 --- !u!70 &6058643125082538454

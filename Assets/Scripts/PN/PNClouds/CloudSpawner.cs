@@ -24,7 +24,8 @@ public class CloudSpawner : MonoBehaviour
         {
             currentState = (CloudState)i;
             if (guiController != null) guiController.ChangeSkyAsset((int)currentState);
-            float stateDuration = Random.Range(1f, 6f);
+            if (PNSFXController.Instance != null) PNSFXController.Instance.PlayMusic((int)currentState);
+            float stateDuration = 8f;
 
             yield return StartCoroutine(SpawnForDuration(currentState, stateDuration));
             PlayerPrefs.SetInt("CloudState", (int)currentState);
@@ -33,6 +34,7 @@ public class CloudSpawner : MonoBehaviour
         {
             currentState = (CloudState)Random.Range(0, 3);
             if (guiController != null) guiController.ChangeSkyAsset((int)currentState);
+            if (PNSFXController.Instance != null) PNSFXController.Instance.PlayMusic((int)currentState);
             float stateDuration = Random.Range(1f, maxStateDuration);
             yield return StartCoroutine(SpawnForDuration(currentState, stateDuration));
 
