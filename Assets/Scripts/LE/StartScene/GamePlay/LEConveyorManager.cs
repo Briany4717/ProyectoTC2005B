@@ -11,7 +11,7 @@ public class LEConveyorManager : MonoBehaviour
     [SerializeField] private Vector2 moveDirection = Vector2.right; 
     [SerializeField] private TextMeshProUGUI timerTextMesh;
     [SerializeField] private TextMeshProUGUI scoreTextMesh; 
-    [SerializeField] private float gameDurationSeconds = 300f; 
+    [SerializeField] private float gameDurationSeconds; 
     [SerializeField] private LEAppliance appliancePrefab;
     [SerializeField] private GameObject pausePanel;
     
@@ -89,6 +89,7 @@ public class LEConveyorManager : MonoBehaviour
 
     public void StartGame()
     {
+        gameDurationSeconds = PlayerPrefs.GetFloat("LE_Minigame_Duration", 330f);
         gameTimer = gameDurationSeconds;
         LEGameSessionData.Instance.totalMatchDuration = gameDurationSeconds;
         automaticSpawnTimer = 0f;
@@ -207,8 +208,8 @@ public class LEConveyorManager : MonoBehaviour
         if (discardedCount >= totalSpawnedLimit)
         {
             gameActive = false;
-            LEGameSessionData.Instance.isVictory = false; // <--- SE ACLARA LA DERROTA
-            SceneManager.LoadScene("LEFinalScene"); // <--- CARGA UNIFICADA
+            LEGameSessionData.Instance.isVictory = false;
+            SceneManager.LoadScene("LEFinalScene");
             return;
         }
 

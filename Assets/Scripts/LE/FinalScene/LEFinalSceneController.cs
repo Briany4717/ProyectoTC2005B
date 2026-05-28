@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class LEFinalSceneController : MonoBehaviour
 {
@@ -62,7 +63,8 @@ public class LEFinalSceneController : MonoBehaviour
         var session = LEGameSessionData.Instance;
         
         int finalRepaired = session.repairedCount;
-        int finalCoins = finalRepaired * 50;
+        int dificulty = PlayerPrefs.GetInt("LE_Minigames_Difficulty",1);
+        int finalCoins = finalRepaired * 50 * (dificulty + 1);
         float timePlayedSeconds = session.totalMatchDuration - session.remainingTime;
         if (timePlayedSeconds < 0f) timePlayedSeconds = 0f;
 
@@ -75,7 +77,13 @@ public class LEFinalSceneController : MonoBehaviour
     }
     public void OnClickRestartGameButton()
     {
-        LEGameSessionData.Instance.ResetSession(300f); 
+        LEGameSessionData.Instance.ResetSession(PlayerPrefs.GetFloat("LE_Minigame_Duration", 330f)); 
         SceneManager.LoadScene("LEConveyorScene");
+    }
+
+    public void GoToMenu()
+    {
+        LEGameSessionData.Instance.ResetSession(PlayerPrefs.GetFloat("LE_Minigame_Duration", 330f)); 
+        SceneManager.LoadScene("MenuScene");
     }
 }

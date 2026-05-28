@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LEStartSceneController : MonoBehaviour
 {
@@ -10,8 +11,6 @@ public class LEStartSceneController : MonoBehaviour
     public GameObject tutorialPanel;
     public LETutorialManager tutorialController;
     
-    // ¡REINTEGRADO!: El contenedor principal de toda la UI de juego de la cinta  
-    [Tooltip("Arrastra aquí el panel principal que contiene el HUD y elementos del juego.")]
     public GameObject gamePanel; 
 
     [Header("Box Visuals")]
@@ -204,15 +203,29 @@ public class LEStartSceneController : MonoBehaviour
         {
             case 0:
                 dificultyButtonText.text = "Facil";
+                PlayerPrefs.SetFloat("LE_Minigame_Duration",400f);
                 break;
             case 1:
                 dificultyButtonText.text = "Media";
+                PlayerPrefs.SetFloat("LE_Minigame_Duration",330f);
                 break;
             case 2:
                 dificultyButtonText.text = "Difícil";
+                PlayerPrefs.SetFloat("LE_Minigame_Duration",500f);
                 break;
         }
         PlayerPrefs.SetInt("LE_Minigames_Difficulty",dificulty);
         PlayerPrefs.Save();
+    }
+
+    public void GoToMenu()
+    {
+        LEGameSessionData.Instance.ResetSession(PlayerPrefs.GetFloat("LE_Minigame_Duration", 330f)); 
+        SceneManager.LoadScene("MenuScene");
+    }
+
+    public void StopGame()
+    {
+        UnityEditor.EditorApplication.isPlaying = false;
     }
 }

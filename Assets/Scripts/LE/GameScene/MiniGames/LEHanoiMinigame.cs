@@ -11,15 +11,12 @@ public class LEHanoiMinigame : MonoBehaviour
     [Header("UI Canvas Panels")]
     [SerializeField] private GameObject minigamePanel;
     [SerializeField] private TextMeshProUGUI announcementTextMesh;
-    [Tooltip("Un transform vacío que esté hasta el fondo del Canvas para renderizar el disco mientras se arrastra por encima de todo.")]
     [SerializeField] private Transform dragOverlayLayer; 
 
     [Header("Towers (Pegs)")]
-    [Tooltip("Arrastra los 3 Transforms de las torres (Origen, Auxiliar, Destino).")]
     public Transform[] towerPegs; 
 
     [Header("Disks Objects")]
-    [Tooltip("Arrastra los 4 objetos de los discos ordenados de MENOR a MAYOR tamaño.")]
     [SerializeField] private RectTransform[] allDisks; 
 
     private int activeDisksCount = 3;
@@ -78,16 +75,12 @@ public class LEHanoiMinigame : MonoBehaviour
         announcementTextMesh.text = "Selecciona o arrastra un disco...";
     }
 
-    /// <summary>
-    /// CONTROL POR CLICK: Ejecuta la selección clásica de torres.
-    /// </summary>
     public void OnClickTowerPeg(int pegIndex)
     {
         if (!isMinigameActive || repairManager.currentState == LERepairManager.RepairState.Paused) return;
 
         Transform clickedPeg = towerPegs[pegIndex];
 
-        // FASE 1: SELECCIONAR ORIGEN
         if (selectedSourcePeg == null)
         {
             if (clickedPeg.childCount > 0)
@@ -99,13 +92,9 @@ public class LEHanoiMinigame : MonoBehaviour
             return;
         }
 
-        // FASE 2: SELECCIONAR DESTINO
         ExecuteMoveRules(selectedSourcePeg, clickedPeg);
     }
 
-    /// <summary>
-    /// NÚCLEO MATEMÁTICO: Valida y ejecuta el cambio de torre (Compartido por Click y Drag) (⌐■_■)
-    /// </summary>
     public void ExecuteMoveRules(Transform sourcePeg, Transform targetPeg)
     {
         RectTransform sourceDisk = GetTopDisk(sourcePeg);
@@ -122,7 +111,6 @@ public class LEHanoiMinigame : MonoBehaviour
 
         RectTransform targetDisk = GetTopDisk(targetPeg);
 
-        // Regla: Destino vacío O el disco de arriba es más grande que el que muevo
         if (targetDisk == null || GetDiskSize(sourceDisk) < GetDiskSize(targetDisk))
         {
             SetDiskVisualState(sourceDisk, isSelected: false);
@@ -156,7 +144,6 @@ public class LEHanoiMinigame : MonoBehaviour
         return 999;
     }
 
-    // FEEDBACK VISUAL PREMIUM: Cambia opacidad y tamaño al seleccionar (o^^)o
     public void SetDiskVisualState(RectTransform disk, bool isSelected)
     {
         if (disk == null) return;

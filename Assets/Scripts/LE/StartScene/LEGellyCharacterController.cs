@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class LEGellyCharacterController : MonoBehaviour
 {
-    // ... Todas tus variables e inputs estructurales se quedan exactamente IDÉNTICOS ...
     public enum PivotAlignment { StayOnGround_CenterPivot, StayOnGround_BottomPivot }
     [SerializeField] private AnimationCurve horizontalCurve; 
     [SerializeField] private float duration = 0.6f;
@@ -46,7 +45,7 @@ public class LEGellyCharacterController : MonoBehaviour
         if (gellyAnimatorChild != null)
         {
             cachedAnimatorSpeed = gellyAnimatorChild.speed;
-            gellyAnimatorChild.speed = 0f; // Detiene la animación de sprites/esqueleto de golpe
+            gellyAnimatorChild.speed = 0f;
         }
     }
 
@@ -57,20 +56,18 @@ public class LEGellyCharacterController : MonoBehaviour
 
         if (gellyAnimatorChild != null)
         {
-            gellyAnimatorChild.speed = cachedAnimatorSpeed; // Restaura su velocidad exacta previa
+            gellyAnimatorChild.speed = cachedAnimatorSpeed;
         }
     }
 
     void Update()
     {
-        // DX PREMIUM: Si está pausado, el Update aborta en la línea cero. ¡Consumo de CPU nulo!
         if (isPaused) return; 
 
         if (isJumping) HandleParabolicJump();
         else if (isMovingLinear) HandleLinearMovement();
     }
 
-    // ... Los métodos HandleParabolicJump(), HandleLinearMovement(), SetupBaseMovement(), UpdateTargetTransformations() y CalculateCurrentGroundY() quedan 100% intactos ...
     public void JumpTo(Vector2 targetWorldPos, float nextScale, System.Action onComplete = null)
     {
         if (isJumping || isMovingLinear) return;

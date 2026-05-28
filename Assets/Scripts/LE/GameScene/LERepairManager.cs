@@ -241,10 +241,6 @@ public class LERepairManager : MonoBehaviour
         currentState = RepairState.ProblemDialogue;
         if (problemDialogueOverlayPanel != null) problemDialogueOverlayPanel.SetActive(true);
 
-        // ====================================================================
-        // 🔮 ACTUALIZACIÓN INTEGRAL DE PROBLEMA (⌐■_■)
-        // El panel independiente lee dinámicamente los textos del PASO ACTIVO
-        // ====================================================================
         if (overlayTitleText != null) overlayTitleText.text = currentData.steps[currentTaskIndex].gellyDialogue;
         if (overlayBodyText != null) overlayBodyText.text = currentData.steps[currentTaskIndex].problemText;
     }
@@ -260,10 +256,8 @@ public class LERepairManager : MonoBehaviour
 
     public void ProcessToolDropped(int toolId)
     {
-        // 1. CANDADO DE CONTROL: Las herramientas solo responden en Gameplay Activo
         if (currentState != RepairState.GameplayActive) return;
 
-        // La validación de la herramienta responde milimétricamente al sub-paso actual
         if (toolId == currentData.steps[currentTaskIndex].correctToolId)
         {
             if (wrongToolFeedbackCoroutine != null) StopCoroutine(wrongToolFeedbackCoroutine);
@@ -294,14 +288,12 @@ public class LERepairManager : MonoBehaviour
                 else if (flappyMinigame != null) flappyMinigame.StartMinigame();
                 else
                 {
-                    // Fallback extremo si no hay ningún minijuego en la escena
                     SimulateWinMinigame();
                 }
             }
         }
         else
         {
-            // Herramienta incorrecta: lanza el parpadeo rojo y el audio de rechazo
             if (wrongToolFeedbackCoroutine != null) StopCoroutine(wrongToolFeedbackCoroutine);
             wrongToolFeedbackCoroutine = StartCoroutine(WrongToolFeedbackRoutine());
         }
@@ -338,13 +330,11 @@ public class LERepairManager : MonoBehaviour
 
     public void SimulateWinMinigame()
     {
-        // Tachamos el texto en base al índice del sub-paso recién superado
         if (currentTaskIndex < taskTextMeshes.Length)
         {
             taskTextMeshes[currentTaskIndex].text = $"<s>{currentData.steps[currentTaskIndex].taskDescription}</s>";
         }
-
-        currentTaskIndex++; // Saltamos al siguiente problema de forma matemática estricta
+        currentTaskIndex++;
         StartCoroutine(ExecuteRepairAnimationRoutine());
     }
 
@@ -369,7 +359,7 @@ public class LERepairManager : MonoBehaviour
         LEGameSessionData.Instance.repairedCount++;
         LEGameSessionData.Instance.currentMatchDataIndex++;
         int totalN = LEGameSessionData.Instance.totalSpawnedLimit - LEGameSessionData.Instance.discardedCount;
-
+        LEGameSessionData.Instance.isVictory = LEGameSessionData.Instance.repairedCount >= totalN;
         SceneManager.LoadScene(LEGameSessionData.Instance.repairedCount >= totalN ? "LEFinalScene" : "LEConveyorScene");
     }
 
@@ -455,5 +445,16 @@ public class LERepairManager : MonoBehaviour
             instructionStepIndex++;
             instructionSteps[instructionStepIndex].SetActive(true);
         }
+    }
+
+    public void StopGame()
+    {
+        UnityEditor.EditorApplication.isPlaying = false;
+    }
+
+    public void GoToMenu()
+    {
+        LEGameSessionData.Instance.ResetSession(PlayerPrefs.GetFloat("LE_Minigame_Duration", 330f)); 
+        SceneManager.LoadScene("MenuScene");
     }
 }

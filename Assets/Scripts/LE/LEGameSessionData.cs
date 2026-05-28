@@ -32,7 +32,7 @@ public class LEGameSessionData
     public bool isGameInProgress = false; 
     public int totalSpawnedCount; 
     public bool isVictory = false; 
-    public float totalMatchDuration = 300f; 
+    public float totalMatchDuration; 
 
     public void ResetSession(float durationSeconds)
     {

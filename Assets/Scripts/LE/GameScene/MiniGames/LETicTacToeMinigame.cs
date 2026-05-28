@@ -293,7 +293,6 @@ public class LETicTacToeMinigame : MonoBehaviour
 
         if (minigamePanel != null) minigamePanel.SetActive(false);
 
-        // Devolvemos el control quirúrgico al orquestador de la escena
         if (isVictory)
         {
             repairManager.SimulateWinMinigame();

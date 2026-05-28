@@ -15,7 +15,6 @@ public class LEFlappyMinigame : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreTextMesh;
 
     [Header("Specific Window Bounds")]
-    [Tooltip("Arrastra aquí el RectTransform del recuadro específico (Viewport) donde se debe jugar.")]
     [SerializeField] private RectTransform gameViewport; 
 
     [Header("The Bird Element")]
@@ -24,7 +23,6 @@ public class LEFlappyMinigame : MonoBehaviour
     [SerializeField] private float jumpImpulse = 380f;
 
     [Header("Infinite Recycled Pipes")]
-    [Tooltip("Arrastra los 2 contenedores de las parejas de tubos.")]
     [SerializeField] private RectTransform[] pipePairs; 
     [Tooltip("Punto X inicial relativo al recuadro para spawnear.")]
     [SerializeField] private float spawnPointX = 350f;
@@ -42,7 +40,6 @@ public class LEFlappyMinigame : MonoBehaviour
     private int currentScore = 0;
     private bool isMinigameActive = false;
     
-    // ¡EL CENTINELA DE ENGRANAJE! (⌐■_■)
     private bool hasStarted = false; 
     
     private float initialBirdY;
@@ -134,28 +131,20 @@ public class LEFlappyMinigame : MonoBehaviour
     {
         if (!isMinigameActive || repairManager.currentState == LERepairManager.RepairState.Paused) return;
 
-        // ====================================================================
-        // FASE A: ESPERA DE GATILLO DE INICIO (Ready State) (⌐■_■)
-        // El ave y los tubos no se mueven hasta que el puntero haga click por primera vez.
-        // ====================================================================
         if (!hasStarted)
         {
             if (Pointer.current != null && Pointer.current.press.wasPressedThisFrame)
             {
                 hasStarted = true;
                 flappyAnimator.SetTrigger("Flutter");
-                birdVerticalVelocity = jumpImpulse; // Rompemos la inercia con el primer salto interactivo
+                birdVerticalVelocity = jumpImpulse; 
 
                 if (announcementTextMesh != null) 
-                    announcementTextMesh.text = ""; // Limpiamos el letrero de inicio de inmediato
+                    announcementTextMesh.text = ""; 
             }
-            return; // Abortamos el frame aquí para que las simulaciones sigan congeladas
+            return; 
         }
 
-        // ====================================================================
-        // FASE B: GAMEPLAY ACTIVO EN CURSO
-        // Captura el input para los saltos subsecuentes del juego de forma fluida.
-        // ====================================================================
         if (Pointer.current != null && Pointer.current.press.wasPressedThisFrame)
         {
             flappyAnimator.SetTrigger("Flutter");

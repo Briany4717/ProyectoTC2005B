@@ -10,7 +10,7 @@ public class LENetworkManager : MonoBehaviour
 
     public static Dictionary<int, APITool> ToolsCache = new Dictionary<int, APITool>();
 
-    #region DTOs de tu API Real
+    #region DTOs API
     [System.Serializable]
     public struct APIProblem
     {
@@ -49,7 +49,6 @@ public class LENetworkManager : MonoBehaviour
 
     private IEnumerator DownloadMatchDataRoutine()
     {
-        // 1. Descarga e indexación de Herramientas en Caché Global
         using (UnityWebRequest wwwTools = UnityWebRequest.Get($"{baseUrl}/LE/herramientas"))
         {
             wwwTools.certificateHandler = new AcceptAllCertificates();
@@ -64,7 +63,6 @@ public class LENetworkManager : MonoBehaviour
             }
         }
 
-        // 2. Descarga del Pool de 15 Problemas
         APIProblem[] problemsPool = null;
         using (UnityWebRequest wwwProblems = UnityWebRequest.Get($"{baseUrl}/LE/problemas"))
         {
@@ -80,7 +78,6 @@ public class LENetworkManager : MonoBehaviour
             else yield break;
         }
 
-        // 3. Descarga del Pool de 15 Tareas
         APITask[] tasksPool = null;
         using (UnityWebRequest wwwTasks = UnityWebRequest.Get($"{baseUrl}/LE/tareas"))
         {
@@ -95,10 +92,6 @@ public class LENetworkManager : MonoBehaviour
             else yield break;
         }
 
-        // ====================================================================
-        // ⚙️ ENSAMBLAJE MATRICIAL DE SUB-PASOS (0 Allocations de bucle)
-        // Mapeamos los 15 pares de forma paralela 1-to-1 en tramos de 3 (⌐■_■)
-        // ====================================================================
         if (problemsPool != null && tasksPool != null && problemsPool.Length >= 15 && tasksPool.Length >= 15)
         {
             LEApplianceRepairData[] compiledMatchData = new LEApplianceRepairData[5];
@@ -109,7 +102,6 @@ public class LENetworkManager : MonoBehaviour
 
                 for (int j = 0; j < 3; j++)
                 {
-                    // Índice secuencial del pool de 0 a 14
                     int poolIndex = (i * 3) + j; 
 
                     compiledMatchData[i].steps[j] = new LETaskStepData
@@ -123,7 +115,7 @@ public class LENetworkManager : MonoBehaviour
             }
 
             LEGameSessionData.Instance.currentMatchData = compiledMatchData;
-            Debug.Log("🚀 [API] Matriz de 15 sub-pasos entrelazada y cargada con éxito.");
+            Debug.Log("Datos de la API cargados con exito");
         }
     }
 }

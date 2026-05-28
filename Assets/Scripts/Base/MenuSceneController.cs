@@ -18,14 +18,9 @@ public class MenuSceneController : MonoBehaviour
     {
         SceneManager.LoadScene("PNStartScene");
     }
-    void Start()
+    
+    public void GoToLE()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        SceneManager.LoadScene("LEConveyorScene");
     }
 }
