@@ -8,7 +8,6 @@ public class LEAudioManager : MonoBehaviour
 
     void Awake()
     {
-        // Guardián contra la clonación destructiva de escenas
         if (instance != null && instance != this)
         {
             Destroy(gameObject); // Si ya existía una música sonando de la escena previa, aborta este clon

@@ -19,13 +19,9 @@ public class LERepairManager : MonoBehaviour
     [Header("Gelly Intro Chat Bubble & Typewriter")]
     [SerializeField] private GameObject gellyIntroChatBubble;
     [SerializeField] private TextMeshProUGUI gellyIntroTextMesh;
-    [Tooltip("Velocidad de escritura de la intro (Segundos por letra).")]
     [SerializeField] private float introTextSpeed = 0.03f;
-    [Tooltip("Cada cuántas letras suena la voz de Gelly.")]
     [SerializeField] private int voiceSoundInterval = 2;
-    [Tooltip("Tiempo que se queda visible la burbuja de inicio DESPUÉS de terminar de escribirse.")]
     [SerializeField] private float introDisplayDuration = 2.0f; 
-    [Tooltip("Tiempo que se queda visible la burbuja de error de herramienta.")]
     [SerializeField] private float wrongToolDisplayDuration = 1.8f; 
 
     [Header("Gelly Floating Problem Bubble (?)")]
@@ -43,16 +39,12 @@ public class LERepairManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI[] taskTextMeshes; 
 
     [Header("Strikes UI (Visual X System)")]
-    [Tooltip("Arrastra aquí los 3 GameObjects de las imágenes 'X' que están dentro de tu Horizontal Layout Group.")]
-    [SerializeField] private GameObject[] strikeVisualElements; // Reemplaza a strikesTextMesh
+    [SerializeField] private GameObject[] strikeVisualElements; 
 
-    [Header("Procedural Debris & Rotational Animation ")]
-    [Tooltip("Duración exacta en segundos del balanceo por reparación.")]
+    [Header("Procedural Debris & Rotational Animation")]
     [SerializeField] private float repairAnimDuration = 2.5f;
-    [Tooltip("Velocidad u oscilación del balanceo en Z.")]
     [SerializeField] private float shakeSpeed = 80f;
-    [Tooltip("Intensidad o amplitud máxima del balanceo medida en grados absolutos.")]
-    [SerializeField] private float shakeIntensity = 8.0f; // <--- AJUSTA LOS GRADOS DESDE AQUÍ
+    [SerializeField] private float shakeIntensity = 8.0f; 
     [SerializeField] private GameObject debrisUIPrefab; 
     [SerializeField] private Transform debrisSpawnPoint;
     [SerializeField] private Sprite[] debrisSpritesPool; 
@@ -65,10 +57,10 @@ public class LERepairManager : MonoBehaviour
 
     private LEApplianceRepairData currentData;
     private Vector3 applianceOriginalPosition;
-    private Quaternion applianceOriginalRotation; // <--- CACHEO DE ROTACIÓN ORIGINAL DE FÁBRICA
+    private Quaternion applianceOriginalRotation; 
     private Vector3 problemBubbleOriginalAnchoredPos;
     
-    private int currentTaskIndex = 0;
+    private int currentTaskIndex = 0; // Marca el sub-paso activo de 0 a 2 (⌐■_■)
     private bool isMatchActive = false;
     
     private int cachedMinutes = -1;
@@ -77,7 +69,6 @@ public class LERepairManager : MonoBehaviour
     
     private Coroutine introFlowCoroutine;
     private Coroutine wrongToolFeedbackCoroutine;
-    private string cachedIntroPhrase;
 
     [Header("Minigames Container")]
     [SerializeField] private LETicTacToeMinigame ticTacToeMinigame;
@@ -91,9 +82,8 @@ public class LERepairManager : MonoBehaviour
         if (gellyProblemBubbleContainer != null) gellyProblemBubbleContainer.SetActive(false);
         if (gellyIntroChatBubble != null) gellyIntroChatBubble.SetActive(false);
 
-        // Almacenamos el estado transform de fábrica para evitar desalineaciones
         applianceOriginalPosition = applianceMainImage.transform.position;
-        applianceOriginalRotation = applianceMainImage.transform.localRotation; // Sincronizado
+        applianceOriginalRotation = applianceMainImage.transform.localRotation;
 
         if (problemBubbleRect != null) problemBubbleOriginalAnchoredPos = problemBubbleRect.anchoredPosition;
 
@@ -111,9 +101,11 @@ public class LERepairManager : MonoBehaviour
         int currentDataIndex = LEGameSessionData.Instance.currentMatchDataIndex;
         currentData = LEGameSessionData.Instance.currentMatchData[currentDataIndex];
 
+        // Rellenamos las descripciones de la hoja de instrucciones con sus sub-tareas correspondientes
         for (int i = 0; i < taskTextMeshes.Length; i++)
         {
-            if (i < currentData.tasks.Length) taskTextMeshes[i].text = currentData.tasks[i];
+            if (i < currentData.steps.Length) 
+                taskTextMeshes[i].text = currentData.steps[i].taskDescription;
         }
 
         UpdateStrikesUI();
@@ -125,19 +117,20 @@ public class LERepairManager : MonoBehaviour
         currentState = RepairState.IntroDialogue;
         if (gellyIntroChatBubble != null) gellyIntroChatBubble.SetActive(true);
         
-        cachedIntroPhrase = Random.Range(0, 2) == 0 ? "¡Manos a la obra con esto!" : "¡Comencemos la reparación ya!";
-        
         if (introFlowCoroutine != null) StopCoroutine(introFlowCoroutine);
         introFlowCoroutine = StartCoroutine(AutomatedIntroFlowRoutine());
     }
 
     private IEnumerator AutomatedIntroFlowRoutine()
     {
-        gellyIntroTextMesh.text = cachedIntroPhrase;
+        // El diálogo inicial de la escena lee estrictamente el texto del PASO 1 (Índice 0)
+        string activeIntroText = currentData.steps[0].gellyDialogue;
+
+        gellyIntroTextMesh.text = activeIntroText;
         gellyIntroTextMesh.maxVisibleCharacters = 0;
         gellyIntroTextMesh.ForceMeshUpdate();
 
-        int totalVisibleCharacters = cachedIntroPhrase.Length;
+        int totalVisibleCharacters = activeIntroText.Length;
         int counter = 0;
         float typewriterTimer = 0f;
 
@@ -153,7 +146,7 @@ public class LERepairManager : MonoBehaviour
 
                     if (gellyVoiceSound != null && sfxAudioSource != null && counter > 0)
                     {
-                        char lastChar = cachedIntroPhrase[counter - 1];
+                        char lastChar = activeIntroText[counter - 1];
                         if (counter % voiceSoundInterval == 0 && !char.IsWhiteSpace(lastChar))
                         {
                             sfxAudioSource.pitch = Random.Range(0.94f, 1.06f);
@@ -169,10 +162,7 @@ public class LERepairManager : MonoBehaviour
         float displayTimer = 0f;
         while (displayTimer < introDisplayDuration)
         {
-            if (currentState != RepairState.Paused)
-            {
-                displayTimer += Time.deltaTime;
-            }
+            if (currentState != RepairState.Paused) displayTimer += Time.deltaTime;
             yield return null;
         }
 
@@ -197,11 +187,9 @@ public class LERepairManager : MonoBehaviour
                 timer += Time.deltaTime;
                 debrisTimer += Time.deltaTime;
 
-                // REGLA: Posición estática e inalterada, rotación procedural pura en el eje Z  
                 float rotZ = Mathf.Sin(Time.time * shakeSpeed) * shakeIntensity;
                 applianceMainImage.transform.localRotation = applianceOriginalRotation * Quaternion.Euler(0f, 0f, rotZ);
 
-                // El lanzador de chatarra sigue operando por código de forma independiente
                 if (debrisTimer >= timeBetweenDebrisSpawns && debrisSpritesPool.Length > 0 && debrisUIPrefab != null)
                 {
                     debrisTimer = 0f;
@@ -214,9 +202,9 @@ public class LERepairManager : MonoBehaviour
             yield return null;
         }
 
-        // Snap de reseteo: Nos aseguramos de clavar la rotación original de fábrica en el frame final absoluto
         applianceMainImage.transform.localRotation = applianceOriginalRotation;
 
+        // Si ya completamos los 3 sub-pasos, cerramos el ciclo del electrodoméstico
         if (currentTaskIndex >= 3)
         {
             EvaluateApplianceFixConclusion();
@@ -254,8 +242,12 @@ public class LERepairManager : MonoBehaviour
         currentState = RepairState.ProblemDialogue;
         if (problemDialogueOverlayPanel != null) problemDialogueOverlayPanel.SetActive(true);
 
-        if (overlayTitleText != null) overlayTitleText.text = currentData.gellyDialogue;
-        if (overlayBodyText != null) overlayBodyText.text = currentData.problemText;
+        // ====================================================================
+        // 🔮 ACTUALIZACIÓN INTEGRAL DE PROBLEMA (⌐■_■)
+        // El panel independiente lee dinámicamente los textos del PASO ACTIVO
+        // ====================================================================
+        if (overlayTitleText != null) overlayTitleText.text = currentData.steps[currentTaskIndex].gellyDialogue;
+        if (overlayBodyText != null) overlayBodyText.text = currentData.steps[currentTaskIndex].problemText;
     }
 
     public void CloseProblemDialogueWindow()
@@ -267,38 +259,24 @@ public class LERepairManager : MonoBehaviour
         if (gellyProblemBubbleContainer != null) gellyProblemBubbleContainer.SetActive(true);
     }
 
-     public void ProcessToolDropped(int toolId)
+    public void ProcessToolDropped(int toolId)
     {
-        // 1. CANDADO DE CONTROL: Las herramientas solo responden en Gameplay Activo
         if (currentState != RepairState.GameplayActive) return;
 
-        if (toolId == currentData.correctToolId)
+        // La validación de la herramienta responde milimétricamente al sub-paso actual
+        if (toolId == currentData.steps[currentTaskIndex].correctToolId)
         {
-            // Si había un feedback de error corriendo de un intento previo, lo limpiamos
             if (wrongToolFeedbackCoroutine != null) StopCoroutine(wrongToolFeedbackCoroutine);
             applianceMainImage.color = Color.white;
             
             currentState = RepairState.ExecutingMinigame;
             
-            // CONEXIÓN INTEGRAL: Despierta el panel del minijuego de Gato (#)
-            if (ticTacToeMinigame != null && hanoiMinigame != null && flappyMinigame != null)
-            {
-                //ticTacToeMinigame.StartMinigame();
-                //hanoiMinigame.StartMinigame();
-                flappyMinigame.StartMinigame();
-            }
-            else
-            {
-                // Fallback de seguridad automático por si olvidas arrastrar la referencia
-                SimulateWinMinigame();
-            }
+            // Selección y ejecución del minijuego correspondiente (Flappy Bird de ejemplo activo)
+            if (flappyMinigame != null) flappyMinigame.StartMinigame();
+            else SimulateWinMinigame();
         }
         else
         {
-            // ====================================================================
-            // ❌ ¡REINTEGRADO!: FEEDBACK DE HERRAMIENTA INCORRECTA  
-            // Lanza la corrutina que tiñe de rojo el aparato y reproduce el SFX
-            // ====================================================================
             if (wrongToolFeedbackCoroutine != null) StopCoroutine(wrongToolFeedbackCoroutine);
             wrongToolFeedbackCoroutine = StartCoroutine(WrongToolFeedbackRoutine());
         }
@@ -321,15 +299,13 @@ public class LERepairManager : MonoBehaviour
         float errorTimer = 0f;
         while (errorTimer < wrongToolDisplayDuration)
         {
-            if (currentState != RepairState.Paused)
-            {
-                errorTimer += Time.deltaTime;
-            }
+            if (currentState != RepairState.Paused) errorTimer += Time.deltaTime;
             yield return null;
         }
 
         applianceMainImage.color = Color.white;
-        if (gellyIntroChatBubble != null) {
+        if (gellyIntroChatBubble != null) 
+        {
             gellyIntroChatBubble.SetActive(false);
             gellyProblemBubbleContainer.SetActive(true);
         }
@@ -337,37 +313,29 @@ public class LERepairManager : MonoBehaviour
 
     public void SimulateWinMinigame()
     {
+        // Tachamos el texto en base al índice del sub-paso recién superado
         if (currentTaskIndex < taskTextMeshes.Length)
         {
-            taskTextMeshes[currentTaskIndex].text = $"<s>{currentData.tasks[currentTaskIndex]}</s>";
+            taskTextMeshes[currentTaskIndex].text = $"<s>{currentData.steps[currentTaskIndex].taskDescription}</s>";
         }
 
-        currentTaskIndex++;
+        currentTaskIndex++; // Saltamos al siguiente problema de forma matemática estricta
         StartCoroutine(ExecuteRepairAnimationRoutine());
     }
 
-    /// <summary>
-    /// ¡REINTEGRADA! Llama a esta función pública desde tus minijuegos cuando el jugador cometa un fallo definitivo.
-    /// </summary>
     public void RegisterMinigameStrikeFailure()
     {
-        // 1. Incrementamos el contador global persistente en memoria
         LEGameSessionData.Instance.globalStrikes++;
         UpdateStrikesUI();
 
-        // 2. Condición crítica de derrota instantánea (3 Strikes)
         if (LEGameSessionData.Instance.globalStrikes >= 3)
         {
             isMatchActive = false;
-            LEGameSessionData.Instance.isVictory = false; // Declaramos la derrota
-            
-            // Viajamos directo a la pantalla de resultados unificada
+            LEGameSessionData.Instance.isVictory = false; 
             SceneManager.LoadScene("LEFinalScene"); 
             return;
         }
 
-        // 3. Si aún le quedan vidas, el juego lo penaliza repitiendo la animación de balanceo
-        // por la cantidad de segundos configurada en el inspector, dándole feedback de impacto al jugador
         StartCoroutine(ExecuteRepairAnimationRoutine());
     }
 
@@ -377,15 +345,7 @@ public class LERepairManager : MonoBehaviour
         LEGameSessionData.Instance.currentMatchDataIndex++;
         int totalN = LEGameSessionData.Instance.totalSpawnedLimit - LEGameSessionData.Instance.discardedCount;
 
-        if (LEGameSessionData.Instance.repairedCount >= totalN)
-        {
-            LEGameSessionData.Instance.isVictory = true; // <--- SE ACLARA LA VICTORIA ABSOLUTA
-            SceneManager.LoadScene("LEFinalScene"); // <--- CARGA UNIFICADA
-        }
-        else
-        {
-            SceneManager.LoadScene("LEConveyorScene");
-        }
+        SceneManager.LoadScene(LEGameSessionData.Instance.repairedCount >= totalN ? "LEFinalScene" : "LEConveyorScene");
     }
 
     private void HandleRemainingGlobalTimer()
@@ -395,7 +355,7 @@ public class LERepairManager : MonoBehaviour
         {
             LEGameSessionData.Instance.remainingTime = 0f;
             isMatchActive = false;
-            SceneManager.LoadScene("LEGameOverScene");
+            SceneManager.LoadScene("LEFinalScene");
             return;
         }
 
@@ -413,18 +373,10 @@ public class LERepairManager : MonoBehaviour
     private void UpdateStrikesUI()
     {
         if (strikeVisualElements == null || strikeVisualElements.Length == 0) return;
-
         int currentStrikes = LEGameSessionData.Instance.globalStrikes;
-
-        // Bucle ultra rápido indexado en caché (0 Allocations)
         for (int i = 0; i < strikeVisualElements.Length; i++)
         {
-            if (strikeVisualElements[i] != null)
-            {
-                // La "X" se enciende SOLO si el índice es menor a los strikes acumulados
-                // Ejemplo: Con 1 strike, solo el índice 0 se vuelve true.
-                strikeVisualElements[i].SetActive(i < currentStrikes);
-            }
+            if (strikeVisualElements[i] != null) strikeVisualElements[i].SetActive(i < currentStrikes);
         }
     }
 
@@ -442,5 +394,4 @@ public class LERepairManager : MonoBehaviour
         currentState = stateBeforePause;
         if (pausePanel != null) pausePanel.SetActive(false);
     }
-    
 }

@@ -1,12 +1,19 @@
 using UnityEngine;
 
 [System.Serializable]
+public struct LETaskStepData
+{
+    public string gellyDialogue;       // Diálogo único de Gelly para ESTA tarea
+    public string problemText;         // Explicación de la avería técnica de ESTE paso
+    public int correctToolId;          // Herramienta reglamentaria para ESTE paso (0, 1 o 2)
+    public string taskDescription;     // El texto que se tachará en la hoja de instrucciones
+}
+
+[System.Serializable]
 public struct LEApplianceRepairData
 {
-    public string gellyDialogue;    // Diálogo introductorio de Gelly
-    public string problemText;      // Texto descriptivo del problema en la ventana
-    public int correctToolId;       // ID de la herramienta correcta (0, 1 o 2)
-    public string[] tasks;          // Las 3 tareas representativas de la hoja de instrucciones
+    // Ahora cada aparato contiene estrictamente sus 3 sub-pasos dinámicos (⌐■_■)
+    public LETaskStepData[] steps; 
 }
 
 public class LEGameSessionData
@@ -39,6 +46,6 @@ public class LEGameSessionData
         currentMatchData = null;
         isGameInProgress = false;
         totalSpawnedCount = 0;
-        isVictory = false; // Reset
+        isVictory = false;
     }
 }
