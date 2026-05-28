@@ -261,6 +261,7 @@ public class LERepairManager : MonoBehaviour
 
     public void ProcessToolDropped(int toolId)
     {
+        // 1. CANDADO DE CONTROL: Las herramientas solo responden en Gameplay Activo
         if (currentState != RepairState.GameplayActive) return;
 
         // La validación de la herramienta responde milimétricamente al sub-paso actual
@@ -271,12 +272,37 @@ public class LERepairManager : MonoBehaviour
             
             currentState = RepairState.ExecutingMinigame;
             
-            // Selección y ejecución del minijuego correspondiente (Flappy Bird de ejemplo activo)
-            if (flappyMinigame != null) flappyMinigame.StartMinigame();
-            else SimulateWinMinigame();
+            int randomMinigameIndex = Random.Range(0, 3);
+            bool minigameLaunched = false;
+
+            switch (randomMinigameIndex)
+            {
+                case 0:
+                    if (ticTacToeMinigame != null) { ticTacToeMinigame.StartMinigame(); minigameLaunched = true; }
+                    break;
+                case 1:
+                    if (hanoiMinigame != null) { hanoiMinigame.StartMinigame(); minigameLaunched = true; }
+                    break;
+                case 2:
+                    if (flappyMinigame != null) { flappyMinigame.StartMinigame(); minigameLaunched = true; }
+                    break;
+            }
+
+            if (!minigameLaunched)
+            {
+                if (ticTacToeMinigame != null) ticTacToeMinigame.StartMinigame();
+                else if (hanoiMinigame != null) hanoiMinigame.StartMinigame();
+                else if (flappyMinigame != null) flappyMinigame.StartMinigame();
+                else
+                {
+                    // Fallback extremo si no hay ningún minijuego en la escena
+                    SimulateWinMinigame();
+                }
+            }
         }
         else
         {
+            // Herramienta incorrecta: lanza el parpadeo rojo y el audio de rechazo
             if (wrongToolFeedbackCoroutine != null) StopCoroutine(wrongToolFeedbackCoroutine);
             wrongToolFeedbackCoroutine = StartCoroutine(WrongToolFeedbackRoutine());
         }
