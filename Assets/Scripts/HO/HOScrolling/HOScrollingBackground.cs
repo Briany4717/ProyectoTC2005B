@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Gestiona el desplazamiento infinito del fondo intercambiando dos sprites.
+/// </summary>
 public class HOScrollingBackground : MonoBehaviour
 {
     public SpriteRenderer backgroundA;
@@ -7,6 +10,9 @@ public class HOScrollingBackground : MonoBehaviour
     private float spriteHeight;
     float margin = 1f;
 
+    /// <summary>
+    /// Calcula la altura del fondo y posiciona el segundo sprite justo arriba.
+    /// </summary>
     void Start()
     {
         spriteHeight = backgroundA.bounds.size.y;
@@ -18,6 +24,9 @@ public class HOScrollingBackground : MonoBehaviour
         );
     }
 
+    /// <summary>
+    /// Verifica si un fondo ha salido de la cámara para moverlo hacia arriba.
+    /// </summary>
     void Update()
     {
         float camBottom = HOScrollingCamera.Instance.bottomEdge;
@@ -33,6 +42,9 @@ public class HOScrollingBackground : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Mueve un fondo por encima del otro para continuar el ciclo.
+    /// </summary>
     void subir(SpriteRenderer fondoParaSubir, SpriteRenderer referencia)
     {
         fondoParaSubir.transform.position = new Vector3(

@@ -11,13 +11,14 @@ public class PromptEx
     public string[] correctOrder;
 }
 
+/// <summary>
+/// Gestiona la interfaz y la lógica de interacción del panel del Super Prompt.
+/// </summary>
 public class HOSuperPromptPanel : MonoBehaviour
 {
     public TextMeshProUGUI instructionText;
     public TextMeshProUGUI descriptionText;
     public TextMeshProUGUI feedbackText;
-
-
 
     public Button[] promptButtons;
     public Button confirmButton;
@@ -33,26 +34,33 @@ public class HOSuperPromptPanel : MonoBehaviour
     private string[] shuffledTexts;
     private List<int> selectionOrder;
 
+    /// <summary>
+    /// Configura los listeners de los botones al inicializar.
+    /// </summary>
     void Awake()
     {
-        // Conectar los botones a sus métodos
         for (int i = 0; i < promptButtons.Length; i++)
         {
-            int index = i; // captura local para el lambda
+            int index = i; 
             promptButtons[i].onClick.AddListener(() => OnPromptButtonClicked(index));
         }
 
         confirmButton.onClick.AddListener(OnConfirmClicked);
     }
 
+    /// <summary>
+    /// Prepara una nueva ronda cuando el panel se activa.
+    /// </summary>
     void OnEnable()
     {
         SetupRound();
     }
 
+    /// <summary>
+    /// Configura los textos y mezcla las opciones de la pregunta actual.
+    /// </summary>
     void SetupRound()
     {
-
         currentPrompt = prompts[0];
 
         selectionOrder = new List<int>();
@@ -64,7 +72,6 @@ public class HOSuperPromptPanel : MonoBehaviour
 
         shuffledTexts = ShuffleArray(currentPrompt.correctOrder);
 
-        // Asigna los textos a los botones
         for (int i = 0; i < promptButtons.Length; i++)
         {
             if (i < shuffledTexts.Length)
@@ -79,6 +86,9 @@ public class HOSuperPromptPanel : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Maneja la selección y deselección de opciones por parte del usuario.
+    /// </summary>
     void OnPromptButtonClicked(int buttonIndex)
     {
         if (selectionOrder.Contains(buttonIndex))
@@ -93,6 +103,9 @@ public class HOSuperPromptPanel : MonoBehaviour
         UpdateButtonLabels();
     }
 
+    /// <summary>
+    /// Actualiza los textos de los botones para mostrar el orden de selección.
+    /// </summary>
     void UpdateButtonLabels()
     {
         for (int i = 0; i < promptButtons.Length; i++)
@@ -111,6 +124,9 @@ public class HOSuperPromptPanel : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Verifica si el orden seleccionado es el correcto al confirmar.
+    /// </summary>
     void OnConfirmClicked()
     {
         if (selectionOrder.Count < currentPrompt.correctOrder.Length)
@@ -136,6 +152,9 @@ public class HOSuperPromptPanel : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Valida que la selección del usuario coincida con el orden correcto.
+    /// </summary>
     bool ValidateOrder()
     {
         for (int i = 0; i < selectionOrder.Count; i++)
@@ -152,6 +171,9 @@ public class HOSuperPromptPanel : MonoBehaviour
         return true;
     }
 
+    /// <summary>
+    /// Mezcla aleatoriamente las opciones disponibles.
+    /// </summary>
     string[] ShuffleArray(string[] original)
     {
         string[] shuffled = (string[])original.Clone();
@@ -163,6 +185,9 @@ public class HOSuperPromptPanel : MonoBehaviour
         return shuffled;
     }
 
+    /// <summary>
+    /// Asigna texto a un botón que contiene un componente TextMeshProUGUI.
+    /// </summary>
     void SetButtonText(Button button, string text)
     {
         TextMeshProUGUI tmp = button.GetComponentInChildren<TextMeshProUGUI>();

@@ -1,6 +1,9 @@
 using UnityEngine;
 using System;
 
+/// <summary>
+/// Controla la lógica del evento "Super Prompt", gestionando el progreso y las recompensas/penalizaciones.
+/// </summary>
 public class HOSuperPrompt : MonoBehaviour
 {
     public static HOSuperPrompt Instance { get; private set; }
@@ -12,16 +15,17 @@ public class HOSuperPrompt : MonoBehaviour
     private int enemiesDefeated = 0;
     private bool isPromptActive = false;
 
-    // Eventos para que la UI y el panel se enteren
-    public event Action<int, int> OnProgressChanged; // (actual, requerido)
+    public event Action<int, int> OnProgressChanged; 
     public event Action OnPromptTriggered;
     public event Action OnPromptClosed;
 
-    // Propiedades de lectura
     public int EnemiesDefeated => enemiesDefeated;
     public int EnemiesRequired => enemiesRequired;
     public bool IsPromptActive => isPromptActive;
 
+    /// <summary>
+    /// Configura el singleton de la clase.
+    /// </summary>
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -32,11 +36,17 @@ public class HOSuperPrompt : MonoBehaviour
         Instance = this;
     }
 
+    /// <summary>
+    /// Notifica el progreso inicial.
+    /// </summary>
     void Start()
     {
         OnProgressChanged?.Invoke(enemiesDefeated, enemiesRequired);
     }
 
+    /// <summary>
+    /// Incrementa el contador de enemigos derrotados y activa el prompt si se alcanza el objetivo.
+    /// </summary>
     public void OnEnemyDefeated()
     {
         if (isPromptActive) return;
@@ -50,6 +60,9 @@ public class HOSuperPrompt : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Pausa el juego y muestra el prompt.
+    /// </summary>
     void TriggerPrompt()
     {
         isPromptActive = true;
@@ -57,21 +70,25 @@ public class HOSuperPrompt : MonoBehaviour
         OnPromptTriggered?.Invoke();
     }
 
+    /// <summary>
+    /// Aplica las recompensas y cierra el prompt al responder correctamente.
+    /// </summary>
     public void OnAnswerCorrect()
     {
         ApplyDifficultyReduction();
         ClosePrompt(resetCounter: true);
     }
 
+    /// <summary>
+    /// Reduce la dificultad disminuyendo la velocidad de la cámara y el nivel de los generadores.
+    /// </summary>
     void ApplyDifficultyReduction()
     {
-        // Reduce velocidad de cámara
         if (HOScrollingCamera.Instance != null)
         {
             HOScrollingCamera.Instance.ReduceDifficulty(difficultyReductionPercent);
         }
 
-        // Reduce nivel de todos los spawners de enemigos
         HOEnemySpawner[] spawners = FindObjectsByType<HOEnemySpawner>();
         foreach (var spawner in spawners)
         {
@@ -79,11 +96,17 @@ public class HOSuperPrompt : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Cierra el prompt sin aplicar recompensas si la respuesta es incorrecta.
+    /// </summary>
     public void OnAnswerIncorrect()
     {
         ClosePrompt(resetCounter: true);
     }
 
+    /// <summary>
+    /// Reanuda el juego y reinicia el progreso si es necesario.
+    /// </summary>
     void ClosePrompt(bool resetCounter)
     {
         isPromptActive = false;

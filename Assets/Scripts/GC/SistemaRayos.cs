@@ -1,6 +1,9 @@
 using UnityEngine;
 using TMPro;
 
+
+/// Controla la cantidad de rayos o energía disponible del jugador.
+
 public class SistemaRayos : MonoBehaviour
 {
     [Header("Rayos")]
@@ -8,15 +11,25 @@ public class SistemaRayos : MonoBehaviour
     public int rayosActuales = 0;
 
     [Header("UI")]
-    public TMP_Text textoContador;           // En PanelGenerador
-    public TMP_Text textoContadorCamaras;    // En PanelVista
-    public TMP_Text textoContadorHUD;        // En el juego principal (nuevo)
+    public TMP_Text textoContador;
+    public TMP_Text textoContadorCamaras;
+    public TMP_Text textoContadorHUD;
 
     public static SistemaRayos instancia;
 
+    
+    /// Configura la instancia Singleton.
+    
     void Awake() => instancia = this;
+
+    
+    /// Muestra la cantidad inicial de rayos en la interfaz.
+    
     void Start() => ActualizarUI();
 
+    
+    /// Incrementa la cantidad de rayos si no se ha alcanzado el límite máximo.
+    
     public void GanarRayo()
     {
         if (rayosActuales < rayosMaximos)
@@ -26,6 +39,9 @@ public class SistemaRayos : MonoBehaviour
         }
     }
 
+    
+    /// Disminuye la cantidad de rayos por fallar alguna acción.
+    
     public void PerderRayo()
     {
         if (rayosActuales > 0)
@@ -35,6 +51,9 @@ public class SistemaRayos : MonoBehaviour
         }
     }
 
+    
+    /// Consume un rayo para realizar una acción, si hay disponibles.
+    
     public bool UsarRayo()
     {
         if (rayosActuales > 0)
@@ -47,6 +66,9 @@ public class SistemaRayos : MonoBehaviour
         return false;
     }
 
+    
+    /// Refleja la cantidad de rayos actuales en todos los textos de UI correspondientes.
+    
     void ActualizarUI()
     {
         if (textoContador != null)

@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
+/// Controla los movimientos y acciones del jugador (Gelly).
+
 [RequireComponent(typeof(Rigidbody2D))]
 public class GellyController : MonoBehaviour
 {
@@ -23,6 +26,9 @@ public class GellyController : MonoBehaviour
     private bool estaEnSuelo;
     private float ultimaDireccion = 0f;
 
+    
+    /// Obtiene referencias a componentes internos.
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -31,6 +37,9 @@ public class GellyController : MonoBehaviour
         rb.freezeRotation = true;
     }
 
+    
+    /// Revisa la entrada del jugador, físicas y la interacción con la computadora.
+    
     void Update()
     {
         estaEnSuelo = Physics2D.OverlapCircle(puntoSuelo.position, radioSuelo, capaSuelo);
@@ -46,7 +55,6 @@ public class GellyController : MonoBehaviour
         if (Keyboard.current.upArrowKey.wasPressedThisFrame && estaEnSuelo)
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, fuerzaSalto);
 
-        // Abrir cámaras al acercarse a la PC
         float distancia = Mathf.Abs(transform.position.x - posicionXPC);
         if (distancia <= distanciaPC && Keyboard.current.eKey.wasPressedThisFrame)
             SistemaCamaras.instancia.AbrirMenuPC();
@@ -54,6 +62,9 @@ public class GellyController : MonoBehaviour
         ActualizarAnimacion(inputX);
     }
 
+    
+    /// Cambia la animación según el estado de movimiento.
+    
     void ActualizarAnimacion(float inputX)
     {
         if (!estaEnSuelo)
@@ -67,6 +78,9 @@ public class GellyController : MonoBehaviour
         else                     anim.Play("Idle");
     }
 
+    
+    /// Dibuja ayudas visuales en el editor para verificar el contacto con el suelo.
+    
     void OnDrawGizmosSelected()
     {
         if (puntoSuelo != null)

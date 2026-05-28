@@ -1,6 +1,9 @@
 using UnityEngine;
 using TMPro;
 
+
+/// Administra la economía del juego y las recompensas por acciones del jugador.
+
 public class SistemaMonedas : MonoBehaviour
 {
     [Header("Monedas por acción")]
@@ -11,7 +14,7 @@ public class SistemaMonedas : MonoBehaviour
     public int monedasPorHoraSobrevivida  = 15;
 
     [Header("UI — texto de monedas en pantalla de victoria/derrota")]
-    public TMP_Text textoMonedasSesion; // El TextoMonedas dentro del panel Monedas
+    public TMP_Text textoMonedasSesion;
 
     private int monedasSesion       = 0;
     private int enemigoEliminados   = 0;
@@ -22,34 +25,50 @@ public class SistemaMonedas : MonoBehaviour
 
     public static SistemaMonedas instancia;
 
+    
+    /// Configura el Singleton.
+    
     void Awake() => instancia = this;
 
-    // --- Registrar acciones ---
-
+    
+    /// Añade monedas por eliminar a un enemigo con electricidad.
+    
     public void RegistrarEliminarEnemigo()
     {
         enemigoEliminados++;
         AgregarMonedas(monedasPorEliminarEnemigo);
     }
 
+    
+    /// Añade monedas por haber cerrado la puerta a un enemigo a tiempo.
+    
     public void RegistrarCerrarPuerta()
     {
         puertasCerradas++;
         AgregarMonedas(monedasPorCerrarPuerta);
     }
 
+    
+    /// Añade monedas tras responder correctamente en el generador.
+    
     public void RegistrarPreguntaCorrecta()
     {
         preguntasCorrectas++;
         AgregarMonedas(monedasPorPreguntaCorrecta);
     }
 
+    
+    /// Añade monedas cuando pasa una hora en el juego.
+    
     public void RegistrarHoraSobrevivida()
     {
         horasSobrevividas++;
         AgregarMonedas(monedasPorHoraSobrevivida);
     }
 
+    
+    /// Añade monedas de bonificación por ganar la partida.
+    
     public void RegistrarVictoria()
     {
         if (victoriaRegistrada) return;
@@ -57,23 +76,30 @@ public class SistemaMonedas : MonoBehaviour
         AgregarMonedas(monedasPorVictoria);
     }
 
+    
+    /// Suma a la cantidad temporal de la sesión.
+    
     void AgregarMonedas(int cantidad)
     {
         monedasSesion += cantidad;
     }
 
+    
+    /// Guarda las monedas de la sesión en el total acumulado y actualiza la UI.
+    
     public void MostrarResumen()
     {
-        // Guardar en PlayerPrefs
         int totalGuardado = PlayerPrefs.GetInt("MonedasTotal", 0);
         int nuevoTotal    = totalGuardado + monedasSesion;
         PlayerPrefs.SetInt("MonedasTotal", nuevoTotal);
         PlayerPrefs.Save();
 
-        // Mostrar monedas de esta sesión en el panel de victoria/derrota
         if (textoMonedasSesion != null)
             textoMonedasSesion.text = $"{monedasSesion}";
     }
 
+    
+    /// Devuelve la cantidad total de monedas guardadas.
+    
     public int GetMonedasTotal() => PlayerPrefs.GetInt("MonedasTotal", 0);
 }

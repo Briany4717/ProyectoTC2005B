@@ -4,10 +4,16 @@ using System.Collections;
 using UnityEngine.Networking;
 using UnityEngine.Categorization;
 
+/// <summary>
+/// Gestor centralizado para realizar peticiones a la API utilizando el patrón Singleton.
+/// </summary>
 public class ApiManager : MonoBehaviour
 {
     private static ApiManager _instance;
 
+    /// <summary>
+    /// Instancia única del ApiManager.
+    /// </summary>
     public static ApiManager Instance
     {
         get
@@ -25,6 +31,9 @@ public class ApiManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Configura el Singleton y evita que el objeto se destruya al cargar nuevas escenas.
+    /// </summary>
     private void Awake()
     {
         if (_instance == null)
@@ -40,12 +49,20 @@ public class ApiManager : MonoBehaviour
 
     private readonly String baseUrl = "https://127.0.0.1:8081/";
 
+    /// <summary>
+    /// Inicia una petición GET a la API.
+    /// </summary>
+    /// <param name="endpoint">Ruta del endpoint a consultar.</param>
+    /// <param name="onSuccess">Acción a ejecutar si la petición es exitosa.</param>
+    /// <param name="onError">Acción a ejecutar si ocurre un error.</param>
     public void Get(string endpoint, Action<string> onSuccess, Action<string> onError)
     {
         StartCoroutine(GetCoroutine(endpoint, onSuccess, onError));
     }
 
-
+    /// <summary>
+    /// Corrutina que maneja la lógica interna de la petición GET.
+    /// </summary>
     private IEnumerator GetCoroutine(string endpoint, Action<string> onSucces, Action<string> onError)
     {
         string url = baseUrl + endpoint;
@@ -68,11 +85,21 @@ public class ApiManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Inicia una petición POST a la API enviando datos en formato JSON.
+    /// </summary>
+    /// <param name="endpoint">Ruta del endpoint a consultar.</param>
+    /// <param name="jsonData">Datos a enviar en formato JSON.</param>
+    /// <param name="onSucces">Acción a ejecutar si la petición es exitosa.</param>
+    /// <param name="onError">Acción a ejecutar si ocurre un error.</param>
     public void Post(string endpoint, string jsonData, Action<string> onSucces, Action<string> onError)
     {
         StartCoroutine(PostCoroutine(endpoint, jsonData, onSucces, onError));
     }
 
+    /// <summary>
+    /// Corrutina que maneja la lógica interna de la petición POST.
+    /// </summary>
     private IEnumerator PostCoroutine(string endpoint, string jsonData, Action<string> onSucces, Action<string> onError)
     {
         string url = baseUrl + endpoint;
@@ -103,4 +130,3 @@ public class ApiManager : MonoBehaviour
     }
 
 }
-

@@ -2,6 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
+
+/// Controla la interfaz de las cámaras y la computadora dentro del juego.
+
 public class SistemaCamaras : MonoBehaviour
 {
     [Header("UI")]
@@ -30,12 +33,18 @@ public class SistemaCamaras : MonoBehaviour
 
     public static SistemaCamaras instancia;
 
+    
+    /// Configura el Singleton e inicializa ocultando las cámaras.
+    
     void Awake()
     {
         instancia = this;
         pantallaCamaras.SetActive(false);
     }
 
+    
+    /// Asigna los eventos de los botones del menú de la PC.
+    
     void Start()
     {
         btnGenerador.onClick.AddListener(() =>
@@ -51,9 +60,11 @@ public class SistemaCamaras : MonoBehaviour
         });
     }
 
+    
+    /// Permite cambiar entre cámaras usando las flechas del teclado.
+    
     void Update()
     {
-        // Carrusel solo funciona cuando estamos en vista de cámara
         if (!enVistaCamara) return;
 
         if (Keyboard.current.leftArrowKey.wasPressedThisFrame)
@@ -63,18 +74,27 @@ public class SistemaCamaras : MonoBehaviour
             CamaraSiguiente();
     }
 
+    
+    /// Cambia a la siguiente cámara en orden.
+    
     void CamaraSiguiente()
     {
         int siguiente = (camaraActual + 1) % imagenesCamaras.Length;
         CambiarCamara(siguiente);
     }
 
+    
+    /// Cambia a la cámara anterior en orden.
+    
     void CamaraAnterior()
     {
         int anterior = (camaraActual - 1 + imagenesCamaras.Length) % imagenesCamaras.Length;
         CambiarCamara(anterior);
     }
 
+    
+    /// Muestra el menú principal de la PC y detiene el tiempo.
+    
     public void AbrirMenuPC()
     {
         MusicController.instancia?.PlayCameras();
@@ -87,6 +107,9 @@ public class SistemaCamaras : MonoBehaviour
         Time.timeScale = 0f;
     }
 
+    
+    /// Oculta el menú de PC y muestra el mapa de cámaras.
+    
     void MostrarCamaras()
     {
         abierto = true;
@@ -94,6 +117,9 @@ public class SistemaCamaras : MonoBehaviour
         MostrarMapa();
     }
 
+    
+    /// Oculta la interfaz de PC/cámaras y reanuda el juego.
+    
     public void CerrarCamaras()
     {
         abierto = false;
@@ -105,6 +131,9 @@ public class SistemaCamaras : MonoBehaviour
         Time.timeScale = 1f;
     }
 
+    
+    /// Activa el panel del mapa desactivando la vista de cámara actual.
+    
     void MostrarMapa()
     {
         enVistaCamara = false;
@@ -112,6 +141,9 @@ public class SistemaCamaras : MonoBehaviour
         panelVista.SetActive(false);
     }
 
+    
+    /// Muestra lo que hay en una cámara específica, incluyendo a los enemigos.
+    
     public void CambiarCamara(int index)
     {
         camaraActual = index;
@@ -127,11 +159,17 @@ public class SistemaCamaras : MonoBehaviour
         SistemaEnemigos.instancia.MostrarEnemigosEnCamara(index);
     }
 
+    
+    /// Vuelve de la vista de una cámara al plano general del mapa.
+    
     public void VolverAlMapa()
     {
         MostrarMapa();
     }
 
+    
+    /// Cierra todo para regresar al menú principal de la PC.
+    
     public void VolverAlMenu()
     {
         enVistaCamara = false;

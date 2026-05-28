@@ -1,20 +1,24 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+
+/// Controla la UI del panel de configuración dentro del juego.
+
 public class PanelConfiguracionUI : MonoBehaviour
 {
     public Slider sliderMusica;
     public Slider sliderSonido;
 
+    
+    /// Carga los valores de configuración guardados al activar el panel.
+    
     void OnEnable()
     {
-        // Cargar valores guardados sin disparar eventos
         if (sliderMusica != null)
         {
             sliderMusica.SetValueWithoutNotify(
                 PlayerPrefs.GetFloat("VolMusica", 0.5f));
 
-            // Registrar listener en código → siempre usa MusicController.instancia
             sliderMusica.onValueChanged.RemoveAllListeners();
             sliderMusica.onValueChanged.AddListener(OnMusicaChanged);
         }
@@ -29,16 +33,24 @@ public class PanelConfiguracionUI : MonoBehaviour
         }
     }
 
+    
+    /// Limpia los escuchadores de eventos al desactivar el panel.
+    
     void OnDisable()
     {
-        // Limpiar listeners al cerrar el panel
         if (sliderMusica != null) sliderMusica.onValueChanged.RemoveAllListeners();
         if (sliderSonido != null) sliderSonido.onValueChanged.RemoveAllListeners();
     }
 
+    
+    /// Cambia el volumen de la música.
+    
     private void OnMusicaChanged(float valor) =>
         MusicController.instancia?.SetVolumenMusica(valor);
 
+    
+    /// Cambia el volumen de los efectos de sonido.
+    
     private void OnSonidoChanged(float valor) =>
         MusicController.instancia?.SetVolumenSFX(valor);
 }

@@ -3,10 +3,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Gestiona la lógica y visualización del minijuego de preguntas.
+/// </summary>
 public class GLQuestionSetup : MonoBehaviour
 {
-
-
     [SerializeField] private List<QuestionData> questions;
     private QuestionData currentQuestion;
 
@@ -15,92 +16,89 @@ public class GLQuestionSetup : MonoBehaviour
     [SerializeField] private int correctAnswerChoice;
     [SerializeField] private Image errorImage;
 
-
-
-
-
-
-
-
-    //station we are trying to do
     StationData currentStation;
 
+    /// <summary>
+    /// Carga las preguntas y oculta la imagen de error.
+    /// </summary>
     private void Awake()
     {
         GetQuestionAssets();
         errorImage.gameObject.SetActive(false);
-
     }
 
     void Start()
     {
-
     }
 
-    // when interact with station start the jeopardy
+    /// <summary>
+    /// Abre la pregunta actual al interactuar con una estación.
+    /// </summary>
     public void OpenQuestion(StationData station)
     {
         currentStation = station;
         LoadNewQuestion();
         this.gameObject.SetActive(true);
-
     }
 
+    /// <summary>
+    /// Ejecuta la lógica cuando se elige la respuesta correcta.
+    /// </summary>
     public void CorrectAnswer()
     {
-
-        // GLSFXManager.Instance.PlaySFX(GLSFXManager.Instance.JeopardyCorrect);
-        // Avisamos al manager general que cierre todos los menús de las estaciones
         GLMenusStationsManager.Instance.CloseAllMenus();
-
-        // Avisamos al OrderManager que completamos la estación
         OrderManager.Instance.OnPlayerCompletedStation(currentStation);
-
     }
 
+    /// <summary>
+    /// Ejecuta la lógica de error y reproducción de sonido al fallar.
+    /// </summary>
     public void WrongAnswer()
     {
-        // Aquí podríamos añadir alguna penalización o mensaje de error
         Debug.Log("Respuesta incorrecta. Inténtalo de nuevo.");
         GLSFXManager.Instance.PlaySFX(GLSFXManager.Instance.JeopardyFailure);
-
         ShowError();
-
     }
 
-
-    // funcion para aparecer una cruz cuando se equivocan
+    /// <summary>
+    /// Muestra un indicador visual de error por un tiempo breve.
+    /// </summary>
     public void ShowError()
     {
         errorImage.gameObject.SetActive(true);
-        // Cancelamos cualquier invocación pendiente de HideError
         CancelInvoke("HideError");
-        // Oculta la cruz después de 1 segundo
         Invoke("HideError", 1f);
     }
+
+    /// <summary>
+    /// Oculta el indicador visual de error.
+    /// </summary>
     public void HideError()
     {
         errorImage.gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// Prepara y muestra una nueva pregunta en pantalla.
+    /// </summary>
     public void LoadNewQuestion()
     {
-        // FUNCTIONS IN CHARGED OF SETING UP ALL THE STUFF OF THE JEOPARDY
-        // Get a new question
         SelectNewQuestion();
-        // set all text and values on screen
         SetQuestionValues();
-        // set all the answer buttons text and correct answer values
         SetAnswerValues();
-
     }
 
+    /// <summary>
+    /// Obtiene los datos de las preguntas de la carpeta de recursos.
+    /// </summary>
     private void GetQuestionAssets()
     {
-        // get all of the questions from the question folder
         questions = new List<QuestionData>(Resources.LoadAll<QuestionData>("Questions"));
     }
 
+    /// <summary>
+    /// Selecciona aleatoriamente una pregunta de la lista y la elimina.
+    /// </summary>
     private void SelectNewQuestion()
     {
         int randomQuestionIndex = Random.Range(0, questions.Count);
@@ -108,21 +106,24 @@ public class GLQuestionSetup : MonoBehaviour
         questions.RemoveAt(randomQuestionIndex);
     }
 
+    /// <summary>
+    /// Configura el texto de la pregunta actual.
+    /// </summary>
     private void SetQuestionValues()
     {
         questionText.text = currentQuestion.question;
     }
 
+    /// <summary>
+    /// Configura los botones con respuestas aleatorizadas.
+    /// </summary>
     private void SetAnswerValues()
     {
         List<string> answers = RandomizeAnswer(new List<string>(currentQuestion.answers));
 
-
-        // setup each buttons for the list of answer buttons
         for (int i = 0; i < answerButtons.Length; i++)
         {
             bool isCorrect = false;
-            //  if it is the correct answer set the bool to true
             if (i == correctAnswerChoice)
             {
                 isCorrect = true;
@@ -131,8 +132,9 @@ public class GLQuestionSetup : MonoBehaviour
         }
     }
 
-    // randomize the correct answer from the buttons to never have the same ones 
-    // in the same order
+    /// <summary>
+    /// Aleatoriza el orden de las respuestas para evitar patrones.
+    /// </summary>
     private List<string> RandomizeAnswer(List<string> originalList)
     {
         bool correctAnswerChosen = false;
@@ -140,22 +142,18 @@ public class GLQuestionSetup : MonoBehaviour
 
         for (int i = 0; i < answerButtons.Length; i++)
         {
-            // get a random number of the remaining choices (buttons)
             int randomButton = Random.Range(0, originalList.Count);
 
-            // check if we got 0 for the first time
             if (randomButton == 0 && !correctAnswerChosen)
             {
                 correctAnswerChoice = i;
                 correctAnswerChosen = true;
             }
 
-            // add this to the new list
             newList.Add(originalList[randomButton]);
             originalList.RemoveAt(randomButton);
         }
 
         return newList;
     }
-
 }

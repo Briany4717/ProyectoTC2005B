@@ -2,6 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+
+/// Gestiona la transición a las pantallas de victoria y derrota.
+
 public class SistemaFinJuego : MonoBehaviour
 {
     [Header("Pantalla Derrota")]
@@ -16,8 +19,14 @@ public class SistemaFinJuego : MonoBehaviour
 
     public static SistemaFinJuego instancia;
 
+    
+    /// Establece la instancia Singleton del sistema.
+    
     void Awake() => instancia = this;
 
+    
+    /// Inicializa las pantallas y asigna los eventos de los botones.
+    
     void Start()
     {
         panelDerrota.SetActive(false);
@@ -29,6 +38,9 @@ public class SistemaFinJuego : MonoBehaviour
         btnMenuVictoria.onClick.AddListener(IrAlMenu);
     }
 
+    
+    /// Pausa el juego y muestra la pantalla de derrota.
+    
     public void MostrarDerrota()
     {
         if (SistemaReloj.instancia != null)
@@ -41,6 +53,9 @@ public class SistemaFinJuego : MonoBehaviour
         panelDerrota.SetActive(true);
     }
 
+    
+    /// Pausa el juego y muestra la pantalla de victoria con el resumen de monedas.
+    
     public void MostrarVictoria()
     {
         Time.timeScale = 0f;
@@ -48,6 +63,9 @@ public class SistemaFinJuego : MonoBehaviour
         panelVictoria.SetActive(true);
     }
 
+    
+    /// Reinicia la escena actual del juego.
+    
     void Reiniciar()
     {
         MusicController.instancia?.ReiniciarMusica();
@@ -55,6 +73,9 @@ public class SistemaFinJuego : MonoBehaviour
         SceneManager.LoadScene(2);
     }
 
+    
+    /// Carga la escena del menú principal.
+    
     void IrAlMenu()
     {
         Time.timeScale = 1f;

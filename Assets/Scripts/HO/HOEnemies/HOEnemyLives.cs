@@ -1,10 +1,15 @@
 using UnityEngine;
 
+/// <summary>
+/// Gestiona la vida de los enemigos y sus recompensas al morir.
+/// </summary>
 public class HOEnemyLives : MonoBehaviour
 {
     public float lives;
-    // public GameObject deathEffect;
 
+    /// <summary>
+    /// Reduce la vida del enemigo y verifica si muere.
+    /// </summary>
     public void TomarDanio(float danio)
     {
         lives -= danio;
@@ -14,6 +19,9 @@ public class HOEnemyLives : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Maneja la muerte del enemigo, otorgando recompensas y notificando.
+    /// </summary>
     void death()
     {
         IHOEnemyReward reward = GetComponent<IHOEnemyReward>();

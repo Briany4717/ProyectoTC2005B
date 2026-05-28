@@ -1,5 +1,8 @@
 using UnityEngine;
 
+
+/// Representa la información y comportamiento base de un enemigo.
+
 [System.Serializable]
 public class Enemigo
 {
@@ -9,6 +12,6 @@ public class Enemigo
     public bool eliminado = false;
     public GameObject prefabUI;
     public Vector2[] posicionesPorCamara;
-    public float[] escalasPorCamara; // 1 = normal, 0.5 = lejos, 1.5 = cerca
+    public float[] escalasPorCamara;
     public float tiempoMovimientoOriginal;
 }

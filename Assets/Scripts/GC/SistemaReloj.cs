@@ -3,6 +3,9 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 
+
+/// Controla el tiempo de juego, la progresión de las horas y el fin de la partida.
+
 public class SistemaReloj : MonoBehaviour
 {
     [Header("Reloj físico")]
@@ -31,8 +34,14 @@ public class SistemaReloj : MonoBehaviour
 
     public static SistemaReloj instancia;
 
+    
+    /// Asigna la instancia principal del reloj.
+    
     void Awake() => instancia = this;
 
+    
+    /// Inicializa la UI del reloj y los paneles.
+    
     void Start()
     {
         if (panelNegro != null) panelNegro.SetActive(false);
@@ -40,6 +49,9 @@ public class SistemaReloj : MonoBehaviour
         ActualizarReloj();
     }
 
+    
+    /// Actualiza el temporizador y avanza la hora si corresponde.
+    
     void Update()
     {
         if (juegoTerminado) return;
@@ -54,6 +66,9 @@ public class SistemaReloj : MonoBehaviour
         }
     }
 
+    
+    /// Incrementa la hora actual y ajusta la dificultad.
+    
     void AvanzarHora()
     {
         horaActual++;
@@ -73,6 +88,9 @@ public class SistemaReloj : MonoBehaviour
         Debug.Log($"Hora: {nombresHoras[horaActual]}");
     }
 
+    
+    /// Refleja la hora actual en los elementos visuales del reloj.
+    
     void ActualizarReloj()
     {
         if (spriteReloj != null && horaActual < spritesHoras.Length)
@@ -85,6 +103,9 @@ public class SistemaReloj : MonoBehaviour
             textoHoraDigitalPC.text = nombresHoras[horaActual];
     }
 
+    
+    /// Aumenta la velocidad de movimiento de los enemigos según la hora.
+    
     void AumentarDificultad()
     {
         float multiplicador = 1f - (horaActual * 0.15f);
@@ -97,21 +118,21 @@ public class SistemaReloj : MonoBehaviour
         }
     }
 
-    // ── Terminar juego (victoria o derrota) ───────────────────────────
-
-    /// <summary>
-    /// Detiene el reloj y todos los procesos.
-    /// Llamado tanto por victoria (internamente) como por derrota (SistemaFinJuego).
-    /// </summary>
+    
+    /// Finaliza el progreso del juego externamente (victoria o derrota).
+    
     public void TerminarJuego()
     {
         if (juegoTerminado) return;
 
         juegoTerminado = true;
-        StopAllCoroutines(); // Cancela SecuenciaVictoria si estaba corriendo
+        StopAllCoroutines();
         DetenerTodo();
     }
 
+    
+    /// Gestiona internamente el fin del juego al llegar a las 6 AM.
+    
     void FinDelJuego()
     {
         juegoTerminado = true;
@@ -120,38 +141,35 @@ public class SistemaReloj : MonoBehaviour
         StartCoroutine(SecuenciaVictoria());
     }
 
+    
+    /// Detiene y oculta a los enemigos y menús activos.
+    
     void DetenerTodo()
     {
-        // Detener enemigos
         foreach (var enemigo in SistemaEnemigos.instancia.enemigos)
             enemigo.eliminado = true;
 
-        // Ocultar advertencias
         SistemaEnemigos.instancia.MostrarAdvertencia(false);
 
-        // Cerrar pantalla de cámaras si está abierta
         if (SistemaCamaras.instancia != null)
             SistemaCamaras.instancia.CerrarCamaras();
 
-        // Cerrar panel del generador si está abierto
         if (SistemaPreguntas.instancia != null)
             SistemaPreguntas.instancia.ForzarCierre();
 
-        // Detener enemigo en puerta si hay uno
         if (EnemigoPuerta.instancia != null)
             EnemigoPuerta.instancia.OcultarInmediatamente();
     }
 
-    // ── Secuencia de victoria ─────────────────────────────────────────
-
+    
+    /// Reproduce la animación y sonidos de victoria al terminar la noche.
+    
     IEnumerator SecuenciaVictoria()
     {
         MusicController.instancia?.PlayAlarm();
 
-        // Paso 1 — parpadear hora en HUD
         yield return StartCoroutine(ParpadeaTexto(textoHoraDigital, tiempoParpadeoReloj));
 
-        // Paso 2 — mostrar panel negro con hora parpadeando
         if (panelNegro != null)
         {
             panelNegro.SetActive(true);
@@ -167,10 +185,12 @@ public class SistemaReloj : MonoBehaviour
         MusicController.instancia?.StopAlarm();
         MusicController.instancia?.PlayWin();
 
-        // Paso 3 — mostrar pantalla de victoria
         SistemaFinJuego.instancia.MostrarVictoria();
     }
 
+    
+    /// Hace parpadear un texto específico durante un tiempo determinado.
+    
     IEnumerator ParpadeaTexto(TMP_Text texto, float duracion)
     {
         if (texto == null) yield break;
@@ -185,11 +205,18 @@ public class SistemaReloj : MonoBehaviour
         texto.enabled = true;
     }
 
-    // ── Utilidades públicas ───────────────────────────────────────────
-
+    
+    /// Pausa o reanuda el reloj.
+    
     public void SetPausa(bool pausado) => pausadoPorMenu = pausado;
-    public string GetHoraActual()      => nombresHoras[horaActual];
-    public int    GetIndexHora()       => horaActual;
 
     
+    /// Obtiene el string de la hora actual.
+    
+    public string GetHoraActual()      => nombresHoras[horaActual];
+
+    
+    /// Obtiene el índice numérico de la hora actual.
+    
+    public int    GetIndexHora()       => horaActual;
 }

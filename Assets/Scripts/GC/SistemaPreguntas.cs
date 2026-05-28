@@ -5,6 +5,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Networking;
 
+
+/// Estructura para almacenar las preguntas provenientes de la base de datos.
+
 [System.Serializable]
 public class PreguntaDB
 {
@@ -20,13 +23,18 @@ public class PreguntaDB
     public string explicacion;
 }
 
+
+/// Contenedor de la lista de preguntas obtenidas de la base de datos.
+
 [System.Serializable]
 public class ListaPreguntasDB
 {
     public PreguntaDB[] preguntas;
 }
 
-// Clase Pregunta original — se mantiene para compatibilidad
+
+/// Estructura base para el manejo local de preguntas.
+
 [System.Serializable]
 public class Pregunta
 {
@@ -35,6 +43,9 @@ public class Pregunta
     public int respuestaCorrecta;
     public string explicacion;
 }
+
+
+/// Maneja la obtención, muestra y validación de las preguntas en el generador.
 
 public class SistemaPreguntas : MonoBehaviour
 {
@@ -53,12 +64,11 @@ public class SistemaPreguntas : MonoBehaviour
 
     [Header("Configuración BD")]
     public string urlAPI = "http://localhost:8000/preguntas";
-    public bool usarBD = true; // Si es false, usa preguntas hardcodeadas
+    public bool usarBD = true;
 
     [Header("Preguntas hardcodeadas (fallback)")]
     public List<Pregunta> preguntas;
 
-    // Preguntas cargadas desde BD
     private List<Pregunta> preguntasCargadas = new List<Pregunta>();
 
     private int indicePreguntaActual = 0;
@@ -68,8 +78,14 @@ public class SistemaPreguntas : MonoBehaviour
 
     public static SistemaPreguntas instancia;
 
+    
+    /// Asigna la instancia principal del sistema.
+    
     void Awake() => instancia = this;
 
+    
+    /// Configura los eventos de los botones y comienza la carga de preguntas.
+    
     void Start()
     {
         panelGenerador.SetActive(false);
@@ -88,6 +104,9 @@ public class SistemaPreguntas : MonoBehaviour
             InicializarConPreguntas(preguntas);
     }
 
+    
+    /// Descarga las preguntas desde la API especificada.
+    
     IEnumerator CargarPreguntasDesdeDB()
     {
         cargando = true;
@@ -101,7 +120,6 @@ public class SistemaPreguntas : MonoBehaviour
             if (request.result == UnityWebRequest.Result.Success)
             {
                 string json = request.downloadHandler.text;
-                // Unity no deserializa arrays directamente, usamos wrapper
                 string jsonWrapped = "{\"preguntas\":" + json + "}";
                 ListaPreguntasDB lista = JsonUtility.FromJson<ListaPreguntasDB>(jsonWrapped);
 
@@ -124,19 +142,25 @@ public class SistemaPreguntas : MonoBehaviour
             else
             {
                 Debug.LogWarning($"Error al cargar BD: {request.error}. Usando preguntas locales.");
-                InicializarConPreguntas(preguntas); // Fallback
+                InicializarConPreguntas(preguntas);
             }
         }
 
         cargando = false;
     }
 
+    
+    /// Asigna la lista de preguntas a usar y las baraja.
+    
     void InicializarConPreguntas(List<Pregunta> lista)
     {
         preguntasCargadas = lista;
         BarajarPreguntas();
     }
 
+    
+    /// Mezcla de forma aleatoria el orden de las preguntas.
+    
     void BarajarPreguntas()
     {
         indicesBarajados.Clear();
@@ -155,6 +179,9 @@ public class SistemaPreguntas : MonoBehaviour
         indicePreguntaActual = 0;
     }
 
+    
+    /// Muestra el panel generador de energía y pausa el tiempo.
+    
     public void AbrirGenerador()
     {
         panelGenerador.SetActive(true);
@@ -166,17 +193,26 @@ public class SistemaPreguntas : MonoBehaviour
             MostrarPregunta();
     }
 
+    
+    /// Oculta el panel generador y regresa al menú de PC.
+    
     public void CerrarGenerador()
     {
         panelGenerador.SetActive(false);
         SistemaCamaras.instancia.AbrirMenuPC();
     }
 
+    
+    /// Oculta directamente el panel del generador.
+    
     public void ForzarCierre()
     {
         panelGenerador.SetActive(false);
     }
 
+    
+    /// Muestra la pregunta actual y sus opciones en la UI.
+    
     void MostrarPregunta()
     {
         if (preguntasCargadas.Count == 0)
@@ -204,6 +240,9 @@ public class SistemaPreguntas : MonoBehaviour
         }
     }
 
+    
+    /// Valida la respuesta seleccionada por el jugador y actualiza el estado.
+    
     void Responder(int opcionElegida)
     {
         if (respondido) return;
@@ -234,11 +273,17 @@ public class SistemaPreguntas : MonoBehaviour
         btnSiguiente.gameObject.SetActive(true);
     }
 
+    
+    /// Cambia la imagen de fondo de un botón específico.
+    
     void CambiarSpriteBoton(Button btn, Sprite sprite)
     {
         btn.GetComponent<Image>().sprite = sprite;
     }
 
+    
+    /// Avanza al siguiente índice de pregunta y la muestra en pantalla.
+    
     void SiguientePregunta()
     {
         indicePreguntaActual++;

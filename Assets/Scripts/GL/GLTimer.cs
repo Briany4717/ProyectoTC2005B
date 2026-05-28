@@ -3,16 +3,20 @@ using TMPro;
 using System;
 using Unity.VisualScripting;
 
+/// <summary>
+/// Administra el tiempo restante de la partida y finaliza el juego si llega a cero.
+/// </summary>
 public class GLTimer : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI timerText;
     [SerializeField] public float remainingTime;
     private bool gameOverTriggered = false;
 
-
+    /// <summary>
+    /// Reduce el tiempo restante cada frame y actualiza el texto en pantalla.
+    /// </summary>
     void Update()
     {
-
         if (gameOverTriggered)
         {
             return;
@@ -20,7 +24,6 @@ public class GLTimer : MonoBehaviour
 
         if (remainingTime > 0)
         {
-
             remainingTime -= Time.deltaTime;
         }
         else
@@ -38,6 +41,5 @@ public class GLTimer : MonoBehaviour
         {
             timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
         }
-
     }
 }
