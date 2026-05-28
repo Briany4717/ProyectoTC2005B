@@ -9894,6 +9894,7 @@ GameObject:
   - component: {fileID: 1355484868}
   - component: {fileID: 1355484870}
   - component: {fileID: 1355484869}
+  - component: {fileID: 1355484871}
   m_Layer: 5
   m_Name: FlappyBird
   m_TagString: Untagged
@@ -9958,6 +9959,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1355484867}
   m_CullTransparentMesh: 1
+--- !u!95 &1355484871
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355484867}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b7aa812d538454c77853ce5dcb4f1f87, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1422853747
 GameObject:
   m_ObjectHideFlags: 0
@@ -10898,6 +10921,7 @@ MonoBehaviour:
   spawnPointX: 400
   recyclePointX: -400
   horizontalSeparation: 450
+  flappyAnimator: {fileID: 1355484871}
 --- !u!4 &1505358834
 Transform:
   m_ObjectHideFlags: 0

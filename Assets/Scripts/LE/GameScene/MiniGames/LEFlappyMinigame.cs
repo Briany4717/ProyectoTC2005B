@@ -32,6 +32,7 @@ public class LEFlappyMinigame : MonoBehaviour
     [SerializeField] private float recyclePointX = -350f;
     [Tooltip("Separación horizontal matemática estricta entre tubos.")]
     [SerializeField] private float horizontalSeparation = 400f;
+    [SerializeField] private Animator flappyAnimator;
 
     private float currentPipeSpeed = 250f;
     private float currentVerticalGap = 140f;
@@ -142,6 +143,7 @@ public class LEFlappyMinigame : MonoBehaviour
             if (Pointer.current != null && Pointer.current.press.wasPressedThisFrame)
             {
                 hasStarted = true;
+                flappyAnimator.SetTrigger("Flutter");
                 birdVerticalVelocity = jumpImpulse; // Rompemos la inercia con el primer salto interactivo
 
                 if (announcementTextMesh != null) 
@@ -156,6 +158,7 @@ public class LEFlappyMinigame : MonoBehaviour
         // ====================================================================
         if (Pointer.current != null && Pointer.current.press.wasPressedThisFrame)
         {
+            flappyAnimator.SetTrigger("Flutter");
             birdVerticalVelocity = jumpImpulse;
         }
 
