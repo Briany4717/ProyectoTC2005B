@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3962571770762414717
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3698992257892101714}
+  - component: {fileID: 2278840503385734134}
+  m_Layer: 0
+  m_Name: MusicController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3698992257892101714
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3962571770762414717}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2278840503385734134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3962571770762414717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9d61c90d249c46fb823646c6d0d858f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MusicController
+  musicaJuego: {fileID: 8300000, guid: 7428927bf253147bf9ffec84ba693262, type: 3}
+  volumenMusica: 0.7
+  sfxAlarm: {fileID: 8300000, guid: 6b09440eb0bcd40509f1d068a1013daf, type: 3}
+  sfxCameras: {fileID: 8300000, guid: ad2a385726db14f098f1bf8ee6b03f22, type: 3}
+  sfxClick: {fileID: 8300000, guid: 45602ba72a3d6422d9e96661f5d93ea5, type: 3}
+  sfxDoorSlam: {fileID: 8300000, guid: 3f7993dfe8948407598b8ffc9f0ba955, type: 3}
+  sfxElectricShock: {fileID: 8300000, guid: 89b14e2b0aced4996abb84f5a035d6b9, type: 3}
+  sfxRight: {fileID: 8300000, guid: 6e1b88254cc0b4f05a6779a054cfc939, type: 3}
+  sfxWin: {fileID: 8300000, guid: 754134d7b93e64afcafb187b37d607a7, type: 3}
+  sfxWrong: {fileID: 8300000, guid: 91d45aea31e7c4ceea24ceca317518a8, type: 3}
+  volumenSFX: 1
+  volumenClick: 0.7
+  volumenCameras: 0.7
+  volumenDoorSlam: 0.7
+  volumenElectric: 0.1
+  volumenRight: 0.7
+  volumenWrong: 0.7
+  volumenAlarm: 1
+  volumenWin: 1
