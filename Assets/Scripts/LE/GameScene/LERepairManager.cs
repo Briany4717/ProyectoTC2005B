@@ -76,6 +76,8 @@ public class LERepairManager : MonoBehaviour
     [SerializeField] private LEFlappyMinigame flappyMinigame;
     [SerializeField] private GameObject[] instructionSteps;
     private int instructionStepIndex = 0;
+    private int minigameIndex = 1;
+    public bool presetationMode = true;
 
     void Start()
     {
@@ -265,18 +267,24 @@ public class LERepairManager : MonoBehaviour
             
             currentState = RepairState.ExecutingMinigame;
             
-            int randomMinigameIndex = Random.Range(0, 3);
+            int randomMinigameIndex = minigameIndex;
+            minigameIndex++;
+            if(minigameIndex > 3) minigameIndex = 1;
+            if (!presetationMode)
+            {
+                randomMinigameIndex = Random.Range(1,3);
+            }
             bool minigameLaunched = false;
 
             switch (randomMinigameIndex)
             {
-                case 0:
+                case 1:
                     if (ticTacToeMinigame != null) { ticTacToeMinigame.StartMinigame(); minigameLaunched = true; }
                     break;
-                case 1:
+                case 2:
                     if (hanoiMinigame != null) { hanoiMinigame.StartMinigame(); minigameLaunched = true; }
                     break;
-                case 2:
+                case 3:
                     if (flappyMinigame != null) { flappyMinigame.StartMinigame(); minigameLaunched = true; }
                     break;
             }
