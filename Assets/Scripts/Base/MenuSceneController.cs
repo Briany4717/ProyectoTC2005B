@@ -14,6 +14,10 @@ public class MenuSceneController : MonoBehaviour
     {
         SceneManager.LoadScene("HOIntroScene");
     }
+    public void GoToPN()
+    {
+        SceneManager.LoadScene("PNStartScene");
+    }
     void Start()
     {
 

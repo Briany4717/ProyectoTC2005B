@@ -34,10 +34,18 @@ public class PNPlayerFallDetector : MonoBehaviour
     {
         isFalling = true;
         
+        if (gameController == null)
+            gameController = FindAnyObjectByType<PNGameController>();
+
         if (PlayerPrefs.GetInt("Coins") < minCoins)
-            gameController.gameOver(false);
+        {
+            PlayerPrefs.SetInt("Win", 0);
+            if (gameController != null)
+                gameController.gameOver();
+        }
         else
         {
+            PlayerPrefs.SetInt("Win", 1);
             gameController.SpendCoins();
             Respawn();   
         }
