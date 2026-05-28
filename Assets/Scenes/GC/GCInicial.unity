@@ -9795,6 +9795,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1699072330}
   m_CullTransparentMesh: 1
+--- !u!1 &1701869761
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1701869763}
+  - component: {fileID: 1701869762}
+  m_Layer: 0
+  m_Name: SistemaMonedas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1701869762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701869761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aa0bf6efa9784e619eb03943c165965, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SistemaMonedas
+  monedasPorEliminarEnemigo: 10
+  monedasPorCerrarPuerta: 5
+  monedasPorVictoria: 50
+  monedasPorPreguntaCorrecta: 3
+  monedasPorHoraSobrevivida: 15
+  textoMonedasSesion: {fileID: 1916525743}
+--- !u!4 &1701869763
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701869761}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.85681, y: -1.29088, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1718388722
 GameObject:
   m_ObjectHideFlags: 0
@@ -11068,6 +11118,8 @@ MonoBehaviour:
   spriteBotonNormal: {fileID: 7554801569241005110, guid: 9384d8ad21bc7433baf45af17cb43051, type: 3}
   spriteBotonCorrecto: {fileID: 9213332613473862990, guid: 9384d8ad21bc7433baf45af17cb43051, type: 3}
   spriteBotonIncorrecto: {fileID: -6411227630628679668, guid: 9384d8ad21bc7433baf45af17cb43051, type: 3}
+  urlAPI: http://localhost:8000/preguntas
+  usarBD: 1
   preguntas:
   - pregunta: "\xBFQu\xE9 es un prompt?"
     opciones:
@@ -12943,6 +12995,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotonSonido
   silenciado: 0
+--- !u!114 &1916525743 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2005271110420657197, guid: 9d47ddfd5fec441669b39d293bef7770, type: 3}
+  m_PrefabInstance: {fileID: 1765789897}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &1932988814
 GameObject:
   m_ObjectHideFlags: 0
@@ -14105,7 +14168,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2106299665
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14403,3 +14466,4 @@ SceneRoots:
   - {fileID: 452408025}
   - {fileID: 1453363039}
   - {fileID: 1920800555076976909}
+  - {fileID: 1701869763}

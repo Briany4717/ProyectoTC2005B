@@ -1316,7 +1316,6 @@ MonoBehaviour:
   panelConfiguracion: {fileID: 2055005852}
   sliderMusica: {fileID: 637815832}
   sliderSonido: {fileID: 1690086397}
-  musicaFondo: {fileID: 0}
 --- !u!4 &1645297732
 Transform:
   m_ObjectHideFlags: 0
@@ -2323,8 +2322,40 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7490590159590645187, guid: 58cebdb2a0f04404398b923603e75fa7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5880017984401863031}
   m_SourcePrefab: {fileID: 100100000, guid: 58cebdb2a0f04404398b923603e75fa7, type: 3}
+--- !u!1 &5880017984401863029 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7490590159590645187, guid: 58cebdb2a0f04404398b923603e75fa7, type: 3}
+  m_PrefabInstance: {fileID: 5880017984401863028}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5880017984401863030 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6609960412695439000, guid: 58cebdb2a0f04404398b923603e75fa7, type: 3}
+  m_PrefabInstance: {fileID: 5880017984401863028}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5880017984401863029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &5880017984401863031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5880017984401863029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 859d83f2db4e64be49281dee7b0d3d11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonedasMenuPrincipal
+  textoMonedas: {fileID: 5880017984401863030}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

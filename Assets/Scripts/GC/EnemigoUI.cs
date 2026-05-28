@@ -15,13 +15,9 @@ public class EnemigoUI : MonoBehaviour, IPointerClickHandler
         if (SistemaRayos.instancia.UsarRayo())
         {
             MusicController.instancia?.PlayElectricShock();
+            SistemaMonedas.instancia?.RegistrarEliminarEnemigo();
             SistemaEnemigos.instancia.EliminarEnemigo(enemigoData);
             Destroy(gameObject);
-        }
-        else
-        {
-            Debug.Log("Necesitas rayos para eliminar enemigos");
-            // Aquí puedes mostrar un mensaje en pantalla
         }
     }
 }

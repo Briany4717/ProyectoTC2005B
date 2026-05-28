@@ -52,8 +52,7 @@ public class EnemigoPuerta : MonoBehaviour
                 break;
             }
 
-            // Solo contar si no está pausado
-            if (Time.timeScale > 0f)
+            if (Time.timeScale > 0f && !MenuPausa.instancia.EstaEnPausa())
                 tiempoEsperando += Time.deltaTime;
 
             yield return null;
@@ -69,10 +68,9 @@ public class EnemigoPuerta : MonoBehaviour
         }
 
         yield return new WaitForSeconds(2f);
-
+        SistemaMonedas.instancia?.RegistrarCerrarPuerta();
         sr.enabled = false;
         ocupado = false;
-
         SistemaEnemigos.instancia.EnemigoSeFueDePuerta(enemigo);
     }
 

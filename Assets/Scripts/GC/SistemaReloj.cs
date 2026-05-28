@@ -58,6 +58,8 @@ public class SistemaReloj : MonoBehaviour
     {
         horaActual++;
 
+        SistemaMonedas.instancia?.RegistrarHoraSobrevivida();
+
         if (horaActual >= spritesHoras.Length)
         {
             horaActual = spritesHoras.Length - 1;
@@ -112,7 +114,9 @@ public class SistemaReloj : MonoBehaviour
 
     void FinDelJuego()
     {
-        TerminarJuego();
+        juegoTerminado = true;
+        SistemaMonedas.instancia?.RegistrarVictoria();
+        DetenerTodo();
         StartCoroutine(SecuenciaVictoria());
     }
 
@@ -182,4 +186,6 @@ public class SistemaReloj : MonoBehaviour
     public void SetPausa(bool pausado) => pausadoPorMenu = pausado;
     public string GetHoraActual()      => nombresHoras[horaActual];
     public int    GetIndexHora()       => horaActual;
+
+    
 }
