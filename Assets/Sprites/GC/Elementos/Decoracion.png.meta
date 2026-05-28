@@ -1,0 +1,767 @@
+fileFormatVersion: 2
+guid: a5bc7c195411b46ef977dba6cf6aa36a
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 552680584010213436
+    second: Decoracion_0
+  - first:
+      213: -8121236732736387919
+    second: Decoracion_1
+  - first:
+      213: 7211373065016183773
+    second: Decoracion_2
+  - first:
+      213: 560056176415343367
+    second: Decoracion_3
+  - first:
+      213: -5019166183100124670
+    second: Decoracion_4
+  - first:
+      213: -5793069977122261286
+    second: Decoracion_5
+  - first:
+      213: 2387063879760245741
+    second: Decoracion_6
+  - first:
+      213: -787394627531130461
+    second: Decoracion_7
+  - first:
+      213: 8327388426809291943
+    second: Decoracion_8
+  - first:
+      213: -8019400622447773290
+    second: Decoracion_9
+  - first:
+      213: 2366075499070250653
+    second: Decoracion_10
+  - first:
+      213: 1811942487040902519
+    second: Decoracion_11
+  - first:
+      213: -1822081744486346163
+    second: Decoracion_12
+  - first:
+      213: 8779881477776077031
+    second: Decoracion_13
+  - first:
+      213: -712898889209730592
+    second: Decoracion_14
+  - first:
+      213: 1385768423958896619
+    second: Decoracion_15
+  - first:
+      213: 828214608874366702
+    second: Decoracion_16
+  - first:
+      213: 6716841473124329943
+    second: Decoracion_17
+  - first:
+      213: 5640215066638372613
+    second: Decoracion_18
+  - first:
+      213: -6415085703762668955
+    second: Decoracion_19
+  - first:
+      213: -6819291839237230743
+    second: Decoracion_20
+  - first:
+      213: 3894000563627068571
+    second: Decoracion_21
+  - first:
+      213: 3919019616825632710
+    second: Decoracion_22
+  - first:
+      213: -1382394107723276462
+    second: Decoracion_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Decoracion_0
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 568
+        width: 217
+        height: 168
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c382f2c10148ba700800000000000000
+      internalID: 552680584010213436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decoracion_1
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 588
+        width: 173
+        height: 142
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b4c46048329b4f80800000000000000
+      internalID: -8121236732736387919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decoracion_2
+      rect:
+        serializedVersion: 2
+        x: 639
+        y: 593
+        width: 180
+        height: 129
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ddb0c1b5891f31460800000000000000
+      internalID: 7211373065016183773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decoracion_3
+      rect:
+        serializedVersion: 2
+        x: 910
+        y: 590
+        width: 213
+        height: 137
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70300890028b5c700800000000000000
+      internalID: 560056176415343367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decoracion_4
+      rect:
+        serializedVersion: 2
+        x: 1201
+        y: 609
+        width: 152
+        height: 95
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 202f9abf2f6585ab0800000000000000
+      internalID: -5019166183100124670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decoracion_5
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 474
+        width: 132
+        height: 67
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad6b5ae7c81ea9fa0800000000000000
+      internalID: -5793069977122261286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decoracion_6
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 475
+        width: 408
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de3764193fd802120800000000000000
+      internalID: 2387063879760245741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decoracion_7
+      rect:
+        serializedVersion: 2
+        x: 683
+        y: 385
+        width: 131
+        height: 157
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a9b4ff02cc9215f0800000000000000
+      internalID: -787394627531130461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decoracion_8
+      rect:
+        serializedVersion: 2
+        x: 849
+        y: 386
+        width: 157
+        height: 157
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a4baae57a3d09370800000000000000
+      internalID: 8327388426809291943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decoracion_9
+      rect:
+        serializedVersion: 2
+        x: 1043
+        y: 386
+        width: 156
+        height: 158
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 699347b5f9d55b090800000000000000
+      internalID: -8019400622447773290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decoracion_10
+      rect:
+        serializedVersion: 2
+        x: 1235
+        y: 404
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9e56d1612df5d020800000000000000
+      internalID: 2366075499070250653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decoracion_11
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 391
+        width: 134
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 775c2858710552910800000000000000
+      internalID: 1811942487040902519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decoracion_12
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 395
+        width: 406
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d42da24ae4aa6b6e0800000000000000
+      internalID: -1822081744486346163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decoracion_13
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 229
+        width: 160
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e0ffdcafa768d970800000000000000
+      internalID: 8779881477776077031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decoracion_14
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 199
+        width: 31
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e922e3cc364b16f0800000000000000
+      internalID: -712898889209730592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decoracion_15
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 200
+        width: 54
+        height: 149
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: befd50b1a0d3b3310800000000000000
+      internalID: 1385768423958896619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decoracion_16
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 223
+        width: 442
+        height: 122
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee6eeb77cc86e7b00800000000000000
+      internalID: 828214608874366702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decoracion_17
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 226
+        width: 293
+        height: 119
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d9ef228bb3073d50800000000000000
+      internalID: 6716841473124329943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decoracion_18
+      rect:
+        serializedVersion: 2
+        x: 1229
+        y: 199
+        width: 104
+        height: 141
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 31, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50f49cf48b1164e40800000000000000
+      internalID: 5640215066638372613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decoracion_19
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 55
+        width: 266
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5621a8f7a8909f6a0800000000000000
+      internalID: -6415085703762668955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decoracion_20
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 49
+        width: 89
+        height: 112
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96f6b8ec3320d51a0800000000000000
+      internalID: -6819291839237230743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decoracion_21
+      rect:
+        serializedVersion: 2
+        x: 539
+        y: 92
+        width: 240
+        height: 67
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9c892e91e44a0630800000000000000
+      internalID: 3894000563627068571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decoracion_22
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 77
+        width: 373
+        height: 81
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c7eda0e397236630800000000000000
+      internalID: 3919019616825632710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decoracion_23
+      rect:
+        serializedVersion: 2
+        x: 1295
+        y: 30
+        width: 52
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25f9f8d12efb0dce0800000000000000
+      internalID: -1382394107723276462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 7816bcb36341741a7bef8919f202a5b7
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Decoracion_0: 552680584010213436
+      Decoracion_1: -8121236732736387919
+      Decoracion_10: 2366075499070250653
+      Decoracion_11: 1811942487040902519
+      Decoracion_12: -1822081744486346163
+      Decoracion_13: 8779881477776077031
+      Decoracion_14: -712898889209730592
+      Decoracion_15: 1385768423958896619
+      Decoracion_16: 828214608874366702
+      Decoracion_17: 6716841473124329943
+      Decoracion_18: 5640215066638372613
+      Decoracion_19: -6415085703762668955
+      Decoracion_2: 7211373065016183773
+      Decoracion_20: -6819291839237230743
+      Decoracion_21: 3894000563627068571
+      Decoracion_22: 3919019616825632710
+      Decoracion_23: -1382394107723276462
+      Decoracion_3: 560056176415343367
+      Decoracion_4: -5019166183100124670
+      Decoracion_5: -5793069977122261286
+      Decoracion_6: 2387063879760245741
+      Decoracion_7: -787394627531130461
+      Decoracion_8: 8327388426809291943
+      Decoracion_9: -8019400622447773290
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
