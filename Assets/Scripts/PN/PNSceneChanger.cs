@@ -12,8 +12,14 @@ public class PNSceneChanger : MonoBehaviour
     {
     }
 
+    public void startGame()
+    {
+        SceneManager.LoadScene("PNMainGame");
+    }
+
     public void change(string scene)
     {
+        PNSFXController.Instance.StopMusic();
         SceneManager.LoadScene(scene);
     }
 }
