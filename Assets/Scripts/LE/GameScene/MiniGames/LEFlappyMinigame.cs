@@ -274,7 +274,7 @@ public class LEFlappyMinigame : MonoBehaviour
     private void TriggerVictoryConclusion()
     {
         isMinigameActive = false;
-        announcementTextMesh.text = "¡SISTEMA CALIBRADO!";
+        announcementTextMesh.text = "¡COMPLETADO!";
         StartCoroutine(EndMinigameRoutine(won: true));
     }
 
