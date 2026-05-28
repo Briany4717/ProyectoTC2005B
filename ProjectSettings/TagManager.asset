@@ -11,6 +11,8 @@ TagManager:
   - GLDelimiter
   - GLEnd
   - HOEnemy
+  - PNBuilding
+  - PNPlayer
   layers:
   - Default
   - TransparentFX

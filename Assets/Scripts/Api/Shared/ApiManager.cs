@@ -38,17 +38,17 @@ public class ApiManager : MonoBehaviour
         }
     }
 
-    private readonly String baseUrl = "https://127.0.0.1:8081/";
+    private readonly string baseUrl = "https://127.0.0.1:8081/";
 
-    public void Get(string endpoint, Action<string> onSuccess, Action<string> onError)
+    public void Get(string endpoint, Action<string> onSuccess, Action<string> onError, string customBaseUrl = null)
     {
-        StartCoroutine(GetCoroutine(endpoint, onSuccess, onError));
+        StartCoroutine(GetCoroutine(endpoint, onSuccess, onError, customBaseUrl));
     }
 
 
-    private IEnumerator GetCoroutine(string endpoint, Action<string> onSucces, Action<string> onError)
+    private IEnumerator GetCoroutine(string endpoint, Action<string> onSuccess, Action<string> onError, string customBaseUrl = null)
     {
-        string url = baseUrl + endpoint;
+        string url = (customBaseUrl ?? baseUrl) + endpoint;
 
         using (UnityWebRequest request = UnityWebRequest.Get(url))
         {
@@ -63,19 +63,19 @@ public class ApiManager : MonoBehaviour
             }
             else
             {
-                onSucces?.Invoke(request.downloadHandler.text);
+                onSuccess?.Invoke(request.downloadHandler.text);
             }
         }
     }
 
-    public void Post(string endpoint, string jsonData, Action<string> onSucces, Action<string> onError)
+    public void Post(string endpoint, string jsonData, Action<string> onSuccess, Action<string> onError, string customBaseUrl = null)
     {
-        StartCoroutine(PostCoroutine(endpoint, jsonData, onSucces, onError));
+        StartCoroutine(PostCoroutine(endpoint, jsonData, onSuccess, onError, customBaseUrl));
     }
 
-    private IEnumerator PostCoroutine(string endpoint, string jsonData, Action<string> onSucces, Action<string> onError)
+    private IEnumerator PostCoroutine(string endpoint, string jsonData, Action<string> onSuccess, Action<string> onError, string customBaseUrl = null)
     {
-        string url = baseUrl + endpoint;
+        string url = (customBaseUrl ?? baseUrl) + endpoint;
 
         using (UnityWebRequest request = new UnityWebRequest(url, "POST"))
         {
@@ -97,7 +97,7 @@ public class ApiManager : MonoBehaviour
             }
             else
             {
-                onSucces?.Invoke(request.downloadHandler.text);
+                onSuccess?.Invoke(request.downloadHandler.text);
             }
         }
     }
