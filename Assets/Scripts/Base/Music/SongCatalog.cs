@@ -11,8 +11,8 @@ public class SongCatalog : MonoBehaviour
     [Serializable]
     public struct SongItem
     {
-        public string id;          // Coincide con el ID de la API
-        public AudioClip clip;     // El archivo .mp3/.wav en tus Assets
+        public string id;
+        public AudioClip clip;
     }
 
     private AudioSource globalAudioSource;
@@ -40,9 +40,6 @@ public class SongCatalog : MonoBehaviour
 
     private void Start()
     {
-        // BUG FIX #1: Revisamos isPlaying en lugar de solo clip == null.
-        // Si el AudioSource tiene un clip asignado en el Inspector pero no está
-        // sonando (playOnAwake = false), la condición anterior nunca arrancaba la música.
         if (!globalAudioSource.isPlaying)
         {
             AudioClip defaultClip = GetClipById("1");
@@ -74,9 +71,6 @@ public class SongCatalog : MonoBehaviour
         globalAudioSource.Play();
     }
 
-    // Permite al carrusel apagar y encender la música de fondo de manera limpia.
-    // Nota: usa Mute (no Pause) intencionalmente para que la pista siga avanzando
-    // en el tiempo mientras el carrusel está abierto.
     public void MuteGlobalAudio(bool state)
     {
         if (globalAudioSource != null)
@@ -85,7 +79,7 @@ public class SongCatalog : MonoBehaviour
         }
     }
 
-    // Pausa por completo la música global (útil para cuando entras a un nivel con música propia)
+    // Pausa por completo la musica global 
     public void PauseGlobalMusic()
     {
         if (globalAudioSource != null && globalAudioSource.isPlaying)
@@ -94,9 +88,6 @@ public class SongCatalog : MonoBehaviour
         }
     }
 
-    // Reanuda la música que ya estaba pausada (útil para cuando sales del nivel al menú).
-    // Nota: si se llamó PlayGlobalMusic() después de pausar, el AudioSource ya estará en Play()
-    // y UnPause() no tendrá efecto — esto es el comportamiento correcto y esperado.
     public void ResumeGlobalMusic()
     {
         if (globalAudioSource != null && !globalAudioSource.isPlaying)

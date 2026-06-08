@@ -16,7 +16,6 @@ public class SongCarouselController : MonoBehaviour
     [Header("Audio Local de Previews")]
     public AudioSource menuAudioSource;
 
-    // Tu lista oficial usando tu modelo de datos
     private List<UserSong> unlockedSongs = new List<UserSong>();
     private int currentIndex = 0;
 
@@ -34,17 +33,14 @@ public class SongCarouselController : MonoBehaviour
             SongCatalog.Instance.MuteGlobalAudio(true);
         }
 
-        // Simulación actualizada con las llaves exactas de tu modelo de datos ("id_cancion" y "nombre_cancion")
-        string jsonSimulado = "[ {\"id_cancion\": \"1\", \"nombre_cancion\": \"Chicago - Michael\"}, {\"id_cancion\": \"2\", \"nombre_cancion\": \"Veridis Quo\"} ]";
-        StartCoroutine(SimularEsperaApi(jsonSimulado));
+        // // Simulación actualizada con las llaves exactas de tu modelo de datos ("id_cancion" y "nombre_cancion")
+        // string jsonSimulado = "[ {\"id_cancion\": \"1\", \"nombre_cancion\": \"Chicago - Michael\"}, {\"id_cancion\": \"2\", \"nombre_cancion\": \"Veridis Quo\"} ]";
+        // StartCoroutine(SimularEsperaApi(jsonSimulado));
 
         // Línea para cuando conectes tu backend real:
-        // ApiManager.Instance.Get("usuarios/1/canciones/compras", OnSongsLoaded, OnApiError);
+        ApiManager.Instance.Get("/usuarios/1/canciones/compradas", OnSongsLoaded, OnApiError);
     }
 
-    // BUG FIX #2: Declarado como IEnumerator plano (no IEnumerator<WaitForSeconds>).
-    // Unity requiere IEnumerator base para StartCoroutine. El tipo genérico puede
-    // causar advertencias o fallar en builds dependiendo de la versión de Unity.
     private IEnumerator SimularEsperaApi(string json)
     {
         yield return new WaitForSeconds(1f);
@@ -53,10 +49,8 @@ public class SongCarouselController : MonoBehaviour
 
     private void OnSongsLoaded(string jsonResponse)
     {
-        // Envolvemos el array plano en un objeto para que JsonUtility lo pueda procesar
         string jsonModificado = "{ \"songs\": " + jsonResponse + " }";
 
-        // Parseamos usando el Wrapper temporal adaptado
         UserSongsWrapper wrapper = JsonUtility.FromJson<UserSongsWrapper>(jsonModificado);
 
         if (wrapper == null || wrapper.songs == null || wrapper.songs.Count == 0)
@@ -85,13 +79,11 @@ public class SongCarouselController : MonoBehaviour
 
         UserSong currentSong = unlockedSongs[currentIndex];
 
-        // Usamos tu propiedad flecha 'title' que apunta a 'nombre_cancion'
         txtTitle.text = currentSong.title;
 
         btnLeft.interactable = (currentIndex > 0);
         btnRight.interactable = (currentIndex < unlockedSongs.Count - 1);
 
-        // Usamos tu propiedad flecha 'id' que apunta a 'id_cancion'
         PlayAudioPreview(currentSong.id);
     }
 
@@ -122,16 +114,13 @@ public class SongCarouselController : MonoBehaviour
 
         AudioClip selectedClip = SongCatalog.Instance.GetClipById(selected.id);
 
-        // BUG FIX #3: Siempre detenemos el preview y quitamos el mute,
-        // independientemente de si se encontró el clip o no.
-        // En la versión anterior, si selectedClip era null, el juego quedaba
-        // silenciado permanentemente porque MuteGlobalAudio(false) nunca se llamaba.
         if (menuAudioSource != null) menuAudioSource.Stop();
         SongCatalog.Instance.MuteGlobalAudio(false);
 
         if (selectedClip != null)
         {
             SongCatalog.Instance.PlayGlobalMusic(selectedClip);
+            GoToMenu();
         }
         else
         {
@@ -173,9 +162,6 @@ public class SongCarouselController : MonoBehaviour
     }
 }
 
-// ========================================================
-// WRAPPER INTERNO (Asegúrate de que UserSong tenga [Serializable])
-// ========================================================
 
 [System.Serializable]
 public class UserSongsWrapper
