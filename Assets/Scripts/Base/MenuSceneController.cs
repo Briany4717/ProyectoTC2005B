@@ -6,17 +6,19 @@ using UnityEngine.SceneManagement;
 
 public class MenuSceneController : MonoBehaviour
 {
-    
-    /// Carga la escena inicial del juego de los Glotones.
-    
+    public void GoToMenu()
+    {
+        SceneManager.LoadScene("MenuScene");
+    }
+
     public void GoToGlotones()
     {
         SceneManager.LoadScene("GLStartScene");
     }
 
-    
+
     /// Carga la escena de introducción del juego de HO.
-    
+
     public void GoToHO()
     {
         SceneManager.LoadScene("HOIntroScene");
@@ -25,7 +27,7 @@ public class MenuSceneController : MonoBehaviour
     {
         SceneManager.LoadScene("PNStartScene");
     }
-    
+
     public void GoToLE()
     {
         SceneManager.LoadScene("LEConveyorScene");
@@ -34,6 +36,11 @@ public class MenuSceneController : MonoBehaviour
     public void GoToGC()
     {
         SceneManager.LoadScene("GCMenuPrincipal");
+    }
+
+    public void GoToMusicConfig()
+    {
+        SceneManager.LoadScene("MusicScene");
     }
 
 }
