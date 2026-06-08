@@ -780,8 +780,8 @@ MonoBehaviour:
   m_text: "Al entrar en c\xE1mara lenta, se desplegar\xE1n los pergaminos con prompts
     de las nubes blancas."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 60e4a6274fbeb41e191ff83dd41a3dc0, type: 2}
-  m_sharedMaterial: {fileID: -4721720548618827887, guid: 60e4a6274fbeb41e191ff83dd41a3dc0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2664d858b414b48da90822b7261d78de, type: 2}
+  m_sharedMaterial: {fileID: -2055001585500825184, guid: 2664d858b414b48da90822b7261d78de, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -994,7 +994,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Si caes del edificio con menos de 5 monedas, pierdes
+  m_text: Si caes del edificio con menos de 5 monedas, pierdes.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 64a496f4718614ad6bf9bb613a39c2bf, type: 2}
   m_sharedMaterial: {fileID: -2285077340705977440, guid: 64a496f4718614ad6bf9bb613a39c2bf, type: 2}
@@ -1128,7 +1128,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 636756939479348134, guid: b8fe939dd37eb4f9ea55c4b19569f325, type: 3}
       propertyPath: m_text
-      value: Cuando aparecen estas nubes... llueven monedas
+      value: Cuando aparecen estas nubes... llueven monedas.
       objectReference: {fileID: 0}
     - target: {fileID: 636756939479348134, guid: b8fe939dd37eb4f9ea55c4b19569f325, type: 3}
       propertyPath: m_fontSize
@@ -1156,7 +1156,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1042454937902626129, guid: b8fe939dd37eb4f9ea55c4b19569f325, type: 3}
       propertyPath: m_text
-      value: Caza estas nubes para guardar prompts en tu perfil
+      value: Caza estas nubes para guardar prompts en tu perfil.
       objectReference: {fileID: 0}
     - target: {fileID: 1042454937902626129, guid: b8fe939dd37eb4f9ea55c4b19569f325, type: 3}
       propertyPath: m_fontSize
@@ -1176,7 +1176,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1487926879869647876, guid: b8fe939dd37eb4f9ea55c4b19569f325, type: 3}
       propertyPath: m_text
-      value: Nubes, Truenos y Monedas
+      value: Nubes, truenos y monedas
       objectReference: {fileID: 0}
     - target: {fileID: 1585221879516014042, guid: b8fe939dd37eb4f9ea55c4b19569f325, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1184,7 +1184,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1632640510019992592, guid: b8fe939dd37eb4f9ea55c4b19569f325, type: 3}
       propertyPath: m_text
-      value: "C\xE1mara lenta / Apuntar a una nube distinta"
+      value: "C\xE1mara lenta / Apuntar a una nube distinta."
       objectReference: {fileID: 0}
     - target: {fileID: 1632640510019992592, guid: b8fe939dd37eb4f9ea55c4b19569f325, type: 3}
       propertyPath: m_fontSize
@@ -1195,8 +1195,20 @@ PrefabInstance:
       value: -58.472115
       objectReference: {fileID: 0}
     - target: {fileID: 1632640510019992592, guid: b8fe939dd37eb4f9ea55c4b19569f325, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 2664d858b414b48da90822b7261d78de, type: 2}
+    - target: {fileID: 1632640510019992592, guid: b8fe939dd37eb4f9ea55c4b19569f325, type: 3}
       propertyPath: m_fontSizeBase
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632640510019992592, guid: b8fe939dd37eb4f9ea55c4b19569f325, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -2055001585500825184, guid: 2664d858b414b48da90822b7261d78de, type: 2}
+    - target: {fileID: 1632640510019992592, guid: b8fe939dd37eb4f9ea55c4b19569f325, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2001272665179661467, guid: b8fe939dd37eb4f9ea55c4b19569f325, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1396,9 +1408,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5002426269177114059, guid: b8fe939dd37eb4f9ea55c4b19569f325, type: 3}
       propertyPath: m_text
-      value: 'EVITALAS
-
-        estas nubes te empujan'
+      value: "Ev\xEDtalas. \nEstas nubes te empujan."
       objectReference: {fileID: 0}
     - target: {fileID: 5002426269177114059, guid: b8fe939dd37eb4f9ea55c4b19569f325, type: 3}
       propertyPath: m_fontSize
@@ -1418,7 +1428,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5104421651592107252, guid: b8fe939dd37eb4f9ea55c4b19569f325, type: 3}
       propertyPath: m_text
-      value: 'Cazar la nube  seleccionada '
+      value: Cazar la nube seleccio-nada.
       objectReference: {fileID: 0}
     - target: {fileID: 5104421651592107252, guid: b8fe939dd37eb4f9ea55c4b19569f325, type: 3}
       propertyPath: m_fontSize
@@ -1679,6 +1689,10 @@ PrefabInstance:
     - target: {fileID: 7754095464853124227, guid: b8fe939dd37eb4f9ea55c4b19569f325, type: 3}
       propertyPath: speed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7808095355778197847, guid: b8fe939dd37eb4f9ea55c4b19569f325, type: 3}
+      propertyPath: m_text
+      value: Controles
       objectReference: {fileID: 0}
     - target: {fileID: 8144383850731663300, guid: b8fe939dd37eb4f9ea55c4b19569f325, type: 3}
       propertyPath: m_SizeDelta.x
