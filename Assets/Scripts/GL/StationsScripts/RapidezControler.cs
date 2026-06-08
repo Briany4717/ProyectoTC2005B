@@ -27,9 +27,9 @@ public class RapidezControler : MonoBehaviour
     {
     }
 
-    
+
     /// Configura y comienza el juego de rapidez para una estación dada.
-    
+
     public void SetRapidezGame(StationData station)
     {
         currentStation = station;
@@ -37,9 +37,9 @@ public class RapidezControler : MonoBehaviour
         StartCoroutine(InitializeGameWhenReady());
     }
 
-    
+
     /// Espera a que el banco de palabras esté listo antes de inicializar el juego.
-    
+
     private IEnumerator InitializeGameWhenReady()
     {
         if (wordBank == null)
@@ -60,9 +60,9 @@ public class RapidezControler : MonoBehaviour
         }
     }
 
-    
+
     /// Mantiene el enfoque en el campo de entrada mientras el juego está activo.
-    
+
     private void Update()
     {
         if (isGameActive && inputField != null)
@@ -74,18 +74,18 @@ public class RapidezControler : MonoBehaviour
         }
     }
 
-    
+
     /// Obtiene y configura la palabra actual a escribir.
-    
+
     private void SetCurrenWord()
     {
         PromptData prompt = wordBank.GetPrompt();
-        //SetRemainingWord(prompt.contenido, prompt.titulo);
+        SetRemainingWord(prompt.contenido, prompt.titulo);
     }
 
-    
+
     /// Inicializa la visualización de la palabra restante y su título.
-    
+
     private void SetRemainingWord(string newString, string titulo)
     {
         currentWord = NormalizeText(newString);
@@ -96,9 +96,9 @@ public class RapidezControler : MonoBehaviour
         tituloField.text = titulo;
     }
 
-    
+
     /// Finaliza la actividad y limpia los eventos del campo de entrada.
-    
+
     private void OnDisable()
     {
         isGameActive = false;
@@ -108,9 +108,9 @@ public class RapidezControler : MonoBehaviour
         }
     }
 
-    
+
     /// Maneja los cambios de texto en el campo de entrada.
-    
+
     private void OnInputFieldValueChanged(string newText)
     {
         if (string.IsNullOrEmpty(newText)) return;
@@ -136,9 +136,9 @@ public class RapidezControler : MonoBehaviour
         }
     }
 
-    
+
     /// Finaliza el minijuego de rapidez y notifica el éxito.
-    
+
     private void EndGame()
     {
         isGameActive = false;
@@ -151,9 +151,9 @@ public class RapidezControler : MonoBehaviour
         OrderManager.Instance.OnPlayerCompletedStation(currentStation);
     }
 
-    
+
     /// Verifica si la letra ingresada es correcta.
-    
+
     private bool IsCorrectLetter(string letter)
     {
         if (string.IsNullOrEmpty(remainingWord)) return false;
@@ -163,9 +163,9 @@ public class RapidezControler : MonoBehaviour
         return string.Equals(firstLetter, letter, StringComparison.Ordinal);
     }
 
-    
+
     /// Elimina la primera letra de la palabra restante y actualiza la vista.
-    
+
     private void RemoveLetter()
     {
         if (string.IsNullOrEmpty(remainingWord)) return;
@@ -177,9 +177,9 @@ public class RapidezControler : MonoBehaviour
         UpdateWordDisplay();
     }
 
-    
+
     /// Actualiza la visualización de la palabra resaltando las letras correctas.
-    
+
     private void UpdateWordDisplay()
     {
         int typedLength = currentWord.Length - remainingWord.Length;
@@ -187,17 +187,17 @@ public class RapidezControler : MonoBehaviour
         wordOutput.text = $"<color=green>{typedPart}</color>{remainingWord}";
     }
 
-    
+
     /// Comprueba si se ha terminado de escribir la palabra.
-    
+
     private bool IsWordComplete()
     {
         return remainingWord.Length == 0;
     }
 
-    
+
     /// Normaliza el texto ingresado.
-    
+
     private static string NormalizeText(string text)
     {
         if (string.IsNullOrEmpty(text)) return text;
