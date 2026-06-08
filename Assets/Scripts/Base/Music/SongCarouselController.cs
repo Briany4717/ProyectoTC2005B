@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class SongCarouselController : MonoBehaviour
 {
+    private const string DefaultSongId = "0";
+    private const string DefaultSongTitle = "Canción predeterminada";
+
     [Header("Componentes de UI")]
     public TextMeshProUGUI txtTitle;
     public Button btnLeft;
@@ -53,18 +56,35 @@ public class SongCarouselController : MonoBehaviour
 
         UserSongsWrapper wrapper = JsonUtility.FromJson<UserSongsWrapper>(jsonModificado);
 
-        if (wrapper == null || wrapper.songs == null || wrapper.songs.Count == 0)
+        unlockedSongs.Clear();
+        unlockedSongs.Add(CreateDefaultSong());
+
+        if (wrapper != null && wrapper.songs != null)
         {
-            txtTitle.text = "No tienes canciones compradas";
-            return;
+            for (int i = 0; i < wrapper.songs.Count; i++)
+            {
+                UserSong song = wrapper.songs[i];
+                if (song != null && song.id != DefaultSongId)
+                {
+                    unlockedSongs.Add(song);
+                }
+            }
         }
 
-        unlockedSongs.Clear();
-        unlockedSongs.AddRange(wrapper.songs);
         currentIndex = 0;
 
         SetUiInteractable(true);
         UpdateCarousel();
+    }
+
+    private UserSong CreateDefaultSong()
+    {
+        return new UserSong
+        {
+            id_cancion = DefaultSongId,
+            nombre_cancion = DefaultSongTitle,
+            url_imagen = string.Empty
+        };
     }
 
     private void OnApiError(string errorMessage)

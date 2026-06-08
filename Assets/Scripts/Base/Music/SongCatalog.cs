@@ -1,12 +1,16 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Forzamos que el GameObject tenga un AudioSource acoplado
 [RequireComponent(typeof(AudioSource))]
 public class SongCatalog : MonoBehaviour
 {
     public static SongCatalog Instance { get; private set; }
+
+    [SerializeField] private string loginSceneName = "LoginScene";
+    [SerializeField] private string defaultSongId = "0";
 
     [Serializable]
     public struct SongItem
@@ -38,15 +42,39 @@ public class SongCatalog : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
     private void Start()
     {
-        if (!globalAudioSource.isPlaying)
+        if (SceneManager.GetActiveScene().name == loginSceneName)
         {
-            AudioClip defaultClip = GetClipById("1");
-            if (defaultClip != null)
-            {
-                PlayGlobalMusic(defaultClip);
-            }
+            PlayDefaultSong();
+        }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
+    {
+        if (scene.name == loginSceneName)
+        {
+            PlayDefaultSong();
+        }
+    }
+
+    private void PlayDefaultSong()
+    {
+        AudioClip defaultClip = GetClipById(defaultSongId);
+        if (defaultClip != null)
+        {
+            MuteGlobalAudio(false);
+            PlayGlobalMusic(defaultClip);
         }
     }
 
