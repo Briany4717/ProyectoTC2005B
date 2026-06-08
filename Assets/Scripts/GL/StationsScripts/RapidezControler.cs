@@ -75,7 +75,8 @@ public class RapidezControler : MonoBehaviour
     }
 
 
-    // Obtiene y configura la palabra actual a escribir.
+    /// Obtiene y configura la palabra actual a escribir.
+
     private void SetCurrenWord()
     {
         PromptData prompt = wordBank.GetPrompt();

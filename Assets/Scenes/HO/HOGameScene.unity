@@ -861,6 +861,7 @@ GameObject:
   m_Component:
   - component: {fileID: 352437358}
   - component: {fileID: 352437357}
+  - component: {fileID: 352437359}
   m_Layer: 0
   m_Name: SuperPromptManager
   m_TagString: Untagged
@@ -897,6 +898,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &352437359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 352437356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 077b1b9d7edc25b4b9ee58705cfdacaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SuperPromptAPIManager
+  <PreguntaActual>k__BackingField:
+    <id_pregunta>k__BackingField: 0
+    <contenido>k__BackingField: 
+  <RespuestasActuales>k__BackingField: []
+  <DatosListos>k__BackingField: 0
 --- !u!1 &363595801
 GameObject:
   m_ObjectHideFlags: 0
@@ -5879,13 +5897,7 @@ MonoBehaviour:
   - {fileID: 765007245}
   - {fileID: 350340300}
   confirmButton: {fileID: 894621315}
-  prompts:
-  - instruction: Ordena las partes del prompt correctamente
-    description: Necesitas pedirle a una IA que escriba un email profesional
-    correctOrder:
-    - "Eres un asistente experto en redacci\xF3n profesional"
-    - "Escribe un email para mi jefe solicitando una reuni\xF3n"
-    - "Mant\xE9n un tono formal y termina con una despedida apropiada"
+  prompts: []
   correctColor: {r: 0.28337705, g: 0.645283, b: 0.23254539, a: 1}
   incorrectColor: {r: 0.78113204, g: 0.19307224, b: 0.19307224, a: 1}
   neutralColor: {r: 1, g: 1, b: 1, a: 1}

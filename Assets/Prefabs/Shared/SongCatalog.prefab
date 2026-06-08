@@ -142,6 +142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d07863a8bf22e41819b942b8bcfe1d36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SongCatalog
+  loginSceneName: LoginScene
+  defaultSongId: 0
   database:
   - id: 1
     clip: {fileID: 8300000, guid: fdbc107aa7f94410ca581e1093bc5989, type: 3}
@@ -155,3 +157,5 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: b1e2e635548f849e0b0464e0f13f7924, type: 3}
   - id: 6
     clip: {fileID: 8300000, guid: 8dc9a7316af7946e480cd1ceb86e3ba8, type: 3}
+  - id: 0
+    clip: {fileID: 8300000, guid: 25d4603f1886c44ea8f2b741e2921e91, type: 3}
