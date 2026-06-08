@@ -11,9 +11,9 @@ public class ApiManager : MonoBehaviour
 {
     private static ApiManager _instance;
 
-    
+
     /// Instancia única del ApiManager.
-    
+
     public static ApiManager Instance
     {
         get
@@ -31,9 +31,9 @@ public class ApiManager : MonoBehaviour
         }
     }
 
-    
+
     /// Configura el Singleton y evita que el objeto se destruya al cargar nuevas escenas.
-    
+
     private void Awake()
     {
         if (_instance == null)
@@ -47,7 +47,7 @@ public class ApiManager : MonoBehaviour
         }
     }
 
-    private readonly string baseUrl = "https://127.0.0.1:8081/";
+    private readonly string baseUrl = "https://10.14.255.43:6747/";
 
     public void Get(string endpoint, Action<string> onSuccess, Action<string> onError, string customBaseUrl = null)
     {
