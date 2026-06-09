@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Newtonsoft.Json;
 using UnityEditor;
 
 public class LEFinalSceneController : MonoBehaviour
@@ -30,13 +31,38 @@ public class LEFinalSceneController : MonoBehaviour
         var session = LEGameSessionData.Instance;
 
         int finalRepaired = session.repairedCount;
-        int finalCoins = finalRepaired * 50;
+        int finalCoins = finalRepaired * 25;
         
         float timePlayedSeconds = session.totalMatchDuration - session.remainingTime;
         if (timePlayedSeconds < 0f) timePlayedSeconds = 0f;
 
         PlayerPrefs.SetInt("AppliancesReparados", finalRepaired);
         PlayerPrefs.SetInt("MonedasObtenidas", finalCoins);
+        
+        AddCoinsM datos = new AddCoinsM
+        {
+            id_usuario = PlayerPrefs.GetInt("id_usuario",1),
+            cantidad = finalCoins,
+            tipo_movimiento = 1
+        };
+
+        string jsonEnviar = JsonConvert.SerializeObject(datos);
+        
+        Debug.Log("JSON: " + jsonEnviar);
+
+        ApiManager.Instance.Post(
+            "agregarMonedas", 
+            jsonEnviar, 
+            onSuccess: (respuesta) => 
+            {
+                Debug.Log("Exito: " + respuesta);
+            }, 
+            onError: (error) => 
+            {
+                Debug.LogError("Error: " + error);
+            }
+        );
+
         PlayerPrefs.SetFloat("TiempoJugado", timePlayedSeconds);
         PlayerPrefs.Save();
 

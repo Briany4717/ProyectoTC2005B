@@ -1,6 +1,6 @@
 using UnityEngine;
 using TMPro;
-
+using Newtonsoft.Json;
 
 /// Administra la economía del juego y las recompensas por acciones del jugador.
 
@@ -93,6 +93,31 @@ public class SistemaMonedas : MonoBehaviour
         int nuevoTotal    = totalGuardado + monedasSesion;
         PlayerPrefs.SetInt("MonedasTotal", nuevoTotal);
         PlayerPrefs.Save();
+
+        AddCoinsM datos = new AddCoinsM
+        {
+            id_usuario = PlayerPrefs.GetInt("id_usuario",1),
+            cantidad = nuevoTotal,
+            tipo_movimiento = 1
+        };
+
+        string jsonEnviar = JsonConvert.SerializeObject(datos);
+        
+        Debug.Log("JSON: " + jsonEnviar);
+
+        ApiManager.Instance.Post(
+            "agregarMonedas", 
+            jsonEnviar, 
+            onSuccess: (respuesta) => 
+            {
+                Debug.Log("Exito: " + respuesta);
+            }, 
+            onError: (error) => 
+            {
+                Debug.LogError("Error: " + error);
+            }
+        );
+
 
         if (textoMonedasSesion != null)
             textoMonedasSesion.text = $"{monedasSesion}";

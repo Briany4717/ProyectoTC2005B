@@ -34,7 +34,7 @@ public class PNtimer : MonoBehaviour
     void GameOver()
     {
         StopAllCoroutines();
-        PlayerPrefs.SetInt("Win",0);
+        PlayerPrefs.SetInt("Win",1);
         
         AddCoinsM datos = new AddCoinsM
         {
