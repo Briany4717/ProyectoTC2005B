@@ -1,6 +1,6 @@
 using UnityEngine;
 using System;
-
+using Newtonsoft.Json;
 
 /// Maneja la recolección, almacenamiento y eventos de las monedas del jugador.
 
@@ -62,5 +62,30 @@ public class HOCoins : MonoBehaviour
     {
         PlayerPrefs.SetInt("LastGameCoins", currentCoins);
         PlayerPrefs.Save();
+                
+        AddCoinsM datos = new AddCoinsM
+        {
+            id_usuario = PlayerPrefs.GetInt("id_usuario",1),
+            cantidad = currentCoins,
+            tipo_movimiento = 1
+        };
+
+        string jsonEnviar = JsonConvert.SerializeObject(datos);
+        
+        Debug.Log("JSON: " + jsonEnviar);
+
+        ApiManager.Instance.Post(
+            "agregarMonedas", 
+            jsonEnviar, 
+            onSuccess: (respuesta) => 
+            {
+                Debug.Log("Exito: " + respuesta);
+            }, 
+            onError: (error) => 
+            {
+                Debug.LogError("Error: " + error);
+            }
+        );
+
     }
 }

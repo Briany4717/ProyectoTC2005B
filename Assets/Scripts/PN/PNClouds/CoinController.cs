@@ -17,7 +17,7 @@ public class CoinController : MonoBehaviour
     {
         if(col.gameObject.CompareTag(playerTag))
         {
-            PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + 1);
+            PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + 30);
             PNGUIController.Instance.setCoin();
             if (PNSFXController.Instance != null) PNSFXController.Instance.coinSound();
             Destroy(gameObject);    

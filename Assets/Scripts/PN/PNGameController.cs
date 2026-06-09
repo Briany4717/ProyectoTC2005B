@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using Newtonsoft.Json;
 
 public class PNGameController : MonoBehaviour
 {
@@ -30,7 +31,7 @@ public class PNGameController : MonoBehaviour
 
     public void AddCoin()
     {
-        PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + 1);
+        PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + 30);
         uiController.setCoin();
     }
 
@@ -43,6 +44,28 @@ public class PNGameController : MonoBehaviour
     public void gameOver()
     {
         StopAllCoroutines();
+        AddCoinsM datos = new AddCoinsM
+        {
+            id_usuario = PlayerPrefs.GetInt("id_usuario"),
+            cantidad = PlayerPrefs.GetInt("Coins"),
+            tipo_movimiento = 1
+        };
+        string jsonEnviar = JsonConvert.SerializeObject(datos);
+        
+        Debug.Log("JSON: " + jsonEnviar);
+
+        ApiManager.Instance.Post(
+            "agregarMonedas", 
+            jsonEnviar, 
+            onSuccess: (respuesta) => 
+            {
+                Debug.Log("Exito: " + respuesta);
+            }, 
+            onError: (error) => 
+            {
+                Debug.LogError("Error: " + error);
+            }
+        );
         sceneChanger.change("PNFinalScene");
     }
 
@@ -68,6 +91,29 @@ public class PNGameController : MonoBehaviour
     {
         StopAllCoroutines();
         PlayerPrefs.SetInt("Win",1);
+        
+        AddCoinsM datos = new AddCoinsM
+        {
+            id_usuario = PlayerPrefs.GetInt("id_usuario"),
+            cantidad = PlayerPrefs.GetInt("Coins"),
+            tipo_movimiento = 1
+        };
+        string jsonEnviar = JsonConvert.SerializeObject(datos);
+        
+        Debug.Log("JSON: " + jsonEnviar);
+
+        ApiManager.Instance.Post(
+            "agregarMonedas", 
+            jsonEnviar, 
+            onSuccess: (respuesta) => 
+            {
+                Debug.Log("Exito: " + respuesta);
+            }, 
+            onError: (error) => 
+            {
+                Debug.LogError("Error: " + error);
+            }
+        );
         sceneChanger.change("PNFinalScene");
     }
 

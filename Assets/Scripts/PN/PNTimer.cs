@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Newtonsoft.Json;
 
 public class PNtimer : MonoBehaviour
 {
@@ -33,7 +34,30 @@ public class PNtimer : MonoBehaviour
     void GameOver()
     {
         StopAllCoroutines();
-        PlayerPrefs.SetInt("Win",0);
+        PlayerPrefs.SetInt("Win",1);
+        
+        AddCoinsM datos = new AddCoinsM
+        {
+            id_usuario = PlayerPrefs.GetInt("id_usuario"),
+            cantidad = PlayerPrefs.GetInt("Coins"),
+            tipo_movimiento = 1
+        };
+        string jsonEnviar = JsonConvert.SerializeObject(datos);
+        
+        Debug.Log("JSON: " + jsonEnviar);
+
+        ApiManager.Instance.Post(
+            "agregarMonedas", 
+            jsonEnviar, 
+            onSuccess: (respuesta) => 
+            {
+                Debug.Log("Exito: " + respuesta);
+            }, 
+            onError: (error) => 
+            {
+                Debug.LogError("Error: " + error);
+            }
+        );
         SceneManager.LoadScene("PNFinalScene");
     }
 }

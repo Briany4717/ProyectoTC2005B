@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 public class LENetworkManager : MonoBehaviour
 {
     [Header("API Server Configuration")]
-    [SerializeField] private string baseUrl = "http://127.0.0.1:8000";
+    [SerializeField] private string baseUrl = "https://10.14.255.43:6747";
 
     public static Dictionary<int, APITool> ToolsCache = new Dictionary<int, APITool>();
 
