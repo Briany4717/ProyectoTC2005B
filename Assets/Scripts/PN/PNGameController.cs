@@ -69,6 +69,26 @@ public class PNGameController : MonoBehaviour
         StopAllCoroutines();
         PlayerPrefs.SetInt("Win",1);
         sceneChanger.change("PNFinalScene");
+        
+        AddCoinsM datos = new AddCoinsM
+        {
+            id_usuario = PlayerPrefs.GetInt("id_usuario"),
+            cantidad = PlayerPrefs.GetInt("Coins"),
+            tipo_movimiento = 1
+        };
+        string jsonEnviar = JsonUtility.ToJson(datos);
+        ApiManager.Instance.Post(
+            "agregarMonedas", 
+            jsonEnviar, 
+            onSuccess: (respuesta) => 
+            {
+                Debug.Log("Éxito: " + respuesta);
+            }, 
+            onError: (error) => 
+            {
+                Debug.LogError("Error: " + error);
+            }
+        );
     }
 
     void Start()
