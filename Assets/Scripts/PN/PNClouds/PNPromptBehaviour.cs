@@ -71,8 +71,7 @@ public class PNPromptBehaviour : MonoBehaviour
             (error) => {
                 Debug.Log("Error API: " + error);
                 done = true;
-            },
-            "https://127.0.0.1:8999/"
+            }
         );
 
         yield return new WaitUntil(() => done);
@@ -125,8 +124,7 @@ public class PNPromptBehaviour : MonoBehaviour
 
         ApiManager.Instance.Post("savePrompt", json, 
             (response) => {},
-            (error) => Debug.Log("Error saving prompt: " + error),
-            "https://127.0.0.1:8999/"
+            (error) => Debug.Log("Error saving prompt: " + error)
         );
     }
 
@@ -158,8 +156,7 @@ public class PNPromptBehaviour : MonoBehaviour
                 Debug.Log("Error API: " + error);
                 _cloudPromptText = "Error al cargar prompt";
                 done = true;
-            },
-            "https://127.0.0.1:8999/"
+            }
         );
 
         yield return new WaitUntil(() => done);
