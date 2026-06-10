@@ -788,7 +788,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Interactuar: Camaras / Puerta'
+  m_text: "Interactuar: C\xE1maras / Puerta"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 42947826955aa443f9315ae7f96b505e, type: 2}
   m_sharedMaterial: {fileID: 2725503652450396190, guid: 42947826955aa443f9315ae7f96b505e, type: 2}
@@ -1139,8 +1139,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\xA1Atencion! \nPara poder interactuar, tienes que estar cerca de las
-    computadoras (Camaras) / Puertas"
+  m_text: "\xA1Atenci\xF3n! \nPara poder interactuar, tienes que estar cerca de las
+    computadoras (C\xE1maras) / Puertas"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 42947826955aa443f9315ae7f96b505e, type: 2}
   m_sharedMaterial: {fileID: 2725503652450396190, guid: 42947826955aa443f9315ae7f96b505e, type: 2}
@@ -1352,7 +1352,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "1. Recolecta rayos \n2. Da un click en los enemigos en camaras"
+  m_text: "1. Recolecta rayos \n2. Da un click en los enemigos en c\xE1maras"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 42947826955aa443f9315ae7f96b505e, type: 2}
   m_sharedMaterial: {fileID: 2725503652450396190, guid: 42947826955aa443f9315ae7f96b505e, type: 2}
@@ -1975,7 +1975,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\xBFQue hacer si hay un enemigo en la puerta? \n"
+  m_text: "\xBFQu\xE9 hacer si hay un enemigo en la puerta? \n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 42947826955aa443f9315ae7f96b505e, type: 2}
   m_sharedMaterial: {fileID: 2725503652450396190, guid: 42947826955aa443f9315ae7f96b505e, type: 2}
