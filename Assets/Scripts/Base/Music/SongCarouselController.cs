@@ -12,6 +12,7 @@ public class SongCarouselController : MonoBehaviour
 
     [Header("Componentes de UI")]
     public TextMeshProUGUI txtTitle;
+    public CoverDisplay coverDisplay;   
     public Button btnLeft;
     public Button btnRight;
     public Button btnSelect;
@@ -36,11 +37,6 @@ public class SongCarouselController : MonoBehaviour
             SongCatalog.Instance.MuteGlobalAudio(true);
         }
 
-        // // Simulación actualizada con las llaves exactas de tu modelo de datos ("id_cancion" y "nombre_cancion")
-        // string jsonSimulado = "[ {\"id_cancion\": \"1\", \"nombre_cancion\": \"Chicago - Michael\"}, {\"id_cancion\": \"2\", \"nombre_cancion\": \"Veridis Quo\"} ]";
-        // StartCoroutine(SimularEsperaApi(jsonSimulado));
-
-        // Línea para cuando conectes tu backend real:
         ApiManager.Instance.Get("/usuarios/1/canciones/compradas", OnSongsLoaded, OnApiError);
     }
 
@@ -83,7 +79,7 @@ public class SongCarouselController : MonoBehaviour
         {
             id_cancion = DefaultSongId,
             nombre_cancion = DefaultSongTitle,
-            url_imagen = string.Empty
+            url_imagen = "https://assets-prd.ignimgs.com/2025/04/02/nintendoswitch2-fortnite-keyart-square-1743635675429.jpg?crop=1%3A1%2Csmart&format=jpg&auto=webp&quality=80"
         };
     }
 
@@ -101,7 +97,10 @@ public class SongCarouselController : MonoBehaviour
 
         txtTitle.text = currentSong.title;
 
-        btnLeft.interactable = (currentIndex > 0);
+        if (coverDisplay != null)
+            coverDisplay.ShowCover(currentSong.url_imagen);
+
+        btnLeft.interactable  = (currentIndex > 0);
         btnRight.interactable = (currentIndex < unlockedSongs.Count - 1);
 
         PlayAudioPreview(currentSong.id);

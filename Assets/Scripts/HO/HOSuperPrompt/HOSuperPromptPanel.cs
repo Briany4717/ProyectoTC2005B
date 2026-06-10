@@ -2,17 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
-
-[System.Serializable]
-public class PromptEx
-{
-    [TextArea] public string instruction;
-    [TextArea] public string description;
-    public string[] correctOrder;
-}
-
-
-/// Gestiona la interfaz y la lógica de interacción del panel del Super Prompt.
+using System.Linq;
 
 public class HOSuperPromptPanel : MonoBehaviour
 {
@@ -23,60 +13,106 @@ public class HOSuperPromptPanel : MonoBehaviour
     public Button[] promptButtons;
     public Button confirmButton;
 
-    public PromptEx[] prompts;
-
     [Header("Colores de feedback")]
     public Color correctColor = Color.green;
     public Color incorrectColor = Color.red;
     public Color neutralColor = Color.white;
 
-    private PromptEx currentPrompt;
-    private string[] shuffledTexts;
-    private List<int> selectionOrder;
+    // Estado de la ronda actual
+    private RespuestaOrdenamiento[] currentAnswers; // respuestas correctas (con su 'orden')
+    private RespuestaOrdenamiento[] shuffledAnswers; // mismas respuestas, barajadas para mostrar
+    private List<int> selectionOrder; // índices de botones en el orden que el usuario eligió
 
-    
-    /// Configura los listeners de los botones al inicializar.
-    
     void Awake()
     {
         for (int i = 0; i < promptButtons.Length; i++)
         {
-            int index = i; 
+            int index = i;
             promptButtons[i].onClick.AddListener(() => OnPromptButtonClicked(index));
         }
-
         confirmButton.onClick.AddListener(OnConfirmClicked);
     }
 
-    
-    /// Prepara una nueva ronda cuando el panel se activa.
-    
     void OnEnable()
     {
-        SetupRound();
+        LoadRoundFromApi();
     }
 
-    
-    /// Configura los textos y mezcla las opciones de la pregunta actual.
-    
-    void SetupRound()
+    /// Pide una pregunta al API y, con su id, pide las respuestas.
+    void LoadRoundFromApi()
     {
-        currentPrompt = prompts[0];
-
         selectionOrder = new List<int>();
-        feedbackText.text = "";
+        feedbackText.text = "Cargando...";
         feedbackText.color = neutralColor;
+        SetButtonsInteractable(false);
 
-        instructionText.text = currentPrompt.instruction;
-        descriptionText.text = currentPrompt.description;
+        ApiManager.Instance.Get(
+            "preguntasOrdenamiento",
+            onSuccess: json =>
+            {
+                PreguntaOrdenamiento[] preguntas = JsonHelper.FromJsonArray<PreguntaOrdenamiento>(json);
 
-        shuffledTexts = ShuffleArray(currentPrompt.correctOrder);
+                if (preguntas == null || preguntas.Length == 0)
+                {
+                    OnLoadError("No hay preguntas disponibles");
+                    return;
+                }
 
+                // Elige una pregunta al azar
+                PreguntaOrdenamiento pregunta = preguntas[Random.Range(0, preguntas.Length)];
+                instructionText.text = pregunta.contenido;
+                descriptionText.text = "";
+
+                LoadAnswers(pregunta.id_pregunta);
+            },
+            onError: err => OnLoadError($"Error al cargar pregunta: {err}")
+        );
+    }
+
+    /// Segunda llamada: trae las respuestas de la pregunta elegida.
+    void LoadAnswers(int idPregunta)
+    {
+        ApiManager.Instance.Get(
+            $"respuestasDePregunta/{idPregunta}",
+            onSuccess: json =>
+            {
+                currentAnswers = JsonHelper.FromJsonArray<RespuestaOrdenamiento>(json);
+
+                if (currentAnswers == null || currentAnswers.Length == 0)
+                {
+                    OnLoadError("La pregunta no tiene respuestas");
+                    return;
+                }
+
+                // Ordena por 'orden' para tener la secuencia correcta de referencia
+                currentAnswers = currentAnswers.OrderBy(a => a.orden).ToArray();
+
+                // Baraja una copia para mostrar en los botones
+                shuffledAnswers = ShuffleArray(currentAnswers);
+
+                feedbackText.text = "";
+                SetupButtons();
+                SetButtonsInteractable(true);
+            },
+            onError: err => OnLoadError($"Error al cargar respuestas: {err}")
+        );
+    }
+
+    void OnLoadError(string message)
+    {
+        feedbackText.text = message;
+        feedbackText.color = incorrectColor;
+        Debug.LogError($"[HOSuperPromptPanel] {message}");
+    }
+
+    /// Pone el texto de cada respuesta barajada en su botón.
+    void SetupButtons()
+    {
         for (int i = 0; i < promptButtons.Length; i++)
         {
-            if (i < shuffledTexts.Length)
+            if (i < shuffledAnswers.Length)
             {
-                SetButtonText(promptButtons[i], shuffledTexts[i]);
+                SetButtonText(promptButtons[i], shuffledAnswers[i].contenido);
                 promptButtons[i].gameObject.SetActive(true);
             }
             else
@@ -86,59 +122,45 @@ public class HOSuperPromptPanel : MonoBehaviour
         }
     }
 
-    
-    /// Maneja la selección y deselección de opciones por parte del usuario.
-    
     void OnPromptButtonClicked(int buttonIndex)
     {
         if (selectionOrder.Contains(buttonIndex))
-        {
             selectionOrder.Remove(buttonIndex);
-        }
         else
-        {
             selectionOrder.Add(buttonIndex);
-        }
 
         UpdateButtonLabels();
     }
 
-    
-    /// Actualiza los textos de los botones para mostrar el orden de selección.
-    
     void UpdateButtonLabels()
     {
         for (int i = 0; i < promptButtons.Length; i++)
         {
-            string baseText = i < shuffledTexts.Length ? shuffledTexts[i] : "";
+            if (i >= shuffledAnswers.Length) continue;
+
+            string baseText = shuffledAnswers[i].contenido;
             int orderPosition = selectionOrder.IndexOf(i);
 
-            if (orderPosition >= 0)
-            {
-                SetButtonText(promptButtons[i], $"[{orderPosition + 1}] {baseText}");
-            }
-            else
-            {
-                SetButtonText(promptButtons[i], baseText);
-            }
+            SetButtonText(promptButtons[i],
+                orderPosition >= 0 ? $"[{orderPosition + 1}] {baseText}" : baseText);
         }
     }
 
-    
-    /// Verifica si el orden seleccionado es el correcto al confirmar.
-    
     void OnConfirmClicked()
     {
-        if (selectionOrder.Count < currentPrompt.correctOrder.Length)
+        if (shuffledAnswers == null) return; 
+        
+        Debug.Log($"selectionOrder.Count={selectionOrder.Count}, currentAnswers.Length={currentAnswers.Length}, shuffledAnswers.Length={shuffledAnswers.Length}");
+
+
+        if (selectionOrder.Count < currentAnswers.Length)
         {
             feedbackText.text = "Selecciona todas las partes en orden";
             feedbackText.color = incorrectColor;
             return;
         }
 
-        bool isCorrect = ValidateOrder();
-
-        if (isCorrect)
+        if (ValidateOrder())
         {
             feedbackText.text = "¡Correcto!";
             feedbackText.color = correctColor;
@@ -152,31 +174,24 @@ public class HOSuperPromptPanel : MonoBehaviour
         }
     }
 
-    
-    /// Valida que la selección del usuario coincida con el orden correcto.
-    
+    /// Valida comparando el 'orden' del API, no strings.
     bool ValidateOrder()
     {
         for (int i = 0; i < selectionOrder.Count; i++)
         {
             int buttonIndex = selectionOrder[i];
-            string userSelectedText = shuffledTexts[buttonIndex];
-            string correctTextAtThisPosition = currentPrompt.correctOrder[i];
+            RespuestaOrdenamiento selected = shuffledAnswers[buttonIndex];
 
-            if (userSelectedText != correctTextAtThisPosition)
-            {
+            // La posición i (0-based) debe corresponder a orden i+1 (1-based)
+            if (selected.orden != i + 1)
                 return false;
-            }
         }
         return true;
     }
 
-    
-    /// Mezcla aleatoriamente las opciones disponibles.
-    
-    string[] ShuffleArray(string[] original)
+    RespuestaOrdenamiento[] ShuffleArray(RespuestaOrdenamiento[] original)
     {
-        string[] shuffled = (string[])original.Clone();
+        RespuestaOrdenamiento[] shuffled = (RespuestaOrdenamiento[])original.Clone();
         for (int i = shuffled.Length - 1; i > 0; i--)
         {
             int j = Random.Range(0, i + 1);
@@ -185,9 +200,12 @@ public class HOSuperPromptPanel : MonoBehaviour
         return shuffled;
     }
 
-    
-    /// Asigna texto a un botón que contiene un componente TextMeshProUGUI.
-    
+    void SetButtonsInteractable(bool value)
+    {
+        foreach (var b in promptButtons) b.interactable = value;
+        confirmButton.interactable = value;
+    }
+
     void SetButtonText(Button button, string text)
     {
         TextMeshProUGUI tmp = button.GetComponentInChildren<TextMeshProUGUI>();
