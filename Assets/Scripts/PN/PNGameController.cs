@@ -17,7 +17,6 @@ public class PNGameController : MonoBehaviour
         StopAllCoroutines();
         PlayerPrefs.SetInt("Coins", 0);
         PlayerPrefs.SetInt("HuntedPrompts", 0);
-        PlayerPrefs.SetInt("id_usuario", 1);
         PlayerPrefs.SetInt("Win", 1); 
         SetReferences(); 
         sceneChanger = FindAnyObjectByType<PNSceneChanger>();
