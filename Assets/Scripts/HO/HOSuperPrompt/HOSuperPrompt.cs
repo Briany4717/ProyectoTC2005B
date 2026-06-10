@@ -2,8 +2,6 @@ using UnityEngine;
 using System;
 
 
-/// Controla la lógica del evento "Super Prompt", gestionando el progreso y las recompensas/penalizaciones.
-
 public class HOSuperPrompt : MonoBehaviour
 {
     public static HOSuperPrompt Instance { get; private set; }
@@ -24,7 +22,6 @@ public class HOSuperPrompt : MonoBehaviour
     public bool IsPromptActive => isPromptActive;
 
     
-    /// Configura el singleton de la clase.
     
     void Awake()
     {
@@ -80,8 +77,6 @@ public class HOSuperPrompt : MonoBehaviour
     }
 
     
-    /// Reduce la dificultad disminuyendo la velocidad de la cámara y el nivel de los generadores.
-    
     void ApplyDifficultyReduction()
     {
         if (HOScrollingCamera.Instance != null)
@@ -97,15 +92,12 @@ public class HOSuperPrompt : MonoBehaviour
     }
 
     
-    /// Cierra el prompt sin aplicar recompensas si la respuesta es incorrecta.
-    
     public void OnAnswerIncorrect()
     {
         ClosePrompt(resetCounter: true);
     }
 
     
-    /// Reanuda el juego y reinicia el progreso si es necesario.
     
     void ClosePrompt(bool resetCounter)
     {
