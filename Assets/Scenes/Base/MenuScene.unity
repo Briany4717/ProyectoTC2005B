@@ -1662,30 +1662,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 162125d86a52e034c8de3b3bf7990687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RectReveal
-  target: {fileID: 691608019}
-  targetWidth: 800
-  duration: 0.7
-  ease:
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &717922652
 GameObject:
   m_ObjectHideFlags: 0
@@ -4730,7 +4706,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ajustes
+  m_text: "M\xFAsica"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
