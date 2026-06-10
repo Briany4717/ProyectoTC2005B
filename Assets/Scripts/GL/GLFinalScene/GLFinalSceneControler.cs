@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
-using UnityEditor.Experimental.GraphView;
 
 
 /// Controla la pantalla final mostrando estadísticas y el puntaje obtenido en forma de estrellas.

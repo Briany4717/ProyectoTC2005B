@@ -457,7 +457,7 @@ public class LERepairManager : MonoBehaviour
 
     public void StopGame()
     {
-        UnityEditor.EditorApplication.isPlaying = false;
+        Application.Quit();
     }
 
     public void GoToMenu()
