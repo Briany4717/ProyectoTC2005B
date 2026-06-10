@@ -79,7 +79,7 @@ public class SongCarouselController : MonoBehaviour
         {
             id_cancion = DefaultSongId,
             nombre_cancion = DefaultSongTitle,
-            url_imagen = "https://assets-prd.ignimgs.com/2025/04/02/nintendoswitch2-fortnite-keyart-square-1743635675429.jpg?crop=1%3A1%2Csmart&format=jpg&auto=webp&quality=80"
+            url_imagen = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=400&auto=format&fit=crop"
         };
     }
 
