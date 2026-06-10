@@ -11011,7 +11011,7 @@ MonoBehaviour:
   enemigos:
   - nombre: Tabby
     camaraActual: 4
-    tiempoMovimiento: 5
+    tiempoMovimiento: 15
     eliminado: 0
     prefabUI: {fileID: 3773407246198638078, guid: 276431f3b9cc24f56899d14da34d8b4d, type: 3}
     posicionesPorCamara:
@@ -11026,7 +11026,7 @@ MonoBehaviour:
     - 0.4
     - 0.6
     - 1
-    tiempoMovimientoOriginal: 1
+    tiempoMovimientoOriginal: 15
   - nombre: Siamese
     camaraActual: 4
     tiempoMovimiento: 15
@@ -11044,10 +11044,10 @@ MonoBehaviour:
     - 0.8
     - 0.6
     - 1
-    tiempoMovimientoOriginal: 2
+    tiempoMovimientoOriginal: 15
   - nombre: Persian
     camaraActual: 4
-    tiempoMovimiento: 5
+    tiempoMovimiento: 15
     eliminado: 0
     prefabUI: {fileID: 6543802652296002541, guid: ee2e19b9d2d38434bae00262cc1f4ef8, type: 3}
     posicionesPorCamara:
@@ -11062,10 +11062,10 @@ MonoBehaviour:
     - 1
     - 0.6
     - 1
-    tiempoMovimientoOriginal: 3
+    tiempoMovimientoOriginal: 15
   - nombre: Grey
     camaraActual: 4
-    tiempoMovimiento: 5
+    tiempoMovimiento: 15
     eliminado: 0
     prefabUI: {fileID: 194035080087707098, guid: 3c6ce9b4b0a9947b6b95eb11e3061d94, type: 3}
     posicionesPorCamara:
@@ -11080,10 +11080,10 @@ MonoBehaviour:
     - 2
     - 0.6
     - 1
-    tiempoMovimientoOriginal: 2
+    tiempoMovimientoOriginal: 15
   - nombre: Calico
     camaraActual: 4
-    tiempoMovimiento: 5
+    tiempoMovimiento: 15
     eliminado: 0
     prefabUI: {fileID: 2421860886864578472, guid: 0c7f0b4a5a4bb4e1b9323c43f6de40d5, type: 3}
     posicionesPorCamara:
@@ -11098,7 +11098,7 @@ MonoBehaviour:
     - 2
     - 2
     - 2.5
-    tiempoMovimientoOriginal: 1
+    tiempoMovimientoOriginal: 15
   contenedorEnemigos: {fileID: 1817532054}
   advertenciaPuerta: {fileID: 1493976834}
   advertenciaPuertaPC: {fileID: 1699072330}
@@ -13244,7 +13244,7 @@ MonoBehaviour:
   textoHoraVictoria: {fileID: 1269534607}
   tiempoParpadeoReloj: 3
   tiempoParpadeoPanel: 3
-  segundosPorHora: 25
+  segundosPorHora: 12.5
 --- !u!4 &1939579668
 Transform:
   m_ObjectHideFlags: 0

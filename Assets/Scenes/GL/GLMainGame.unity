@@ -5213,7 +5213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GLTimer
   timerText: {fileID: 1717560128}
-  remainingTime: 180
+  remainingTime: 60
 --- !u!1 &95647271
 GameObject:
   m_ObjectHideFlags: 0
