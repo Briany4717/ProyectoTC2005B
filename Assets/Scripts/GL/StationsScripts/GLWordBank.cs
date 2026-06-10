@@ -5,7 +5,6 @@ using UnityEngine.Networking;
 using System.Collections;
 using TMPro;
 using Newtonsoft.Json;
-using UnityEditor.Experimental.GraphView;
 
 
 /// Gestiona la carga y distribución de palabras o frases obtenidas desde una API.

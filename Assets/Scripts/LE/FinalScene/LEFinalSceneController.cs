@@ -3,7 +3,6 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using Newtonsoft.Json;
-using UnityEditor;
 
 public class LEFinalSceneController : MonoBehaviour
 {
