@@ -148,7 +148,10 @@ public class HOSuperPromptPanel : MonoBehaviour
 
     void OnConfirmClicked()
     {
-        if (shuffledAnswers == null) return; // aún cargando
+        if (shuffledAnswers == null) return; 
+        
+        Debug.Log($"selectionOrder.Count={selectionOrder.Count}, currentAnswers.Length={currentAnswers.Length}, shuffledAnswers.Length={shuffledAnswers.Length}");
+
 
         if (selectionOrder.Count < currentAnswers.Length)
         {
