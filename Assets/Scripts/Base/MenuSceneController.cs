@@ -33,6 +33,9 @@ public class MenuSceneController : MonoBehaviour
     {
         if (_isAnimating) return;
         StartCoroutine(TransitionRoutine(sceneName));
+        #if UNITY_WEBGL
+        Input.ResetInputAxes(); 
+        #endif
     }
 
     private IEnumerator TransitionRoutine(string sceneName)
