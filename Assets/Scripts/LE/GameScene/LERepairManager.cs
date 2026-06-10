@@ -206,7 +206,7 @@ public class LERepairManager : MonoBehaviour
 
         applianceMainImage.transform.localRotation = applianceOriginalRotation;
 
-        if (currentTaskIndex >= 3)
+        if (currentTaskIndex >= 1)
         {
             EvaluateApplianceFixConclusion();
             yield break;
