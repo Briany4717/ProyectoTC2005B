@@ -42,6 +42,7 @@ public class LoginControl : MonoBehaviour
         {
             if (string.IsNullOrWhiteSpace(jsonResponse) || jsonResponse == "[]")
             {
+                errorText.gameObject.SetActive(true);
                 errorText.text = "Inicio de sesión fallido";
                 return;
             }
@@ -50,6 +51,7 @@ public class LoginControl : MonoBehaviour
 
             if (sessions == null || sessions.Count == 0)
             {
+                errorText.gameObject.SetActive(true);
                 errorText.text = "No se encontró el usuario";
                 return;
             }
@@ -63,7 +65,7 @@ public class LoginControl : MonoBehaviour
             SceneManager.LoadScene("MenuScene");
         },
         onError: (error) =>
-        {
+        {   
             Debug.LogError("Error de autentificacion: " + error);
         }
         );

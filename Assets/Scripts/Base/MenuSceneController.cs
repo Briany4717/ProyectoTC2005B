@@ -1,46 +1,61 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-/// Controlador para el manejo y navegación de escenas desde el menú principal.
-
 public class MenuSceneController : MonoBehaviour
 {
-    public void GoToMenu()
+    public RectTransform door;
+
+    public float targetWidth = 1920f;
+    public float duration = 1.0f;
+
+    public AnimationCurve ease = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
+
+    private bool _isAnimating = false;
+
+    void Awake()
     {
-        SceneManager.LoadScene("MenuScene");
+        SetWidth(0f);
     }
 
-    public void GoToGlotones()
+
+    public void GoToMenu()        => LoadScene("MenuScene");
+    public void GoToGlotones()    => LoadScene("GLStartScene");
+    public void GoToHO()          => LoadScene("HOIntroScene");
+    public void GoToPN()          => LoadScene("PNStartScene");
+    public void GoToLE()          => LoadScene("LEConveyorScene");
+    public void GoToGC()          => LoadScene("GCMenuPrincipal");
+    public void GoToMusicConfig() => LoadScene("MusicScene");
+
+
+    private void LoadScene(string sceneName)
     {
-        SceneManager.LoadScene("GLStartScene");
+        if (_isAnimating) return;
+        StartCoroutine(TransitionRoutine(sceneName));
     }
 
-
-    /// Carga la escena de introducción del juego de HO.
-
-    public void GoToHO()
+    private IEnumerator TransitionRoutine(string sceneName)
     {
-        SceneManager.LoadScene("HOIntroScene");
-    }
-    public void GoToPN()
-    {
-        SceneManager.LoadScene("PNStartScene");
-    }
+        _isAnimating = true;
 
-    public void GoToLE()
-    {
-        SceneManager.LoadScene("LEConveyorScene");
-    }
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = ease.Evaluate(Mathf.Clamp01(elapsed / duration));
+            SetWidth(Mathf.Lerp(0f, targetWidth, t));
+            yield return null;
+        }
 
-    public void GoToGC()
-    {
-        SceneManager.LoadScene("GCMenuPrincipal");
+        SetWidth(targetWidth);
+        SceneManager.LoadScene(sceneName);
     }
 
-    public void GoToMusicConfig()
+    private void SetWidth(float w)
     {
-        SceneManager.LoadScene("MusicScene");
+        Vector2 size = door.sizeDelta;
+        size.x = w;
+        door.sizeDelta = size;
     }
-
 }

@@ -12,6 +12,7 @@ public class SongCarouselController : MonoBehaviour
 
     [Header("Componentes de UI")]
     public TextMeshProUGUI txtTitle;
+    public CoverDisplay coverDisplay;   
     public Button btnLeft;
     public Button btnRight;
     public Button btnSelect;
@@ -36,10 +37,7 @@ public class SongCarouselController : MonoBehaviour
             SongCatalog.Instance.MuteGlobalAudio(true);
         }
 
-
-        string url = "/usuarios/" + PlayerPrefs.GetInt("id_usuario").ToString() + "/canciones/compradas";
-
-        ApiManager.Instance.Get(url, OnSongsLoaded, OnApiError);
+        ApiManager.Instance.Get("/usuarios/1/canciones/compradas", OnSongsLoaded, OnApiError);
     }
 
     private IEnumerator SimularEsperaApi(string json)
@@ -81,7 +79,7 @@ public class SongCarouselController : MonoBehaviour
         {
             id_cancion = DefaultSongId,
             nombre_cancion = DefaultSongTitle,
-            url_imagen = string.Empty
+            url_imagen = "https://assets-prd.ignimgs.com/2025/04/02/nintendoswitch2-fortnite-keyart-square-1743635675429.jpg?crop=1%3A1%2Csmart&format=jpg&auto=webp&quality=80"
         };
     }
 
@@ -99,7 +97,10 @@ public class SongCarouselController : MonoBehaviour
 
         txtTitle.text = currentSong.title;
 
-        btnLeft.interactable = (currentIndex > 0);
+        if (coverDisplay != null)
+            coverDisplay.ShowCover(currentSong.url_imagen);
+
+        btnLeft.interactable  = (currentIndex > 0);
         btnRight.interactable = (currentIndex < unlockedSongs.Count - 1);
 
         PlayAudioPreview(currentSong.id);
