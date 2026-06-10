@@ -4,27 +4,26 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-/// Controla la pausa del juego, deteniendo el tiempo y mostrando el menú de pausa.
+/// Controla la pausa del juego y el menú correspondiente.
 
-public class PauseController : MonoBehaviour
+public class HOPauseController : MonoBehaviour
 {
     public GameObject menuPause;
-    [SerializeField] GLPlayerController playerController;
-
+    [SerializeField] HOPlayerControl playerController;
     
-    /// Comprueba si se ha presionado la tecla Escape para alternar la pausa.
+    
+    /// Detecta la entrada para alternar el estado de pausa.
     
     void Update()
     {
-        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+        if (Keyboard.current != null && Keyboard.current.enterKey.wasPressedThisFrame)
         {
-            print("esc was pressed!");
             TogglePause();
         }
     }
 
     
-    /// Alterna entre el estado de juego pausado y en curso.
+    /// Alterna entre pausar y continuar el juego.
     
     public void TogglePause()
     {
@@ -37,9 +36,9 @@ public class PauseController : MonoBehaviour
             PauseGame();
         }
     }
-
     
-    /// Pausa el juego, activando el menú y deshabilitando el control del jugador.
+    
+    /// Pausa el juego, detiene el tiempo y desactiva al jugador.
     
     private void PauseGame()
     {
@@ -47,9 +46,9 @@ public class PauseController : MonoBehaviour
         Time.timeScale = 0;
         playerController.enabled = false;
     }
-
     
-    /// Reanuda el juego, ocultando el menú y restaurando el control del jugador.
+    
+    /// Reanuda el juego, restaura el tiempo y activa al jugador.
     
     private void ContinueGame()
     {

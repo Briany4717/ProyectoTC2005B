@@ -226,6 +226,6 @@ public class LEStartSceneController : MonoBehaviour
 
     public void StopGame()
     {
-        UnityEditor.EditorApplication.isPlaying = false;
+        Application.Quit();
     }
 }
