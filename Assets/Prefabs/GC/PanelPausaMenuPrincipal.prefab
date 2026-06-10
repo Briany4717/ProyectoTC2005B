@@ -335,7 +335,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Menu Principal
+  m_text: "Men\xFA Principal"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 42947826955aa443f9315ae7f96b505e, type: 2}
   m_sharedMaterial: {fileID: 2725503652450396190, guid: 42947826955aa443f9315ae7f96b505e, type: 2}
@@ -1087,7 +1087,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Configuracion
+  m_text: "Configuraci\xF3n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 42947826955aa443f9315ae7f96b505e, type: 2}
   m_sharedMaterial: {fileID: 2725503652450396190, guid: 42947826955aa443f9315ae7f96b505e, type: 2}

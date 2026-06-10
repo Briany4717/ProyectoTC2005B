@@ -1116,6 +1116,7 @@ GameObject:
   - component: {fileID: 483932097}
   - component: {fileID: 483932096}
   - component: {fileID: 483932095}
+  - component: {fileID: 483932098}
   m_Layer: 0
   m_Name: Timer
   m_TagString: Untagged
@@ -1149,7 +1150,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 483932093}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f8271df3ed5c70a4bb24f3aad4d6a6cd, type: 3}
   m_Name: 
@@ -1257,6 +1258,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 483932093}
   m_CullTransparentMesh: 1
+--- !u!114 &483932098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483932093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33dde0f934e07b34e98b5e7adb77adfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PNtimer
+  timertext: {fileID: 483932096}
+  remainingtime: 30
+  scene: PNFinalScene
 --- !u!1 &643244462
 GameObject:
   m_ObjectHideFlags: 0
@@ -2665,6 +2681,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1a03efb1634ca744cb5c830568a3ebc5, type: 3}
   - {fileID: 8300000, guid: 270c51f615c691348981eac6512161be, type: 3}
   - {fileID: 8300000, guid: f8b18e18eb0b02644baed8694cefe88a, type: 3}
+  musicVolume: 0.6
+  effectsVolume: 0.45
 --- !u!4 &1603051686
 Transform:
   m_ObjectHideFlags: 0
