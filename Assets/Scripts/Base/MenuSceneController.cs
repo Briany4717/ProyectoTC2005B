@@ -16,26 +16,29 @@ public class MenuSceneController : MonoBehaviour
 
     void Awake()
     {
+        Time.timeScale = 1f;
         SetWidth(0f);
     }
 
 
-    public void GoToMenu()        => LoadScene("MenuScene");
-    public void GoToGlotones()    => LoadScene("GLStartScene");
-    public void GoToHO()          => LoadScene("HOIntroScene");
-    public void GoToPN()          => LoadScene("PNStartScene");
-    public void GoToLE()          => LoadScene("LEConveyorScene");
-    public void GoToGC()          => LoadScene("GCMenuPrincipal");
+    public void GoToMenu() => LoadScene("MenuScene");
+    public void GoToGlotones() => LoadScene("GLStartScene");
+    public void GoToHO() => LoadScene("HOIntroScene");
+    public void GoToPN() => LoadScene("PNStartScene");
+    public void GoToLE() => LoadScene("LEConveyorScene");
+    public void GoToGC() => LoadScene("GCMenuPrincipal");
     public void GoToMusicConfig() => LoadScene("MusicScene");
 
 
     private void LoadScene(string sceneName)
     {
-        if (_isAnimating) return;
+        if (_isAnimating)
+            return;
+
         StartCoroutine(TransitionRoutine(sceneName));
-        #if UNITY_WEBGL
+#if UNITY_WEBGL
         Input.ResetInputAxes(); 
-        #endif
+#endif
     }
 
     private IEnumerator TransitionRoutine(string sceneName)
@@ -45,14 +48,16 @@ public class MenuSceneController : MonoBehaviour
         float elapsed = 0f;
         while (elapsed < duration)
         {
-            elapsed += Time.deltaTime;
+            elapsed += Time.unscaledDeltaTime;
             float t = ease.Evaluate(Mathf.Clamp01(elapsed / duration));
             SetWidth(Mathf.Lerp(0f, targetWidth, t));
             yield return null;
         }
 
         SetWidth(targetWidth);
+        _isAnimating = false;
         SceneManager.LoadScene(sceneName);
+
     }
 
     private void SetWidth(float w)
