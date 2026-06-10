@@ -36,12 +36,10 @@ public class SongCarouselController : MonoBehaviour
             SongCatalog.Instance.MuteGlobalAudio(true);
         }
 
-        // // Simulación actualizada con las llaves exactas de tu modelo de datos ("id_cancion" y "nombre_cancion")
-        // string jsonSimulado = "[ {\"id_cancion\": \"1\", \"nombre_cancion\": \"Chicago - Michael\"}, {\"id_cancion\": \"2\", \"nombre_cancion\": \"Veridis Quo\"} ]";
-        // StartCoroutine(SimularEsperaApi(jsonSimulado));
 
-        // Línea para cuando conectes tu backend real:
-        ApiManager.Instance.Get("/usuarios/1/canciones/compradas", OnSongsLoaded, OnApiError);
+        string url = "/usuarios/" + PlayerPrefs.GetInt("id_usuario").ToString() + "/canciones/compradas";
+
+        ApiManager.Instance.Get(url, OnSongsLoaded, OnApiError);
     }
 
     private IEnumerator SimularEsperaApi(string json)
