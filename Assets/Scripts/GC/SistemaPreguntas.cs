@@ -1,14 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.Networking;
+using Newtonsoft.Json;
 
 
 /// Estructura para almacenar las preguntas provenientes de la base de datos.
 
-[System.Serializable]
 public class PreguntaDB
 {
     public int id_pregunta;
@@ -21,15 +19,6 @@ public class PreguntaDB
     public string opcion_d;
     public int respuesta_correcta;
     public string explicacion;
-}
-
-
-/// Contenedor de la lista de preguntas obtenidas de la base de datos.
-
-[System.Serializable]
-public class ListaPreguntasDB
-{
-    public PreguntaDB[] preguntas;
 }
 
 
@@ -63,8 +52,8 @@ public class SistemaPreguntas : MonoBehaviour
     public Sprite spriteBotonIncorrecto;
 
     [Header("Configuración BD")]
-    public string urlAPI = "http://localhost:8000/preguntas";
     public bool usarBD = true;
+    private const string endpointPreguntas = "preguntas/todas";
 
     [Header("Preguntas hardcodeadas (fallback)")]
     public List<Pregunta> preguntas;
@@ -99,54 +88,64 @@ public class SistemaPreguntas : MonoBehaviour
         }
 
         if (usarBD)
-            StartCoroutine(CargarPreguntasDesdeDB());
+            CargarPreguntasDesdeDB();
         else
             InicializarConPreguntas(preguntas);
     }
 
-    
-    /// Descarga las preguntas desde la API especificada.
-    
-    IEnumerator CargarPreguntasDesdeDB()
+
+    /// Descarga las preguntas desde la API usando ApiManager.
+
+    void CargarPreguntasDesdeDB()
     {
         cargando = true;
         textoPregunta.text = "Cargando preguntas...";
 
-        using (UnityWebRequest request = UnityWebRequest.Get(urlAPI))
-        {
-            request.timeout = 10;
-            yield return request.SendWebRequest();
-
-            if (request.result == UnityWebRequest.Result.Success)
+        ApiManager.Instance.Get(
+            endpointPreguntas,
+            onSuccess: (json) =>
             {
-                string json = request.downloadHandler.text;
-                string jsonWrapped = "{\"preguntas\":" + json + "}";
-                ListaPreguntasDB lista = JsonUtility.FromJson<ListaPreguntasDB>(jsonWrapped);
-
-                preguntasCargadas.Clear();
-                foreach (var p in lista.preguntas)
+                Debug.Log($"JSON recibido desde BD: {json}");
+                try
                 {
-                    Pregunta pregunta = new Pregunta
+                    List<PreguntaDB> lista = JsonConvert.DeserializeObject<List<PreguntaDB>>(json);
+
+                    if (lista != null && lista.Count > 0)
                     {
-                        pregunta         = p.pregunta,
-                        opciones         = new string[] { p.opcion_a, p.opcion_b, p.opcion_c, p.opcion_d },
-                        respuestaCorrecta = p.respuesta_correcta,
-                        explicacion      = p.explicacion
-                    };
-                    preguntasCargadas.Add(pregunta);
+                        preguntasCargadas.Clear();
+                        foreach (var p in lista)
+                        {
+                            preguntasCargadas.Add(new Pregunta
+                            {
+                                pregunta          = p.pregunta,
+                                opciones          = new string[] { p.opcion_a, p.opcion_b, p.opcion_c, p.opcion_d },
+                                respuestaCorrecta = p.respuesta_correcta,
+                                explicacion       = p.explicacion
+                            });
+                        }
+                        Debug.Log($"{preguntasCargadas.Count} preguntas cargadas desde BD");
+                        InicializarConPreguntas(preguntasCargadas);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("La BD devolvió una lista vacía. Usando preguntas locales.");
+                        InicializarConPreguntas(preguntas);
+                    }
                 }
-
-                Debug.Log($"{preguntasCargadas.Count} preguntas cargadas desde BD");
-                InicializarConPreguntas(preguntasCargadas);
-            }
-            else
+                catch (System.Exception e)
+                {
+                    Debug.LogWarning($"Error al parsear JSON: {e.Message}. Usando preguntas locales.");
+                    InicializarConPreguntas(preguntas);
+                }
+                cargando = false;
+            },
+            onError: (error) =>
             {
-                Debug.LogWarning($"Error al cargar BD: {request.error}. Usando preguntas locales.");
+                Debug.LogWarning($"Error al conectar con la BD: {error}. Usando preguntas locales.");
                 InicializarConPreguntas(preguntas);
+                cargando = false;
             }
-        }
-
-        cargando = false;
+        );
     }
 
     

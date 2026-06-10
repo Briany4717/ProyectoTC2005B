@@ -63,7 +63,7 @@ public class MenuPrincipal : MonoBehaviour
     
     public void SalirDelJuego()
     {
-        Application.Quit();
+        SceneManager.LoadScene("MenuScene");
     }
 
     
